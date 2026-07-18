@@ -66,15 +66,36 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-navy-800 pt-8 text-xs text-navy-300 sm:flex-row">
-          <p>© {new Date().getFullYear()} {SITE_NAME}. All rights reserved.</p>
-          <div className="flex flex-wrap gap-x-5 gap-y-2">
-            <Link href="/privacy" className="hover:text-white">Privacy</Link>
-            <Link href="/terms" className="hover:text-white">Terms</Link>
-            <Link href="/refund" className="hover:text-white">Refund Policy</Link>
-            <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-white">
-              {CONTACT_EMAIL}
-            </a>
+        <div className="mt-12 flex flex-col items-start justify-between gap-6 border-t border-navy-800 pt-8 text-xs text-navy-300 sm:flex-row">
+          <div className="space-y-1.5">
+            <p>© {new Date().getFullYear()} {SITE_NAME}. All rights reserved.</p>
+            <p>
+              Part of the Atlantic education family, alongside{' '}
+              <a
+                href="https://atlanticivy.com"
+                className="underline underline-offset-2 hover:text-white"
+              >
+                Atlantic Ivy
+              </a>{' '}
+              college admissions consulting.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 sm:items-end">
+            <div className="flex flex-wrap gap-x-5 gap-y-2">
+              <Link href="/privacy" className="hover:text-white">Privacy</Link>
+              <Link href="/terms" className="hover:text-white">Terms</Link>
+              <Link href="/refund" className="hover:text-white">Refund Policy</Link>
+              <a href={`mailto:${CONTACT_EMAIL}`} className="hover:text-white">
+                {CONTACT_EMAIL}
+              </a>
+            </div>
+            <p className="max-w-md leading-relaxed sm:text-right">
+              {SITE_NAME}{' '}
+              is a private, independent coaching company. We are not
+              affiliated with, endorsed by, or sponsored by the World Schools
+              Debating Championships or its organizing council. &ldquo;WSDC&rdquo;
+              refers to the debate format.
+            </p>
           </div>
         </div>
       </div>
