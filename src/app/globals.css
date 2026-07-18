@@ -1,26 +1,73 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Brand palette — varsity editorial: deep navy, scarlet accent, warm paper.
+     White-first pages; navy reserved for bands and text; scarlet used sparingly. */
+  --color-navy-50: #f4f6f9;
+  --color-navy-100: #e7ebf1;
+  --color-navy-200: #c9d3e0;
+  --color-navy-300: #a3b3c9;
+  --color-navy-400: #7289a8;
+  --color-navy-500: #4c6787;
+  --color-navy-600: #35506e;
+  --color-navy-700: #24405c;
+  --color-navy-800: #16304b;
+  --color-navy-900: #0d2240;
+  --color-navy-950: #081729;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-signal-50: #fdf2f4;
+  --color-signal-100: #fbe3e7;
+  --color-signal-200: #f5c2cb;
+  --color-signal-300: #ec93a2;
+  --color-signal-400: #dd4560;
+  --color-signal-500: #c8102e;
+  --color-signal-600: #a80d26;
+  --color-signal-700: #8c0c20;
+  --color-signal-800: #740e1e;
+  --color-signal-900: #62101c;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-cream: #faf9f6;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-source-serif), Georgia, 'Times New Roman', serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-navy-900);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+}
+
+/* Stat figures line up in columns */
+dl dt,
+.stat {
+  font-variant-numeric: tabular-nums;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Printable resources: strip chrome so cheat sheets print clean */
+@media print {
+  header,
+  footer,
+  .print-hide {
+    display: none !important;
+  }
+  body {
+    background: #ffffff;
+  }
+  .cheat-sheet {
+    border: none;
+  }
+  .cheat-sheet section {
+    break-inside: avoid;
+  }
 }
