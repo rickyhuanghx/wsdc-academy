@@ -6,6 +6,7 @@ import { homepageFaqs } from '@/data/faqs';
 import { FAQJsonLd } from '@/components/JsonLd';
 import { ColumnChart, RankedBars, WaffleGrid } from '@/components/DebateCharts';
 import { TabbedExplorer } from '@/components/TabbedExplorer';
+import { TermSchedule } from '@/components/TermSchedule';
 
 export default function HomePage() {
   return (
@@ -518,7 +519,7 @@ export default function HomePage() {
           <div className="grid gap-12 lg:grid-cols-5">
             <div className="lg:col-span-2">
               <h2 className="font-display text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
-                Training that looks like the real thing
+                How training works
               </h2>
               <p className="mt-5 leading-relaxed text-navy-600">
                 Most debate programs teach content and hope it shows up in
@@ -571,6 +572,17 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Term schedule ────────────────────────────────────── */}
+      <section className="border-t border-navy-100 bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <TermSchedule
+            programs={programs
+              .filter((p) => p.tracks && p.tracks.length > 0)
+              .map((p) => ({ shortName: p.shortName, slug: p.slug, tracks: p.tracks! }))}
+          />
+        </div>
+      </section>
+
       {/* ── FAQ ──────────────────────────────────────────────── */}
       <section className="border-y border-navy-100 bg-cream">
         <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
@@ -609,7 +621,7 @@ export default function HomePage() {
           </h2>
           <p className="mx-auto mt-4 max-w-xl leading-relaxed text-navy-200">
             A short call to tell us about your student and get an honest
-            recommendation on where to start. Nothing to buy on the call.
+            recommendation on where to start.
           </p>
           <Link
             href="/consultation"

@@ -64,7 +64,7 @@ export default function ConsultationPage() {
               Every family starts the same way: a short, one-on-one call with our
               team. We learn about your student, answer your questions about the
               World Schools format, and recommend the right place to start. It is
-              free, and there is nothing to buy on the call.
+              free.
             </p>
 
             <ol className="mt-10 space-y-7">
