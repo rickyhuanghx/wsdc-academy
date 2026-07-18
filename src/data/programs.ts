@@ -76,6 +76,8 @@ export interface Program {
     sessionCount: number;
     totalHours: number;
     meetings: { day: string; dayOfWeek: number; start: string; end: string }[];
+    /** Monthly summer cohorts; only the 'enrolling' one is purchasable (checkout sells that cohort). */
+    cohorts: { label: string; status: 'closed' | 'enrolling' }[];
   };
   /** Invitation-only programs are not purchasable: no price, no cart, an inquiry CTA instead. */
   invitationOnly?: boolean;
@@ -442,32 +444,37 @@ export const programs: Program[] = [
     slug: 'summer-bootcamp',
     name: 'World Schools Summer Bootcamp',
     shortName: 'Summer Bootcamp',
-    tagline: 'A two-week intro to World Schools debate, built for total beginners',
+    tagline: 'A three-week intro to World Schools debate, built for total beginners',
     description:
-      'An 8-hour August intensive for students brand new to World Schools debate: the format, your first real arguments, points of information, and a friendly practice debate. Four sessions, twice a week.',
+      'A 12-hour intensive for students brand new to World Schools debate: the format, your first real arguments, rebuttal, points of information, and a friendly practice debate. Cohorts run June, July, and August; only the August cohort still has open enrollment.',
     longDescription:
-      'The Summer Bootcamp is the easiest way to try World Schools debate before the fall season starts. Over two weeks in August, students meet twice a week for a two-hour class (eight hours in all) and go from never having debated to giving a real speech in a judged practice round. It is built for complete beginners, and it sets up a running start for the fall Foundation class.',
+      'The Summer Bootcamp is the easiest way to try World Schools debate before the fall season starts. It runs as monthly cohorts in June, July, and August. Enrollment for the June and July cohorts has closed, so the August cohort (August 3–21) is the last of the summer. Students meet twice a week for a two-hour class over three weeks (twelve hours in all) and go from never having debated to giving a real speech in a judged practice round. It is built for complete beginners, and it sets up a running start for the fall Foundation class.',
     level: 'Beginner',
     ageRange: { min: 11, max: 16 },
     format: 'Small-group online',
-    schedule: 'Twice weekly (Tue & Thu) · 4 sessions in August',
+    schedule: 'Twice weekly (Mon & Fri) · 6 sessions · August 3–21',
     image: '/images/student-debating.jpg',
     imageAlt: 'A student delivering a practice speech in class',
-    pricing: { amount: 299, currency: 'USD', model: 'for the 8-hour bootcamp' },
-    enrollment: { unitLabel: 'August bootcamp (4 sessions, 8 hours)', amount: 299 },
+    pricing: { amount: 328, currency: 'USD', model: 'for the 12-hour bootcamp ($27 an hour)' },
+    enrollment: { unitLabel: 'August bootcamp (6 sessions, 12 hours)', amount: 328 },
     seasonal: true,
     term: {
-      label: 'Summer 2026',
-      start: 'August 18–27, 2026 · 4 sessions over two weeks',
-      earlyBird: 'Enroll before August 8 for the early-bird rate',
+      label: 'Summer 2026 · Final cohort',
+      start: 'August 3–21, 2026 · the last bootcamp of the summer (June and July have closed)',
+      earlyBird: 'Enroll before July 27 for the early-bird rate',
     },
     bootcamp: {
-      dateRange: 'August 18–27, 2026',
-      sessionCount: 4,
-      totalHours: 8,
+      dateRange: 'August 3–21, 2026',
+      sessionCount: 6,
+      totalHours: 12,
+      cohorts: [
+        { label: 'June cohort', status: 'closed' },
+        { label: 'July cohort', status: 'closed' },
+        { label: 'August cohort · Aug 3–21', status: 'enrolling' },
+      ],
       meetings: [
-        { day: 'Tuesdays', dayOfWeek: 2, start: '13:00', end: '15:00' },
-        { day: 'Thursdays', dayOfWeek: 4, start: '13:00', end: '15:00' },
+        { day: 'Mondays', dayOfWeek: 1, start: '13:00', end: '15:00' },
+        { day: 'Fridays', dayOfWeek: 5, start: '13:00', end: '15:00' },
       ],
     },
     outcomes: [
@@ -478,10 +485,12 @@ export const programs: Program[] = [
       'Leave ready to start the fall Foundation class with a head start',
     ],
     curriculum: [
-      { title: 'Session 1 · The format', detail: 'How a round runs, the speaker roles, and how Style / Content / Strategy judging works' },
-      { title: 'Session 2 · Building arguments', detail: 'Turning an opinion into a real argument, and the basics of answering one' },
-      { title: 'Session 3 · POIs and teamwork', detail: 'Engaging the other side with points of information and working as a three-speaker team' },
-      { title: 'Session 4 · Your first debate', detail: 'A full judged practice round with individual written feedback' },
+      { title: 'Session 1 · Mon, Aug 3 · The format', detail: 'How a World Schools round runs, the speaker roles, and how Style / Content / Strategy judging works' },
+      { title: 'Session 2 · Fri, Aug 7 · Building arguments', detail: 'Turning an opinion into a real argument: claim, warrant, and impact, with your first practice speech' },
+      { title: 'Session 3 · Mon, Aug 10 · Rebuttal', detail: 'Listening to the other side, finding the weak point in an argument, and answering it out loud' },
+      { title: 'Session 4 · Fri, Aug 14 · Points of information', detail: 'Offering and answering POIs without freezing, plus keeping your speech on track under interruption' },
+      { title: 'Session 5 · Mon, Aug 17 · Teamwork and case building', detail: 'Working as a three-speaker bench and building a full case together for the final debate' },
+      { title: 'Session 6 · Fri, Aug 21 · Your first debate', detail: 'A full judged practice round with individual written feedback and a fall placement note' },
     ],
     idealFor: [
       'Students who have never tried World Schools (or debate at all)',
@@ -500,7 +509,7 @@ export const programs: Program[] = [
       { time: '1:45', title: 'Feedback', detail: 'The coach debriefs and each student leaves with one thing to work on next time.' },
     ],
     included: [
-      'Four live 2-hour classes over two weeks (8 hours in total)',
+      'Six live 2-hour classes over three weeks (12 hours in total, $27 an hour)',
       'A judged practice debate in the final session with written feedback',
       'The printable beginner resource pack: speaker cheat sheets and a first-motion set',
       'A placement note recommending the right fall-term class',
@@ -515,7 +524,7 @@ export const programs: Program[] = [
       {
         question: 'When and how often does it meet?',
         answer:
-          'Twice a week (Tuesdays and Thursdays) for two weeks in August, two hours per session, eight hours in total. The current dates are August 18–27, 2026, and times show in your timezone on this page.',
+          'Twice a week (Mondays and Fridays) for three weeks in August, two hours per session, twelve hours in total. The August cohort runs August 3–21, 2026, and times show in your timezone on this page.',
       },
       {
         question: 'What happens after the bootcamp?',

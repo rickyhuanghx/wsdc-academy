@@ -5,8 +5,8 @@ export function Footer() {
   return (
     <footer className="bg-navy-950 text-white">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid gap-10 md:grid-cols-4">
-          <div className="md:col-span-2">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
+          <div className="sm:col-span-2 lg:col-span-2">
             <div className="flex items-center gap-2.5">
               <span className="relative flex h-9 w-9 items-center justify-center rounded-sm bg-white font-display text-lg font-semibold text-navy-900">
                 W
@@ -35,20 +35,33 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-navy-300">Learn</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-navy-300">Guides</h3>
+            <ul className="mt-4 space-y-2.5 text-sm">
+              <li><Link href="/what-is-world-schools-debate" className="text-navy-100 hover:text-white">What is World Schools Debate?</Link></li>
+              <li><Link href="/world-schools-vs-public-forum" className="text-navy-100 hover:text-white">World Schools vs Public Forum</Link></li>
+              <li><Link href="/world-schools-debate-judging" className="text-navy-100 hover:text-white">How Judging Works (40/40/20)</Link></li>
+              <li><Link href="/usa-debate-team" className="text-navy-100 hover:text-white">How to Make the USA Debate Team</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-navy-300">Resources</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li><Link href="/blog" className="text-navy-100 hover:text-white">Blog</Link></li>
               <li><Link href="/resources" className="text-navy-100 hover:text-white">Resource Library</Link></li>
               <li><Link href="/resources/first-speaker-cheat-sheet" className="text-navy-100 hover:text-white">Speaker Cheat Sheets</Link></li>
               <li><Link href="/resources/practice-motions" className="text-navy-100 hover:text-white">Practice Motions</Link></li>
-              <li><Link href="/what-is-world-schools-debate" className="text-navy-100 hover:text-white">What is World Schools Debate?</Link></li>
-              <li><Link href="/world-schools-vs-public-forum" className="text-navy-100 hover:text-white">World Schools vs Public Forum</Link></li>
-              <li><Link href="/world-schools-debate-judging" className="text-navy-100 hover:text-white">How Judging Works (40/40/20)</Link></li>
-              <li><Link href="/usa-debate-team" className="text-navy-100 hover:text-white">How to Make the USA Debate Team</Link></li>
-              <li><Link href="/coaches" className="text-navy-100 hover:text-white">Our Coaches</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-navy-300">Academy</h3>
+            <ul className="mt-4 space-y-2.5 text-sm">
               <li><Link href="/about" className="text-navy-100 hover:text-white">About Us</Link></li>
+              <li><Link href="/coaches" className="text-navy-100 hover:text-white">Our Coaches</Link></li>
               <li><Link href="/faq" className="text-navy-100 hover:text-white">FAQ</Link></li>
               <li><Link href="/contact" className="text-navy-100 hover:text-white">Contact</Link></li>
+              <li><Link href="/consultation" className="text-navy-100 hover:text-white">Book a Consultation</Link></li>
             </ul>
           </div>
         </div>

@@ -4,6 +4,8 @@ import { programs } from '@/data/programs';
 import { coaches } from '@/data/coaches';
 import { homepageFaqs } from '@/data/faqs';
 import { FAQJsonLd } from '@/components/JsonLd';
+import { ColumnChart, RankedBars, WaffleGrid } from '@/components/DebateCharts';
+import { TabbedExplorer } from '@/components/TabbedExplorer';
 
 export default function HomePage() {
   return (
@@ -69,21 +71,29 @@ export default function HomePage() {
       <section className="border-b border-navy-100 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-navy-400">
-            Our coaches have competed and coached at
+            Our students got accepted into
           </p>
-          <p className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-center font-display text-lg text-navy-700">
-            <span>Oxford Union</span>
-            <span className="text-navy-200">·</span>
-            <span>Harvard</span>
-            <span className="text-navy-200">·</span>
-            <span>Yale</span>
-            <span className="text-navy-200">·</span>
-            <span>Brown</span>
-            <span className="text-navy-200">·</span>
-            <span>Columbia</span>
-            <span className="text-navy-200">·</span>
-            <span>LSE</span>
-          </p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+            {[
+              { name: 'Harvard University', src: '/images/logos/harvard.webp', w: 240, h: 160, size: 'h-12 sm:h-14' },
+              { name: 'Yale University', src: '/images/logos/yale.webp', w: 152, h: 160, size: 'h-11 sm:h-12' },
+              { name: 'University of Oxford', src: '/images/logos/oxford.webp', w: 128, h: 160, size: 'h-11 sm:h-12' },
+              { name: 'The University of Chicago', src: '/images/logos/uchicago.webp', w: 160, h: 160, size: 'h-11 sm:h-12' },
+              { name: 'Northwestern University', src: '/images/logos/northwestern.webp', w: 160, h: 160, size: 'h-11 sm:h-12' },
+              { name: 'Emory University', src: '/images/logos/emory.webp', w: 119, h: 160, size: 'h-11 sm:h-12' },
+              { name: 'Vanderbilt University', src: '/images/logos/vanderbilt.webp', w: 150, h: 160, size: 'h-11 sm:h-12' },
+              { name: 'London School of Economics', src: '/images/logos/lse.webp', w: 160, h: 160, size: 'h-9 sm:h-10' },
+            ].map((logo) => (
+              <Image
+                key={logo.name}
+                src={logo.src}
+                alt={`${logo.name} logo`}
+                width={logo.w}
+                height={logo.h}
+                className={`${logo.size} w-auto object-contain mix-blend-multiply`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -93,138 +103,16 @@ export default function HomePage() {
           <dl className="grid grid-cols-2 gap-x-6 gap-y-10 text-center lg:grid-cols-4">
             {[
               ['500+', 'students coached by our team'],
-              ['40/40/20', 'every drill maps to the judging criteria'],
-              ['1 hour', 'impromptu prep, drilled every week'],
-              ['100%', 'World Schools focused'],
+              ['120+', 'awards in the 2025–26 debate season'],
+              ['100%', 'of coaches hold WUDC or APDA awards'],
+              ['87%', 'semester-to-semester renewal rate'],
             ].map(([stat, label]) => (
               <div key={label}>
                 <dt className="font-display text-5xl font-semibold text-signal-500">{stat}</dt>
-                <dd className="mx-auto mt-3 max-w-[180px] text-sm leading-snug text-navy-600">{label}</dd>
+                <dd className="mx-auto mt-3 max-w-[240px] text-sm leading-snug text-navy-600">{label}</dd>
               </div>
             ))}
           </dl>
-        </div>
-      </section>
-
-      {/* ── How training works ───────────────────────────────── */}
-      <section className="border-y border-navy-100 bg-cream">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-5">
-            <div className="lg:col-span-2">
-              <h2 className="font-display text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
-                Training that looks like the real thing
-              </h2>
-              <p className="mt-5 leading-relaxed text-navy-600">
-                Most debate programs teach content and hope it shows up in
-                rounds. We train the way competitive squads prepare: a loop of
-                drilling, competing, and reviewing that runs all season.
-              </p>
-              <p className="mt-6">
-                <Link
-                  href="/programs"
-                  className="font-semibold text-navy-900 underline decoration-signal-400 underline-offset-4 hover:text-signal-600"
-                >
-                  See the programs it runs through
-                </Link>
-              </p>
-            </div>
-
-            <div className="lg:col-span-3">
-              {[
-                {
-                  n: '1',
-                  title: 'Drill',
-                  body: 'A structured curriculum where every exercise maps to the 40/40/20 judging criteria: style work, casebuilding reps, and one-hour impromptu prep cycles under the real clock.',
-                },
-                {
-                  n: '2',
-                  title: 'Compete',
-                  body: 'Judged practice rounds on real tournament motions, every training cycle, run under competition conditions rather than classroom conditions.',
-                },
-                {
-                  n: '3',
-                  title: 'Review',
-                  body: 'Every round ends with a full oral adjudication. Every session ends with written feedback the student (and you) can actually read.',
-                },
-                {
-                  n: '4',
-                  title: 'Progress',
-                  body: 'We track development against the judging criteria across the season, so you always know where your student is placed, what their weak spots are, and what comes next.',
-                },
-              ].map((item) => (
-                <div key={item.n} className="flex gap-6 border-t border-navy-200 py-6 first:border-t-0 first:pt-0 last:pb-0">
-                  <span className="font-display text-2xl font-semibold text-signal-500">{item.n}</span>
-                  <div>
-                    <h3 className="font-display text-xl font-semibold text-navy-900">{item.title}</h3>
-                    <p className="mt-2 leading-relaxed text-navy-600">{item.body}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── What is World Schools ────────────────────────────── */}
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div>
-              <h2 className="font-display text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
-                The format that tests real debating
-              </h2>
-              <p className="mt-5 leading-relaxed text-navy-600">
-                World Schools Debate is the format of the World Schools Debating
-                Championships, where roughly 60 national teams compete every year.
-                In the US it&apos;s now an official NSDA event with its own
-                invitational at Nationals, full state divisions in Texas, Florida,
-                and Indiana, and a Tournament of Champions division.
-              </p>
-              <p className="mt-4 leading-relaxed text-navy-600">
-                Three speakers per side. Eight-minute speeches. Half the motions
-                impromptu, prepped in one hour with no internet and no coaches.
-                Judged 40% on style, 40% on content, 20% on strategy. There&apos;s
-                nowhere to hide behind evidence dumps or speed, which is exactly
-                why the format rewards training.
-              </p>
-              <p className="mt-6">
-                <Link
-                  href="/what-is-world-schools-debate"
-                  className="font-semibold text-navy-900 underline decoration-signal-400 underline-offset-4 hover:text-signal-600"
-                >
-                  Read the full guide to World Schools Debate
-                </Link>
-              </p>
-            </div>
-            <figure>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
-                <Image
-                  src="/images/impromptu-prep.jpg"
-                  alt="Debaters lined up along a school hallway preparing before rounds on tournament morning"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
-                />
-              </div>
-              <figcaption className="mt-3 text-xs text-navy-400">
-                Tournament morning: teams claim a corridor and get to work.
-              </figcaption>
-            </figure>
-          </div>
-
-          <div className="mt-14 grid gap-px overflow-hidden rounded-sm border border-navy-100 bg-navy-100 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              ['3 v 3', 'Teams of 3–5; three speak each round'],
-              ['8 min', 'Substantive speeches, plus 4-minute replies'],
-              ['1 hour', 'Impromptu prep: no internet, no coaches'],
-              ['40/40/20', 'Style, content, strategy judging'],
-            ].map(([stat, label]) => (
-              <div key={label} className="bg-white p-6">
-                <p className="stat font-display text-3xl font-semibold text-navy-900">{stat}</p>
-                <p className="mt-2 text-sm leading-relaxed text-navy-600">{label}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -307,6 +195,221 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── What is World Schools ────────────────────────────── */}
+      <section className="border-y border-navy-100 bg-cream">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div>
+              <h2 className="font-display text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
+                The format that tests real debating
+              </h2>
+              <p className="mt-5 leading-relaxed text-navy-600">
+                World Schools Debate is the format of the World Schools Debating
+                Championships, where roughly 60 national teams compete every year.
+                In the US it&apos;s now an official NSDA event with its own
+                invitational at Nationals, full state divisions in Texas, Florida,
+                and Indiana, and a Tournament of Champions division.
+              </p>
+              <p className="mt-4 leading-relaxed text-navy-600">
+                Three speakers per side. Eight-minute speeches. Half the motions
+                impromptu, prepped in one hour with no internet and no coaches.
+                Judged 40% on style, 40% on content, 20% on strategy. There&apos;s
+                nowhere to hide behind evidence dumps or speed, which is exactly
+                why the format rewards training.
+              </p>
+              <p className="mt-6">
+                <Link
+                  href="/what-is-world-schools-debate"
+                  className="font-semibold text-navy-900 underline decoration-signal-400 underline-offset-4 hover:text-signal-600"
+                >
+                  Read the full guide to World Schools Debate
+                </Link>
+              </p>
+            </div>
+            <figure>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
+                <Image
+                  src="/images/impromptu-prep.jpg"
+                  alt="Debaters lined up along a school hallway preparing before rounds on tournament morning"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="mt-3 text-xs text-navy-400">
+                Tournament morning: teams claim a corridor and get to work.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div className="mt-14 grid gap-px overflow-hidden rounded-sm border border-navy-100 bg-navy-100 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ['3 v 3', 'Teams of 3–5; three speak each round'],
+              ['8 min', 'Substantive speeches, plus 4-minute replies'],
+              ['1 hour', 'Impromptu prep: no internet, no coaches'],
+              ['40/40/20', 'Style, content, strategy judging'],
+            ].map(([stat, label]) => (
+              <div key={label} className="bg-white p-6">
+                <p className="stat font-display text-3xl font-semibold text-navy-900">{stat}</p>
+                <p className="mt-2 text-sm leading-relaxed text-navy-600">{label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-16">
+            <div className="max-w-2xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-signal-500">
+                The results
+              </p>
+              <h3 className="mt-3 font-display text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
+                What the training leads to
+              </h3>
+              <p className="mt-4 leading-relaxed text-navy-600">
+                The skills the format rewards are the ones selective admissions screen
+                for. Top performers reach elite universities at many times the normal
+                rate. Four ways to see it.
+              </p>
+            </div>
+
+            <div className="mt-8 rounded-sm border border-navy-200 bg-white p-6 sm:p-8">
+              <TabbedExplorer
+                autoAdvanceMs={6000}
+                tabs={[
+                  {
+                    label: 'The gap',
+                    panel: (
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.15em] text-signal-500">The gap</p>
+                        <h4 className="mt-3 font-display text-2xl font-semibold tracking-tight text-navy-900">
+                          Debaters reach elite universities at many times the normal rate
+                        </h4>
+                        <p className="mt-4 leading-relaxed text-navy-600">
+                          71% of Team USA went to an Ivy, US Top-30, or Oxbridge, against a
+                          roughly 5% general rate. And the higher a debater ranks in the
+                          world, the wider the gap.
+                        </p>
+                        <div className="mt-6 grid gap-8 lg:grid-cols-2">
+                          <div>
+                            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-navy-500">By cohort</p>
+                            <div className="mt-3">
+                              <ColumnChart
+                                data={[
+                                  { label: 'General applicant', value: 5, sub: 'Ivy acceptance', muted: true },
+                                  { label: 'WSDC Top 50', value: 41, sub: 'world field' },
+                                  { label: 'Team USA', value: 71, sub: 'complete cohort', highlight: true },
+                                ]}
+                                max={80}
+                                ariaLabel="Elite-university rate by cohort: general applicant about 5 percent, world top-50 speakers 41 percent, Team USA alumni 71 percent."
+                              />
+                            </div>
+                            <p className="mt-3 text-xs leading-relaxed text-navy-400">
+                              Share attending an Ivy, US Top-30, or Oxbridge school.
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-navy-500">By world rank</p>
+                            <div className="mt-3">
+                              <ColumnChart
+                                data={[
+                                  { label: 'Top 10', value: 62, sub: '8 of 13', highlight: true },
+                                  { label: 'Ranks 11–25', value: 37, sub: '11 of 30' },
+                                  { label: 'Ranks 26–50', value: 36, sub: '9 of 25' },
+                                ]}
+                                max={80}
+                                ariaLabel="Elite rate by finishing position: top 10 62 percent, ranks 11 to 25 37 percent, ranks 26 to 50 36 percent."
+                              />
+                            </div>
+                            <p className="mt-3 text-xs leading-relaxed text-navy-400">
+                              Cracking the world top 10 roughly doubles the rate.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ),
+                  },
+                  {
+                    label: 'Where they go',
+                    panel: (
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.15em] text-signal-500">Destinations</p>
+                        <h4 className="mt-3 font-display text-2xl font-semibold tracking-tight text-navy-900">
+                          A Harvard story: eight of the 42 alumni
+                        </h4>
+                        <p className="mt-4 leading-relaxed text-navy-600">
+                          USA Debate alumni by college, classes of 2014 to 2020.
+                        </p>
+                        <div className="mb-4 mt-5 flex flex-wrap gap-x-5 gap-y-1.5 text-xs font-semibold text-navy-700">
+                          <span className="inline-flex items-center gap-2"><span className="inline-block h-3 w-3 rounded-sm bg-signal-500" />Ivy / Top-30 / Oxbridge</span>
+                          <span className="inline-flex items-center gap-2"><span className="inline-block h-3 w-3 rounded-sm bg-navy-400" />Other university</span>
+                        </div>
+                        <RankedBars
+                          data={[
+                            { label: 'Harvard', value: 8, elite: true },
+                            { label: 'Yale', value: 3, elite: true },
+                            { label: 'UPenn', value: 3, elite: true },
+                            { label: 'George Washington', value: 3, elite: false },
+                            { label: 'Columbia / Barnard', value: 2, elite: true },
+                            { label: 'Stanford', value: 2, elite: true },
+                            { label: 'UT Austin', value: 2, elite: true },
+                            { label: '10 more elite (×1)', value: 10, elite: true },
+                            { label: '9 more others (×1)', value: 9, elite: false },
+                          ]}
+                          max={10}
+                          ariaLabel="Team USA alumni by college: Harvard 8, Yale 3, UPenn 3, George Washington 3, Columbia or Barnard 2, Stanford 2, UT Austin 2, ten more elite schools once each, nine more other schools once each."
+                        />
+                      </div>
+                    ),
+                  },
+                  {
+                    label: 'Strict test',
+                    panel: (
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.15em] text-signal-500">The strict test</p>
+                        <h4 className="mt-3 font-display text-2xl font-semibold tracking-tight text-navy-900">
+                          Even Ivy or Oxbridge only, the gap holds
+                        </h4>
+                        <p className="mt-4 leading-relaxed text-navy-600">
+                          Drop Stanford, MIT, and every state flagship. Each grid is 100
+                          students.
+                        </p>
+                        <div className="mt-6 grid gap-6 sm:grid-cols-3">
+                          {(
+                            [
+                              ['General applicant', '~5', 'Ivy or Oxbridge admit', 5],
+                              ['Top-10 WSDC speaker', '54', '7 of 13 traced', 54],
+                              ['Team USA speaker', '43', '18 of 42 alumni', 43],
+                            ] as [string, string, string, number][]
+                          ).map(([title, big, cap, pct]) => (
+                            <div key={title}>
+                              <h5 className="text-sm font-semibold text-navy-900">{title}</h5>
+                              <p className="mt-1 font-display text-3xl font-semibold text-signal-500">
+                                {big}
+                                <span className="text-base text-navy-400"> in 100</span>
+                              </p>
+                              <p className="mb-3 text-xs text-navy-400">{cap}</p>
+                              <WaffleGrid pct={pct} ariaLabel={`${title}: ${big} in 100 admitted to an Ivy or Oxbridge school.`} />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ),
+                  },
+                ]}
+              />
+            </div>
+
+            <p className="mt-8">
+              <Link
+                href="/blog/does-debate-help-college-admissions"
+                className="font-semibold text-navy-900 underline decoration-signal-400 underline-offset-4 hover:text-signal-600"
+              >
+                Read the full admissions analysis and method
+              </Link>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ── Pull quote ───────────────────────────────────────── */}
       <section className="bg-navy-900 text-white">
         <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
@@ -316,7 +419,7 @@ export default function HomePage() {
             act on.&rdquo;
           </p>
           <p className="mt-6 text-sm font-semibold uppercase tracking-[0.15em] text-navy-300">
-            Ricky Huang · Co-Founder &amp; Head of Training
+            Ricky Huang · Head of Training
           </p>
         </div>
       </section>
@@ -409,8 +512,67 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FAQ ──────────────────────────────────────────────── */}
+      {/* ── How training works ───────────────────────────────── */}
       <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-5">
+            <div className="lg:col-span-2">
+              <h2 className="font-display text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
+                Training that looks like the real thing
+              </h2>
+              <p className="mt-5 leading-relaxed text-navy-600">
+                Most debate programs teach content and hope it shows up in
+                rounds. We train the way competitive squads prepare: a loop of
+                drilling, competing, and reviewing that runs all season.
+              </p>
+              <p className="mt-6">
+                <Link
+                  href="/programs"
+                  className="font-semibold text-navy-900 underline decoration-signal-400 underline-offset-4 hover:text-signal-600"
+                >
+                  See the programs it runs through
+                </Link>
+              </p>
+            </div>
+
+            <div className="lg:col-span-3">
+              {[
+                {
+                  n: '1',
+                  title: 'Drill',
+                  body: 'A structured curriculum where every exercise maps to the 40/40/20 judging criteria: style work, casebuilding reps, and one-hour impromptu prep cycles under the real clock.',
+                },
+                {
+                  n: '2',
+                  title: 'Compete',
+                  body: 'Judged practice rounds on real tournament motions, every training cycle, run under competition conditions rather than classroom conditions.',
+                },
+                {
+                  n: '3',
+                  title: 'Review',
+                  body: 'Every round ends with a full oral adjudication. Every session ends with written feedback the student (and you) can actually read.',
+                },
+                {
+                  n: '4',
+                  title: 'Progress',
+                  body: 'We track development against the judging criteria across the season, so you always know where your student is placed, what their weak spots are, and what comes next.',
+                },
+              ].map((item) => (
+                <div key={item.n} className="flex gap-6 border-t border-navy-200 py-6 first:border-t-0 first:pt-0 last:pb-0">
+                  <span className="font-display text-2xl font-semibold text-signal-500">{item.n}</span>
+                  <div>
+                    <h3 className="font-display text-xl font-semibold text-navy-900">{item.title}</h3>
+                    <p className="mt-2 leading-relaxed text-navy-600">{item.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ──────────────────────────────────────────────── */}
+      <section className="border-y border-navy-100 bg-cream">
         <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
           <h2 className="text-center font-display text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
             Common questions

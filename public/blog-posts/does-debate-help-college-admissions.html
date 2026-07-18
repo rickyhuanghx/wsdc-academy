@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Where the world's best schools debaters go to university</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#ffffff; --panel:#f7f8fa; --panel-2:#eef1f5;
+  --ink:#16181d; --ink-2:#4a4f59; --muted:#868c98;
+  --accent:#2456c9; --rule:#e6e8ec; --grid:#e9ebef; --baseline:#c8ccd4;
+  --blue:#2a78d6; --red:#e0364a; --empty:#dfe3ea;
+  --border:rgba(22,24,29,.10);
+  --shadow:0 1px 2px rgba(22,24,29,.05),0 6px 20px rgba(22,24,29,.05);
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){
+  color-scheme:dark;
+  --bg:#0e1013; --panel:#161a20; --panel-2:#1c212a;
+  --ink:#f0f2f5; --ink-2:#b3b9c4; --muted:#7f8794;
+  --accent:#6f9bff; --rule:#242a33; --grid:#232830; --baseline:#38404b;
+  --blue:#3d8bef; --red:#f0596b; --empty:#2a303a;
+  --border:rgba(240,242,245,.12);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 26px rgba(0,0,0,.35);
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0e1013; --panel:#161a20; --panel-2:#1c212a;
+  --ink:#f0f2f5; --ink-2:#b3b9c4; --muted:#7f8794;
+  --accent:#6f9bff; --rule:#242a33; --grid:#232830; --baseline:#38404b;
+  --blue:#3d8bef; --red:#f0596b; --empty:#2a303a;
+  --border:rgba(240,242,245,.12);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 26px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased;letter-spacing:-.003em}
+.col{max-width:720px;margin:0 auto;padding:0 24px}
+.wide{max-width:960px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-weight:800;line-height:1.15;letter-spacing:-.02em;text-wrap:balance;color:var(--ink)}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.top{border-bottom:1px solid var(--rule);height:54px;display:flex;align-items:center}
+.top .brand{font-weight:800;font-size:15px}.top .brand span{color:var(--accent)}
+
+header.post{padding:54px 0 6px}
+.kick{font-size:12.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+header.post h1{font-size:clamp(31px,5vw,48px);margin:0 0 18px}
+.deck{font-size:clamp(18px,2.3vw,22px);color:var(--ink-2);margin:0}
+.deck b{color:var(--ink);font-weight:600}
+.byline{display:flex;gap:9px;align-items:center;margin:24px 0 0;font-size:14px;color:var(--muted);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:13px 0}
+.byline b{color:var(--ink);font-weight:600}.byline .d{width:3px;height:3px;border-radius:50%;background:var(--muted)}
+
+article{padding:12px 0 0}
+article p{margin:20px 0}
+article p.lead::first-letter{font-size:3.2em;float:left;line-height:.82;padding:6px 10px 0 0;font-weight:800}
+.sec{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin:52px 0 8px}
+article h2{font-size:clamp(23px,3.1vw,30px);margin:4px 0 6px}
+article h2+p{margin-top:12px}
+strong{font-weight:670}
+
+.keystat{display:flex;gap:26px;flex-wrap:wrap;margin:30px 0;padding:22px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.keystat .s{flex:1;min-width:150px}
+.keystat .n{font-size:42px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--accent);font-variant-numeric:tabular-nums}
+.keystat .k{font-size:14px;color:var(--ink-2);margin-top:8px;line-height:1.4}
+
+figure{margin:40px 0}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px 22px 18px;box-shadow:var(--shadow)}
+.ceyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 9px}
+.ctitle{font-size:19px;font-weight:800;color:var(--ink);margin:0 0 3px;letter-spacing:-.017em;line-height:1.22;text-wrap:balance}
+.csub{font-size:13px;color:var(--muted);margin:0 0 16px;padding-bottom:14px;border-bottom:1px solid var(--rule)}
+svg{display:block;width:100%;height:auto;overflow:visible}
+.keyrow{display:flex;flex-wrap:wrap;gap:10px 22px;margin:0 0 16px}
+.keyrow .k{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink-2)}
+.keyrow .sw{width:12px;height:12px;border-radius:3px;flex:none}
+.keyrow .sw.dash{height:0;width:18px;border-top:2px dashed var(--red);border-radius:0}
+.keyrow .k b{color:var(--ink);font-weight:600}.keyrow .k .v{color:var(--muted);font-variant-numeric:tabular-nums;padding-left:2px}
+.cmeta{display:flex;flex-wrap:wrap;gap:7px 20px;margin-top:16px;padding-top:12px;border-top:1px solid var(--rule);font-size:12px;color:var(--muted);line-height:1.5}
+.cmeta span{display:inline-flex;gap:6px;align-items:baseline}
+.cmeta b{color:var(--ink-2);font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:10px}
+.tick{font-family:var(--sans);font-size:11.5px;fill:var(--muted);font-variant-numeric:tabular-nums}
+.axlab{font-family:var(--sans);font-size:13px;fill:var(--ink-2)}
+.vlab{font-family:var(--sans);font-size:13px;font-weight:800;fill:var(--ink);font-variant-numeric:tabular-nums}
+.vbig{font-family:var(--sans);font-size:20px;font-weight:800;fill:var(--ink);font-variant-numeric:tabular-nums}
+.gridln{stroke:var(--grid);stroke-width:1}.baseln{stroke:var(--baseline);stroke-width:1.5}.refln{stroke:var(--red);stroke-width:1.5;stroke-dasharray:5 4}
+.bar:hover{opacity:.85;cursor:default}
+figcaption{font-size:14px;color:var(--muted);margin-top:14px;line-height:1.5;max-width:700px}
+figcaption b{color:var(--ink-2)}
+
+.waffles3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:680px){.waffles3{grid-template-columns:1fr;gap:26px}}
+.waffle h4{font-size:14.5px;margin:0 0 2px;font-weight:700}
+.waffle .big{font-size:32px;font-weight:800;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.waffle .cap{font-size:12.5px;color:var(--muted);margin:3px 0 12px}
+.g-red{color:var(--red)}.g-mut{color:var(--muted)}
+
+.box{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin:40px 0}
+.box h3{font-size:16px;margin:0 0 10px}
+.box ul{margin:0;padding-left:20px}.box li{margin:8px 0;font-size:15px;color:var(--ink-2)}.box li b{color:var(--ink)}
+.pull{margin:40px 0;padding-left:20px;border-left:3px solid var(--accent)}
+.pull p{font-size:22px;line-height:1.35;font-weight:700;color:var(--ink);margin:0;letter-spacing:-.01em}
+
+.tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--bg);padding:8px 11px;border-radius:8px;font-size:12.5px;line-height:1.4;max-width:260px;box-shadow:0 8px 24px rgba(0,0,0,.22);opacity:0;transition:opacity .1s}
+.tip.on{opacity:1}.tip b{color:var(--bg)}
+:root[data-theme="dark"] .tip,:root:where(:not([data-theme="light"])) .tip{--bg:#0e1013}
+footer{border-top:1px solid var(--rule);margin-top:56px;padding:24px 0 60px;color:var(--muted);font-size:13.5px;line-height:1.6}footer b{color:var(--ink-2)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="top"><div class="col"><span class="brand">WSDC <span>Academy</span></span></div></div>
+
+<div class="col">
+<header class="post">
+  <div class="kick">The Debate Advantage</div>
+  <h1>What competitive debate does for university admissions</h1>
+  <p class="deck">Debate builds — and signals — the exact abilities selective universities screen for. Trace the world's best schools debaters and the effect is stark: <b>they reach elite universities at 8–14× the normal rate.</b> Here's the outcome, the mechanism behind it, and how much of it debate can honestly claim.</p>
+  <div class="byline"><b>WSDC Academy</b><span class="d"></span><span>Analysis</span><span class="d"></span><span>July 2026</span><span class="d"></span><span>9 min read</span></div>
+</header>
+</div>
+
+<div class="col">
+<article>
+<p class="lead">Ask an admissions officer what they want and you'll hear the same words: argument, curiosity, composure, the ability to think on your feet. Those happen to be exactly what competitive debate drills, every round. So it's worth asking what that training is actually worth when the letters arrive. We followed the world's best schools debaters — a complete national-team cohort and the messier global field — to the universities they reached. Both tell the same story, and it starts with the outcome.</p>
+
+<div class="sec">The cleanest case</div>
+<h2>71% of Team USA's alumni attended an elite university</h2>
+<p>Start with the group whose outcomes are cleanest: <strong>Team USA</strong>. USA Debate publishes an alumni archive naming every past national-team member and the university they attended. Because it's a <em>complete</em> record kept by the program itself, it dodges the deepest flaw in this kind of analysis — that you usually only count the people easy to find. For the classes of 2014–2020, that's <strong>42 alumni</strong> with a confirmed college.</p>
+
+<div class="keystat">
+  <div class="s"><div class="n">71%</div><div class="k">of Team USA alumni admitted to an Ivy, US Top-30, or Oxbridge school</div></div>
+  <div class="s"><div class="n">~5%</div><div class="k">general-applicant benchmark (Ivy League acceptance rate)</div></div>
+  <div class="s"><div class="n">42 / 42</div><div class="k">complete cohort — no missing-data bias</div></div>
+</div>
+
+<figure class="wide">
+  <div class="card">
+    <div class="ceyebrow">The gap</div>
+    <div class="ctitle">8–14× more likely to reach an elite university</div>
+    <div class="csub">Admission rate to an Ivy / US Top-30 / Oxbridge school, by cohort (%)</div>
+    <div class="keyrow">
+      <span class="k"><span class="sw" style="background:var(--baseline)"></span><b>General applicant</b><span class="v">~5%</span></span>
+      <span class="k"><span class="sw" style="background:var(--red)"></span><b>WSDC cohorts</b><span class="v">41–71%</span></span>
+    </div>
+    <div id="cGap"></div>
+    <div class="cmeta"><span><b>Measure</b>% attending an elite university</span><span><b>Baseline</b>Ivy acceptance ≈5%</span><span><b>n</b>Team USA 42 · Top-10 13 · Top-50 68</span><span><b>Source</b>WSDC tabs · USA Debate · Ivy data</span></div>
+  </div>
+  <figcaption>The more selective the group, the wider the gap. Team USA — the only cohort measured in full — reaches 71%.</figcaption>
+</figure>
+
+<p>For Team USA it's a Harvard story, not the Oxford one that leads the global field. Harvard alone took <strong>eight</strong> of the 42 — more than twice any other school.</p>
+
+<figure class="wide">
+  <div class="card">
+    <div class="ceyebrow">Destinations</div>
+    <div class="ctitle">Harvard takes more Team USA debaters than any two other schools combined</div>
+    <div class="csub">USA Debate alumni by college, classes of 2014–2020 (n = 42)</div>
+    <div class="keyrow">
+      <span class="k"><span class="sw" style="background:var(--red)"></span><b>Ivy / Top-30 / Oxbridge</b></span>
+      <span class="k"><span class="sw" style="background:var(--blue)"></span><b>Other university</b></span>
+    </div>
+    <div id="cUSA"></div>
+    <div class="cmeta"><span><b>Source</b>USA Debate alumni archive</span><span><b>Note</b>grouped bars hold the single-college schools</span></div>
+  </div>
+  <figcaption>The dozen outside the elite band still went to strong schools — George Washington took three; the rest spread across schools like Boston University, Rutgers, Indiana and Smith.</figcaption>
+</figure>
+
+<div class="sec">Why it works</div>
+<h2>Debate trains what admissions officers screen for</h2>
+<p>These numbers aren't magic; they track a mechanism. A World Schools round gives you eight minutes to build a case on a motion you first saw an hour ago, then defend it live against opponents and judges from thirty countries. Do that for years and you develop a specific, transferable toolkit — and it lines up almost one-to-one with what selective admissions reward.</p>
+<div class="box">
+  <h3>What debate builds → what universities look for</h3>
+  <ul>
+    <li><b>Argument &amp; reasoning</b> → the analytical spine of a strong personal essay and supplement.</li>
+    <li><b>Rapid research &amp; evidence</b> → academic readiness; ease with unfamiliar, complex material.</li>
+    <li><b>Public speaking &amp; composure</b> → interviews, and the confidence that surfaces in recommendations.</li>
+    <li><b>Listening &amp; rebuttal</b> → intellectual flexibility — engaging a counter-view instead of dodging it.</li>
+    <li><b>A national or international team</b> → a rare, verifiable achievement that anchors an application.</li>
+  </ul>
+</div>
+<p>None of these is unique to debate — but few activities bundle so many of the signals together, and fewer still produce a credential as legible as "represented my country at the world championship." That bundle is the effect the charts are measuring.</p>
+
+<div class="sec">Does it generalize?</div>
+<h2>The global field points the same way</h2>
+<p>Team USA is a small, strong slice. To test the pattern, we ran the same trace on the full top-50 tabs of six championships (2013–2018) — messier, because the rest of the world's debaters don't come with an alumni page. We began with <strong>298 top-50 finishes</strong> and recorded a university only on corroboration from public sources. The drop to 68 confirmed is mostly <em>unverified</em>, not disproven — a mid-project search limit under-traced 2017–2018.</p>
+
+<figure class="wide">
+  <div class="card">
+    <div class="ceyebrow">Method</div>
+    <div class="ctitle">From 298 speaker finishes to a verified core of 68</div>
+    <div class="csub">Tracing global top-50 speakers to a corroborated university (2013–2018)</div>
+    <div id="cFunnel"></div>
+    <div class="cmeta"><span><b>Measure</b>Count at each stage</span><span><b>Elite</b>Ivy / Top-30 / Oxbridge</span><span><b>Source</b>Official speaker tabs → public records</span></div>
+  </div>
+  <figcaption>Of the 68 we could place, <b>28 (41%)</b> reached an elite university — a floor, since the untraced names are missing, not ordinary.</figcaption>
+</figure>
+
+<figure class="wide">
+  <div class="card">
+    <div class="ceyebrow">The top-10 cliff</div>
+    <div class="ctitle">Cracking the world's top 10 roughly doubles the elite rate</div>
+    <div class="csub">Elite-admission rate by finishing position, global (%)</div>
+    <div id="cTier"></div>
+    <div class="cmeta"><span><b>Measure</b>% at an elite university</span><span><b>n</b>Top-10 13 · 11–25 30 · 26–50 25</span><span><b>Source</b>Global speaker tabs, traced</span></div>
+  </div>
+  <figcaption>The lift is concentrated at the very top — ranks 11–25 and 26–50 are near-identical.</figcaption>
+</figure>
+
+<figure class="wide">
+  <div class="card">
+    <div class="ceyebrow">Consistency</div>
+    <div class="ctitle">The edge holds at every championship across a decade</div>
+    <div class="csub">Elite-admission rate of traced top-50 speakers, by year (%)</div>
+    <div class="keyrow">
+      <span class="k"><span class="sw" style="background:var(--blue)"></span><b>WSDC elite-admission rate</b><span class="v">31–67%</span></span>
+      <span class="k"><span class="sw dash"></span><b>General benchmark</b><span class="v">~5%</span></span>
+    </div>
+    <div id="cYear"></div>
+    <div class="cmeta"><span><b>n</b>7–24 per championship</span><span><b>Note</b>2024 emerging; coverage partial</span><span><b>Source</b>Speaker tabs, traced</span></div>
+  </div>
+  <figcaption>Ten years, seven championships, never near the 5% baseline.</figcaption>
+</figure>
+
+<div class="sec">The strict test</div>
+<h2>Even by the toughest definition, the gap barely moves</h2>
+<p>Narrow "elite" to just the eight Ivies plus Oxford and Cambridge — no Stanford, no MIT, no state flagships. The base rates still don't touch.</p>
+
+<figure class="wide">
+  <div class="card">
+    <div class="ceyebrow">Out of 100</div>
+    <div class="ctitle">Five squares, versus forty-three and fifty-four</div>
+    <div class="csub">Base rate of admission to an Ivy or Oxbridge — each grid = 100 students</div>
+    <div class="keyrow">
+      <span class="k"><span class="sw" style="background:var(--red)"></span><b>Admitted to an Ivy or Oxbridge</b></span>
+      <span class="k"><span class="sw" style="background:var(--empty)"></span><b>Everyone else</b></span>
+    </div>
+    <div class="waffles3">
+      <div class="waffle"><h4>General applicant</h4><div class="big g-mut">~5<span style="font-size:.5em"> in 100</span></div><div class="cap">Ivy/Oxbridge admit</div><div id="wA"></div></div>
+      <div class="waffle"><h4>Top-10 WSDC speaker</h4><div class="big g-red">54<span style="font-size:.5em"> in 100</span></div><div class="cap">7 of 13 traced</div><div id="wB"></div></div>
+      <div class="waffle"><h4>Team USA speaker</h4><div class="big g-red">43<span style="font-size:.5em"> in 100</span></div><div class="cap">18 of 42 alumni</div><div id="wC"></div></div>
+    </div>
+    <div class="cmeta"><span><b>Measure</b>Ivy or Oxbridge only</span><span><b>Broaden</b>Add US Top-30 → 62% & 71%</span><span><b>Source</b>WSDC tabs · USA Debate · Ivy data</span></div>
+  </div>
+  <figcaption>Drop Stanford, MIT and every state flagship, and debaters still clear the bar <b>~9–11×</b> more often than the field.</figcaption>
+</figure>
+
+<div class="sec">Method</div>
+<h2>How we built this</h2>
+<div class="box">
+  <ul>
+    <li><b>Team USA.</b> USA Debate's complete public alumni archive (classes 2014–2020, n = 42) lists each member's university, so the 71% is a full-cohort rate with no missing-data bias.</li>
+    <li><b>Global field.</b> Official top-50 speaker tabs for 2013 (Antalya), 2014 (Bangkok), 2015 (Singapore), 2017 (Bali), 2018 (Zagreb) and the 2016 (Stuttgart) top-20 — ≈298 finishes — plus the emerging 2024 (Serbia) cohort. Each finisher was traced to a university only when a public source corroborated it; unverified names were excluded, and no individual names are published here.</li>
+    <li><b>Definition.</b> "Elite" = the eight Ivies + US-News Top-30 National Universities + Oxford and Cambridge. Baseline = Ivy League average acceptance ≈ 5% (Class of 2028).</li>
+    <li><b>Coverage.</b> The global figures are floors — a mid-project research limit under-traced 2017–2018, so those years are undercounts.</li>
+  </ul>
+</div>
+
+<div class="sec">How much can debate claim?</div>
+<h2>A powerful amplifier — not a guarantee</h2>
+<p>The effect is real, but its size deserves honesty — for students deciding where to spend their years, and for anyone selling the activity. Three things to hold in mind:</p>
+<div class="box">
+  <ul>
+    <li><b>It amplifies more than it creates.</b> These debaters were strong students before they made a team, so much of the gap is who they already were. Debate sharpens and showcases that profile — it doesn't conjure one from nothing.</li>
+    <li><b>No control group.</b> To prove debaters place <i>better</i> than comparable non-debaters you'd need a matched comparison. This is a base rate, so the true causal lift is smaller than the raw gap.</li>
+    <li><b>The metrics differ slightly.</b> The ~5% baseline is an acceptance rate; the WSDC figures are attendance. The scale of the gap is real; read it as "top debate travels with elite admission," not "debate guarantees it."</li>
+  </ul>
+</div>
+
+<div class="sec">The bottom line</div>
+<div class="pull"><p>Debate won't hand a student an acceptance — but it develops and broadcasts the exact qualities that earn one.</p></div>
+
+<p>For a family weighing the years and the airfare, that's the honest frame: competitive debate is a rigorous arena that builds and showcases what selective admissions reward — argument under pressure, composure, range — and top performers reach elite universities at many times the normal rate. It compounds a strong profile powerfully. It doesn't manufacture one from nothing. For the right student, few investments do more.</p>
+
+</article>
+</div>
+
+<div class="col">
+<footer>
+<p><b>Method &amp; sources.</b> Team USA: USA Debate's complete public alumni archive (classes 2014–2020, n = 42). Global: official top-50 speaker tabs (2013–2018, ≈298 finishes) plus the 2024 cohort, each traced to a university on corroboration from public sources. "Elite" = eight Ivies + US-News Top-30 + Oxford/Cambridge; baseline = Ivy acceptance ≈ 5% (Class of 2028). Global figures are floors; this is a descriptive base-rate comparison, not a controlled study. Individual student names are omitted; all figures are aggregate.</p>
+<p style="margin-top:12px;color:var(--muted)">WSDC Academy · July 2026</p>
+</footer>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+const CSS=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+const NS="http://www.w3.org/2000/svg";
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e;}
+const tip=document.getElementById('tip');
+function showTip(h,ev){tip.innerHTML=h;tip.classList.add('on');let x=ev.clientX+14,y=ev.clientY+14;const w=tip.offsetWidth,ht=tip.offsetHeight;if(x+w>innerWidth-8)x=ev.clientX-w-14;if(y+ht>innerHeight-8)y=ev.clientY-ht-14;tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.classList.remove('on');}
+window.addEventListener('scroll',hideTip,{passive:true});
+
+const GAP=[{lab:"General applicant",pct:5,base:1,note:"Ivy avg acceptance"},{lab:"WSDC Top 50",pct:41,note:"global, traced"},{lab:"WSDC Top 10",pct:62,note:"global, traced"},{lab:"Team USA",pct:71,note:"complete cohort"}];
+function cGap(){
+  const W=760,H=330,P={L:40,R:14,T:22,B:64},plotH=H-P.T-P.B,plotW=W-P.L-P.R,yS=v=>P.T+plotH-(v/100)*plotH;
+  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`});
+  [0,20,40,60,80,100].forEach(t=>{svg.appendChild(el('line',{x1:P.L,x2:W-P.R,y1:yS(t),y2:yS(t),class:'gridln'}));svg.appendChild(el('text',{x:P.L-6,y:yS(t)+4,'text-anchor':'end',class:'tick'})).textContent=t+'%';});
+  svg.appendChild(el('line',{x1:P.L,x2:W-P.R,y1:yS(0),y2:yS(0),class:'baseln'}));
+  const gw=plotW/GAP.length,bw=Math.min(96,gw*0.5);
+  GAP.forEach((r,i)=>{const cx=P.L+gw*i+gw/2,col=r.base?CSS('--baseline'):CSS('--red');
+    const bar=el('rect',{x:cx-bw/2,y:yS(r.pct),width:bw,height:Math.max(2,yS(0)-yS(r.pct)),rx:5,fill:col,class:'bar'});
+    bar.addEventListener('mousemove',ev=>showTip(`<b>${r.lab}</b> — ${r.pct}%<br><span style="opacity:.8">${r.note}${r.base?'':' · '+(r.pct/5).toFixed(1)+'× baseline'}</span>`,ev));bar.addEventListener('mouseleave',hideTip);svg.appendChild(bar);
+    svg.appendChild(el('text',{x:cx,y:yS(r.pct)-9,'text-anchor':'middle',class:'vbig'})).textContent=r.pct+'%';
+    svg.appendChild(el('text',{x:cx,y:H-38,'text-anchor':'middle',class:'axlab','font-weight':'700'})).textContent=r.lab;
+    svg.appendChild(el('text',{x:cx,y:H-20,'text-anchor':'middle',class:'tick'})).textContent=r.note;});
+  document.getElementById('cGap').appendChild(svg);
+}
+const USADEST=[{u:"Harvard",n:8,e:1},{u:"Yale",n:3,e:1},{u:"UPenn",n:3,e:1},{u:"George Washington",n:3,e:0},{u:"Columbia / Barnard",n:2,e:1},{u:"Stanford",n:2,e:1},{u:"UT Austin",n:2,e:1},{u:"10 more elite (×1)",n:10,e:1,grp:"Berkeley, Emory, WashU, Chicago, Cornell, USC, Duke, Georgetown, UCLA, Oxford"},{u:"9 more others (×1)",n:9,e:0,grp:"Indiana, Smith, Denver, Pepperdine, Baylor, Rutgers, Boston U, Loyola NO, W. Kentucky"}];
+function cUSA(){
+  const W=760,rowH=34,padL=150,padR=30,padT=4,H=padT+USADEST.length*rowH+6,max=10,x=v=>padL+(v/max)*(W-padL-padR);
+  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`});
+  [0,2,4,6,8,10].forEach(t=>{svg.appendChild(el('line',{x1:x(t),x2:x(t),y1:padT,y2:H-4,class:'gridln'}));svg.appendChild(el('text',{x:x(t),y:H+1,'text-anchor':'middle',class:'tick'})).textContent=t;});
+  USADEST.forEach((r,i)=>{const y=padT+i*rowH,bh=20,col=r.e?CSS('--red'):CSS('--blue');
+    svg.appendChild(el('text',{x:padL-12,y:y+bh/2+4,'text-anchor':'end',class:'axlab'})).textContent=r.u;
+    const bar=el('rect',{x:padL,y,width:Math.max(3,x(r.n)-padL),height:bh,rx:4,fill:col,'fill-opacity':r.grp?.5:1,class:'bar'});
+    bar.addEventListener('mousemove',ev=>showTip(`<b>${r.u}</b> — ${r.n}${r.grp?'<br><span style="opacity:.8">'+r.grp+'</span>':''}`,ev));bar.addEventListener('mouseleave',hideTip);svg.appendChild(bar);
+    svg.appendChild(el('text',{x:x(r.n)+8,y:y+bh/2+4,class:'vlab'})).textContent=r.n;});
+  document.getElementById('cUSA').appendChild(svg);
+}
+const FUNNEL=[{lab:"Top-50 finishes scraped",n:298,c:'--baseline',op:.42},{lab:"University confirmed",n:68,c:'--blue',op:1,pct:"23% traced"},{lab:"At Ivy / Top-30 / Oxbridge",n:28,c:'--red',op:1,pct:"41% of confirmed"}];
+function cFunnel(){
+  const W=760,rowH=76,padL=8,padR=30,padT=6,H=padT+FUNNEL.length*rowH+2,max=298,x=v=>padL+(v/max)*(W-padL-padR-150);
+  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`});
+  FUNNEL.forEach((r,i)=>{const y=padT+i*rowH,bh=42,w=Math.max(60,x(r.n)-padL);
+    svg.appendChild(el('rect',{x:padL,y,width:w,height:bh,rx:6,fill:CSS(r.c),'fill-opacity':r.op,class:'bar'}));
+    svg.appendChild(el('text',{x:padL+16,y:y+bh/2+8,class:'vbig',fill:i===0?CSS('--ink'):'#fff'})).textContent=r.n;
+    svg.appendChild(el('text',{x:w+padL+14,y:y+bh/2-2,class:'axlab','font-weight':'700'})).textContent=r.lab;
+    if(r.pct)svg.appendChild(el('text',{x:w+padL+14,y:y+bh/2+16,class:'tick'})).textContent=r.pct;});
+  document.getElementById('cFunnel').appendChild(svg);
+}
+const TIERS=[{lab:"Top 10",pct:62,e:8,n:13},{lab:"Ranks 11–25",pct:37,e:11,n:30},{lab:"Ranks 26–50",pct:36,e:9,n:25}];
+function cTier(){
+  const W=760,H=310,P={L:44,R:16,T:22,B:66},plotH=H-P.T-P.B,plotW=W-P.L-P.R,yS=v=>P.T+plotH-(v/100)*plotH;
+  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`});
+  [0,20,40,60,80].forEach(t=>{svg.appendChild(el('line',{x1:P.L,x2:W-P.R,y1:yS(t),y2:yS(t),class:'gridln'}));svg.appendChild(el('text',{x:P.L-8,y:yS(t)+4,'text-anchor':'end',class:'tick'})).textContent=t+'%';});
+  svg.appendChild(el('line',{x1:P.L,x2:W-P.R,y1:yS(0),y2:yS(0),class:'baseln'}));
+  const gw=plotW/TIERS.length,bw=Math.min(120,gw*0.5);
+  TIERS.forEach((t,i)=>{const cx=P.L+gw*i+gw/2,col=i===0?CSS('--red'):CSS('--blue');
+    const bar=el('rect',{x:cx-bw/2,y:yS(t.pct),width:bw,height:Math.max(2,yS(0)-yS(t.pct)),rx:5,fill:col,'fill-opacity':i===0?1:.6,class:'bar'});
+    bar.addEventListener('mousemove',ev=>showTip(`<b>${t.lab}</b> — ${t.pct}% elite (${t.e} of ${t.n})`,ev));bar.addEventListener('mouseleave',hideTip);svg.appendChild(bar);
+    svg.appendChild(el('text',{x:cx,y:yS(t.pct)-10,'text-anchor':'middle',class:'vbig'})).textContent=t.pct+'%';
+    svg.appendChild(el('text',{x:cx,y:H-38,'text-anchor':'middle',class:'axlab','font-weight':'700'})).textContent=t.lab;
+    svg.appendChild(el('text',{x:cx,y:H-18,'text-anchor':'middle',class:'tick'})).textContent=`${t.e} of ${t.n}`;});
+  document.getElementById('cTier').appendChild(svg);
+}
+const YEARLY=[{y:2013,pct:38,e:6,n:16},{y:2014,pct:31,e:5,n:16},{y:2015,pct:50,e:9,n:18},{y:2016,pct:33,e:3,n:9},{y:2017,pct:57,e:4,n:7},{y:2018,pct:50,e:4,n:8},{y:2024,pct:67,e:16,n:24}];
+function cYear(){
+  const W=760,H=320,P={L:40,R:14,T:20,B:48},plotH=H-P.T-P.B,plotW=W-P.L-P.R,yS=v=>P.T+plotH-(v/100)*plotH;
+  const svg=el('svg',{viewBox:`0 0 ${W} ${H}`});
+  [0,20,40,60,80].forEach(t=>{svg.appendChild(el('line',{x1:P.L,x2:W-P.R,y1:yS(t),y2:yS(t),class:'gridln'}));svg.appendChild(el('text',{x:P.L-6,y:yS(t)+4,'text-anchor':'end',class:'tick'})).textContent=t+'%';});
+  svg.appendChild(el('line',{x1:P.L,x2:W-P.R,y1:yS(0),y2:yS(0),class:'baseln'}));
+  const gw=plotW/YEARLY.length,bw=Math.min(46,gw*0.52);
+  YEARLY.forEach((r,i)=>{const cx=P.L+gw*i+gw/2;
+    const bar=el('rect',{x:cx-bw/2,y:yS(r.pct),width:bw,height:Math.max(2,yS(0)-yS(r.pct)),rx:4,fill:CSS('--blue'),'fill-opacity':r.y===2024?.72:1,class:'bar'});
+    bar.addEventListener('mousemove',ev=>showTip(`<b>WSDC ${r.y}</b> — ${r.pct}%<br><span style="opacity:.8">${r.e} of ${r.n} traced${r.y===2024?' · emerging':''}</span>`,ev));bar.addEventListener('mouseleave',hideTip);svg.appendChild(bar);
+    svg.appendChild(el('text',{x:cx,y:yS(r.pct)-8,'text-anchor':'middle',class:'vlab','font-size':'12'})).textContent=r.pct+'%';
+    svg.appendChild(el('text',{x:cx,y:H-28,'text-anchor':'middle',class:'axlab'})).textContent=r.y;
+    if(r.y===2024)svg.appendChild(el('text',{x:cx,y:H-12,'text-anchor':'middle',class:'tick'})).textContent='emerging';});
+  svg.appendChild(el('line',{x1:P.L,x2:W-P.R,y1:yS(5),y2:yS(5),class:'refln'}));
+  svg.appendChild(el('text',{x:W-P.R,y:yS(5)-6,'text-anchor':'end',class:'tick',fill:CSS('--red')})).textContent='general ~5%';
+  document.getElementById('cYear').appendChild(svg);
+}
+function waffle(id,pct,color){const N=10,gap=4,cell=(320-gap*(N-1))/N;const svg=el('svg',{viewBox:`0 0 320 320`});const f=Math.round(pct);
+  for(let i=0;i<100;i++){const row=Math.floor(i/N),c=i%N;svg.appendChild(el('rect',{x:c*(cell+gap),y:row*(cell+gap),width:cell,height:cell,rx:3,fill:i<f?color:CSS('--empty')}));}
+  document.getElementById(id).appendChild(svg);}
+
+cGap();cUSA();cFunnel();cTier();cYear();
+waffle('wA',5,CSS('--red'));waffle('wB',54,CSS('--red'));waffle('wC',43,CSS('--red'));
+</script>
+
+</body>
+</html>

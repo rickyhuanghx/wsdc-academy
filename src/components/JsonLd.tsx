@@ -44,7 +44,7 @@ export function OrganizationJsonLd() {
         {
           '@type': 'OfferCatalog',
           name: 'World Schools Summer Bootcamp',
-          description: 'An 8-hour August intensive introducing beginners to the World Schools format',
+          description: 'A 12-hour August intensive introducing beginners to the World Schools format',
         },
         {
           '@type': 'OfferCatalog',

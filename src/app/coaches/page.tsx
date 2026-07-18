@@ -52,11 +52,6 @@ export default function CoachesPage() {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover"
                 />
-                {coach.isFounder && (
-                  <span className="absolute left-3 top-3 rounded-full bg-signal-500 px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
-                    Co-Founder
-                  </span>
-                )}
               </div>
               <div className="p-5">
                 <h2 className="text-lg font-bold text-navy-900">{coach.name}</h2>

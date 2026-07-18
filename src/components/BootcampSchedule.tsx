@@ -16,6 +16,32 @@ export function BootcampSchedule({ bootcamp }: { bootcamp: Bootcamp }) {
 
   return (
     <>
+      <div className="mt-5 rounded-xl border border-navy-100 bg-white p-6">
+        <p className="text-sm font-semibold text-navy-900">Summer cohorts</p>
+        <ul className="mt-3 divide-y divide-navy-100">
+          {bootcamp.cohorts.map((cohort) => (
+            <li key={cohort.label} className="flex items-center justify-between gap-4 py-2.5 text-sm">
+              <span
+                className={
+                  cohort.status === 'closed' ? 'text-navy-400' : 'font-semibold text-navy-900'
+                }
+              >
+                {cohort.label}
+              </span>
+              {cohort.status === 'closed' ? (
+                <span className="text-xs font-semibold uppercase tracking-wider text-navy-400">
+                  Enrollment closed
+                </span>
+              ) : (
+                <span className="rounded-full bg-signal-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-signal-600">
+                  Enrolling now
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <div className="mt-5">
         <TimezoneSelect zone={zone} options={options} onChange={setZone} id="bootcamp-tz" />
       </div>

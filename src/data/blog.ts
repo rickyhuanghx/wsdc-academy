@@ -5,11 +5,20 @@ export interface BlogPost {
   title: string; // on-page H1
   metaTitle: string; // <title> — keyword-led
   description: string;
-  category: 'Speaker roles' | 'Technique' | 'The US circuit' | 'International';
+  category: 'Why it matters' | 'Speaker roles' | 'Technique' | 'The US circuit' | 'International';
   date: string; // ISO
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: 'does-debate-help-college-admissions',
+    title: 'What competitive debate does for university admissions',
+    metaTitle: 'Does Debate Help With College Admissions? The World Schools Data',
+    description:
+      'A data look at whether debate helps with college admissions: where the world’s best World Schools debaters go to university, how their base rate compares with the general applicant, and how much of the effect debate can honestly claim.',
+    category: 'Why it matters',
+    date: '2026-07-18',
+  },
   {
     slug: 'first-speaker-world-schools-debate',
     title: 'The first speaker: building the house everyone lives in',

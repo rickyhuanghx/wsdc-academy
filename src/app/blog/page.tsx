@@ -16,9 +16,11 @@ export const metadata: Metadata = {
   },
 };
 
-const categories = ['Speaker roles', 'Technique', 'The US circuit', 'International'] as const;
+const categories = ['Why it matters', 'Speaker roles', 'Technique', 'The US circuit', 'International'] as const;
 
 const categoryIntro: Record<(typeof categories)[number], string> = {
+  'Why it matters':
+    'What a season of debate is actually worth: the skills it builds, where its strongest competitors end up, and the honest evidence behind the claims.',
   'Speaker roles':
     'One full essay per chair. Read the role, then print its cheat sheet from the resource library.',
   Technique:

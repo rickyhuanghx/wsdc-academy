@@ -54,6 +54,16 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Auto-advancing tabbed explorer: progress bar fill */
+@keyframes fx-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 /* Printable resources: strip chrome so cheat sheets print clean */
 @media print {
   header,

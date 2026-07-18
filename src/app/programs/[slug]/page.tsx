@@ -236,8 +236,9 @@ export default async function ProgramPage({ params }: Props) {
               <>
                 <h2 className="mt-12 text-2xl font-bold text-navy-900">When it meets</h2>
                 <p className="mt-3 text-navy-600">
-                  The bootcamp runs twice a week for two weeks. Times show in your timezone by default,
-                  and you can switch it below.
+                  The bootcamp runs as monthly summer cohorts, and each cohort meets twice a week for
+                  three weeks. Only the August cohort is still open. Times show in your timezone by
+                  default, and you can switch it below.
                 </p>
                 <BootcampSchedule bootcamp={program.bootcamp} />
               </>

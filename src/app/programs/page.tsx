@@ -2,9 +2,25 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { programs, formatPrice } from '@/data/programs';
-import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { faqs } from '@/data/faqs';
+import { BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { EnrollButton } from '@/components/EnrollButton';
 import { TermSchedule } from '@/components/TermSchedule';
+import { ProgramComparison } from '@/components/ProgramComparison';
+import { ProgramsCoachStrip } from '@/components/ProgramsCoachStrip';
+import { LevelMeter } from '@/components/LevelMeter';
+import { OnThisPage } from '@/components/OnThisPage';
+
+const tocItems = [
+  { id: 'at-a-glance', label: 'At a glance' },
+  { id: 'schedule', label: 'Class schedule' },
+  { id: 'programs-list', label: 'The programs' },
+  { id: 'coaches', label: 'Your coaches' },
+  { id: 'faq', label: 'Common questions' },
+];
+
+// Program-relevant FAQs surfaced at the bottom of the index (drives the accordion + FAQ schema).
+const programFaqs = faqs.filter((f) => f.category === 'programs' || f.category === 'logistics');
 
 export const metadata: Metadata = {
   title: 'World Schools Debate Programs: Classes, Teams & Coaching',
@@ -28,6 +44,7 @@ export default function ProgramsPage() {
           { name: 'Programs', href: '/programs' },
         ]}
       />
+      <FAQJsonLd faqs={programFaqs} />
 
       <section className="bg-navy-900 py-16 text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -43,7 +60,27 @@ export default function ProgramsPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="space-y-8">
+        <div className="lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-12">
+          <aside className="hidden lg:block">
+            <div className="sticky top-24">
+              <OnThisPage items={tocItems} />
+            </div>
+          </aside>
+
+          <div className="min-w-0">
+        <div id="at-a-glance" className="scroll-mt-24">
+          <ProgramComparison programs={programs} />
+        </div>
+
+        <div id="schedule" className="mt-16 scroll-mt-24">
+          <TermSchedule
+            programs={programs
+              .filter((p) => p.tracks && p.tracks.length > 0)
+              .map((p) => ({ shortName: p.shortName, slug: p.slug, tracks: p.tracks! }))}
+          />
+        </div>
+
+        <div id="programs-list" className="mt-16 scroll-mt-24 space-y-8">
           {[...programs]
             .sort((a, b) => {
               // Seasonal offers (summer bootcamp) lead; then the year-round ladder by step.
@@ -108,7 +145,7 @@ export default function ProgramsPage() {
                     </div>
                     <div>
                       <dt className="font-semibold text-navy-400">Level</dt>
-                      <dd className="text-navy-900">{program.level}</dd>
+                      <dd className="mt-1"><LevelMeter level={program.level} /></dd>
                     </div>
                     <div>
                       <dt className="font-semibold text-navy-400">Format</dt>
@@ -129,21 +166,50 @@ export default function ProgramsPage() {
             ))}
         </div>
 
-        <div className="mt-12">
-          <TermSchedule
-            programs={programs
-              .filter((p) => p.tracks && p.tracks.length > 0)
-              .map((p) => ({ shortName: p.shortName, slug: p.slug, tracks: p.tracks! }))}
-          />
+        <div id="coaches" className="mt-20 scroll-mt-24">
+          <ProgramsCoachStrip />
         </div>
 
-        <p className="mt-12 text-center text-navy-600">
+        <div id="faq" className="mt-20 max-w-3xl scroll-mt-24">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-navy-400">
+            Common questions
+          </h2>
+          <div className="mt-5 space-y-3">
+            {programFaqs.map((faq) => (
+              <details
+                key={faq.question}
+                className="group rounded-sm border border-navy-100 bg-white p-5"
+              >
+                <summary className="cursor-pointer list-none font-semibold text-navy-900">
+                  <span className="flex items-center justify-between gap-4">
+                    {faq.question}
+                    <span className="text-signal-500 transition-transform group-open:rotate-45">
+                      +
+                    </span>
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-navy-600">{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+          <p className="mt-5 text-sm text-navy-600">
+            More answers on the{' '}
+            <Link href="/faq" className="font-semibold text-signal-500 hover:text-signal-600">
+              full FAQ page
+            </Link>
+            .
+          </p>
+        </div>
+
+        <p className="mt-20 text-center text-navy-600">
           Not sure where to start?{' '}
           <Link href="/consultation" className="font-semibold text-signal-500 hover:text-signal-600">
             Book a consultation
           </Link>{' '}
           and we&apos;ll recommend a placement.
         </p>
+          </div>
+        </div>
       </section>
     </>
   );

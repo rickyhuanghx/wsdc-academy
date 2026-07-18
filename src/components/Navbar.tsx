@@ -20,7 +20,7 @@ const nav: NavItem[] = [
       {
         href: '/programs/summer-bootcamp',
         label: 'World Schools Summer Bootcamp',
-        desc: '8-hour August intensive for beginners',
+        desc: '12-hour August intensive for beginners',
       },
       {
         href: '/programs/foundations',
