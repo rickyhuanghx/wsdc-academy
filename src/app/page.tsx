@@ -470,7 +470,7 @@ export default function HomePage() {
             both sides as well as knowing how to critique both sides.&rdquo;
           </p>
           <p className="mt-6 text-sm font-semibold uppercase tracking-[0.15em] text-navy-300">
-            Elinor Ostrom · Nobel Prize in Economics · Debate alumna, Class of 1951
+            Elinor Ostrom · Nobel Prize in Economics · High school debate, Class of 1951
           </p>
         </div>
       </section>
