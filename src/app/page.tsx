@@ -464,12 +464,13 @@ export default function HomePage() {
       <section className="bg-navy-900 text-white">
         <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
           <p className="font-display text-2xl font-medium italic leading-relaxed sm:text-3xl">
-            &ldquo;Students improve when practice looks like the real thing:
-            judged rounds, honest adjudication, and feedback specific enough to
-            act on.&rdquo;
+            &ldquo;Learning debate was an important early impact on my ways of
+            thinking. You are taught that there are always at least two sides to
+            public policy questions, and you have to learn a good argument for
+            both sides as well as knowing how to critique both sides.&rdquo;
           </p>
           <p className="mt-6 text-sm font-semibold uppercase tracking-[0.15em] text-navy-300">
-            Ricky Huang · Head of Training
+            Elinor Ostrom · Nobel Prize in Economics · Debate alumna, Class of 1951
           </p>
         </div>
       </section>
