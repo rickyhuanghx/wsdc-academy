@@ -10,6 +10,8 @@ export interface OrderEmailItem {
   studentName: string;
   studentGrade: string;
   studentSchool: string;
+  ageGroup?: string; // selected age band label (group programs / bootcamp)
+  timeSlot?: string; // selected time-slot label
 }
 
 export interface OrderEmailData {
@@ -67,13 +69,20 @@ function detailsTable(rows: [string, string][]): string {
 
 function itemsBlock(items: OrderEmailItem[]): string {
   return items
-    .map(
-      (it) => `<div style="border-left:3px solid #c8102e;padding:10px 16px;margin:0 0 12px;background:#faf9f6;">
+    .map((it) => {
+      const scheduleLine =
+        it.ageGroup || it.timeSlot
+          ? `<div style="color:#3d4a63;font-size:13px;margin-top:6px;">Placement: ${escapeHtml(
+              [it.ageGroup, it.timeSlot].filter(Boolean).join(' · '),
+            )}</div>`
+          : '';
+      return `<div style="border-left:3px solid #c8102e;padding:10px 16px;margin:0 0 12px;background:#faf9f6;">
   <div style="font-weight:600;color:#0d2240;font-size:15px;">${escapeHtml(it.programName)}</div>
   <div style="color:#3d4a63;font-size:13px;margin-top:2px;">${escapeHtml(it.unitLabel)}</div>
   <div style="color:#3d4a63;font-size:13px;margin-top:6px;">Student: ${escapeHtml(it.studentName)} · ${escapeHtml(it.studentGrade)} · ${escapeHtml(it.studentSchool)}</div>
-</div>`,
-    )
+  ${scheduleLine}
+</div>`;
+    })
     .join('');
 }
 
@@ -92,12 +101,13 @@ export function orderUserEmail(d: OrderEmailData) {
      <p style="margin:24px 0 0;color:#3d4a63;font-size:14px;">Questions? Reply to this email or write to <a href="mailto:${CONTACT_EMAIL}" style="color:#0d2240;font-weight:600;">${CONTACT_EMAIL}</a>.</p>`,
   );
   const itemsText = d.items
-    .map(
-      (it) => `- ${it.programName} (${it.unitLabel})
+    .map((it) => {
+      const placement = [it.ageGroup, it.timeSlot].filter(Boolean).join(' · ');
+      return `- ${it.programName} (${it.unitLabel})
   Student: ${it.studentName}
   Grade: ${it.studentGrade}
-  School: ${it.studentSchool}`,
-    )
+  School: ${it.studentSchool}${placement ? `\n  Placement: ${placement}` : ''}`;
+    })
     .join('\n\n');
   const text = `Thanks ${firstName}, your enrollment is confirmed.
 
@@ -141,10 +151,10 @@ Email: ${d.email}
 Payment intent: ${d.paymentIntentId}
 
 ${d.items
-  .map(
-    (it) =>
-      `- ${it.programName} (${it.unitLabel}): ${it.studentName}, ${it.studentGrade}, ${it.studentSchool}`,
-  )
+  .map((it) => {
+    const placement = [it.ageGroup, it.timeSlot].filter(Boolean).join(' · ');
+    return `- ${it.programName} (${it.unitLabel}): ${it.studentName}, ${it.studentGrade}, ${it.studentSchool}${placement ? ` [${placement}]` : ''}`;
+  })
   .join('\n')}`;
   return {
     subject: `New enrollment: ${formatMoney(d.amountTotal, d.currency)} (${d.parentName})`,

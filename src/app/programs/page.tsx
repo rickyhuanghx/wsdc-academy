@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { programs, formatPrice } from '@/data/programs';
+import { programs, formatPrice, EARLY_BIRD_PERCENT } from '@/data/programs';
 import { faqs } from '@/data/faqs';
 import { BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { EnrollButton } from '@/components/EnrollButton';
@@ -122,6 +122,13 @@ export default function ProgramsPage() {
                       >
                         Request consideration
                       </Link>
+                    ) : program.oneOnOne ? (
+                      <Link
+                        href={`/programs/${program.slug}#pricing`}
+                        className="inline-block rounded-md border border-navy-200 px-6 py-3 text-sm font-semibold text-navy-700 transition-colors hover:border-navy-400"
+                      >
+                        See pricing
+                      </Link>
                     ) : (
                       <EnrollButton program={program} variant="outline" size="sm" />
                     )}
@@ -157,7 +164,19 @@ export default function ProgramsPage() {
                     </div>
                     <div>
                       <dt className="font-semibold text-navy-400">Tuition</dt>
-                      <dd className="font-bold text-navy-900">{formatPrice(program)}</dd>
+                      <dd className="font-bold text-navy-900">
+                        {!program.invitationOnly && program.pricing.compareAt && (
+                          <span className="mr-1.5 font-normal text-navy-400 line-through">
+                            ${program.pricing.compareAt.toLocaleString('en-US')}
+                          </span>
+                        )}
+                        {formatPrice(program)}
+                      </dd>
+                      {!program.invitationOnly && program.pricing.compareAt && (
+                        <dd className="mt-1 text-xs font-semibold text-signal-600">
+                          {EARLY_BIRD_PERCENT}% off early-bird
+                        </dd>
+                      )}
                     </div>
                   </dl>
                   </div>

@@ -23,17 +23,36 @@ export interface CartItem {
   unitLabel: string;
   amount: number; // USD
   studentInfo: StudentInfo;
+  // 1-on-1 variant lines (diagnostic / hourly / package). Absent on fixed programs.
+  variantId?: string;
+  quantity?: number; // hours, for the hourly 1-on-1 variant
+  // Enrollment selections the buyer makes at checkout (option ids). Kept off
+  // studentInfo so the "same student for all" mirror doesn't copy program-
+  // specific option ids across lines.
+  ageGroup?: string;
+  timeSlot?: string;
+}
+
+// What a 1-on-1 variant "Add" button hands to the cart.
+export interface VariantLine {
+  variantId: string;
+  quantity?: number;
+  unitLabel: string;
+  amount: number;
 }
 
 interface CartContextType {
   items: CartItem[];
   addItem: (program: Program) => void;
+  addVariantItem: (program: Program, variant: VariantLine) => void;
   removeItem: (lineId: string) => void;
   updateStudentInfo: (lineId: string, info: StudentInfo) => void;
+  updateLineSelection: (lineId: string, patch: { ageGroup?: string; timeSlot?: string }) => void;
   clearCart: () => void;
   getSubtotal: () => number;
   getItemCount: () => number;
   countInCart: (programId: string) => number;
+  countVariantInCart: (programId: string, variantId: string) => number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -95,6 +114,22 @@ export function CartProvider({ children }: { children: ReactNode }) {
     ]);
   }, []);
 
+  const addVariantItem = useCallback((program: Program, variant: VariantLine) => {
+    setItems((prev) => [
+      ...prev,
+      {
+        lineId: `${program.id}-${variant.variantId}-${crypto.randomUUID()}`,
+        programId: program.id,
+        programName: program.name,
+        unitLabel: variant.unitLabel,
+        amount: variant.amount,
+        variantId: variant.variantId,
+        quantity: variant.quantity,
+        studentInfo: emptyStudentInfo(),
+      },
+    ]);
+  }, []);
+
   const removeItem = useCallback((lineId: string) => {
     setItems((prev) => prev.filter((item) => item.lineId !== lineId));
   }, []);
@@ -105,6 +140,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   }, []);
 
+  const updateLineSelection = useCallback(
+    (lineId: string, patch: { ageGroup?: string; timeSlot?: string }) => {
+      setItems((prev) =>
+        prev.map((item) => (item.lineId === lineId ? { ...item, ...patch } : item)),
+      );
+    },
+    [],
+  );
+
   const clearCart = useCallback(() => {
     setItems([]);
   }, []);
@@ -113,18 +157,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const getItemCount = () => items.length;
   const countInCart = (programId: string) =>
     items.filter((item) => item.programId === programId).length;
+  const countVariantInCart = (programId: string, variantId: string) =>
+    items.filter((item) => item.programId === programId && item.variantId === variantId).length;
 
   return (
     <CartContext.Provider
       value={{
         items,
         addItem,
+        addVariantItem,
         removeItem,
         updateStudentInfo,
+        updateLineSelection,
         clearCart,
         getSubtotal,
         getItemCount,
         countInCart,
+        countVariantInCart,
       }}
     >
       {children}

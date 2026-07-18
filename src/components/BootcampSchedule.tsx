@@ -1,9 +1,9 @@
 'use client';
 
-// Schedule block for the fixed-cohort summer bootcamp. Unlike the term programs
-// (which offer either/or time slots), the bootcamp's meetings are ALL required —
-// it meets on each listed day. Reuses the shared ET-anchor conversion and
-// timezone selector so times localize the same way as the rest of the site.
+// Schedule block for the fixed-cohort summer bootcamp. The buyer picks ONE of
+// two time options; each option meets twice a week for three weeks (6 sessions).
+// Reuses the shared ET-anchor conversion and timezone selector so times localize
+// the same way as the rest of the site.
 
 import type { Program } from '@/data/programs';
 import { formatSlot } from '@/lib/schedule';
@@ -50,24 +50,33 @@ export function BootcampSchedule({ bootcamp }: { bootcamp: Bootcamp }) {
         <p className="text-sm font-semibold text-navy-900">
           {bootcamp.sessionCount} sessions · {bootcamp.totalHours} hours total
         </p>
-        <p className="mt-1 text-sm text-navy-600">{bootcamp.dateRange}</p>
+        <p className="mt-1 text-sm text-navy-600">
+          {bootcamp.dateRange} · pick one option, meets twice a week
+        </p>
 
-        <ul className="mt-4 space-y-4 border-t border-navy-100 pt-4">
-          {bootcamp.meetings.map((meeting) => {
-            const f = formatSlot(meeting, zone);
-            return (
-              <li key={meeting.dayOfWeek}>
-                <p className="font-display text-lg font-semibold text-navy-900">{f.day}</p>
-                <p className="font-mono text-sm text-navy-700">
-                  {f.time} <span className="text-navy-400">{f.abbr}</span>
-                </p>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="mt-4 grid gap-4 border-t border-navy-100 pt-4 sm:grid-cols-2">
+          {bootcamp.options.map((option) => (
+            <div key={option.id} className="rounded-lg border border-navy-100 bg-cream p-4">
+              <p className="text-sm font-semibold text-navy-900">{option.label}</p>
+              <ul className="mt-3 space-y-3">
+                {option.meetings.map((meeting) => {
+                  const f = formatSlot(meeting, zone);
+                  return (
+                    <li key={meeting.dayOfWeek}>
+                      <p className="font-display font-semibold text-navy-900">{f.day}</p>
+                      <p className="font-mono text-sm text-navy-700">
+                        {f.time} <span className="text-navy-400">{f.abbr}</span>
+                      </p>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </div>
 
         <p className="mt-4 text-xs text-navy-500">
-          The bootcamp meets on both days each week. Times are the same every session.
+          You choose your option at checkout. Both cover the same six sessions.
         </p>
       </div>
     </>

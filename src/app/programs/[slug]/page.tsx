@@ -2,10 +2,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { programs, getProgramBySlug, formatPrice } from '@/data/programs';
+import { programs, getProgramBySlug, EARLY_BIRD_PERCENT } from '@/data/programs';
 import { getCoachBySlug } from '@/data/coaches';
 import { CourseJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { EnrollButton } from '@/components/EnrollButton';
+import { OneOnOnePicker } from '@/components/OneOnOnePicker';
 import { ScheduleTimezones } from '@/components/ScheduleTimezones';
 import { BootcampSchedule } from '@/components/BootcampSchedule';
 
@@ -44,6 +45,26 @@ export default async function ProgramPage({ params }: Props) {
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
   const nextStep = program.nextStepSlug ? getProgramBySlug(program.nextStepSlug) : undefined;
   const isInvite = Boolean(program.invitationOnly);
+  const isOneOnOne = Boolean(program.oneOnOne);
+  const earlyBirdDeadline = program.earlyBird?.deadlineLabel;
+
+  // At-a-glance facts for the sidebar card (rendered only when populated).
+  const facts: [string, string][] = [
+    ['Level', program.level],
+    ['Format', program.format],
+    ['Schedule', program.schedule],
+    ['Ages', `${program.ageRange.min}–${program.ageRange.max}`],
+  ];
+  if (program.classSize) facts.push(['Class size', program.classSize]);
+  if (program.sessionLength) facts.push(['Session length', program.sessionLength]);
+  if (program.instruction) {
+    facts.push([
+      'Instruction',
+      `${program.instruction.totalHours} hrs total · ${program.instruction.sessions} sessions`,
+    ]);
+  }
+  if (program.semesterDuration) facts.push(['Semester', program.semesterDuration]);
+  if (program.hourlyRate) facts.push(['Hourly rate', `$${program.hourlyRate}/hr`]);
 
   return (
     <>
@@ -98,6 +119,21 @@ export default async function ProgramPage({ params }: Props) {
                     Request consideration
                   </Link>
                   <span className="text-sm font-medium text-navy-200">Invitation only</span>
+                </>
+              ) : isOneOnOne ? (
+                <>
+                  <Link
+                    href="#pricing"
+                    className="rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition-colors hover:bg-signal-600"
+                  >
+                    See pricing &amp; enroll
+                  </Link>
+                  <Link
+                    href="/consultation"
+                    className="px-2 py-3.5 text-center font-semibold text-white underline decoration-navy-300 underline-offset-4 transition-colors hover:decoration-white"
+                  >
+                    Book a consultation first
+                  </Link>
                 </>
               ) : (
                 <>
@@ -215,6 +251,13 @@ export default async function ProgramPage({ params }: Props) {
                     </div>
                   )}
                 </dl>
+              </div>
+            )}
+
+            {/* 1-on-1 tiered pricing picker */}
+            {isOneOnOne && (
+              <div className="mt-10">
+                <OneOnOnePicker program={program} />
               </div>
             )}
 
@@ -410,21 +453,47 @@ export default async function ProgramPage({ params }: Props) {
           <aside>
             <div className="sticky top-24 space-y-6">
               <div className="rounded-xl border border-navy-100 bg-white p-6">
-                <p className="text-sm font-semibold text-navy-400">{isInvite ? 'Enrollment' : 'Tuition'}</p>
-                <p className="mt-1 text-2xl font-bold text-navy-900">{formatPrice(program)}</p>
+                <p className="text-sm font-semibold text-navy-400">
+                  {isInvite ? 'Enrollment' : 'Tuition'}
+                </p>
+                {isInvite ? (
+                  <p className="mt-1 text-2xl font-bold text-navy-900">By invitation</p>
+                ) : isOneOnOne ? (
+                  <div className="mt-1">
+                    <p className="text-2xl font-bold text-navy-900">
+                      From ${program.pricing.amount.toLocaleString('en-US')}
+                      <span className="text-base font-medium text-navy-500"> / hour</span>
+                    </p>
+                    <span className="mt-2 inline-block rounded-full bg-signal-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-signal-600">
+                      {EARLY_BIRD_PERCENT}% off early-bird
+                    </span>
+                  </div>
+                ) : (
+                  <div className="mt-1">
+                    <p>
+                      {program.pricing.compareAt && (
+                        <span className="text-lg text-navy-400 line-through">
+                          ${program.pricing.compareAt.toLocaleString('en-US')}
+                        </span>
+                      )}{' '}
+                      <span className="text-2xl font-bold text-navy-900">
+                        ${program.pricing.amount.toLocaleString('en-US')}
+                      </span>
+                      <span className="text-sm text-navy-500"> {program.pricing.model}</span>
+                    </p>
+                    <span className="mt-2 inline-block rounded-full bg-signal-50 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-signal-600">
+                      {EARLY_BIRD_PERCENT}% off early-bird
+                      {earlyBirdDeadline ? ` · ends ${earlyBirdDeadline}` : ''}
+                    </span>
+                  </div>
+                )}
                 <dl className="mt-5 space-y-3 border-t border-navy-100 pt-5 text-sm">
-                  <div className="flex justify-between">
-                    <dt className="text-navy-400">Format</dt>
-                    <dd className="font-medium text-navy-900">{program.format}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-navy-400">Schedule</dt>
-                    <dd className="max-w-[60%] text-right font-medium text-navy-900">{program.schedule}</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-navy-400">Ages</dt>
-                    <dd className="font-medium text-navy-900">{program.ageRange.min}–{program.ageRange.max}</dd>
-                  </div>
+                  {facts.map(([label, value]) => (
+                    <div key={label} className="flex justify-between gap-4">
+                      <dt className="shrink-0 text-navy-400">{label}</dt>
+                      <dd className="text-right font-medium text-navy-900">{value}</dd>
+                    </div>
+                  ))}
                 </dl>
                 {isInvite ? (
                   <>
@@ -437,6 +506,21 @@ export default async function ProgramPage({ params }: Props) {
                     <p className="mt-3 text-center text-xs text-navy-500">
                       Places are offered by coach invitation.
                     </p>
+                  </>
+                ) : isOneOnOne ? (
+                  <>
+                    <Link
+                      href="#pricing"
+                      className="mt-6 block rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition-colors hover:bg-signal-600"
+                    >
+                      Choose your hours
+                    </Link>
+                    <Link
+                      href="/consultation"
+                      className="mt-3 block text-center text-sm font-medium text-navy-600 underline underline-offset-2 hover:text-signal-500"
+                    >
+                      or start with a consultation
+                    </Link>
                   </>
                 ) : (
                   <>

@@ -9,6 +9,9 @@ export type OrderStudent = {
   gradeLevel: string;
   school: string;
   programId: string;
+  unitLabel?: string; // resolved checkout unit (e.g. 1-on-1 variant label)
+  ageGroup?: string; // selected age band label (group programs / bootcamp)
+  timeSlot?: string; // selected time-slot label
 };
 
 export type OrderRow = {

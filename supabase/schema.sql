@@ -27,7 +27,7 @@ create table if not exists public.orders (
   -- Items (denormalized from PaymentIntent metadata)
   program_ids                 text not null,   -- comma-separated program ids
   program_names               text not null,   -- ' | '-separated for display
-  students                    jsonb not null,  -- [{ name, gradeLevel, school, programId }, ...]
+  students                    jsonb not null,  -- [{ name, gradeLevel, school, programId, unitLabel?, ageGroup?, timeSlot? }, ...]
   -- Operational fields for the welcome/placement workflow
   fulfillment                 text not null default 'new'
                               check (fulfillment in ('new', 'welcomed', 'placed', 'completed')),

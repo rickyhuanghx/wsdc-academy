@@ -28,7 +28,15 @@ function parseStudents(metadata: Record<string, string>): OrderStudent[] {
         typeof s.school === 'string' &&
         typeof s.programId === 'string'
       ) {
-        students.push(s);
+        students.push({
+          name: s.name,
+          gradeLevel: s.gradeLevel,
+          school: s.school,
+          programId: s.programId,
+          ...(typeof s.unitLabel === 'string' ? { unitLabel: s.unitLabel } : {}),
+          ...(typeof s.ageGroup === 'string' ? { ageGroup: s.ageGroup } : {}),
+          ...(typeof s.timeSlot === 'string' ? { timeSlot: s.timeSlot } : {}),
+        });
       }
     } catch {
       // Skip malformed entries; the order row still saves with what parsed.
@@ -50,10 +58,14 @@ async function handlePaymentIntentSucceeded(intent: Stripe.PaymentIntent) {
     const program = getProgramById(s.programId);
     return {
       programName: program?.name || s.programId,
-      unitLabel: program?.enrollment.unitLabel || '',
+      // Prefer the resolved per-line unit (e.g. a 1-on-1 variant); fall back to
+      // the program's fixed enrollment unit for older orders without it.
+      unitLabel: s.unitLabel || program?.enrollment.unitLabel || '',
       studentName: s.name,
       studentGrade: s.gradeLevel,
       studentSchool: s.school,
+      ageGroup: s.ageGroup,
+      timeSlot: s.timeSlot,
     };
   });
 

@@ -5,7 +5,13 @@
 
 import { NextResponse } from 'next/server';
 import { getStripe } from '@/lib/stripe';
-import { getProgramById, GRADE_LEVELS } from '@/data/programs';
+import {
+  getProgramById,
+  getEnrollmentOptions,
+  labelForEnrollmentIds,
+  resolveOneOnOne,
+  GRADE_LEVELS,
+} from '@/data/programs';
 import { isRateLimited, getClientIp, isValidEmail, HONEYPOT_FIELD } from '@/lib/leads';
 
 export const runtime = 'nodejs';
@@ -25,7 +31,14 @@ function isNonEmptyString(value: unknown, max: number): value is string {
   return typeof value === 'string' && value.trim().length > 0 && value.length <= max;
 }
 
-type IncomingItem = { programId?: unknown; studentInfo?: unknown };
+type IncomingItem = {
+  programId?: unknown;
+  studentInfo?: unknown;
+  variantId?: unknown;
+  quantity?: unknown;
+  ageGroup?: unknown;
+  timeSlot?: unknown;
+};
 type StudentInfoIn = { name?: unknown; gradeLevel?: unknown; school?: unknown };
 
 export async function POST(req: Request) {
@@ -70,8 +83,12 @@ export async function POST(req: Request) {
     studentName: string;
     studentGrade: string;
     studentSchool: string;
+    variantId?: string;
+    ageGroupLabel?: string;
+    timeSlotLabel?: string;
   };
   const resolved: LineItem[] = [];
+  let diagnosticCount = 0;
   for (const item of items) {
     if (typeof item.programId !== 'string') return jsonError(400, 'Invalid cart item');
     const program = getProgramById(item.programId);
@@ -91,15 +108,58 @@ export async function POST(req: Request) {
       return jsonError(400, `Student school is required for ${program.name}`);
     }
 
+    // Price + unit label: 1-on-1 sells variants; everything else sells the
+    // program's fixed enrollment unit. Prices are always re-resolved here.
+    let amount: number;
+    let unitLabel: string;
+    let variantId: string | undefined;
+    let ageGroupLabel: string | undefined;
+    let timeSlotLabel: string | undefined;
+
+    if (program.oneOnOne) {
+      if (typeof item.variantId !== 'string') {
+        return jsonError(400, `A 1-on-1 option is required for ${program.name}`);
+      }
+      const quantity = typeof item.quantity === 'number' ? item.quantity : undefined;
+      const r = resolveOneOnOne(program, item.variantId, quantity);
+      if (!r) return jsonError(400, `Invalid 1-on-1 selection for ${program.name}`);
+      amount = r.amount;
+      unitLabel = r.unitLabel;
+      variantId = item.variantId;
+      if (item.variantId === program.oneOnOne.diagnostic.id) diagnosticCount += 1;
+    } else {
+      amount = program.enrollment.amount;
+      unitLabel = program.enrollment.unitLabel;
+      // Group / bootcamp programs require an age band + time slot choice.
+      const opts = getEnrollmentOptions(program);
+      if (opts) {
+        if (typeof item.ageGroup !== 'string' || typeof item.timeSlot !== 'string') {
+          return jsonError(400, `Select an age group and time for ${program.name}`);
+        }
+        const labels = labelForEnrollmentIds(program, item.ageGroup, item.timeSlot);
+        if (!labels) return jsonError(400, `Invalid age or time selection for ${program.name}`);
+        ageGroupLabel = labels.ageLabel;
+        timeSlotLabel = labels.timeLabel;
+      }
+    }
+
     resolved.push({
       programId: program.id,
       programName: program.name,
-      unitLabel: program.enrollment.unitLabel,
-      amount: program.enrollment.amount,
+      unitLabel,
+      amount,
       studentName: sanitize(si.name, 200),
       studentGrade: si.gradeLevel,
       studentSchool: sanitize(si.school, 200),
+      variantId,
+      ageGroupLabel,
+      timeSlotLabel,
     });
+  }
+
+  // The diagnostic 1-on-1 session is a one-time purchase.
+  if (diagnosticCount > 1) {
+    return jsonError(400, 'The diagnostic session can only be purchased once.');
   }
 
   const totalMinor = resolved.reduce((sum, r) => sum + Math.round(r.amount * 100), 0);
@@ -125,6 +185,9 @@ export async function POST(req: Request) {
       gradeLevel: r.studentGrade,
       school: r.studentSchool,
       programId: r.programId,
+      unitLabel: r.unitLabel,
+      ...(r.ageGroupLabel ? { ageGroup: r.ageGroupLabel } : {}),
+      ...(r.timeSlotLabel ? { timeSlot: r.timeSlotLabel } : {}),
     }).slice(0, 500);
   });
 
