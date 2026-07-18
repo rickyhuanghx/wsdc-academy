@@ -246,7 +246,8 @@ export default function HomePage() {
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
               <h2 className="font-display text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
-                The format that tests real debating
+                The format that emphasizes eloquence, impromptu speaking, and
+                content generation
               </h2>
               <p className="mt-5 leading-relaxed text-navy-600">
                 World Schools Debate is the format of the World Schools Debating
@@ -321,10 +322,10 @@ export default function HomePage() {
                 autoAdvanceMs={6000}
                 tabs={[
                   {
-                    label: 'The gap',
+                    label: 'Higher admit rate',
                     panel: (
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.15em] text-signal-500">The gap</p>
+                        <p className="text-xs font-semibold uppercase tracking-[0.15em] text-signal-500">Higher admit rate</p>
                         <h4 className="mt-3 font-display text-2xl font-semibold tracking-tight text-navy-900">
                           Debaters reach elite universities at many times the normal rate
                         </h4>
@@ -387,6 +388,7 @@ export default function HomePage() {
                           <span className="inline-flex items-center gap-2"><span className="inline-block h-3 w-3 rounded-sm bg-signal-500" />Ivy / Top-30 / Oxbridge</span>
                           <span className="inline-flex items-center gap-2"><span className="inline-block h-3 w-3 rounded-sm bg-navy-400" />Other university</span>
                         </div>
+                        <div className="max-w-3xl">
                         <RankedBars
                           data={[
                             { label: 'Harvard', value: 8, elite: true },
@@ -402,20 +404,21 @@ export default function HomePage() {
                           max={10}
                           ariaLabel="Team USA alumni by college: Harvard 8, Yale 3, UPenn 3, George Washington 3, Columbia or Barnard 2, Stanford 2, UT Austin 2, ten more elite schools once each, nine more other schools once each."
                         />
+                        </div>
                       </div>
                     ),
                   },
                   {
-                    label: 'Strict test',
+                    label: 'Ivy + Oxbridge',
                     panel: (
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.15em] text-signal-500">The strict test</p>
+                        <p className="text-xs font-semibold uppercase tracking-[0.15em] text-signal-500">Ivy + Oxbridge</p>
                         <h4 className="mt-3 font-display text-2xl font-semibold tracking-tight text-navy-900">
                           Even Ivy or Oxbridge only, the gap holds
                         </h4>
                         <p className="mt-4 leading-relaxed text-navy-600">
-                          Drop Stanford, MIT, and every state flagship. Each grid is 100
-                          students.
+                          Counting only Ivy League and Oxbridge admits, the pattern
+                          holds. Each grid shows 100 students.
                         </p>
                         <div className="mt-6 grid gap-6 sm:grid-cols-3">
                           {(
@@ -432,7 +435,9 @@ export default function HomePage() {
                                 <span className="text-base text-navy-400"> in 100</span>
                               </p>
                               <p className="mb-3 text-xs text-navy-400">{cap}</p>
-                              <WaffleGrid pct={pct} ariaLabel={`${title}: ${big} in 100 admitted to an Ivy or Oxbridge school.`} />
+                              <div className="max-w-[260px]">
+                                <WaffleGrid pct={pct} ariaLabel={`${title}: ${big} in 100 admitted to an Ivy or Oxbridge school.`} />
+                              </div>
                             </div>
                           ))}
                         </div>
