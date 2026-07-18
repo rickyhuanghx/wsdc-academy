@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import type { Program } from '@/data/programs';
+import { getAgeGroupsDisplay, type Program } from '@/data/programs';
 import { LevelMeter } from './LevelMeter';
 
 // At-a-glance comparison strip for the /programs index: lets a visitor self-select before
@@ -66,7 +66,7 @@ export function ProgramComparison({ programs }: { programs: Program[] }) {
                   <LevelMeter level={program.level} />
                 </td>
                 <td className="px-5 py-4 font-mono text-navy-700">
-                  {program.ageRange.min}–{program.ageRange.max}
+                  {getAgeGroupsDisplay(program)}
                 </td>
                 <td className="px-5 py-4 font-semibold text-navy-900">{compactPrice(program)}</td>
                 <td className="px-5 py-4 text-navy-600">{BEST_FOR[program.slug] ?? ''}</td>

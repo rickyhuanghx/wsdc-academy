@@ -729,7 +729,7 @@ export function getEnrollmentOptions(
   if (program.tracks && program.tracks.length > 0) {
     const ages = program.tracks.map((t) => ({
       id: t.band,
-      label: `${t.label} · ages ${t.ageRange.min}–${t.ageRange.max}`,
+      label: `Ages ${t.ageRange.min}–${t.ageRange.max} (${t.band})`,
     }));
     const times = program.tracks.flatMap((t) =>
       t.options.map((o) => ({
@@ -746,6 +746,21 @@ export function getEnrollmentOptions(
     return { ages, times };
   }
   return null;
+}
+
+/**
+ * Human display of the age bands for a program: "9–12 · 13–16" for programs
+ * with selectable groups, else the plain min–max range. Used on cards / facts
+ * so we show the actual groups instead of a flat span.
+ */
+export function getAgeGroupsDisplay(program: Program): string {
+  if (program.tracks && program.tracks.length > 0) {
+    return program.tracks.map((t) => `${t.ageRange.min}–${t.ageRange.max}`).join(' · ');
+  }
+  if (program.ageGroups && program.ageGroups.length > 0) {
+    return program.ageGroups.map((g) => `${g.min}–${g.max}`).join(' · ');
+  }
+  return `${program.ageRange.min}–${program.ageRange.max}`;
 }
 
 export function labelForEnrollmentIds(

@@ -43,7 +43,7 @@ export interface VariantLine {
 
 interface CartContextType {
   items: CartItem[];
-  addItem: (program: Program) => void;
+  addItem: (program: Program, selection?: { ageGroup?: string; timeSlot?: string }) => void;
   addVariantItem: (program: Program, variant: VariantLine) => void;
   removeItem: (lineId: string) => void;
   updateStudentInfo: (lineId: string, info: StudentInfo) => void;
@@ -100,19 +100,24 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [items, isHydrated]);
 
-  const addItem = useCallback((program: Program) => {
-    setItems((prev) => [
-      ...prev,
-      {
-        lineId: `${program.id}-${crypto.randomUUID()}`,
-        programId: program.id,
-        programName: program.name,
-        unitLabel: program.enrollment.unitLabel,
-        amount: program.enrollment.amount,
-        studentInfo: emptyStudentInfo(),
-      },
-    ]);
-  }, []);
+  const addItem = useCallback(
+    (program: Program, selection?: { ageGroup?: string; timeSlot?: string }) => {
+      setItems((prev) => [
+        ...prev,
+        {
+          lineId: `${program.id}-${crypto.randomUUID()}`,
+          programId: program.id,
+          programName: program.name,
+          unitLabel: program.enrollment.unitLabel,
+          amount: program.enrollment.amount,
+          studentInfo: emptyStudentInfo(),
+          ageGroup: selection?.ageGroup,
+          timeSlot: selection?.timeSlot,
+        },
+      ]);
+    },
+    [],
+  );
 
   const addVariantItem = useCallback((program: Program, variant: VariantLine) => {
     setItems((prev) => [

@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { programs, formatPrice, EARLY_BIRD_PERCENT } from '@/data/programs';
+import { programs, formatPrice, getAgeGroupsDisplay, EARLY_BIRD_PERCENT } from '@/data/programs';
 import { faqs } from '@/data/faqs';
 import { BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
-import { EnrollButton } from '@/components/EnrollButton';
 import { TermSchedule } from '@/components/TermSchedule';
 import { ProgramComparison } from '@/components/ProgramComparison';
 import { ProgramsCoachStrip } from '@/components/ProgramsCoachStrip';
@@ -130,7 +129,12 @@ export default function ProgramsPage() {
                         See pricing
                       </Link>
                     ) : (
-                      <EnrollButton program={program} variant="outline" size="sm" />
+                      <Link
+                        href={`/programs/${program.slug}#enroll`}
+                        className="inline-block rounded-md border border-navy-200 px-6 py-3 text-sm font-semibold text-navy-700 transition-colors hover:border-navy-400"
+                      >
+                        Choose group &amp; enroll
+                      </Link>
                     )}
                   </div>
                 </div>
@@ -148,7 +152,7 @@ export default function ProgramsPage() {
                   <dl className="space-y-4">
                     <div>
                       <dt className="font-semibold text-navy-400">Ages</dt>
-                      <dd className="text-navy-900">{program.ageRange.min}–{program.ageRange.max}</dd>
+                      <dd className="text-navy-900">{getAgeGroupsDisplay(program)}</dd>
                     </div>
                     <div>
                       <dt className="font-semibold text-navy-400">Level</dt>

@@ -2,11 +2,18 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { programs, getProgramBySlug, EARLY_BIRD_PERCENT } from '@/data/programs';
+import {
+  programs,
+  getProgramBySlug,
+  getEnrollmentOptions,
+  getAgeGroupsDisplay,
+  EARLY_BIRD_PERCENT,
+} from '@/data/programs';
 import { getCoachBySlug } from '@/data/coaches';
 import { CourseJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { EnrollButton } from '@/components/EnrollButton';
 import { OneOnOnePicker } from '@/components/OneOnOnePicker';
+import { GroupEnrollPicker } from '@/components/GroupEnrollPicker';
 import { ScheduleTimezones } from '@/components/ScheduleTimezones';
 import { BootcampSchedule } from '@/components/BootcampSchedule';
 
@@ -46,6 +53,8 @@ export default async function ProgramPage({ params }: Props) {
   const nextStep = program.nextStepSlug ? getProgramBySlug(program.nextStepSlug) : undefined;
   const isInvite = Boolean(program.invitationOnly);
   const isOneOnOne = Boolean(program.oneOnOne);
+  const hasEnrollOptions = Boolean(getEnrollmentOptions(program));
+  const agesDisplay = getAgeGroupsDisplay(program);
   const earlyBirdDeadline = program.earlyBird?.deadlineLabel;
 
   // At-a-glance facts for the sidebar card (rendered only when populated).
@@ -53,7 +62,7 @@ export default async function ProgramPage({ params }: Props) {
     ['Level', program.level],
     ['Format', program.format],
     ['Schedule', program.schedule],
-    ['Ages', `${program.ageRange.min}–${program.ageRange.max}`],
+    ['Ages', agesDisplay],
   ];
   if (program.classSize) facts.push(['Class size', program.classSize]);
   if (program.sessionLength) facts.push(['Session length', program.sessionLength]);
@@ -102,7 +111,7 @@ export default async function ProgramPage({ params }: Props) {
             </nav>
 
             <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-navy-300">
-              {program.level} · Ages {program.ageRange.min}–{program.ageRange.max} · {program.format}
+              {program.level} · Ages {agesDisplay} · {program.format}
             </p>
             <h1 className="mt-4 font-display text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">
               {program.name}
@@ -127,6 +136,21 @@ export default async function ProgramPage({ params }: Props) {
                     className="rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition-colors hover:bg-signal-600"
                   >
                     See pricing &amp; enroll
+                  </Link>
+                  <Link
+                    href="/consultation"
+                    className="px-2 py-3.5 text-center font-semibold text-white underline decoration-navy-300 underline-offset-4 transition-colors hover:decoration-white"
+                  >
+                    Book a consultation first
+                  </Link>
+                </>
+              ) : hasEnrollOptions ? (
+                <>
+                  <Link
+                    href="#enroll"
+                    className="rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition-colors hover:bg-signal-600"
+                  >
+                    Choose group &amp; enroll
                   </Link>
                   <Link
                     href="/consultation"
@@ -515,6 +539,18 @@ export default async function ProgramPage({ params }: Props) {
                     >
                       Choose your hours
                     </Link>
+                    <Link
+                      href="/consultation"
+                      className="mt-3 block text-center text-sm font-medium text-navy-600 underline underline-offset-2 hover:text-signal-500"
+                    >
+                      or start with a consultation
+                    </Link>
+                  </>
+                ) : hasEnrollOptions ? (
+                  <>
+                    <div className="mt-6 border-t border-navy-100 pt-6">
+                      <GroupEnrollPicker program={program} />
+                    </div>
                     <Link
                       href="/consultation"
                       className="mt-3 block text-center text-sm font-medium text-navy-600 underline underline-offset-2 hover:text-signal-500"

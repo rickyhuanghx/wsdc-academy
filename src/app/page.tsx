@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { programs } from '@/data/programs';
+import { programs, getAgeGroupsDisplay } from '@/data/programs';
 import { coaches } from '@/data/coaches';
 import { homepageFaqs } from '@/data/faqs';
 import { FAQJsonLd } from '@/components/JsonLd';
@@ -153,7 +153,7 @@ export default function HomePage() {
                     {program.description}
                   </p>
                   <p className="mt-5 text-xs text-navy-400">
-                    Ages {program.ageRange.min}–{program.ageRange.max} · {program.level}
+                    Ages {getAgeGroupsDisplay(program)} · {program.level}
                   </p>
                   <p className="mt-3 text-sm font-semibold text-navy-900 underline decoration-signal-400 underline-offset-4 group-hover:text-signal-600">
                     Learn more
