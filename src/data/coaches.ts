@@ -34,11 +34,9 @@ export const coaches: Coach[] = [
     highlight: 'Best Open Speaker, WSDC 2025',
     credentials: [
       'Best Open Speaker at WSDC Panama 2025, a first for Team USA',
-      'USA National WSDC Team 2024–25: broke top seed, 5th place team at Worlds',
+      'USA National WSDC Team, 5th place at Worlds 2025',
       'Champion, Stanford World Schools tournament',
-      'World Schools instructor, Harvard Debate Council Summer Workshops',
-      'Three-time TOC qualifier and Harvard Invitational champion in Public Forum',
-      'Georgetown APDA debater, ranked among the top 15 in the US',
+      'Harvard Invitational champion and three-time TOC qualifier',
     ],
   },
   {

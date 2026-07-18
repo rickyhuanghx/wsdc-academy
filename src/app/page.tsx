@@ -163,26 +163,70 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Why us ───────────────────────────────────────────── */}
+      {/* ── Coaches ──────────────────────────────────────────── */}
       <section className="bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div className="max-w-2xl">
+              <h2 className="font-display text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
+                Meet the coaches
+              </h2>
+              <p className="mt-4 leading-relaxed text-navy-600">
+                Competitors and adjudicators from Oxford, Harvard, Yale, Brown,
+                Columbia, and LSE, with international coaching experience up to
+                national-squad level.
+              </p>
+            </div>
+            <Link
+              href="/coaches"
+              className="font-semibold text-navy-900 underline decoration-signal-400 underline-offset-4 hover:text-signal-600"
+            >
+              Full coaching team
+            </Link>
+          </div>
+
+          <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-4">
+            {coaches.slice(0, 4).map((coach) => (
+              <div key={coach.slug}>
+                <div className="relative aspect-square overflow-hidden rounded-sm">
+                  <Image
+                    src={coach.image}
+                    alt={`${coach.name}, ${coach.role} at WSDC Academy`}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="mt-4 font-display text-lg font-semibold text-navy-900">{coach.name}</h3>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-signal-500">
+                  {coach.highlight}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Why us ───────────────────────────────────────────── */}
+      <section className="border-t border-navy-100 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h2 className="font-display text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
-              Most US coaches learned this format secondhand. Ours lived it.
+              Coaching from inside the format
             </h2>
           </div>
           <div className="mt-12 grid gap-10 md:grid-cols-3">
             {[
               {
-                title: 'Coaches who’ve lived the format',
-                body: 'Our team has competed, coached, and adjudicated World Schools and its university equivalents at the international level, from the Oxford Union to national-squad training rooms. That experience shows up in the drills, not just the bios.',
+                title: 'Exceptional competition results',
+                body: 'The roster includes a World Universities Debating Champion, the Best Open Speaker at WSDC 2025, and champions and top speakers from Harvard, Stanford, and the Oxford Union. Students learn the format from people who have won at its highest levels.',
               },
               {
-                title: 'Built on a real training cycle',
-                body: 'Weekly practice, monthly judged scrimmages, and prep on live tournament motions, running the length of the season. The kind of repetition that actually moves a speaker ranking.',
+                title: 'National team coaching experience',
+                body: 'Our coaches have trained and competed for national squads, including Team Bulgaria, Team Philippines, and Team Croatia, plus past members of Team USA. They know WSDC firsthand: the motions, the judging culture, and what selection takes.',
               },
               {
-                title: 'Feedback you can hold',
+                title: 'Direct feedback and progress reports',
                 body: 'Instead of a vague “great job today,” every session produces written feedback tied to the 40/40/20 criteria, and every judged round ends with a full oral adjudication. Students always know what to fix next.',
               },
             ].map((item) => (
@@ -468,52 +512,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Coaches ──────────────────────────────────────────── */}
-      <section className="border-y border-navy-100 bg-cream">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div className="max-w-2xl">
-              <h2 className="font-display text-3xl font-semibold tracking-tight text-navy-900 sm:text-4xl">
-                Meet the coaches
-              </h2>
-              <p className="mt-4 leading-relaxed text-navy-600">
-                Competitors and adjudicators from Oxford, Harvard, Yale, Brown,
-                Columbia, and LSE, with international coaching experience up to
-                national-squad level.
-              </p>
-            </div>
-            <Link
-              href="/coaches"
-              className="font-semibold text-navy-900 underline decoration-signal-400 underline-offset-4 hover:text-signal-600"
-            >
-              Full coaching team
-            </Link>
-          </div>
-
-          <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-4">
-            {coaches.slice(0, 4).map((coach) => (
-              <div key={coach.slug}>
-                <div className="relative aspect-square overflow-hidden rounded-sm">
-                  <Image
-                    src={coach.image}
-                    alt={`${coach.name}, ${coach.role} at WSDC Academy`}
-                    fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="mt-4 font-display text-lg font-semibold text-navy-900">{coach.name}</h3>
-                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-signal-500">
-                  {coach.highlight}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── How training works ───────────────────────────────── */}
-      <section className="bg-white">
+      <section className="border-t border-navy-100 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-5">
             <div className="lg:col-span-2">
