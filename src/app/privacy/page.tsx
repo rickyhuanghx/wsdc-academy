@@ -5,11 +5,11 @@ import { CONTACT_EMAIL, SITE_NAME } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description:
-    'How WSDC Academy collects, uses, and protects personal information from consultation bookings, contact forms, and enrollment checkout.',
+    'How WSDC Prep collects, uses, and protects personal information from consultation bookings, contact forms, and enrollment checkout.',
   alternates: { canonical: '/privacy' },
   openGraph: {
-    title: 'Privacy Policy | WSDC Academy',
-    description: 'How WSDC Academy collects, uses, and protects personal information.',
+    title: 'Privacy Policy | WSDC Prep',
+    description: 'How WSDC Prep collects, uses, and protects personal information.',
     url: '/privacy',
   },
 };

@@ -26,7 +26,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "WSDC Academy | World Schools Debate Coaching & Training",
+    default: "WSDC Prep | World Schools Debate Coaching & Training",
     template: `%s | ${SITE_NAME}`,
   },
   description:
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     "World Schools Debate training",
     "WSDC training",
     "WSDC coaching",
-    "WSDC Academy",
+    "WSDC Prep",
     "World Schools Debate camp",
     "World Schools Debate summer program",
     "how to make USA Debate team",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "WSDC Academy | World Schools Debate Coaching & Training",
+    title: "WSDC Prep | World Schools Debate Coaching & Training",
     description:
       "A real training system for World Schools Debate: structured curriculum, judged practice rounds, and written feedback after every session. Free consultation.",
     url: '/',
@@ -77,13 +77,13 @@ export const metadata: Metadata = {
         url: '/images/og-home.jpg',
         width: 1200,
         height: 630,
-        alt: "WSDC Academy: World Schools Debate Coaching & Training",
+        alt: "WSDC Prep: World Schools Debate Coaching & Training",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "WSDC Academy | World Schools Debate Coaching & Training",
+    title: "WSDC Prep | World Schools Debate Coaching & Training",
     description:
       "A real training system for World Schools Debate: structured curriculum, judged rounds, written feedback every session. Free consultation.",
     images: ['/images/og-home.jpg'],

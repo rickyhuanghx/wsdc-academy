@@ -6,11 +6,11 @@ import { CONTACT_EMAIL, SITE_NAME } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Terms of Service',
   description:
-    'The terms that govern WSDC Academy enrollment, payment, class conduct, and use of wsdcacademy.com.',
+    'The terms that govern WSDC Prep enrollment, payment, class conduct, and use of wsdcacademy.com.',
   alternates: { canonical: '/terms' },
   openGraph: {
-    title: 'Terms of Service | WSDC Academy',
-    description: 'The terms that govern WSDC Academy enrollment, payment, and use of the site.',
+    title: 'Terms of Service | WSDC Prep',
+    description: 'The terms that govern WSDC Prep enrollment, payment, and use of the site.',
     url: '/terms',
   },
 };

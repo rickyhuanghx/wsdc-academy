@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     'Coaching essays on World Schools Debate: full guides to all three speaker roles, argument and rebuttal technique, weighing, reply speeches, and the American pathway from first tournament to USA Debate.',
   alternates: { canonical: '/blog' },
   openGraph: {
-    title: 'The WSDC Academy Blog',
+    title: 'The WSDC Prep Blog',
     description: 'Speaker roles, technique, and the US World Schools circuit. Written by coaches, not content farms.',
     url: '/blog',
     type: 'website',

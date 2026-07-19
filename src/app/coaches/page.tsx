@@ -7,10 +7,10 @@ import { CoachListJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
 export const metadata: Metadata = {
   title: 'Our Coaches: World Schools Debate Specialists',
   description:
-    'Meet the WSDC Academy coaching team: international adjudicators and competitors from Oxford, Harvard, Yale, Brown, Columbia, and LSE, with coaching experience up to national-squad level.',
+    'Meet the WSDC Prep coaching team: international adjudicators and competitors from Oxford, Harvard, Yale, Brown, Columbia, and LSE, with coaching experience up to national-squad level.',
   alternates: { canonical: '/coaches' },
   openGraph: {
-    title: 'Our Coaches | WSDC Academy',
+    title: 'Our Coaches | WSDC Prep',
     description:
       'International adjudicators and competitors from Oxford, Harvard, Yale, Brown, Columbia, and LSE, with coaching experience up to national-squad level.',
     url: '/coaches',
@@ -47,7 +47,7 @@ export default function CoachesPage() {
               <div className="relative aspect-square">
                 <Image
                   src={coach.image}
-                  alt={`${coach.name}, ${coach.role} at WSDC Academy`}
+                  alt={`${coach.name}, ${coach.role} at WSDC Prep`}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover"

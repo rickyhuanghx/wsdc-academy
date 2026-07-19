@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     'Answers to common questions about World Schools Debate, the USA Debate team, NSDA Nationals, state divisions, and our online coaching programs.',
   alternates: { canonical: '/faq' },
   openGraph: {
-    title: 'Frequently Asked Questions | WSDC Academy',
+    title: 'Frequently Asked Questions | WSDC Prep',
     description:
       'Answers on the World Schools Debate format, the USA Debate pathway, and our programs.',
     url: '/faq',

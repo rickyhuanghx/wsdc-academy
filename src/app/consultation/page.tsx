@@ -12,10 +12,10 @@ import {
 export const metadata: Metadata = {
   title: 'Book a Free World Schools Debate Consultation',
   description:
-    'Book a free consultation with WSDC Academy: we learn about your student, answer your questions about the World Schools format, and recommend the right place to start. No obligation.',
+    'Book a free consultation with WSDC Prep: we learn about your student, answer your questions about the World Schools format, and recommend the right place to start. No obligation.',
   alternates: { canonical: '/consultation' },
   openGraph: {
-    title: 'Book a Free Consultation | WSDC Academy',
+    title: 'Book a Free Consultation | WSDC Prep',
     description:
       'A short, no-pressure call to find the right World Schools Debate program for your student. Pick a time that works.',
     url: '/consultation',

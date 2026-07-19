@@ -5,10 +5,10 @@ import { CONTACT_EMAIL, SITE_NAME } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Refund Policy',
   description:
-    'WSDC Academy refund and withdrawal policy: full refunds within 7 days of enrollment, pro-rated refunds to the program midpoint, and how to request one.',
+    'WSDC Prep refund and withdrawal policy: full refunds within 7 days of enrollment, pro-rated refunds to the program midpoint, and how to request one.',
   alternates: { canonical: '/refund' },
   openGraph: {
-    title: 'Refund Policy | WSDC Academy',
+    title: 'Refund Policy | WSDC Prep',
     description:
       'Full refunds within 7 days of enrollment, pro-rated refunds to the program midpoint, and how to request one.',
     url: '/refund',

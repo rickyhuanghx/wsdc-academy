@@ -28,7 +28,7 @@ export async function POST(req: Request) {
   if (!email || !isValidEmail(email)) return badRequest('Valid email is required');
   if (!message?.trim()) return badRequest('Message is required');
 
-  await sendAdminNotification('New contact message: WSDC Academy', {
+  await sendAdminNotification('New contact message: WSDC Prep', {
     Name: name.trim(),
     Email: email.trim(),
     Message: message.trim().slice(0, 5000),

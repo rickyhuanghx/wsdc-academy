@@ -192,7 +192,7 @@ export default function HomePage() {
                 <div className="relative aspect-square overflow-hidden rounded-sm">
                   <Image
                     src={coach.image}
-                    alt={`${coach.name}, ${coach.role} at WSDC Academy`}
+                    alt={`${coach.name}, ${coach.role} at WSDC Prep`}
                     fill
                     sizes="(max-width: 768px) 50vw, 25vw"
                     className="object-cover"

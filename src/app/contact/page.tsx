@@ -6,10 +6,10 @@ import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_TEL, WHATSAPP_URL } from '@
 export const metadata: Metadata = {
   title: 'Contact Us: World Schools Debate Coaching',
   description:
-    'Questions about World Schools Debate coaching, school team programs, or placement? Contact WSDC Academy. We reply within one business day.',
+    'Questions about World Schools Debate coaching, school team programs, or placement? Contact WSDC Prep. We reply within one business day.',
   alternates: { canonical: '/contact' },
   openGraph: {
-    title: 'Contact Us | WSDC Academy',
+    title: 'Contact Us | WSDC Prep',
     description: 'Questions about programs, school teams, or placement? We reply within one business day.',
     url: '/contact',
   },

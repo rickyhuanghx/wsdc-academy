@@ -4,7 +4,7 @@
 
 ## Project
 
-WSDC Academy — a Next.js marketing/lead-gen site for World Schools Debate (WSDC-format) coaching in America, to deploy at **wsdcacademy.com**. Sibling brand to wsc-academy (wscprep.com) and built on its proven SEO architecture; the coaching roster is shared with atlantic-ivy-landing. **SEO is the #1 priority.**
+WSDC Prep — a Next.js marketing/lead-gen site for World Schools Debate (WSDC-format) coaching in America, to deploy at **wsdcacademy.com**. Sibling brand to wsc-academy (wscprep.com) and built on its proven SEO architecture; the coaching roster is shared with atlantic-ivy-landing. **SEO is the #1 priority.**
 
 > Renamed 2026-07-09 from "World Schools Prep / worldschoolsprep.com" (repo folder name predates the rename).
 
@@ -27,14 +27,14 @@ Next.js 16 App Router · React 19 · Tailwind 4 (`@theme` in `src/app/globals.cs
 
 ### Brand constants & identity
 
-- `src/lib/site.ts` is the single source of truth for brand name, domain, email, slogan, and description. Import from it; never hardcode "WSDC Academy" or the domain in new code.
+- `src/lib/site.ts` is the single source of truth for brand name, domain, email, slogan, and description. Import from it; never hardcode "WSDC Prep" or the domain in new code.
 - Identity: **Varsity Editorial** (2026-07-09, owner-directed redesign after references: debatedrills.com, earlyscholars.org, crimsoneducation.org) — navy `#0d2240`, scarlet `#c8102e`, warm paper `#faf9f6`; token ramps `navy-*` / `signal-*` (signal = the scarlet) live in `globals.css`. Fonts: Source Serif 4 (display; applied globally to h1–h3 via `--font-display`, italic available for editorial accents), Inter (body), Geist Mono (numeric accents). Design rules distilled from the references: **white-first pages** (navy reserved for bands/footer/text, scarlet used sparingly for CTAs/numbers/rules), full-bleed real photography with navy overlay for the hero, a university-name proof strip, huge scarlet serif stat numerals on white, editorial numbered lists instead of icon-card grids, `rounded-sm` corners, quiet underlined text links (no `→` arrows). Avoid dark full-page themes, electric blue, grotesk display fonts, and uniform rounded-card grids — the owner flagged that style as looking AI-generated. Logo: `public/images/logo.png` + `src/app/icon.png`; navbar/footer mark is typographic (navy tile, serif W, scarlet dot).
 - Photos in `public/images/` have orientation baked into pixels (no EXIF rotation) — three originals had wrong EXIF that Next's image optimizer rendered sideways. If adding photos, verify orientation with a real render, not just Preview.
 
 ### SEO / metadata pattern (lifted from wsc-academy — keep it)
 
 - `src/app/layout.tsx` sets `metadataBase: new URL(SITE_URL)`; `SITE_URL` (in `src/lib/site.ts`) reads `NEXT_PUBLIC_SITE_URL` with a `https://wsdcacademy.com` fallback. The same constant drives `sitemap.ts`, `robots.ts`, and `JsonLd.tsx`. Don't remove the fallback — it lets `npm run build` work without env.
-- Title template binds the brand to the money keyword: default "WSDC Academy | World Schools Debate Coaching & Training". Keyword targeting stays on **"world schools debate"** phrasing (what Americans actually search), not "WSDC".
+- Title template binds the brand to the money keyword: default "WSDC Prep | World Schools Debate Coaching & Training". Keyword targeting stays on **"world schools debate"** phrasing (what Americans actually search), not "WSDC".
 - Per-page metadata is exported from each `page.tsx` (server components). All `canonical`, `openGraph.url`, and image URLs are **relative paths** resolved against `metadataBase` — never hardcode absolute URLs in per-page metadata.
 - Structured data lives in `src/components/JsonLd.tsx` (Organization, WebSite, Service, Course, FAQ, Breadcrumb, Article, CoachList/Person). **Never add `aggregateRating`** with self-declared ratings — that caused a near-penalty on wscprep.com.
 - Guide cluster (each with Article + Breadcrumb + page-local FAQ schema): `/what-is-world-schools-debate`, `/usa-debate-team`, `/world-schools-debate-judging`, `/world-schools-vs-public-forum`. New guides follow this pattern and get added to `sitemap.ts` and the footer "Learn" column.

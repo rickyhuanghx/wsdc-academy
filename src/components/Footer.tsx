@@ -13,7 +13,7 @@ export function Footer() {
                 <span className="absolute right-1 top-1 h-1.5 w-1.5 rounded-full bg-signal-500" />
               </span>
               <span className="font-display text-xl font-semibold tracking-tight">
-                WSDC Academy
+                WSDC Prep
               </span>
             </div>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-navy-200">

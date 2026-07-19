@@ -5,12 +5,12 @@ import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { CONTACT_EMAIL } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'About WSDC Academy: Who Coaches Your World Schools Debate Training',
+  title: 'About WSDC Prep: Who Coaches Your World Schools Debate Training',
   description:
-    'WSDC Academy is a year-round online World Schools Debate training program founded in 2026 by coaches from the Oxford Union and Columbia Debate Society. Who we are, how we train, and why.',
+    'WSDC Prep is a year-round online World Schools Debate training program founded in 2026 by coaches from the Oxford Union and Columbia Debate Society. Who we are, how we train, and why.',
   alternates: { canonical: '/about' },
   openGraph: {
-    title: 'About WSDC Academy',
+    title: 'About WSDC Prep',
     description:
       'A year-round training system for World Schools Debate, founded in 2026 by coaches from the Oxford Union and Columbia Debate Society.',
     url: '/about',
@@ -34,7 +34,7 @@ export default function AboutPage() {
             Built by people who lived the format.
           </h1>
           <p className="mt-5 text-lg leading-relaxed text-navy-100">
-            WSDC Academy is a year-round online training program for World Schools
+            WSDC Prep is a year-round online training program for World Schools
             Debate, built for US students and run by coaches who have competed and
             adjudicated the format at the international level.
           </p>
@@ -53,7 +53,7 @@ export default function AboutPage() {
           run as summer intensives; seasons are won between September and June.
         </p>
         <p className="mt-4 leading-relaxed text-navy-700">
-          WSDC Academy launched in 2026 to close that gap: a structured curriculum mapped to
+          WSDC Prep launched in 2026 to close that gap: a structured curriculum mapped to
           the 40/40/20 judging criteria, judged practice rounds on real tournament motions,
           and written feedback after every session, all season long.
         </p>
@@ -114,7 +114,7 @@ export default function AboutPage() {
 
         <h2 className="mt-12 text-2xl font-bold text-navy-900">Independence</h2>
         <p className="mt-4 leading-relaxed text-navy-700">
-          WSDC Academy is an independent coaching service. We are not affiliated with,
+          WSDC Prep is an independent coaching service. We are not affiliated with,
           endorsed by, or officially connected to the National Speech &amp; Debate
           Association, the World Schools Debating Championships, or USA Debate. When we
           write about their rules and dates, we cite their official pages and tell you to

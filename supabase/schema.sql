@@ -1,4 +1,4 @@
--- WSDC Academy — checkout schema
+-- WSDC Prep — checkout schema
 -- Run this in Supabase: Dashboard → SQL Editor → New query → paste → Run.
 -- Idempotent: safe to re-run.
 --

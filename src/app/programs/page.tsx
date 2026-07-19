@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     'World Schools Debate programs for US students: an August beginner bootcamp, a Foundation class, a year-round Competition Team, the invitation-only National Team Sprint, and private 1-on-1 coaching. All online.',
   alternates: { canonical: '/programs' },
   openGraph: {
-    title: 'World Schools Debate Programs | WSDC Academy',
+    title: 'World Schools Debate Programs | WSDC Prep',
     description:
       'Beginner Foundation, year-round Competition Team, the invitation-only National Team Sprint, and 1-on-1 coaching: America’s World Schools Debate pathway.',
     url: '/programs',

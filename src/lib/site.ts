@@ -2,7 +2,7 @@
 // NEXT_PUBLIC_SITE_URL still overrides the domain at build time; keep the fallback
 // so `npm run build` works without env.
 
-export const SITE_NAME = 'WSDC Academy';
+export const SITE_NAME = 'WSDC Prep';
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://wsdcacademy.com';
 
@@ -21,4 +21,4 @@ export const CONSULTATION_CALENDLY_URL =
 export const SITE_SLOGAN = 'A real training system for World Schools debate.';
 
 export const SITE_DESCRIPTION =
-  'WSDC Academy is a year-round training system for World Schools Debate: structured curriculum, judged practice rounds, and written feedback after every session, from coaches who have competed and adjudicated at the top of the format.';
+  'WSDC Prep is a year-round training system for World Schools Debate: structured curriculum, judged practice rounds, and written feedback after every session, from coaches who have competed and adjudicated at the top of the format.';

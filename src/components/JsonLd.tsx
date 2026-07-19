@@ -16,7 +16,7 @@ export function OrganizationJsonLd() {
     '@type': 'EducationalOrganization',
     '@id': `${baseUrl}/#organization`,
     name: SITE_NAME,
-    alternateName: ['WSDC Academy Debate Training', 'World Schools Debate Academy'],
+    alternateName: ['WSDC Prep Debate Training', 'World Schools Debate Academy'],
     url: baseUrl,
     logo: `${baseUrl}/images/logo.png`,
     description: SITE_DESCRIPTION,
@@ -316,7 +316,7 @@ export function CoachListJsonLd({ coaches }: { coaches: Coach[] }) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'WSDC Academy Coaching Team',
+    name: 'WSDC Prep Coaching Team',
     numberOfItems: coaches.length,
     itemListElement: coaches.map((coach, index) => ({
       '@type': 'ListItem',

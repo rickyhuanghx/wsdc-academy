@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: metaDescription,
     alternates: { canonical: `/programs/${program.slug}` },
     openGraph: {
-      title: `${program.name} | WSDC Academy`,
+      title: `${program.name} | WSDC Prep`,
       description: metaDescription,
       url: `/programs/${program.slug}`,
     },
