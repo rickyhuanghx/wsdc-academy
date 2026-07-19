@@ -13,6 +13,13 @@ export interface Program {
   tagline: string;
   description: string; // card-length
   longDescription: string; // detail-page hero
+  /**
+   * Optional SEO meta-description override. When set, this (not `description`)
+   * becomes the page's meta + OG description. Use it where the card copy runs
+   * past a SERP snippet so the important, time-sensitive detail is not truncated.
+   * Keep it ≤ ~155 characters.
+   */
+  metaDescription?: string;
   level: 'Beginner' | 'Intermediate' | 'Advanced' | 'All Levels';
   ageRange: { min: number; max: number };
   format: 'Small-group online' | 'Private online';
@@ -550,6 +557,8 @@ export const programs: Program[] = [
     tagline: 'A three-week intro to World Schools debate, built for total beginners',
     description:
       'A 12-hour intensive for students brand new to World Schools debate: the format, your first real arguments, rebuttal, points of information, and a friendly practice debate. Cohorts run June, July, and August; only the August cohort still has open enrollment.',
+    metaDescription:
+      'A 12-hour online World Schools debate intensive for complete beginners. The August cohort (Aug 3–21) is the last of the summer and is enrolling now.',
     longDescription:
       'The Summer Bootcamp is the easiest way to try World Schools debate before the fall season starts. It runs as monthly cohorts in June, July, and August. Enrollment for the June and July cohorts has closed, so the August cohort (August 3–21) is the last of the summer. Students meet twice a week for a two-hour class over three weeks (twelve hours in all) and go from never having debated to giving a real speech in a judged practice round. It is built for complete beginners, and it sets up a running start for the fall Foundation class.',
     level: 'Beginner',

@@ -125,6 +125,10 @@ export default function ThirdSpeakerCheatSheetPage() {
             <Link href="/world-schools-debate-judging" className="font-semibold text-signal-500 hover:text-signal-600">
               our judging guide
             </Link>
+            , and read the full{' '}
+            <Link href="/blog/third-speaker-world-schools-debate" className="font-semibold text-signal-500 hover:text-signal-600">
+              third speaker guide
+            </Link>
             .
           </p>
         </section>

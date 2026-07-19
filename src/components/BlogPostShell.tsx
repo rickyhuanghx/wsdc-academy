@@ -81,12 +81,20 @@ export function BlogPostShell({
         <div className="mt-16 bg-navy-900 p-8 text-center text-white">
           <h2 className="text-2xl font-bold">{ctaHeading}</h2>
           <p className="mx-auto mt-3 max-w-xl text-navy-100">{ctaBody}</p>
-          <Link
-            href="/consultation"
-            className="mt-6 inline-block rounded-sm bg-signal-500 px-7 py-3 font-semibold text-white transition-colors hover:bg-signal-600"
-          >
-            Book a Consultation
-          </Link>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/consultation"
+              className="inline-block rounded-sm bg-signal-500 px-7 py-3 font-semibold text-white transition-colors hover:bg-signal-600"
+            >
+              Book a Consultation
+            </Link>
+            <Link
+              href="/programs"
+              className="inline-block rounded-sm border border-white/30 px-7 py-3 font-semibold text-white transition-colors hover:bg-white/10"
+            >
+              See our programs
+            </Link>
+          </div>
         </div>
       </article>
     </>

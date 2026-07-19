@@ -137,6 +137,10 @@ export default function FirstSpeakerCheatSheetPage() {
             <Link href="/resources/third-speaker-cheat-sheet" className="font-semibold text-signal-500 hover:text-signal-600">
               third speaker
             </Link>
+            . For the full walk-through of the role, read the{' '}
+            <Link href="/blog/first-speaker-world-schools-debate" className="font-semibold text-signal-500 hover:text-signal-600">
+              first speaker guide
+            </Link>
             .
           </p>
         </section>

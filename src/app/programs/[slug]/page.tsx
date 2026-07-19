@@ -30,13 +30,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const program = getProgramBySlug(slug);
   if (!program) return {};
 
+  const metaDescription = program.metaDescription ?? program.description;
+
   return {
     title: `${program.name}: World Schools Debate ${program.level === 'Beginner' ? 'for Beginners' : 'Training'}`,
-    description: program.description,
+    description: metaDescription,
     alternates: { canonical: `/programs/${program.slug}` },
     openGraph: {
       title: `${program.name} | WSDC Academy`,
-      description: program.description,
+      description: metaDescription,
       url: `/programs/${program.slug}`,
     },
   };

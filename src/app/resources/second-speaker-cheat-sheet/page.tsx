@@ -145,7 +145,11 @@ export default function SecondSpeakerCheatSheetPage() {
             <Link href="/world-schools-debate-judging" className="font-semibold text-signal-500 hover:text-signal-600">
               how judges score rebuttal
             </Link>{' '}
-            under the 40/40/20 criteria.
+            under the 40/40/20 criteria. For the full walk-through of the role, read the{' '}
+            <Link href="/blog/second-speaker-world-schools-debate" className="font-semibold text-signal-500 hover:text-signal-600">
+              second speaker guide
+            </Link>
+            .
           </p>
         </section>
 
