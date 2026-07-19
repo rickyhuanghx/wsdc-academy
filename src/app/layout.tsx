@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { CartProvider } from "@/context/CartContext";
 import { Footer } from "@/components/Footer";
 import { WebSiteJsonLd, OrganizationJsonLd, ServiceJsonLd } from "@/components/JsonLd";
+import { GoogleTagManager, GoogleTagManagerNoScript } from "@/components/GoogleTagManager";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const sourceSerif = Source_Serif_4({
@@ -121,8 +122,10 @@ export default function RootLayout({
         <WebSiteJsonLd />
         <OrganizationJsonLd />
         <ServiceJsonLd />
+        <GoogleTagManager />
       </head>
       <body className="min-h-full flex flex-col">
+        <GoogleTagManagerNoScript />
         <CartProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

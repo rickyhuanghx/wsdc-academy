@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { CONTACT_EMAIL } from '@/lib/site';
+import { trackEvent } from '@/lib/analytics';
 
 interface Field {
   name: string;
@@ -35,6 +36,7 @@ export function LeadForm({ endpoint, fields, submitLabel, successMessage }: Lead
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
+      if (res.ok) trackEvent('lead_form_submitted', { form_endpoint: endpoint });
       setStatus(res.ok ? 'success' : 'error');
     } catch {
       setStatus('error');

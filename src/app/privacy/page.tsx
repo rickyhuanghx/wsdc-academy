@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy Policy" lastUpdated="July 11, 2026">
+    <LegalPage title="Privacy Policy" lastUpdated="July 19, 2026">
       <LegalSection title="1. Introduction">
         <p>
           {SITE_NAME} (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to
@@ -42,8 +42,12 @@ export default function PrivacyPage() {
         <h3>Automatically collected information</h3>
         <p>
           Our hosting provider records standard server logs (IP address, browser type, pages
-          requested). Our forms record the submitting IP address for spam prevention. We do
-          not run advertising trackers or third-party analytics scripts on this site.
+          requested). Our forms record the submitting IP address for spam prevention. We also
+          use Google Analytics and Google Ads measurement tags, loaded through Google Tag
+          Manager, to understand how visitors use the site and whether our advertising works.
+          These tools collect usage data such as pages viewed, approximate location, and
+          device type, and record when a consultation is booked, a form is sent, or an
+          enrollment is completed.
         </p>
       </LegalSection>
 
@@ -69,6 +73,7 @@ export default function PrivacyPage() {
           <li>Supabase (secure storage of enrollment and inquiry records)</li>
           <li>Resend (transactional email delivery)</li>
           <li>Netlify (website hosting)</li>
+          <li>Google (analytics and advertising measurement)</li>
         </ul>
         <p>
           We may also disclose information when required by law, or in connection with a
@@ -111,9 +116,11 @@ export default function PrivacyPage() {
 
       <LegalSection title="8. Cookies">
         <p>
-          This site does not set advertising or analytics cookies. During checkout, Stripe
-          may set cookies needed for payment security and fraud prevention. You can block
-          cookies in your browser, though checkout may not work without Stripe&apos;s.
+          This site uses cookies set by Google Analytics and Google Ads to measure visits
+          and ad performance. During checkout, Stripe may set cookies needed for payment
+          security and fraud prevention. You can block cookies in your browser (checkout may
+          not work without Stripe&apos;s), and you can opt out of Google&apos;s analytics
+          cookies with the browser add-on at tools.google.com/dlpage/gaoptout.
         </p>
       </LegalSection>
 

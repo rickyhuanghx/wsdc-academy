@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import { CONTACT_EMAIL } from '@/lib/site';
+import { trackEvent } from '@/lib/analytics';
 
 const nextSteps = [
   {
@@ -22,16 +23,25 @@ const nextSteps = [
 ];
 
 export default function CheckoutConfirmationPage() {
-  const { clearCart } = useCart();
+  const { items, clearCart } = useCart();
 
   // Stripe's return_url appends payment_intent + redirect_status; clear the
   // cart only on success so a failed-payment return preserves it for retry.
+  // The purchase event fires before the clear and only while the cart still
+  // has lines, so a reload of this page can't double-count the conversion.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('redirect_status') === 'succeeded') {
+      if (items.length > 0) {
+        trackEvent('purchase_completed', {
+          transaction_id: params.get('payment_intent') ?? undefined,
+          value: items.reduce((total, item) => total + item.amount, 0),
+          currency: 'USD',
+        });
+      }
       clearCart();
     }
-  }, [clearCart]);
+  }, [items, clearCart]);
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-20 sm:px-6">

@@ -46,6 +46,12 @@ Next.js 16 App Router · React 19 · Tailwind 4 (`@theme` in `src/app/globals.cs
 - `src/data/coaches.ts` — roster (shared with atlantic-ivy-landing; headshots in `public/images/coaches/`). Drives `/coaches`, homepage grid, Person JSON-LD.
 - `src/data/faqs.ts` — drives `/faq`, homepage FAQ, and FAQ JSON-LD. `onHomepage: true` marks homepage items.
 
+### Analytics / ads tracking (added 2026-07-19)
+
+- GTM loads only when `NEXT_PUBLIC_GTM_ID` is set (`src/components/GoogleTagManager.tsx`, mounted in `layout.tsx`; noscript iframe at top of body). Local dev stays tracker-free.
+- `src/lib/analytics.ts` `trackEvent()` pushes to `window.dataLayer`. Three events fire site-side (GTM only needs triggers, no custom listeners): `consultation_booked` (CalendlyEmbed, from Calendly's `calendly.event_scheduled` postMessage), `lead_form_submitted` (LeadForm success, carries `form_endpoint`), `purchase_completed` (checkout confirmation, carries `transaction_id`/`value`/`currency`; fires before `clearCart()` and only while cart lines exist, so reloads can't double-count).
+- Privacy policy (§2/§4/§8) discloses Google Analytics + Google Ads via GTM — keep it in sync if tags change.
+
 ### Forms → API routes
 
 `/trial` and `/contact` use the shared `LeadForm` client component posting JSON to `src/app/api/{trial,contact}/route.ts`. Server pattern (from wsc-academy): honeypot field `website_url` (silent 200), per-IP rate limit (5/min, in-memory), validation, then admin notification via **Resend HTTP API** (plain fetch in `src/lib/leads.ts`, no SDK — `sendEmail()` there is the generic sender). Email failure never fails the request.
