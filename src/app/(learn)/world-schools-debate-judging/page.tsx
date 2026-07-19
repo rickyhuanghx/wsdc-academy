@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
+import { ArticleByline } from '@/components/ArticleByline';
 
 export const metadata: Metadata = {
   title: 'How World Schools Debate Judging Works: 40/40/20 Explained (2026 Guide)',
@@ -58,6 +59,7 @@ export default function JudgingGuidePage() {
           <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl">
             How World Schools Debate judging works
           </h1>
+          <ArticleByline date="2026-07-09" />
           <p className="mt-6 text-lg leading-relaxed text-navy-700">
             Every speech in{' '}
             <Link href="/what-is-world-schools-debate" className="font-semibold text-signal-500 hover:text-signal-600">

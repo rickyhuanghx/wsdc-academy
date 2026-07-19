@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
+import { ArticleByline } from '@/components/ArticleByline';
 import type { BlogPost } from '@/data/blog';
 
 interface FAQItem {
@@ -52,6 +53,7 @@ export function BlogPostShell({
           <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl">
             {post.title}
           </h1>
+          <ArticleByline date={post.date} />
           <div className="mt-6 text-lg leading-relaxed text-navy-700">{lede}</div>
         </header>
 

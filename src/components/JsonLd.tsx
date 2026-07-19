@@ -1,5 +1,6 @@
 import { Program } from '@/data/programs';
 import { Coach } from '@/data/coaches';
+import { ARTICLE_AUTHOR } from '@/data/author';
 import { SITE_NAME, SITE_URL, CONTACT_EMAIL, CONTACT_PHONE, SITE_SLOGAN, SITE_DESCRIPTION } from '@/lib/site';
 
 const baseUrl = SITE_URL;
@@ -251,12 +252,17 @@ export function ArticleJsonLd({
   url,
   datePublished,
   dateModified,
+  image = '/images/og-home.jpg',
 }: {
   title: string;
   description: string;
   url: string;
   datePublished: string;
   dateModified?: string;
+  /** Representative image for Article rich results. Relative path resolved
+      against SITE_URL; defaults to the site OG image (1200×630). Pass a
+      per-page hero where one exists. */
+  image?: string;
 }) {
   const schema = {
     '@context': 'https://schema.org',
@@ -265,12 +271,19 @@ export function ArticleJsonLd({
     headline: title,
     description: description,
     url: `${baseUrl}${url}`,
+    image: `${baseUrl}${image}`,
     datePublished,
     dateModified: dateModified || datePublished,
     author: {
-      '@type': 'Organization',
-      name: SITE_NAME,
-      url: baseUrl,
+      '@type': 'Person',
+      name: ARTICLE_AUTHOR.name,
+      url: `${baseUrl}${ARTICLE_AUTHOR.url}`,
+      image: `${baseUrl}${ARTICLE_AUTHOR.image}`,
+      jobTitle: ARTICLE_AUTHOR.role,
+      description: ARTICLE_AUTHOR.credentials.join('; '),
+      worksFor: {
+        '@id': `${baseUrl}/#organization`,
+      },
     },
     publisher: {
       '@type': 'Organization',

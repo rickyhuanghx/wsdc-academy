@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
+import { ArticleByline } from '@/components/ArticleByline';
 import { ColumnChart, GroupedColumnChart } from '@/components/DebateCharts';
 
 export const metadata: Metadata = {
@@ -126,6 +127,7 @@ export default function WhatIsWorldSchoolsPage() {
               student who can think clearly on their feet and win over a room, not
               the one who can read the most evidence the fastest.
             </p>
+            <ArticleByline date="2026-06-11" variant="onDark" />
           </div>
         </div>
       </section>
