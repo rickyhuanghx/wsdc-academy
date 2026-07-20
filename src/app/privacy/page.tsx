@@ -43,8 +43,8 @@ export default function PrivacyPage() {
         <p>
           Our hosting provider records standard server logs (IP address, browser type, pages
           requested). Our forms record the submitting IP address for spam prevention. We also
-          use Google Analytics and Google Ads measurement tags, loaded through Google Tag
-          Manager, to understand how visitors use the site and whether our advertising works.
+          use Google Analytics and Google Ads measurement tags to understand how visitors
+          use the site and whether our advertising works.
           These tools collect usage data such as pages viewed, approximate location, and
           device type, and record when a consultation is booked, a form is sent, or an
           enrollment is completed.
