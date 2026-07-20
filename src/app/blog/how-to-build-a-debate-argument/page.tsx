@@ -29,6 +29,8 @@ export default function BuildArgumentPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/foundations"
+      ctaLabel="See the Foundation class"
       ctaHeading="Casebuilding is a weekly rep in our program."
       ctaBody="Students build arguments on live motions, get them attacked in judged rounds, and get written feedback on exactly these four layers."
       lede={

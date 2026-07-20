@@ -46,26 +46,31 @@ export function OrganizationJsonLd() {
           '@type': 'OfferCatalog',
           name: 'World Schools Summer Bootcamp',
           description: 'A 12-hour August intensive introducing beginners to the World Schools format',
+          url: `${baseUrl}/programs/summer-bootcamp`,
         },
         {
           '@type': 'OfferCatalog',
           name: 'World Schools Foundation',
           description: 'Beginner introduction to the World Schools format',
+          url: `${baseUrl}/programs/foundations`,
         },
         {
           '@type': 'OfferCatalog',
           name: 'Competition Team',
           description: 'Year-round World Schools squad training',
+          url: `${baseUrl}/programs/competition-team`,
         },
         {
           '@type': 'OfferCatalog',
           name: 'National Team Sprint',
           description: 'Invitation-only advanced squad for national-circuit and Nationals competitors',
+          url: `${baseUrl}/programs/national-team-sprint`,
         },
         {
           '@type': 'OfferCatalog',
           name: '1-on-1 Coaching',
           description: 'Private World Schools Debate coaching',
+          url: `${baseUrl}/programs/private-coaching`,
         },
       ],
     },
@@ -136,17 +141,29 @@ export function ServiceJsonLd() {
 }
 
 // Course Schema for program detail pages
-export function CourseJsonLd({ program }: { program: Program }) {
+
+// "2 hours" → "PT2H", "60 minutes" → "PT60M" (per-session ISO 8601 duration).
+function isoSessionDuration(sessionLength?: string): string | undefined {
+  if (!sessionLength) return undefined;
+  const hours = sessionLength.match(/(\d+)\s*hour/);
+  if (hours) return `PT${hours[1]}H`;
+  const minutes = sessionLength.match(/(\d+)\s*min/);
+  if (minutes) return `PT${minutes[1]}M`;
+  return undefined;
+}
+
+export function CourseJsonLd({ program, coaches = [] }: { program: Program; coaches?: Coach[] }) {
+  const sessionDuration = isoSessionDuration(program.sessionLength);
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Course',
     '@id': `${baseUrl}/programs/${program.slug}`,
     name: program.name,
+    url: `${baseUrl}/programs/${program.slug}`,
+    image: `${baseUrl}${program.image}`,
     description: program.longDescription,
     provider: {
-      '@type': 'EducationalOrganization',
-      name: SITE_NAME,
-      url: baseUrl,
+      '@id': `${baseUrl}/#organization`,
     },
     educationalLevel: program.level,
     audience: {
@@ -159,17 +176,38 @@ export function CourseJsonLd({ program }: { program: Program }) {
       {
         '@type': 'CourseInstance',
         courseMode: 'online',
+        ...(program.termDates
+          ? { startDate: program.termDates.start, endDate: program.termDates.end }
+          : {}),
+        ...(program.instruction
+          ? { courseWorkload: `PT${program.instruction.totalHours}H` }
+          : {}),
         courseSchedule: {
           '@type': 'Schedule',
           repeatFrequency: 'Weekly',
+          ...(program.instruction ? { repeatCount: program.instruction.sessions } : {}),
+          ...(sessionDuration ? { duration: sessionDuration } : {}),
         },
+        ...(coaches.length > 0
+          ? {
+              instructor: coaches.map((coach) => ({
+                '@type': 'Person',
+                name: coach.name,
+                jobTitle: coach.role,
+                image: `${baseUrl}${coach.image}`,
+                description: coach.credentials.join('; '),
+              })),
+            }
+          : {}),
         // Invitation-only programs are not purchasable, so they carry no public Offer.
+        // Only the real charged price goes in — never the struck compareAt / early-bird framing.
         ...(program.invitationOnly
           ? {}
           : {
               offers: {
                 '@type': 'Offer',
-                price: program.pricing.amount,
+                category: 'Paid',
+                price: String(program.pricing.amount),
                 priceCurrency: program.pricing.currency,
                 availability: 'https://schema.org/InStock',
               },

@@ -33,13 +33,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const metaDescription = program.metaDescription ?? program.description;
 
   return {
-    title: `${program.name}: World Schools Debate ${program.level === 'Beginner' ? 'for Beginners' : 'Training'}`,
+    title:
+      program.metaTitle ??
+      `${program.name}: World Schools Debate ${program.level === 'Beginner' ? 'for Beginners' : 'Training'}`,
     description: metaDescription,
     alternates: { canonical: `/programs/${program.slug}` },
     openGraph: {
       title: `${program.name} | WSDC Prep`,
       description: metaDescription,
       url: `/programs/${program.slug}`,
+      images: [{ url: program.image, alt: program.imageAlt }],
     },
   };
 }
@@ -79,7 +82,7 @@ export default async function ProgramPage({ params }: Props) {
 
   return (
     <>
-      <CourseJsonLd program={program} />
+      <CourseJsonLd program={program} coaches={coaches} />
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', href: '/' },
@@ -116,7 +119,7 @@ export default async function ProgramPage({ params }: Props) {
               {program.level} · Ages {agesDisplay} · {program.format}
             </p>
             <h1 className="mt-4 font-display text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">
-              {program.name}
+              {program.seoH1 ?? program.name}
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-navy-100">{program.tagline}</p>
 

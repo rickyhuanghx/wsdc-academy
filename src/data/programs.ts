@@ -20,6 +20,19 @@ export interface Program {
    * Keep it ≤ ~155 characters.
    */
   metaDescription?: string;
+  /**
+   * Optional SEO title override (still run through the layout's `%s | brand`
+   * template). Use it to point each program at a distinct search query
+   * instead of the generic name+level formula in generateMetadata.
+   */
+  metaTitle?: string;
+  /**
+   * Optional keyword-bearing H1 for the detail page. Cards, steppers, and
+   * checkout keep using `name`; only the /programs/[slug] H1 reads this.
+   */
+  seoH1?: string;
+  /** ISO term boundaries. Feeds Course JSON-LD CourseInstance startDate/endDate. */
+  termDates?: { start: string; end: string };
   level: 'Beginner' | 'Intermediate' | 'Advanced' | 'All Levels';
   ageRange: { min: number; max: number };
   format: 'Small-group online' | 'Private online';
@@ -143,6 +156,8 @@ const TERM_1: Program['term'] = {
   earlyBird: 'Enroll before August 15 for the early-bird rate',
 };
 
+const TERM_1_DATES: Program['termDates'] = { start: '2026-09-01', end: '2026-12-18' };
+
 export const programs: Program[] = [
   {
     id: 'foundations',
@@ -154,6 +169,9 @@ export const programs: Program[] = [
       'An introduction to World Schools Debate for students new to the format: speech roles, argument construction, POIs, and monthly practice debates. Junior and Senior groups.',
     longDescription:
       'World Schools Foundation takes students from zero to competition-ready in the world’s most widely practiced debate format. Each week is a two-hour live class plus a monthly practice debate, split into Junior and Senior groups so students train alongside their own age band. Over the term, students master the 3-on-3 structure, learn what each speaker position does, build complete arguments, handle points of information, and debate in judged practice rounds.',
+    metaTitle: 'World Schools Foundation: Online Debate Classes for Beginners (Ages 9–16)',
+    metaDescription:
+      'A beginner World Schools Debate class online for ages 9–16: a weekly 2-hour lesson plus monthly judged practice debates. Term 1 starts September 1. $756 per term.',
     level: 'Beginner',
     ageRange: { min: 9, max: 16 },
     format: 'Small-group online',
@@ -169,6 +187,7 @@ export const programs: Program[] = [
     hourlyRate: 27,
     semesterDuration: 'September 1 – December 18, 2026',
     term: TERM_1,
+    termDates: TERM_1_DATES,
     tracks: [
       {
         band: 'Junior',
@@ -268,6 +287,10 @@ export const programs: Program[] = [
       'Our flagship year-round program: a weekly 2-hour class, a weekly practice debate, prep on live tournament motions, and tournament support through the season. Junior and Senior squads.',
     longDescription:
       'The Competition Team is a year-round World Schools squad for students actively competing at local tournaments, state championships, and NSDA district qualifiers. Every week is a two-hour class plus a full practice debate, split into Junior and Senior squads. Training runs on a real competitive cycle: structured prep on live tournament motions, impromptu drills under the one-hour clock, and round-by-round adjudication from coaches who have judged at the international level.',
+    metaTitle: 'Competition Team: Year-Round World Schools Debate Team Training',
+    metaDescription:
+      'Year-round World Schools Debate team training: a weekly class, a weekly judged practice debate, and tournament support through the season. $980 per term.',
+    seoH1: 'World Schools Debate Competition Team',
     level: 'Intermediate',
     ageRange: { min: 11, max: 17 },
     format: 'Small-group online',
@@ -283,6 +306,7 @@ export const programs: Program[] = [
     hourlyRate: 35,
     semesterDuration: 'September 1 – December 18, 2026',
     term: TERM_1,
+    termDates: TERM_1_DATES,
     tracks: [
       {
         band: 'Junior',
@@ -377,11 +401,14 @@ export const programs: Program[] = [
     slug: 'national-team-sprint',
     name: 'National Team Sprint',
     shortName: 'National Team Sprint',
-    tagline: 'Invitation-only training for the top of the American pathway',
+    tagline: 'Invitation-only World Schools Debate training for the top of the American pathway',
     description:
       'An invitation-only squad for our most advanced competitors: two classes a week plus a weekly practice debate, built around national-circuit breaks, NSDA Nationals, and national-team selection.',
     longDescription:
       'The National Team Sprint is the top rung of the pathway, and it is invitation-only. It brings together our most advanced competitors for two classes a week plus a weekly practice debate, training against international-style benchmarks. The focus is elimination-round strategy, prepared and impromptu cases to a national-final standard, and the specific demands of NSDA Nationals and national-team selection. Coaches invite students on the strength of their competitive results and progress in the Competition Team.',
+    metaTitle: 'National Team Sprint: Advanced World Schools Debate Training',
+    metaDescription:
+      'An invitation-only advanced World Schools Debate squad: two classes plus a judged practice debate every week, built for NSDA Nationals and national-team selection.',
     level: 'Advanced',
     ageRange: { min: 14, max: 18 },
     format: 'Small-group online',
@@ -465,6 +492,10 @@ export const programs: Program[] = [
       'Private sessions with a World Schools specialist: speech redos, round reviews, impromptu drills, or application prep, depending on what the student needs.',
     longDescription:
       'One-on-one coaching pairs a student with a World Schools specialist for fully personalized training. Sessions adapt to exactly what the student needs: rebuilding a speaker role, reviewing tournament recordings round by round, running impromptu prep drills, or preparing a USA Debate application. Scheduling is flexible across US time zones.',
+    metaTitle: 'Private World Schools Debate Coaching: 1-on-1 Online Sessions',
+    metaDescription:
+      'Work 1-on-1 with a private World Schools Debate coach online. Diagnostic session $80, hourly coaching at $120, and 10- or 20-hour packages. Flexible US scheduling.',
+    seoH1: 'Private 1-on-1 World Schools Debate Coaching',
     level: 'All Levels',
     ageRange: { min: 11, max: 18 },
     format: 'Private online',
@@ -558,7 +589,9 @@ export const programs: Program[] = [
     description:
       'A 12-hour intensive for students brand new to World Schools debate: the format, your first real arguments, rebuttal, points of information, and a friendly practice debate. Cohorts run June, July, and August; only the August cohort still has open enrollment.',
     metaDescription:
-      'A 12-hour online World Schools debate intensive for complete beginners. The August cohort (Aug 3–21) is the last of the summer and is enrolling now.',
+      'A 12-hour online World Schools debate summer camp for complete beginners. The August cohort (Aug 3–21) is the last of the summer and is enrolling now.',
+    metaTitle: 'World Schools Debate Summer Camp Online: 3-Week Beginner Bootcamp',
+    seoH1: 'World Schools Debate Summer Bootcamp',
     longDescription:
       'The Summer Bootcamp is the easiest way to try World Schools debate before the fall season starts. It runs as monthly cohorts in June, July, and August. Enrollment for the June and July cohorts has closed, so the August cohort (August 3–21) is the last of the summer. Students meet twice a week for a two-hour class over three weeks (twelve hours in all) and go from never having debated to giving a real speech in a judged practice round. It is built for complete beginners, and it sets up a running start for the fall Foundation class.',
     level: 'Beginner',
@@ -579,6 +612,7 @@ export const programs: Program[] = [
       { id: '13-16', label: 'Ages 13–16', min: 13, max: 16 },
     ],
     seasonal: true,
+    termDates: { start: '2026-08-03', end: '2026-08-21' },
     term: {
       label: 'Summer 2026 · Final cohort',
       start: 'August 3–21, 2026 · the last bootcamp of the summer (June and July have closed)',

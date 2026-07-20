@@ -29,6 +29,8 @@ export default function POIPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/foundations"
+      ctaLabel="See the Foundation class"
       ctaHeading="POI composure is a trained reflex."
       ctaBody="Our drills put speakers under live POI pressure every week: offering, declining, and answering without losing the thread."
       lede={

@@ -29,6 +29,8 @@ export default function ThirdSpeakerPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/competition-team"
+      ctaLabel="Train with the Competition Team"
       ctaHeading="Clash selection is learned in live rounds."
       ctaBody="No drill teaches whipping like a real debate with honest adjudication. That is what our weekly judged rounds are for."
       lede={

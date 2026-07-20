@@ -83,6 +83,8 @@ export default function DoesDebateHelpAdmissionsPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/private-coaching"
+      ctaLabel="See 1-on-1 coaching"
       ctaHeading="Build the profile that travels."
       ctaBody="Our coaches train the argument, composure, and range that selective admissions reward. Book a consultation and we will find the right starting point."
       lede={

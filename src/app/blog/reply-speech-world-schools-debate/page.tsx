@@ -29,6 +29,8 @@ export default function ReplySpeechPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/competition-team"
+      ctaLabel="Train with the Competition Team"
       ctaHeading="Replies are rehearsed synthesis."
       ctaBody="Our students practice reply speeches on rounds they just debated, with feedback on what they chose to keep and what they wasted time on."
       lede={

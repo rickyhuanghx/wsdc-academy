@@ -29,6 +29,8 @@ export default function PathwayPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/foundations"
+      ctaLabel="See the Foundation class"
       ctaHeading="Whatever rung you’re on, training is the ladder."
       ctaBody="From first-round beginners to national-circuit competitors, our programs meet students at their rung and move them up it."
       lede={
@@ -170,7 +172,11 @@ export default function PathwayPost() {
           The pattern across all four rungs is the same: the climb is made of{' '}
           <strong>judged rounds with real feedback</strong>, accumulated
           faster than your local circuit alone can provide them. That is the
-          gap a training system exists to fill: weekly rounds, all roles,
+          gap a{' '}
+          <Link href="/programs/competition-team" className="font-semibold text-signal-500 hover:text-signal-600">
+            year-round World Schools training squad
+          </Link>{' '}
+          exists to fill: weekly rounds, all roles,
           all{' '}
           <Link href="/resources/motion-types" className="font-semibold text-signal-500 hover:text-signal-600">
             motion types

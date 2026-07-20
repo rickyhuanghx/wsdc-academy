@@ -134,6 +134,8 @@ export default function InternationalTournamentsPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/competition-team"
+      ctaLabel="Train with the Competition Team"
       ctaHeading="Want your bench ready for an international field?"
       ctaBody="Our coaches have competed and adjudicated at the international level, and our judged rounds train to the standard those tournaments use."
       lede={

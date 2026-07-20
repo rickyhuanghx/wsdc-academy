@@ -29,6 +29,8 @@ export default function SecondSpeakerPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/competition-team"
+      ctaLabel="Train with the Competition Team"
       ctaHeading="Deputies are made in the clash."
       ctaBody="Our weekly rounds put second speakers against live opposition, then hand them written feedback on rebuttal quality and time discipline."
       lede={

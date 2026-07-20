@@ -29,6 +29,8 @@ export default function UsaDebateSkillsPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/national-team-sprint"
+      ctaLabel="About the National Team Sprint"
       ctaHeading="Train the layer selectors actually see."
       ctaBody="Judged rounds, all three roles, written feedback against the real criteria. That is the whole design of our competition program."
       lede={

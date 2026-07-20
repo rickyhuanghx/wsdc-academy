@@ -29,6 +29,8 @@ export default function RebuttalGuidePost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/competition-team"
+      ctaLabel="Train with the Competition Team"
       ctaHeading="Rebuttal improves at exactly one speed: reps."
       ctaBody="Our students run rebuttal ladders against live opposition weekly, with written feedback on target selection and completeness."
       lede={

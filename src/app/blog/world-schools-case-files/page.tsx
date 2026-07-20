@@ -29,6 +29,8 @@ export default function CaseFilesPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/competition-team"
+      ctaLabel="Train with the Competition Team"
       ctaHeading="Our teams build their files together, all season."
       ctaBody="Case-file construction is a standing assignment in our competition program: every motion we debate feeds the binder."
       lede={

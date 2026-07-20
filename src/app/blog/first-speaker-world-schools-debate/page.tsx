@@ -34,6 +34,8 @@ export default function FirstSpeakerPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/foundations"
+      ctaLabel="See the Foundation class"
       ctaHeading="First speeches are trained, not improvised."
       ctaBody="In our judged rounds, first speakers get written feedback on set-up, mechanization, and framing, every single week."
       lede={

@@ -29,6 +29,8 @@ export default function UsaDebateApplicationPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/private-coaching"
+      ctaLabel="See 1-on-1 coaching"
       ctaHeading="Build the season before the application."
       ctaBody="Our competition team runs the full training cycle (judged rounds, written feedback, real tournaments) that a credible application sits on top of."
       lede={
@@ -134,7 +136,12 @@ export default function UsaDebateApplicationPost() {
               instead of a judge. Record full 8-minute speeches on practice
               motions, watch them at full length, and redo them. Most students
               are shocked by their first recording. Better to be shocked in
-              March than in the application window.
+              March than in the application window. Many applicants run these
+              rehearsal cycles with{' '}
+              <Link href="/programs/private-coaching" className="font-semibold text-signal-500 hover:text-signal-600">
+                a private World Schools coach
+              </Link>{' '}
+              reviewing each take.
             </p>
           </div>
           <div className="border-t border-navy-200 pt-5">

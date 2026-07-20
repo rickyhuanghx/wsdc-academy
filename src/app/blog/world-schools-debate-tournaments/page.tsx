@@ -129,6 +129,8 @@ export default function TournamentsPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/competition-team"
+      ctaLabel="Train with the Competition Team"
       ctaHeading="A season plan beats a tournament list."
       ctaBody="Our competition team builds each student’s calendar (which divisions, which bids, which internationals) and trains toward it all year."
       lede={

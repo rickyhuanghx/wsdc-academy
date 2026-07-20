@@ -106,7 +106,8 @@ export default function ProgramsPage() {
                   </div>
                   <h2 className="mt-4 text-2xl font-bold text-navy-900">{program.name}</h2>
                   <p className="mt-1 font-medium text-signal-500">{program.tagline}</p>
-                  <p className="mt-4 leading-relaxed text-navy-600">{program.longDescription}</p>
+                  {/* Card copy stays the short `description`; `longDescription` is unique to the detail page (duplicate-content guard). */}
+                  <p className="mt-4 leading-relaxed text-navy-600">{program.description}</p>
                   <div className="mt-6 flex flex-wrap items-center gap-4">
                     <Link
                       href={`/programs/${program.slug}`}

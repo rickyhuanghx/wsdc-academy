@@ -16,6 +16,9 @@ interface BlogPostShellProps {
   faqs?: FAQItem[];
   ctaHeading?: string;
   ctaBody?: string;
+  /** Deep-link target for the CTA's program button. Point each post at its most relevant program page. */
+  ctaHref?: string;
+  ctaLabel?: string;
 }
 
 /** Shared article chrome: schema, breadcrumbs, header, FAQ block, CTA band.
@@ -27,6 +30,8 @@ export function BlogPostShell({
   faqs,
   ctaHeading = 'Now train it in a judged round.',
   ctaBody = 'Every technique on this page is a drill in our weekly training cycle: judged rounds, oral adjudication, written feedback.',
+  ctaHref = '/programs',
+  ctaLabel = 'See our programs',
 }: BlogPostShellProps) {
   return (
     <>
@@ -89,10 +94,10 @@ export function BlogPostShell({
               Book a Consultation
             </Link>
             <Link
-              href="/programs"
+              href={ctaHref}
               className="inline-block rounded-sm border border-white/30 px-7 py-3 font-semibold text-white transition-colors hover:bg-white/10"
             >
-              See our programs
+              {ctaLabel}
             </Link>
           </div>
         </div>

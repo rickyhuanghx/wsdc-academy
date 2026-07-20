@@ -29,6 +29,8 @@ export default function WeighingPost() {
     <BlogPostShell
       post={post}
       faqs={faqs}
+      ctaHref="/programs/competition-team"
+      ctaLabel="Train with the Competition Team"
       ctaHeading="Weighing is the highest-leverage skill we teach."
       ctaBody="Every judged round in our program ends with feedback on the comparison layer, because that is where close rounds are decided."
       lede={
