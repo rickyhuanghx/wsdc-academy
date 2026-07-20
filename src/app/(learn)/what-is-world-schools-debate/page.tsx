@@ -627,13 +627,13 @@ export default function WhatIsWorldSchoolsPage() {
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
               href="/consultation"
-              className="rounded-sm bg-signal-500 px-8 py-3.5 text-center font-semibold text-white transition-colors hover:bg-signal-600"
+              className="rounded-sm bg-signal-500 px-8 py-3.5 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
             >
               Book a Consultation
             </Link>
             <Link
               href="/programs"
-              className="rounded-sm border border-navy-500 px-8 py-3.5 text-center font-semibold text-white transition-colors hover:bg-navy-800"
+              className="rounded-sm border border-navy-500 px-8 py-3.5 text-center font-semibold text-white transition hover:bg-navy-800 active:scale-[0.98]"
             >
               See Programs
             </Link>

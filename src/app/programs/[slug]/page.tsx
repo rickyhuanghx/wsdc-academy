@@ -128,7 +128,7 @@ export default async function ProgramPage({ params }: Props) {
                 <>
                   <Link
                     href="/contact"
-                    className="rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition-colors hover:bg-signal-600"
+                    className="rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
                   >
                     Request consideration
                   </Link>
@@ -138,7 +138,7 @@ export default async function ProgramPage({ params }: Props) {
                 <>
                   <Link
                     href="#pricing"
-                    className="rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition-colors hover:bg-signal-600"
+                    className="rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
                   >
                     See pricing &amp; enroll
                   </Link>
@@ -153,7 +153,7 @@ export default async function ProgramPage({ params }: Props) {
                 <>
                   <Link
                     href="#enroll"
-                    className="rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition-colors hover:bg-signal-600"
+                    className="rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
                   >
                     Choose group &amp; enroll
                   </Link>
@@ -528,7 +528,7 @@ export default async function ProgramPage({ params }: Props) {
                   <>
                     <Link
                       href="/contact"
-                      className="mt-6 block rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition-colors hover:bg-signal-600"
+                      className="mt-6 block rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
                     >
                       Request consideration
                     </Link>
@@ -540,7 +540,7 @@ export default async function ProgramPage({ params }: Props) {
                   <>
                     <Link
                       href="#pricing"
-                      className="mt-6 block rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition-colors hover:bg-signal-600"
+                      className="mt-6 block rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
                     >
                       Choose your hours
                     </Link>

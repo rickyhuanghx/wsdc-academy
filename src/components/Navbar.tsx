@@ -155,7 +155,7 @@ export function Navbar() {
           )}
           <Link
             href="/consultation"
-            className="rounded-sm bg-signal-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-signal-600"
+            className="rounded-sm bg-signal-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
           >
             Book a Consultation
           </Link>

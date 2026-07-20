@@ -72,7 +72,7 @@ export default function CheckoutConfirmationPage() {
       <div className="mt-8 flex flex-col gap-4 border-t border-navy-100 pt-8 sm:flex-row">
         <Link
           href="/"
-          className="rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition-colors hover:bg-signal-600"
+          className="rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
         >
           Back to Home
         </Link>

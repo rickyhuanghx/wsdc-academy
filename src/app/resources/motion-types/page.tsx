@@ -183,7 +183,7 @@ export default function MotionTypesPage() {
           </p>
           <Link
             href="/consultation"
-            className="mt-6 inline-block rounded-sm bg-signal-500 px-7 py-3 font-semibold text-white transition-colors hover:bg-signal-600"
+            className="mt-6 inline-block rounded-sm bg-signal-500 px-7 py-3 font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
           >
             Book a Consultation
           </Link>

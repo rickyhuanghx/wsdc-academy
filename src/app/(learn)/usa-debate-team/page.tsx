@@ -282,13 +282,13 @@ export default function UsaDebateTeamPage() {
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/programs/national-team-sprint"
-              className="rounded-md bg-signal-500 px-6 py-3 text-center font-semibold text-white transition-colors hover:bg-signal-600"
+              className="rounded-md bg-signal-500 px-6 py-3 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
             >
               See the National Team Sprint
             </Link>
             <Link
               href="/consultation"
-              className="rounded-md border border-navy-500 px-6 py-3 text-center font-semibold text-white transition-colors hover:bg-navy-800"
+              className="rounded-md border border-navy-500 px-6 py-3 text-center font-semibold text-white transition hover:bg-navy-800 active:scale-[0.98]"
             >
               Book a Consultation
             </Link>

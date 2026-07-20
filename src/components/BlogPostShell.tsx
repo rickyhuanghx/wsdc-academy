@@ -89,7 +89,7 @@ export function BlogPostShell({
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/consultation"
-              className="inline-block rounded-sm bg-signal-500 px-7 py-3 font-semibold text-white transition-colors hover:bg-signal-600"
+              className="inline-block rounded-sm bg-signal-500 px-7 py-3 font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
             >
               Book a Consultation
             </Link>

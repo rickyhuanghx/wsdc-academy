@@ -237,7 +237,7 @@ export default function CheckoutPage() {
         </p>
         <Link
           href="/programs"
-          className="mt-8 inline-block rounded-md bg-signal-500 px-7 py-3.5 font-semibold text-white transition-colors hover:bg-signal-600"
+          className="mt-8 inline-block rounded-md bg-signal-500 px-7 py-3.5 font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
         >
           Browse Programs
         </Link>
@@ -325,7 +325,7 @@ export default function CheckoutPage() {
                 </p>
                 <button
                   onClick={() => setStep('details')}
-                  className="w-full rounded-md bg-signal-500 px-6 py-3.5 font-semibold text-white transition-colors hover:bg-signal-600 sm:w-auto sm:px-10"
+                  className="w-full rounded-md bg-signal-500 px-6 py-3.5 font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98] sm:w-auto sm:px-10"
                 >
                   Continue to details
                 </button>
@@ -564,7 +564,7 @@ export default function CheckoutPage() {
                 <button
                   onClick={goToPayment}
                   disabled={!canContinueToPayment}
-                  className="flex-grow rounded-md bg-signal-500 px-6 py-3.5 font-semibold text-white transition-colors hover:bg-signal-600 disabled:opacity-60"
+                  className="flex-grow rounded-md bg-signal-500 px-6 py-3.5 font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98] disabled:opacity-60"
                 >
                   Continue to payment
                 </button>

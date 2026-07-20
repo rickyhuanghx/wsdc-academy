@@ -54,6 +54,21 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Users who opt out of motion get instant state changes everywhere.
+   TabbedExplorer's auto-advance checks this media query in JS separately. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Auto-advancing tabbed explorer: progress bar fill */
 @keyframes fx-progress {
   from {

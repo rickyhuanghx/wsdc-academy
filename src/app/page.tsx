@@ -53,7 +53,7 @@ export default function HomePage() {
             <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
               <Link
                 href="/consultation"
-                className="rounded-sm bg-signal-500 px-7 py-3.5 text-center text-base font-semibold text-white transition-colors hover:bg-signal-600"
+                className="rounded-sm bg-signal-500 px-7 py-3.5 text-center text-base font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
               >
                 Book a Consultation Session
               </Link>
@@ -631,7 +631,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/consultation"
-            className="mt-8 inline-block rounded-sm bg-signal-500 px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-signal-600"
+            className="mt-8 inline-block rounded-sm bg-signal-500 px-8 py-3.5 text-base font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
           >
             Book a Consultation
           </Link>

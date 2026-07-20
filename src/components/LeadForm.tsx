@@ -119,7 +119,7 @@ export function LeadForm({ endpoint, fields, submitLabel, successMessage }: Lead
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="w-full rounded-md bg-signal-500 px-6 py-3.5 font-semibold text-white transition-colors hover:bg-signal-600 disabled:opacity-60"
+        className="w-full rounded-md bg-signal-500 px-6 py-3.5 font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98] disabled:opacity-60"
       >
         {status === 'submitting' ? 'Sending…' : submitLabel}
       </button>

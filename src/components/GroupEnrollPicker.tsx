@@ -96,7 +96,7 @@ export function GroupEnrollPicker({ program }: { program: Program }) {
         type="button"
         onClick={enroll}
         disabled={!ready}
-        className="block w-full rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition-colors hover:bg-signal-600 disabled:cursor-not-allowed disabled:opacity-50"
+        className="block w-full rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
       >
         {alreadyInCart
           ? 'Enroll another student'

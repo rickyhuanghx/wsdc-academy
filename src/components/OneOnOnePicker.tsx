@@ -51,7 +51,7 @@ export function OneOnOnePicker({ program }: { program: Program }) {
   const rowClass =
     'flex flex-col gap-3 border-t border-navy-100 py-5 sm:flex-row sm:items-center sm:justify-between';
   const addClass =
-    'rounded-md bg-signal-500 px-6 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-signal-600 disabled:opacity-50';
+    'rounded-md bg-signal-500 px-6 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98] disabled:opacity-50';
 
   return (
     <div id="pricing" className="scroll-mt-24 rounded-xl border border-navy-100 bg-white p-6 sm:p-8">

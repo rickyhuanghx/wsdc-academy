@@ -111,7 +111,7 @@ export default function ProgramsPage() {
                   <div className="mt-6 flex flex-wrap items-center gap-4">
                     <Link
                       href={`/programs/${program.slug}`}
-                      className="inline-block rounded-md bg-navy-900 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-navy-800"
+                      className="inline-block rounded-md bg-navy-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-navy-800 active:scale-[0.98]"
                     >
                       Program details
                     </Link>
