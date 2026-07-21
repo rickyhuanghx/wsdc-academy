@@ -27,6 +27,7 @@ export function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-navy-300">Programs</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li><Link href="/programs/summer-bootcamp" className="text-navy-100 hover:text-white">Summer Bootcamp</Link></li>
+              <li><Link href="/programs/advanced-summer-bootcamp" className="text-navy-100 hover:text-white">Advanced Summer Bootcamp</Link></li>
               <li><Link href="/programs/foundations" className="text-navy-100 hover:text-white">Foundation</Link></li>
               <li><Link href="/programs/competition-team" className="text-navy-100 hover:text-white">Competition Team</Link></li>
               <li><Link href="/programs/national-team-sprint" className="text-navy-100 hover:text-white">National Team Sprint</Link></li>

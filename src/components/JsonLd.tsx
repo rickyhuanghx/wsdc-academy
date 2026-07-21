@@ -50,6 +50,12 @@ export function OrganizationJsonLd() {
         },
         {
           '@type': 'OfferCatalog',
+          name: 'Advanced World Schools Summer Bootcamp',
+          description: 'A 12-hour August intensive for students who already compete in World Schools',
+          url: `${baseUrl}/programs/advanced-summer-bootcamp`,
+        },
+        {
+          '@type': 'OfferCatalog',
           name: 'World Schools Foundation',
           description: 'Beginner introduction to the World Schools format',
           url: `${baseUrl}/programs/foundations`,

@@ -23,6 +23,11 @@ const nav: NavItem[] = [
         desc: '12-hour August intensive for beginners',
       },
       {
+        href: '/programs/advanced-summer-bootcamp',
+        label: 'Advanced Summer Bootcamp',
+        desc: '12-hour August intensive for experienced debaters',
+      },
+      {
         href: '/programs/foundations',
         label: 'World Schools Foundation',
         desc: 'Beginner introduction to WSDC',

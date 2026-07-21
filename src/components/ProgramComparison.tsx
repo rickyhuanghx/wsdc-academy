@@ -10,6 +10,7 @@ import { LevelMeter } from './LevelMeter';
 // marketing summaries of the longer `idealFor` copy; owner can tune wording freely.
 const BEST_FOR: Record<string, string> = {
   'summer-bootcamp': 'A first taste (last cohort: August)',
+  'advanced-summer-bootcamp': 'Debaters who compete (last cohort: August)',
   foundations: 'Brand-new debaters',
   'competition-team': 'Tournament-bound students',
   'national-team-sprint': 'USA-team hopefuls (by invite)',

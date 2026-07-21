@@ -712,6 +712,143 @@ export const programs: Program[] = [
       },
     ],
   },
+  {
+    id: 'advanced-summer-bootcamp',
+    slug: 'advanced-summer-bootcamp',
+    name: 'Advanced World Schools Summer Bootcamp',
+    shortName: 'Advanced Bootcamp',
+    tagline: 'A three-week summer intensive for students who already debate',
+    description:
+      'A 12-hour intensive for students with a season behind them: impromptu prep under the one-hour clock, second- and third-speaker craft, reply speeches, and judged rounds at tournament standard. Cohorts run June, July, and August; only the August cohort still has open enrollment.',
+    metaDescription:
+      'An advanced online World Schools debate summer camp for experienced debaters. The August cohort (Aug 3–21) is the last of the summer and is enrolling now.',
+    metaTitle: 'Advanced World Schools Debate Summer Camp: Intensive for Experienced Debaters',
+    seoH1: 'Advanced World Schools Debate Summer Bootcamp',
+    longDescription:
+      'The Advanced Summer Bootcamp is for students who already know what a World Schools round looks like and want the summer to make them harder to beat in the fall. It runs as monthly cohorts in June, July, and August. Enrollment for the June and July cohorts has closed, so the August cohort (August 3–21) is the last of the summer: six two-hour classes over three weeks, twelve hours in all. The work starts where the beginner bootcamp ends. Students run full impromptu prep inside the one-hour window, build second-line arguments and the comparative that separates a third speech from a first, and debate judged rounds adjudicated to the standard used at real tournaments. Every student leaves with written feedback against the Style / Content / Strategy criteria and a placement note for the fall season.',
+    level: 'Intermediate',
+    ageRange: { min: 11, max: 18 },
+    format: 'Small-group online',
+    schedule: 'Two time options · twice weekly · 6 sessions · August 3–21',
+    image: '/images/impromptu-prep.jpg',
+    imageAlt: 'Student debaters preparing a case against the clock',
+    pricing: { amount: 328, compareAt: 410, currency: 'USD', model: 'for the 12-hour bootcamp ($27 an hour)' },
+    enrollment: { unitLabel: 'August advanced bootcamp (6 sessions, 12 hours)', amount: 328 },
+    earlyBird: { deadlineLabel: 'August 1' },
+    classSize: '6–8 students',
+    sessionLength: '2 hours',
+    instruction: { totalHours: 12, sessions: 6 },
+    hourlyRate: 27,
+    ageGroups: [
+      { id: '11-14', label: 'Ages 11–14', min: 11, max: 14 },
+      { id: '15-18', label: 'Ages 15–18', min: 15, max: 18 },
+    ],
+    seasonal: true,
+    termDates: { start: '2026-08-03', end: '2026-08-21' },
+    term: {
+      label: 'Summer 2026 · Final advanced cohort',
+      start: 'August 3–21, 2026 · the last advanced bootcamp of the summer (June and July have closed)',
+      earlyBird: 'Enroll before August 1 for the early-bird rate',
+    },
+    bootcamp: {
+      dateRange: 'August 3–21, 2026',
+      sessionCount: 6,
+      totalHours: 12,
+      cohorts: [
+        { label: 'June cohort', status: 'closed' },
+        { label: 'July cohort', status: 'closed' },
+        { label: 'August cohort · Aug 3–21', status: 'enrolling' },
+      ],
+      options: [
+        {
+          id: 'a',
+          label: 'Option A · Mondays & Thursdays, 1–3 PM ET',
+          meetings: [
+            { day: 'Mondays', dayOfWeek: 1, start: '13:00', end: '15:00' },
+            { day: 'Thursdays', dayOfWeek: 4, start: '13:00', end: '15:00' },
+          ],
+        },
+        {
+          id: 'b',
+          label: 'Option B · Tuesdays & Fridays, 10 AM–12 PM ET',
+          meetings: [
+            { day: 'Tuesdays', dayOfWeek: 2, start: '10:00', end: '12:00' },
+            { day: 'Fridays', dayOfWeek: 5, start: '10:00', end: '12:00' },
+          ],
+        },
+      ],
+    },
+    outcomes: [
+      'Run a full impromptu prep cycle inside the one-hour window using a repeatable method',
+      'Build second-line arguments and the comparative that wins close rounds',
+      'Handle second-, third-, and reply-speaker responsibilities as distinct jobs',
+      'Take and answer points of information under real pressure',
+      'Debate judged rounds adjudicated to tournament standard, with written feedback',
+    ],
+    curriculum: [
+      { title: 'Session 1 · Diagnostic round', detail: 'A judged round on day one so the coach can map each debater against the Style / Content / Strategy criteria and set the focus for the three weeks' },
+      { title: 'Session 2 · Casebuilding depth', detail: 'Second-line arguments, burdens, and the comparative work that separates a strong case from a list of points' },
+      { title: 'Session 3 · Impromptu systems', detail: 'A repeatable one-hour prep method: framing the motion, splitting the bench, and assembling a case against the clock' },
+      { title: 'Session 4 · Refutation and clash', detail: 'Finding the load-bearing part of an argument, responding to it directly, and holding your own case up while you do' },
+      { title: 'Session 5 · Speaker specialization', detail: 'Role-specific work for second, third, and reply, including extension, crystallization, and what a reply speech is actually for' },
+      { title: 'Session 6 · Full judged round', detail: 'A complete round with oral adjudication, written feedback, and a placement note for the fall season' },
+    ],
+    idealFor: [
+      'Students who finished the beginner bootcamp or a term of Foundation',
+      'Debaters who competed this season and want a summer block of real reps',
+      'Students converting from Public Forum, Lincoln-Douglas, or MUN who already speak well',
+    ],
+    coachSlugs: ['biser-angelov', 'tin-puljic', 'matt-mauriello', 'cailyn-min', 'perry-beckett'],
+    prerequisites:
+      'A season of Foundation, the beginner bootcamp, or equivalent experience. The student should already know the speaker roles and be able to give a structured speech. Not sure? A free consultation ends with a placement recommendation.',
+    nextStepSlug: 'competition-team',
+    sessionFlow: [
+      { time: '0:00', title: 'Round debrief', detail: 'The coach walks back through the last session’s round: what the adjudication rewarded and the one habit to fix today.' },
+      { time: '0:15', title: 'Skill block', detail: 'One piece of craft taught directly, with clips or worked examples from real rounds rather than theory.' },
+      { time: '0:40', title: 'Drilling under pressure', detail: 'Timed reps of the skill, whether that is a prep cycle, a rebuttal, or taking points of information mid-speech.' },
+      { time: '1:15', title: 'Judged round', detail: 'A full or partial round adjudicated to tournament standard, so every session ends in real competitive speaking.' },
+      { time: '1:45', title: 'Individual feedback', detail: 'Each debater leaves with specific notes on their own speech, not a general debrief of the room.' },
+    ],
+    included: [
+      'Six live 2-hour classes over three weeks (12 hours in total, $27 an hour)',
+      'A judged round in every session with oral adjudication, not just the final one',
+      'Written feedback mapped to the Style / Content / Strategy criteria after each round',
+      'The full printable resource library: speaker cheat sheets, the prep-hour planner, and the motion bank',
+      'A placement note recommending the right fall-term class or squad',
+    ],
+    faqs: [
+      {
+        question: 'How is this different from the beginner bootcamp?',
+        answer:
+          'The beginner bootcamp teaches the format from zero: what a round is, what each speaker does, and how to build a first argument. The advanced bootcamp assumes all of that. It starts with a diagnostic round and spends the three weeks on impromptu prep, second-line casebuilding, speaker specialization, and judged rounds at tournament standard.',
+      },
+      {
+        question: 'What experience does my child need?',
+        answer:
+          'A season of Foundation, the beginner bootcamp, or equivalent experience in another format. The student should know the speaker roles and be able to give a structured speech. If you are unsure which bootcamp fits, a free consultation ends with a placement recommendation.',
+      },
+      {
+        question: 'When and how often does it meet?',
+        answer:
+          'Twice a week for three weeks in August, two hours per session, twelve hours in total. You choose one of two time options at checkout: Option A meets Mondays and Thursdays from 1 to 3 PM Eastern, and Option B meets Tuesdays and Fridays from 10 AM to 12 PM Eastern. Times show in your timezone on this page.',
+      },
+      {
+        question: 'Is it in the same room as the beginner bootcamp?',
+        answer:
+          'No. The two bootcamps run in the same three weeks and share the same time options, but they are separate classes with separate rosters. An experienced debater will not be placed in a beginner room.',
+      },
+      {
+        question: 'What comes after the advanced bootcamp?',
+        answer:
+          'Most students move into the Competition Team for the fall, our year-round squad with a weekly class, a weekly judged practice debate, and tournament support. Each student gets a placement note in the final session.',
+      },
+      {
+        question: 'What if we miss a session?',
+        answer:
+          'It is a short program, so reach out and we will share notes and help the student catch up before the next class. Our full withdrawal and refund terms are on the Refund Policy page.',
+      },
+    ],
+  },
 ];
 
 // Allow-listed grade options for checkout student info. Shared by the cart UI
