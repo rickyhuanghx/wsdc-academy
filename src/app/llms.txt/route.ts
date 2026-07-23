@@ -6,6 +6,7 @@ import { programs } from '@/data/programs';
 import { blogPosts } from '@/data/blog';
 import { resources } from '@/data/resources';
 import { coaches } from '@/data/coaches';
+import { motionTopics, bankStats, roundedCount } from '@/lib/motion-bank';
 
 // Prerendered as a static file at build time (no per-request work).
 export const dynamic = 'force-static';
@@ -40,6 +41,21 @@ export function GET() {
     '## Blog\n' + blogPosts.map((p) => item(p.title, u(`/blog/${p.slug}`), p.description)).join('\n'),
 
     '## Resources\n' + resources.map((r) => item(r.title, u(`/resources/${r.slug}`), r.description)).join('\n'),
+
+    '## Motion Bank\n' +
+      item(
+        'The Debate Motion Bank',
+        u('/motions'),
+        `A free, searchable bank of ${roundedCount(bankStats.total)} real debate motions from ${roundedCount(bankStats.tournaments)} tournaments (${bankStats.firstYear} to ${bankStats.lastYear}), with topic, motion type, year, and info slide filters.`,
+      ) +
+      '\n' +
+      item(
+        'WSDC Motions: the Worlds archive',
+        u('/motions/wsdc'),
+        `Every publicly recorded World Schools Debating Championships motion since 1994 (${bankStats.wsdc} motions), prepared and impromptu rounds labeled.`,
+      ) +
+      '\n' +
+      motionTopics.map((t) => item(`${t.label} debate motions`, u(`/motions/${t.slug}`), t.blurb)).join('\n'),
 
     '## Coaches\n' + coaches.map((c) => `- ${c.name}, ${c.role} — ${c.highlight}`).join('\n'),
 

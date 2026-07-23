@@ -355,6 +355,74 @@ export function ArticleJsonLd({
   );
 }
 
+// Dataset schema for the motion bank landing page
+export function DatasetJsonLd({
+  name,
+  description,
+  url,
+  size,
+}: {
+  name: string;
+  description: string;
+  url: string;
+  size: number;
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    '@id': `${baseUrl}${url}#dataset`,
+    name,
+    description,
+    url: `${baseUrl}${url}`,
+    creator: { '@id': `${baseUrl}/#organization` },
+    isAccessibleForFree: true,
+    variableMeasured: 'Debate motions with tournament, round, year, topic, and info slide',
+    size: `${size} motions`,
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// CollectionPage schema for motion topic / year archive pages
+export function CollectionPageJsonLd({
+  name,
+  description,
+  url,
+  count,
+}: {
+  name: string;
+  description: string;
+  url: string;
+  count: number;
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${baseUrl}${url}`,
+    name,
+    description,
+    url: `${baseUrl}${url}`,
+    isPartOf: { '@id': `${baseUrl}/#website` },
+    about: { '@type': 'Thing', name: 'Debate motions' },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: count,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
 // Person schema list for the coaches page
 export function CoachListJsonLd({ coaches }: { coaches: Coach[] }) {
   const schema = {

@@ -119,6 +119,18 @@ export default function PracticeMotionsPage() {
             , or solo casebuilding practice. A good session is one motion,
             one hour of prep, one judged round.
           </p>
+          <p className="mt-4 leading-relaxed text-navy-700">
+            Want more than forty? The full{' '}
+            <Link href="/motions" className="font-semibold text-signal-500 hover:text-signal-600">
+              motion bank
+            </Link>{' '}
+            has 12,000+ real tournament motions, searchable by topic, type, and
+            year, including{' '}
+            <Link href="/motions/wsdc" className="font-semibold text-signal-500 hover:text-signal-600">
+              every Worlds motion since 1994
+            </Link>
+            .
+          </p>
         </header>
 
         {motionBank.map((group) => (

@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { programs } from '@/data/programs';
 import { resources } from '@/data/resources';
 import { blogPosts } from '@/data/blog';
+import { motionTopics, motionYears } from '@/lib/motion-bank';
 import { SITE_URL } from '@/lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -14,6 +15,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/world-schools-vs-public-forum`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.9 },
     { url: `${baseUrl}/world-schools-debate-judging`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.9 },
     { url: `${baseUrl}/resources`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.9 },
+    { url: `${baseUrl}/motions`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.9 },
+    { url: `${baseUrl}/motions/wsdc`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.85 },
     { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.85 },
     { url: `${baseUrl}/programs`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.9 },
     { url: `${baseUrl}/consultation`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.9 },
@@ -40,6 +43,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const motionTopicPages = motionTopics.map((t) => ({
+    url: `${baseUrl}/motions/${t.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
+  const motionYearPages = motionYears.map((y) => ({
+    url: `${baseUrl}/motions/year/${y}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }));
+
   const blogPages = blogPosts.map((p) => ({
     url: `${baseUrl}/blog/${p.slug}`,
     lastModified: new Date(p.date),
@@ -47,5 +64,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...programPages, ...resourcePages, ...blogPages];
+  return [...staticPages, ...programPages, ...resourcePages, ...motionTopicPages, ...motionYearPages, ...blogPages];
 }

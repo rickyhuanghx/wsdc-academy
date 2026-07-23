@@ -57,6 +57,7 @@ const nav: NavItem[] = [
     label: 'Resources & Blogs',
     children: [
       { href: '/resources', label: 'Resources', desc: 'Cheat sheets, motions, and glossary' },
+      { href: '/motions', label: 'Motion Bank', desc: '12,000+ real tournament motions, searchable' },
       { href: '/blog', label: 'Blog', desc: 'Guides and strategy essays' },
     ],
   },

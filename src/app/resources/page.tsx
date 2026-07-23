@@ -53,6 +53,22 @@ export default function ResourcesPage() {
           </p>
         </header>
 
+        <section className="mt-12 border border-navy-200 bg-white p-8 sm:p-10">
+          <p className="text-sm font-bold uppercase tracking-wider text-signal-500">New</p>
+          <h2 className="mt-2 text-2xl font-bold text-navy-900">The debate motion bank</h2>
+          <p className="mt-3 max-w-3xl leading-relaxed text-navy-700">
+            12,000+ real tournament motions, searchable by topic, motion type,
+            and year, including every Worlds (WSDC) motion since 1994. Enough
+            material for a decade of scrimmages.
+          </p>
+          <Link
+            href="/motions"
+            className="mt-5 inline-block rounded-sm bg-navy-900 px-6 py-2.5 font-semibold text-white transition hover:bg-navy-800 active:scale-[0.98]"
+          >
+            Open the Motion Bank
+          </Link>
+        </section>
+
         {resourceCategories.map((category) => (
           <section key={category} className="mt-16">
             <div className="flex items-baseline gap-4 border-b-2 border-navy-900 pb-3">

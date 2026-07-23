@@ -51,7 +51,8 @@ export function Footer() {
               <li><Link href="/blog" className="text-navy-100 hover:text-white">Blog</Link></li>
               <li><Link href="/resources" className="text-navy-100 hover:text-white">Resource Library</Link></li>
               <li><Link href="/resources/first-speaker-cheat-sheet" className="text-navy-100 hover:text-white">Speaker Cheat Sheets</Link></li>
-              <li><Link href="/resources/practice-motions" className="text-navy-100 hover:text-white">Practice Motions</Link></li>
+              <li><Link href="/motions" className="text-navy-100 hover:text-white">Motion Bank</Link></li>
+              <li><Link href="/motions/wsdc" className="text-navy-100 hover:text-white">WSDC Motions Archive</Link></li>
             </ul>
           </div>
 
