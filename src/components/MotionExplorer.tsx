@@ -133,6 +133,7 @@ export function MotionExplorer() {
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
   const [order, setOrder] = useState<number[] | null>(null);
   const [page, setPage] = useState(1);
+  const [jump, setJump] = useState('');
   const [dense, setDense] = useState(false);
 
   // Practice set: id -> motion, kept even when a motion falls out of the
@@ -544,6 +545,40 @@ export function MotionExplorer() {
                       Next
                     </button>
                   </div>
+                )}
+                {pageCount > 7 && (
+                  <form
+                    noValidate
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      const n = parseInt(jump, 10);
+                      if (!Number.isFinite(n)) return;
+                      goToPage(Math.min(Math.max(1, n), pageCount));
+                      setJump('');
+                    }}
+                    className="flex items-center gap-2 text-xs text-navy-500"
+                  >
+                    <label htmlFor="motion-jump">Go to page</label>
+                    <input
+                      id="motion-jump"
+                      type="number"
+                      inputMode="numeric"
+                      min={1}
+                      max={pageCount}
+                      value={jump}
+                      onChange={(e) => setJump(e.target.value)}
+                      placeholder={String(safePage)}
+                      className="w-16 rounded-sm border border-navy-200 px-2 py-1 text-center text-sm tabular-nums text-navy-900 placeholder:text-navy-400 focus:border-navy-500 focus:outline-none"
+                      aria-label={`Go to page, 1 to ${pageCount}`}
+                    />
+                    <span>of {pageCount.toLocaleString('en-US')}</span>
+                    <button
+                      type="submit"
+                      className="rounded-sm border border-navy-900 px-3 py-1 text-sm font-semibold text-navy-900 transition hover:bg-navy-900 hover:text-white"
+                    >
+                      Go
+                    </button>
+                  </form>
                 )}
               </nav>
             )}
