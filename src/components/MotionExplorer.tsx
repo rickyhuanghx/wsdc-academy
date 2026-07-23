@@ -39,7 +39,7 @@ const EMPTY_FILTERS: Filters = {
   infoslide: false,
 };
 
-function filtersToParams(f: Filters): string {
+function toQuery(f: Filters, page: number): string {
   const p = new URLSearchParams();
   if (f.q.trim()) p.set('q', f.q.trim());
   if (f.topic) p.set('topic', f.topic);
@@ -47,7 +47,25 @@ function filtersToParams(f: Filters): string {
   if (f.year) p.set('year', f.year);
   if (f.wsdc) p.set('wsdc', '1');
   if (f.infoslide) p.set('infoslide', '1');
+  if (page > 1) p.set('page', String(page));
   return p.toString();
+}
+
+/** Windowed page list: always 1 and last, plus the current page and its
+    neighbours, with 'gap' markers standing in for the omitted ranges. */
+function pageWindow(current: number, total: number): (number | 'gap')[] {
+  const wanted = [1, total, current, current - 1, current + 1].filter(
+    (n) => n >= 1 && n <= total,
+  );
+  const pages = Array.from(new Set(wanted)).sort((a, b) => a - b);
+  const out: (number | 'gap')[] = [];
+  let prev = 0;
+  for (const n of pages) {
+    if (n - prev > 1) out.push('gap');
+    out.push(n);
+    prev = n;
+  }
+  return out;
 }
 
 function shuffle<T>(arr: T[]): T[] {
@@ -114,7 +132,7 @@ export function MotionExplorer() {
 
   const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
   const [order, setOrder] = useState<number[] | null>(null);
-  const [visible, setVisible] = useState(PAGE_SIZE);
+  const [page, setPage] = useState(1);
   const [dense, setDense] = useState(false);
 
   // Practice set: id -> motion, kept even when a motion falls out of the
@@ -141,22 +159,33 @@ export function MotionExplorer() {
       wsdc: searchParams.get('wsdc') === '1',
       infoslide: searchParams.get('infoslide') === '1',
     });
-    setVisible(PAGE_SIZE);
+    const pg = parseInt(searchParams.get('page') ?? '1', 10);
+    setPage(Number.isFinite(pg) && pg > 0 ? pg : 1);
   }, [searchParams]);
 
+  const writeUrl = (s: string) => {
+    lastWritten.current = s;
+    window.history.replaceState(
+      null,
+      '',
+      s ? `${window.location.pathname}?${s}` : window.location.pathname,
+    );
+  };
+
+  // Changing any filter resets to the first page of the new result set.
   const apply = (patch: Partial<Filters>) => {
     setFilters((prev) => {
       const next = { ...prev, ...patch };
-      const s = filtersToParams(next);
-      lastWritten.current = s;
-      window.history.replaceState(
-        null,
-        '',
-        s ? `${window.location.pathname}?${s}` : window.location.pathname,
-      );
+      writeUrl(toQuery(next, 1));
       return next;
     });
-    setVisible(PAGE_SIZE);
+    setPage(1);
+  };
+
+  const goToPage = (n: number) => {
+    setPage(n);
+    writeUrl(toQuery(filters, n));
+    document.getElementById('explorer')?.scrollIntoView({ block: 'start' });
   };
 
   useEffect(() => {
@@ -217,6 +246,13 @@ export function MotionExplorer() {
     }
     return out;
   }, [all, filters, order]);
+
+  const pageCount = Math.max(1, Math.ceil(results.length / PAGE_SIZE));
+  // Clamp for display so a stale/out-of-range page (e.g. a deep link, or a
+  // filter that shrank the set) falls back to the last page instead of blank.
+  const safePage = Math.min(Math.max(1, page), pageCount);
+  const pageStart = (safePage - 1) * PAGE_SIZE;
+  const pageItems = results.slice(pageStart, pageStart + PAGE_SIZE);
 
   const chips = useMemo(() => {
     const out: { key: string; label: string; patch: Partial<Filters> }[] = [];
@@ -348,7 +384,8 @@ export function MotionExplorer() {
               onClick={() => {
                 if (!all) return;
                 setOrder(shuffle(all.map((m) => m.id)));
-                setVisible(PAGE_SIZE);
+                setPage(1);
+                writeUrl(toQuery(filters, 1));
               }}
               className="rounded-sm border border-navy-900 px-4 py-2 text-sm font-semibold text-navy-900 transition hover:bg-navy-900 hover:text-white"
             >
@@ -414,7 +451,7 @@ export function MotionExplorer() {
         {all && (
           <>
             <ol className={dense ? 'space-y-0' : 'space-y-4'}>
-              {results.slice(0, visible).map((m) => (
+              {pageItems.map((m) => (
                 <li
                   key={m.id}
                   className={dense ? 'border-t border-navy-100 py-1.5' : 'border-t border-navy-200 pt-4'}
@@ -456,14 +493,59 @@ export function MotionExplorer() {
                 </li>
               ))}
             </ol>
-            {results.length > visible && (
-              <button
-                type="button"
-                onClick={() => setVisible((v) => v + 120)}
-                className="mt-6 w-full rounded-sm border border-navy-900 py-3 font-semibold text-navy-900 transition hover:bg-navy-900 hover:text-white"
+            {results.length > 0 && (
+              <nav
+                className="mt-8 flex flex-col items-center gap-3"
+                aria-label="Motion bank pages"
               >
-                Show more ({(results.length - visible).toLocaleString('en-US')} remaining)
-              </button>
+                <p className="stat text-xs text-navy-500">
+                  Showing {(pageStart + 1).toLocaleString('en-US')}&ndash;
+                  {Math.min(pageStart + PAGE_SIZE, results.length).toLocaleString('en-US')} of{' '}
+                  {results.length.toLocaleString('en-US')}
+                </p>
+                {pageCount > 1 && (
+                  <div className="flex flex-wrap items-center justify-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => goToPage(safePage - 1)}
+                      disabled={safePage === 1}
+                      className="rounded-sm border border-navy-200 px-3 py-1.5 text-sm font-semibold text-navy-800 transition-colors hover:border-navy-400 disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      Prev
+                    </button>
+                    {pageWindow(safePage, pageCount).map((it, i) =>
+                      it === 'gap' ? (
+                        <span key={`gap-${i}`} className="px-1 text-navy-400" aria-hidden="true">
+                          &hellip;
+                        </span>
+                      ) : (
+                        <button
+                          key={it}
+                          type="button"
+                          onClick={() => goToPage(it)}
+                          aria-current={it === safePage ? 'page' : undefined}
+                          aria-label={`Page ${it}`}
+                          className={
+                            it === safePage
+                              ? 'rounded-sm bg-navy-900 px-3 py-1.5 text-sm font-semibold tabular-nums text-white'
+                              : 'rounded-sm border border-navy-200 px-3 py-1.5 text-sm font-semibold tabular-nums text-navy-800 transition-colors hover:border-navy-400'
+                          }
+                        >
+                          {it}
+                        </button>
+                      ),
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => goToPage(safePage + 1)}
+                      disabled={safePage === pageCount}
+                      className="rounded-sm border border-navy-200 px-3 py-1.5 text-sm font-semibold text-navy-800 transition-colors hover:border-navy-400 disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      Next
+                    </button>
+                  </div>
+                )}
+              </nav>
             )}
           </>
         )}
