@@ -117,7 +117,7 @@ export default async function MotionTopicPage({ params }: Props) {
         </nav>
 
         {groups.map(([year, items]) => (
-          <section key={year} id={`y-${year}`} className="mt-12 border-t-2 border-navy-900 pt-8">
+          <section key={year} id={`y-${year}`} className="motion-year-section mt-12 border-t-2 border-navy-900 pt-8">
             <h2 className="text-2xl font-bold text-navy-900">
               {year}{' '}
               <span className="stat text-base font-normal text-navy-400">

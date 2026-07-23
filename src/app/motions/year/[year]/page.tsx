@@ -125,7 +125,7 @@ export default async function MotionYearPage({ params }: Props) {
         </nav>
 
         {groups.map(([tournament, items]) => (
-          <section key={tournament} className="mt-12 border-t-2 border-navy-900 pt-8">
+          <section key={tournament} className="motion-year-section mt-12 border-t-2 border-navy-900 pt-8">
             <h2 className="text-xl font-bold text-navy-900">
               {tournament}{' '}
               <span className="stat text-base font-normal text-navy-400">

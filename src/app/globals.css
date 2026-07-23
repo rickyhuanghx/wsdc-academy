@@ -50,6 +50,17 @@ dl dt,
   font-variant-numeric: tabular-nums;
 }
 
+/* Long motion lists (topic / year / Worlds archive) group into per-year
+   sections. Skipping layout + paint for the off-screen ones keeps first render
+   cheap on a 1,000+ item page, while every motion stays in the server-rendered
+   HTML (fully crawlable). The `auto` keeps real heights after first pass so the
+   jump-to-year anchors land correctly; a no-op where content-visibility is
+   unsupported. */
+.motion-year-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
+}
+
 html {
   scroll-behavior: smooth;
 }

@@ -144,7 +144,7 @@ export default function WsdcMotionsPage() {
         </nav>
 
         {groups.map(([year, items]) => (
-          <section key={year} id={`wsdc-${year}`} className="mt-12 border-t-2 border-navy-900 pt-8">
+          <section key={year} id={`wsdc-${year}`} className="motion-year-section mt-12 border-t-2 border-navy-900 pt-8">
             <h2 className="text-2xl font-bold text-navy-900">WSDC {year}</h2>
             {HOSTS[year] && <p className="mt-1 text-sm text-navy-500">{HOSTS[year]}</p>}
             <ul className="mt-6 space-y-4">
