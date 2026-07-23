@@ -180,8 +180,7 @@ export default function MotionBankPage() {
           <p className="mt-4 max-w-3xl leading-relaxed text-navy-600">
             The filter bar stays pinned while you scroll, and your filters live
             in the page address, so you can send a filtered view straight to
-            your team. Tick any motion to build a practice set you can copy or
-            print as a handout.
+            your team.
           </p>
           <div className="mt-6">
             <Suspense
