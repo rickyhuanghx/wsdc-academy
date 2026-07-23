@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import Link from 'next/link';
 import {
   BreadcrumbJsonLd,
@@ -6,13 +7,16 @@ import {
   FAQJsonLd,
 } from '@/components/JsonLd';
 import { MotionExplorer } from '@/components/MotionExplorer';
+import { DrawMotion } from '@/components/DrawMotion';
 import {
   bankStats,
+  coachShelves,
   motions,
   motionTopics,
   motionsForTopic,
   motionYears,
   motionsForYear,
+  MOTION_TYPE_LABELS,
   roundedCount,
 } from '@/lib/motion-bank';
 
@@ -114,8 +118,145 @@ export default function MotionBankPage() {
           ))}
         </dl>
 
-        <section className="mt-12" aria-label="Search the motion bank">
-          <MotionExplorer />
+        <section className="mt-12" aria-labelledby="start-here">
+          <h2 id="start-here" className="sr-only">
+            Start here
+          </h2>
+          <div className="grid gap-4 lg:grid-cols-[1.2fr_1fr_1fr]">
+            <div className="rounded-sm border border-navy-200 bg-white p-6">
+              <p className="text-xs font-bold uppercase tracking-wider text-signal-500">
+                I need a motion now
+              </p>
+              <h3 className="mt-1.5 font-display text-lg font-bold text-navy-900">
+                Draw a practice motion
+              </h3>
+              <div className="mt-4">
+                <DrawMotion />
+              </div>
+            </div>
+            <a
+              href="#topics"
+              className="group flex flex-col rounded-sm border border-navy-200 bg-white p-6 transition-colors hover:border-navy-400"
+            >
+              <p className="text-xs font-bold uppercase tracking-wider text-signal-500">
+                I&rsquo;m planning a unit
+              </p>
+              <h3 className="mt-1.5 font-display text-lg font-bold text-navy-900">
+                Browse by topic
+              </h3>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-navy-600">
+                17 topic pages, each with every motion in that area and a
+                coaching note on where those debates are usually won.
+              </p>
+              <span className="mt-4 text-sm font-semibold text-signal-500 underline decoration-signal-200 underline-offset-4 group-hover:decoration-signal-500">
+                See all 17 topics
+              </span>
+            </a>
+            <Link
+              href="/motions/wsdc"
+              className="group flex flex-col rounded-sm border border-navy-200 bg-white p-6 transition-colors hover:border-navy-400"
+            >
+              <p className="text-xs font-bold uppercase tracking-wider text-signal-500">
+                I&rsquo;m prepping for Worlds
+              </p>
+              <h3 className="mt-1.5 font-display text-lg font-bold text-navy-900">
+                The Worlds archive
+              </h3>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-navy-600">
+                Every WSDC motion since 1994, prelims to Grand Finals, with
+                prepared and impromptu rounds labeled.
+              </p>
+              <span className="mt-4 text-sm font-semibold text-signal-500 underline decoration-signal-200 underline-offset-4 group-hover:decoration-signal-500">
+                Open the archive
+              </span>
+            </Link>
+          </div>
+        </section>
+
+        <section id="explorer" className="mt-14 scroll-mt-24" aria-label="Search the motion bank">
+          <div className="flex items-baseline gap-4 border-b-2 border-navy-900 pb-3">
+            <h2 className="text-2xl font-bold text-navy-900">Search the whole bank</h2>
+          </div>
+          <p className="mt-4 max-w-3xl leading-relaxed text-navy-600">
+            The filter bar stays pinned while you scroll, and your filters live
+            in the page address, so you can send a filtered view straight to
+            your team. Tick any motion to build a practice set you can copy or
+            print as a handout.
+          </p>
+          <div className="mt-6">
+            <Suspense
+              fallback={
+                <p className="rounded-sm border border-navy-200 bg-white p-6 text-navy-500">
+                  Loading 12,000+ motions…
+                </p>
+              }
+            >
+              <MotionExplorer />
+            </Suspense>
+          </div>
+        </section>
+
+        <section className="mt-16" aria-labelledby="shelves-heading">
+          <div className="flex items-baseline gap-4 border-b-2 border-navy-900 pb-3">
+            <h2 id="shelves-heading" className="text-2xl font-bold text-navy-900">
+              Coach&rsquo;s shelves
+            </h2>
+          </div>
+          <p className="mt-4 max-w-3xl leading-relaxed text-navy-600">
+            Curated sets for the way practice actually gets planned: by what
+            you are teaching this week, not by keyword.
+          </p>
+          <div className="mt-8 space-y-10">
+            {coachShelves.map((shelf) => (
+              <div key={shelf.slug}>
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                  <h3 className="font-display text-lg font-bold text-navy-900">{shelf.title}</h3>
+                  <p className="text-sm text-navy-500">{shelf.why}</p>
+                  {shelf.seeAllHref && (
+                    <Link
+                      href={shelf.seeAllHref}
+                      className="ml-auto text-sm font-semibold text-signal-500 underline decoration-signal-200 underline-offset-4 hover:decoration-signal-500"
+                    >
+                      {shelf.seeAllLabel}
+                    </Link>
+                  )}
+                </div>
+                <p className="mt-2 max-w-3xl border-l-2 border-signal-500 pl-3 text-sm leading-relaxed text-navy-600">
+                  <strong className="text-navy-800">Coach&rsquo;s note:</strong> {shelf.note}
+                </p>
+                <ul className="mt-4 flex gap-3 overflow-x-auto pb-2">
+                  {shelf.motions.map((m) => (
+                    <li
+                      key={m.id}
+                      className="flex w-64 flex-none flex-col rounded-sm border border-navy-200 bg-white p-4"
+                    >
+                      <p className="flex-1 font-display text-sm italic leading-relaxed text-navy-800">
+                        {m.m}
+                      </p>
+                      <p className="mt-3 text-[11px] text-navy-500">
+                        {[m.y, m.t, m.r].filter(Boolean).join(' · ')}
+                      </p>
+                      <p className="mt-2 flex flex-wrap gap-1.5">
+                        {m.w ? (
+                          <span className="rounded-sm border border-signal-200 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-signal-500">
+                            Worlds
+                          </span>
+                        ) : null}
+                        {m.i ? (
+                          <span className="rounded-sm border border-navy-200 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-navy-500">
+                            Info slide
+                          </span>
+                        ) : null}
+                        <span className="rounded-sm border border-navy-200 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-navy-500">
+                          {MOTION_TYPE_LABELS[m.ty] ?? m.ty}
+                        </span>
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section className="mt-16">
@@ -156,7 +297,7 @@ export default function MotionBankPage() {
           </p>
         </section>
 
-        <section className="mt-16">
+        <section id="topics" className="mt-16 scroll-mt-24">
           <div className="flex items-baseline gap-4 border-b-2 border-navy-900 pb-3">
             <h2 className="text-2xl font-bold text-navy-900">Motions by topic</h2>
           </div>

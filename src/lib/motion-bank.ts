@@ -240,3 +240,104 @@ export const MOTION_TYPE_LABELS: Record<string, string> = {
   regret: 'Regret',
   other: 'Open',
 };
+
+/* ------------------------------------------------------------------ */
+/* Coach's shelves: curated sets for the way practice gets planned.    */
+/* ------------------------------------------------------------------ */
+
+export interface CoachShelf {
+  slug: string;
+  title: string;
+  /** Short qualifier shown next to the title. */
+  why: string;
+  /** Hand-written coaching note. Human copy, part of the E-E-A-T edge. */
+  note: string;
+  seeAllHref?: string;
+  seeAllLabel?: string;
+  motions: Motion[];
+}
+
+/**
+ * Hand-picked starter motions (stable bank ids): concrete, single-issue,
+ * set at junior tournaments. Re-check these ids after a bank rebuild.
+ */
+const FIRST_DEBATE_IDS = [11896, 11842, 11852, 11388, 11966, 11899, 11645, 10750];
+
+/** Newest-first, at most one motion per tournament, for shelf variety. */
+function pickDistinct(list: Motion[], n: number): Motion[] {
+  const seen = new Set<string>();
+  const out: Motion[] = [];
+  for (const m of list) {
+    if (seen.has(m.t)) continue;
+    seen.add(m.t);
+    out.push(m);
+    if (out.length === n) break;
+  }
+  return out;
+}
+
+const byYearDesc = (a: Motion, b: Motion) => (b.y ?? 0) - (a.y ?? 0);
+const motionById = new Map(motions.map((m) => [m.id, m]));
+
+export const coachShelves: CoachShelf[] = [
+  {
+    slug: 'first-debates',
+    title: 'First-ever debates',
+    why: 'concrete, single-issue, junior-tested',
+    note:
+      'A first motion should have an obvious clash that a 12-year-old can argue both ways at the dinner table. Bans on familiar things are the classic on-ramp: everyone has a stake, and nobody needs research to reach the disagreement.',
+    motions: FIRST_DEBATE_IDS.map((id) => motionById.get(id)).filter(
+      (m): m is Motion => Boolean(m),
+    ),
+  },
+  {
+    slug: 'prep-hour-drills',
+    title: 'Prep-hour drills',
+    why: 'motions with their original info slide',
+    note:
+      'These motions come with the briefing the tournament released, so practice starts the way tournament prep does. Run them against the clock with the 1-hour prep planner: the slide is the brief, and the skill is turning a brief into a case in sixty minutes.',
+    seeAllHref: '/motions?infoslide=1#explorer',
+    seeAllLabel: `All ${bankStats.infoslides.toLocaleString('en-US')} info-slide motions`,
+    // Recent info-slide motions, school-circuit tournaments first. The length
+    // floor filters out one-line joke rounds; Worlds motions are excluded here
+    // because the two Worlds shelves below already carry them.
+    motions: pickDistinct(
+      motions
+        .filter((m) => m.i && (m.y ?? 0) >= 2023 && !m.w && m.m.length >= 60)
+        .sort(
+          (a, b) =>
+            Number(/wsdc|schools/i.test(b.t)) - Number(/wsdc|schools/i.test(a.t)) ||
+            byYearDesc(a, b),
+        ),
+      6,
+    ),
+  },
+  {
+    slug: 'impromptu-practice',
+    title: 'Impromptu practice',
+    why: 'what Worlds teams drew from the envelope',
+    note:
+      'One hour, no internet, then speak. Rotate motion types week to week so your first regret motion at a tournament is not your first regret motion ever. Every motion on this shelf was an impromptu round at the World Schools Debating Championships.',
+    seeAllHref: '/motions?wsdc=1&q=impromptu#explorer',
+    seeAllLabel: 'All Worlds impromptu rounds',
+    motions: pickDistinct(
+      motions.filter((m) => m.w === 1 && /impromptu/i.test(m.r)).sort(byYearDesc),
+      6,
+    ),
+  },
+  {
+    slug: 'championship-level',
+    title: 'Championship level',
+    why: 'prepared rounds and elimination debates at Worlds',
+    note:
+      'Prepared Worlds rounds reward research depth. Give the team a week rather than an hour, expect a full evidence file on both sides, and judge the round on the 40/40/20 criteria.',
+    seeAllHref: '/motions/wsdc',
+    seeAllLabel: 'Open the Worlds archive',
+    motions: pickDistinct(
+      motions
+        .filter((m) => m.w === 1 && /prepared|final/i.test(m.r))
+        .sort(byYearDesc),
+      6,
+    ),
+  },
+];
