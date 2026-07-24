@@ -220,7 +220,7 @@ export default function HomePage() {
             {[
               {
                 title: 'Exceptional competition results',
-                body: 'The roster includes a World Universities Debating Champion, the Best Open Speaker at WSDC 2025, and champions and top speakers from Harvard, Stanford, and the Oxford Union. Students learn the format from people who have won at its highest levels.',
+                body: 'The roster includes a World Universities Debating Champion, the Best Open Speaker at WSDC 2025, and champions and top speakers from Harvard, Stanford, and Oxford. Students learn the format from people who have won at its highest levels.',
               },
               {
                 title: 'National team coaching experience',
@@ -464,13 +464,13 @@ export default function HomePage() {
       <section className="bg-navy-900 text-white">
         <div className="mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
           <p className="font-display text-2xl font-medium italic leading-relaxed sm:text-3xl">
-            &ldquo;Learning debate was an important early impact on my ways of
-            thinking. You are taught that there are always at least two sides to
-            public policy questions, and you have to learn a good argument for
-            both sides as well as knowing how to critique both sides.&rdquo;
+            Every round in our program ends the same way: a judge&apos;s mark
+            against the 40/40/20 criteria and written notes on what to change
+            before the next session. That loop, repeated week after week, is
+            where debaters are made.
           </p>
           <p className="mt-6 text-sm font-semibold uppercase tracking-[0.15em] text-navy-300">
-            Elinor Ostrom · Nobel Prize in Economics · High school debate, Class of 1951
+            The WSDC Prep training loop
           </p>
         </div>
       </section>

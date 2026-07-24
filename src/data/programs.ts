@@ -437,7 +437,7 @@ export const programs: Program[] = [
       'Students targeting NSDA Nationals and national-team selection',
     ],
     pathwayStep: 3,
-    coachSlugs: ['ricky-huang', 'perry-beckett', 'matt-mauriello'],
+    coachSlugs: ['perry-beckett', 'matt-mauriello'],
     prerequisites:
       'Invitation only. Coaches invite students on the strength of their competitive results and their progress in the Competition Team. The way in is to train with us and compete.',
     sessionFlow: [
@@ -537,7 +537,6 @@ export const programs: Program[] = [
     ],
     pathwayStep: 4,
     coachSlugs: [
-      'ricky-huang',
       'cailyn-min',
       'biser-angelov',
       'tin-puljic',
@@ -546,7 +545,7 @@ export const programs: Program[] = [
       'perry-beckett',
       'zach-fleeser',
       'mac-hays',
-      'shaurya-chandranvanshi',
+      'shaurya-chandravanshi',
     ],
     prerequisites:
       'None. 1-on-1 works at any level, from a first speech to national-circuit prep. The first session is a diagnostic, so the coach meets the student exactly where they are.',

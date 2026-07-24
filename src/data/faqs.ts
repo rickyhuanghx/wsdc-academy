@@ -59,7 +59,7 @@ export const faqs: FAQ[] = [
   {
     question: 'Who are the coaches?',
     answer:
-      'Every coach has competed or adjudicated at international level in the World Schools format or its university equivalents. The team includes a former Director of Training at the Oxford Union, a former Columbia Debate Society head coach, competitors from Harvard, Yale, Brown, Oxford, and LSE, and coaches with national-squad coaching experience.',
+      'Every coach has competed or adjudicated at international level in the World Schools format or its university equivalents. The team includes a former Columbia Debate Society head coach, competitors from Harvard, Yale, Brown, Oxford, and LSE, and coaches with national-squad coaching experience.',
     category: 'programs',
     onHomepage: true,
   },

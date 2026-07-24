@@ -7,12 +7,12 @@ import { CONTACT_EMAIL } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'About WSDC Prep: Who Coaches Your World Schools Debate Training',
   description:
-    'WSDC Prep is a year-round online World Schools Debate training program founded in 2026 by coaches from the Oxford Union and Columbia Debate Society. Who we are, how we train, and why.',
+    'WSDC Prep is a year-round online World Schools Debate training program founded in 2026 by a former head coach of the Columbia Debate Society. Who we are, how we train, and why.',
   alternates: { canonical: '/about' },
   openGraph: {
     title: 'About WSDC Prep',
     description:
-      'A year-round training system for World Schools Debate, founded in 2026 by coaches from the Oxford Union and Columbia Debate Society.',
+      'A year-round training system for World Schools Debate, founded in 2026 by a former head coach of the Columbia Debate Society.',
     url: '/about',
   },
 };
@@ -77,8 +77,7 @@ export default function AboutPage() {
         </div>
         <p className="mt-6 leading-relaxed text-navy-700">
           They lead a team of {coaches.length} coaches{' '}
-          whose experience spans the Oxford
-          Union, the Columbia Debate Society, Harvard, Yale, Brown, LSE, and national-squad
+          whose experience spans the Columbia Debate Society, Harvard, Yale, Brown, Oxford, LSE, and national-squad
           training rooms in Europe and the Middle East. Every coach&apos;s full credentials are
           listed on{' '}
           <Link href="/coaches" className="font-medium underline underline-offset-2 hover:text-signal-500">
