@@ -47,6 +47,20 @@ function parseStudents(metadata: Record<string, string>): OrderStudent[] {
 
 async function handlePaymentIntentSucceeded(intent: Stripe.PaymentIntent) {
   const metadata = intent.metadata || {};
+
+  // All sibling brands share one Stripe account, and Stripe delivers every event
+  // to EVERY endpoint registered on it. Without this guard a WSC or Redwood sale
+  // lands here as a phantom order (blank program_ids, no students) and emails the
+  // buyer a WSDC confirmation for a course they never bought. Require our own stamp.
+  if (metadata.brand !== 'wsdc') {
+    console.log(
+      '[stripe-webhook] ignoring intent from another brand:',
+      metadata.brand || '(unstamped)',
+      intent.id
+    );
+    return;
+  }
+
   const receiptEmail = intent.receipt_email;
   if (!receiptEmail) {
     console.error('[stripe-webhook] payment_intent.succeeded missing receipt_email:', intent.id);
