@@ -148,6 +148,15 @@ export interface Program {
   included?: string[];
   /** Program-specific FAQ (also emitted as FAQ JSON-LD). */
   faqs?: { question: string; answer: string }[];
+  /**
+   * In-body links out to the guides, resources, and essays a parent or student
+   * reading this page would actually want next. Added 2026-07-27: an SEO audit
+   * found the program pages carried zero contextual internal links, so all six
+   * of them received and passed authority through the nav and footer only.
+   * `note` is the sentence rendered after the link, so each entry reads as prose
+   * rather than a bare list of anchors.
+   */
+  furtherReading?: { href: string; label: string; note: string }[];
 }
 
 const TERM_1: Program['term'] = {
@@ -169,7 +178,7 @@ export const programs: Program[] = [
       'An introduction to World Schools Debate for students new to the format: speech roles, argument construction, POIs, and monthly practice debates. Junior and Senior groups.',
     longDescription:
       'World Schools Foundation takes students from zero to competition-ready in the world’s most widely practiced debate format. Each week is a two-hour live class plus a monthly practice debate, split into Junior and Senior groups so students train alongside their own age band. Over the term, students master the 3-on-3 structure, learn what each speaker position does, build complete arguments, handle points of information, and debate in judged practice rounds.',
-    metaTitle: 'World Schools Foundation: Online Debate Classes for Beginners (Ages 9–16)',
+    metaTitle: 'World Schools Debate Classes for Beginners',
     metaDescription:
       'A beginner World Schools Debate class online for ages 9–16: a weekly 2-hour lesson plus monthly judged practice debates. Term 1 starts September 1. $756 per term.',
     level: 'Beginner',
@@ -276,6 +285,33 @@ export const programs: Program[] = [
           'Foundation students who want to compete move into the Competition Team, our year-round squad with weekly practice debates and tournament support. The best way to find the right starting point is a free consultation, which ends with a placement recommendation.',
       },
     ],
+    furtherReading: [
+      {
+        href: '/what-is-world-schools-debate',
+        label: 'What is World Schools Debate?',
+        note: 'The format explained from scratch: the 3-on-3 structure, the eight-minute speeches, and how a round actually runs.',
+      },
+      {
+        href: '/world-schools-debate-judging',
+        label: 'How World Schools judging works',
+        note: 'The 40/40/20 Style, Content, and Strategy split this curriculum is built around.',
+      },
+      {
+        href: '/resources/wsdc-format-quick-reference',
+        label: 'Format quick reference',
+        note: 'Speech order, speaking times, and prep rules on one printable page.',
+      },
+      {
+        href: '/resources/glossary',
+        label: 'The World Schools glossary',
+        note: 'Every term a coach will use in the first month, defined.',
+      },
+      {
+        href: '/blog/first-speaker-world-schools-debate',
+        label: 'The first speaker\'s job',
+        note: 'The role most beginners are given first, and how to structure it.',
+      },
+    ],
   },
   {
     id: 'competition-team',
@@ -287,7 +323,7 @@ export const programs: Program[] = [
       'Our flagship year-round program: a weekly 2-hour class, a weekly practice debate, prep on live tournament motions, and tournament support through the season. Junior and Senior squads.',
     longDescription:
       'The Competition Team is a year-round World Schools squad for students actively competing at local tournaments, state championships, and NSDA district qualifiers. Every week is a two-hour class plus a full practice debate, split into Junior and Senior squads. Training runs on a real competitive cycle: structured prep on live tournament motions, impromptu drills under the one-hour clock, and round-by-round adjudication from coaches who have judged at the international level.',
-    metaTitle: 'Competition Team: Year-Round World Schools Debate Team Training',
+    metaTitle: 'World Schools Debate Competition Team',
     metaDescription:
       'Year-round World Schools Debate team training: a weekly class, a weekly judged practice debate, and tournament support through the season. $980 per term.',
     seoH1: 'World Schools Debate Competition Team',
@@ -395,6 +431,33 @@ export const programs: Program[] = [
           'Reach out and we will help the student catch up, and offer a make-up where we can. Our full withdrawal and refund terms are on the Refund Policy page.',
       },
     ],
+    furtherReading: [
+      {
+        href: '/blog/world-schools-debate-pathway-us',
+        label: 'The World Schools pathway in the US',
+        note: 'Where a competing student actually goes: school teams, state leagues with WS divisions, and NSDA Nationals.',
+      },
+      {
+        href: '/blog/world-schools-debate-tournaments',
+        label: 'The US tournament circuit',
+        note: 'The invitational calendar month by month, with the TOC bid tiers marked.',
+      },
+      {
+        href: '/blog/weighing-in-debate',
+        label: 'Weighing: how close rounds get decided',
+        note: 'The skill that separates a team that wins panels from one that splits them.',
+      },
+      {
+        href: '/motions',
+        label: 'The motion bank',
+        note: '12,400+ real tournament motions to draw practice rounds from between classes.',
+      },
+      {
+        href: '/resources/prep-hour-planner',
+        label: 'The 1-hour prep planner',
+        note: 'The minute-by-minute team routine drilled for impromptu rounds.',
+      },
+    ],
   },
   {
     id: 'national-team-sprint',
@@ -406,7 +469,7 @@ export const programs: Program[] = [
       'An invitation-only squad for our most advanced competitors: two classes a week plus a weekly practice debate, built around national-circuit breaks, NSDA Nationals, and national-team selection.',
     longDescription:
       'The National Team Sprint is the top rung of the pathway, and it is invitation-only. It brings together our most advanced competitors for two classes a week plus a weekly practice debate, training against international-style benchmarks. The focus is elimination-round strategy, prepared and impromptu cases to a national-final standard, and the specific demands of NSDA Nationals and national-team selection. Coaches invite students on the strength of their competitive results and progress in the Competition Team.',
-    metaTitle: 'National Team Sprint: Advanced World Schools Debate Training',
+    metaTitle: 'National Team Sprint: Advanced World Schools',
     metaDescription:
       'An invitation-only advanced World Schools Debate squad: two classes plus a judged practice debate every week, built for NSDA Nationals and national-team selection.',
     level: 'Advanced',
@@ -481,6 +544,33 @@ export const programs: Program[] = [
           'Train in the Competition Team and compete; that is where invitations come from. Ask a coach and we will tell you honestly what the next step looks like.',
       },
     ],
+    furtherReading: [
+      {
+        href: '/usa-debate-team',
+        label: 'How to make the USA Debate team',
+        note: 'Eligibility, the application, and the season-long timeline for national-team selection.',
+      },
+      {
+        href: '/blog/usa-debate-team-skills',
+        label: 'What selectors actually reward',
+        note: 'The trainable skills that separate applicants past the point where everyone is talented.',
+      },
+      {
+        href: '/blog/usa-debate-team-application-guide',
+        label: 'The year before you apply',
+        note: 'A season-long training plan aimed at the three-speech video application.',
+      },
+      {
+        href: '/motions/wsdc',
+        label: 'The Worlds motion archive',
+        note: 'Every WSDC motion since 1994, prepared and impromptu labeled.',
+      },
+      {
+        href: '/blog/international-world-schools-tournaments',
+        label: 'The international calendar',
+        note: 'The overseas opens a student at this level can enter.',
+      },
+    ],
   },
   {
     id: 'private-coaching',
@@ -492,7 +582,7 @@ export const programs: Program[] = [
       'Private sessions with a World Schools specialist: speech redos, round reviews, impromptu drills, or application prep, depending on what the student needs.',
     longDescription:
       'One-on-one coaching pairs a student with a World Schools specialist for fully personalized training. Sessions adapt to exactly what the student needs: rebuilding a speaker role, reviewing tournament recordings round by round, running impromptu prep drills, or preparing a USA Debate application. Scheduling is flexible across US time zones.',
-    metaTitle: 'Private World Schools Debate Coaching: 1-on-1 Online Sessions',
+    metaTitle: 'Private 1-on-1 World Schools Debate Coaching',
     metaDescription:
       'Work 1-on-1 with a private World Schools Debate coach online. Diagnostic session $80, hourly coaching at $120, and 10- or 20-hour packages. Flexible US scheduling.',
     seoH1: 'Private 1-on-1 World Schools Debate Coaching',
@@ -578,6 +668,33 @@ export const programs: Program[] = [
           'Scheduling is flexible across US time zones, including evenings and weekends. After purchase, a coach reaches out to set the first session at a time that works for the student.',
       },
     ],
+    furtherReading: [
+      {
+        href: '/world-schools-debate-judging',
+        label: 'How World Schools judging works',
+        note: 'The criteria a diagnostic session scores a student against.',
+      },
+      {
+        href: '/blog/debate-rebuttal-guide',
+        label: 'How to rebut an argument',
+        note: 'The four-step response structure most 1-on-1 work starts with.',
+      },
+      {
+        href: '/blog/points-of-information-debate',
+        label: 'Points of information',
+        note: 'The sixty-second exchange that is hardest to fix without individual coaching.',
+      },
+      {
+        href: '/resources/first-speaker-cheat-sheet',
+        label: 'Speaker cheat sheets',
+        note: 'Printable role templates a student can bring to a session.',
+      },
+      {
+        href: '/blog/how-to-build-a-debate-argument',
+        label: 'Building an argument that holds',
+        note: 'Tagline, mechanisms, impact, weighing: the structure sessions drill against.',
+      },
+    ],
   },
   {
     id: 'summer-bootcamp',
@@ -589,7 +706,7 @@ export const programs: Program[] = [
       'A 12-hour intensive for students brand new to World Schools debate: the format, your first real arguments, rebuttal, points of information, and a friendly practice debate. Cohorts run June, July, and August; only the August cohort still has open enrollment.',
     metaDescription:
       'A 12-hour online World Schools debate summer camp for complete beginners. The August cohort (Aug 3–21) is the last of the summer and is enrolling now.',
-    metaTitle: 'World Schools Debate Summer Camp Online: 3-Week Beginner Bootcamp',
+    metaTitle: 'World Schools Debate Summer Camp (3 Weeks)',
     seoH1: 'World Schools Debate Summer Bootcamp',
     longDescription:
       'The Summer Bootcamp is the easiest way to try World Schools debate before the fall season starts. It runs as monthly cohorts in June, July, and August. Enrollment for the June and July cohorts has closed, so the August cohort (August 3–21) is the last of the summer. Students meet twice a week for a two-hour class over three weeks (twelve hours in all) and go from never having debated to giving a real speech in a judged practice round. It is built for complete beginners, and it sets up a running start for the fall Foundation class.',
@@ -710,6 +827,33 @@ export const programs: Program[] = [
           'It is a short program, so reach out and we will share notes and help the student catch up before the next class. Our full withdrawal and refund terms are on the Refund Policy page.',
       },
     ],
+    furtherReading: [
+      {
+        href: '/what-is-world-schools-debate',
+        label: 'What is World Schools Debate?',
+        note: 'Worth reading before the first session if the format is new.',
+      },
+      {
+        href: '/resources/wsdc-format-quick-reference',
+        label: 'Format quick reference',
+        note: 'Speech order and timings on one page, printable for the first week.',
+      },
+      {
+        href: '/resources/glossary',
+        label: 'The World Schools glossary',
+        note: 'The vocabulary the bootcamp moves quickly through.',
+      },
+      {
+        href: '/world-schools-vs-public-forum',
+        label: 'World Schools vs Public Forum',
+        note: 'For students arriving from PF, every difference to adjust to.',
+      },
+      {
+        href: '/resources/practice-motions',
+        label: '40 practice motions',
+        note: 'Sorted by motion type, for practice between sessions.',
+      },
+    ],
   },
   {
     id: 'advanced-summer-bootcamp',
@@ -721,7 +865,7 @@ export const programs: Program[] = [
       'A 12-hour intensive for students with a season behind them: impromptu prep under the one-hour clock, second- and third-speaker craft, reply speeches, and judged rounds at tournament standard. Cohorts run June, July, and August; only the August cohort still has open enrollment.',
     metaDescription:
       'An advanced online World Schools debate summer camp for experienced debaters. The August cohort (Aug 3–21) is the last of the summer and is enrolling now.',
-    metaTitle: 'Advanced World Schools Debate Summer Camp: Intensive for Experienced Debaters',
+    metaTitle: 'Advanced World Schools Debate Summer Camp',
     seoH1: 'Advanced World Schools Debate Summer Bootcamp',
     longDescription:
       'The Advanced Summer Bootcamp is for students who already know what a World Schools round looks like and want the summer to make them harder to beat in the fall. It runs as monthly cohorts in June, July, and August. Enrollment for the June and July cohorts has closed, so the August cohort (August 3–21) is the last of the summer: six two-hour classes over three weeks, twelve hours in all. The work starts where the beginner bootcamp ends. Students run full impromptu prep inside the one-hour window, build second-line arguments and the comparative that separates a third speech from a first, and debate judged rounds adjudicated to the standard used at real tournaments. Every student leaves with written feedback against the Style / Content / Strategy criteria and a placement note for the fall season.',
@@ -845,6 +989,33 @@ export const programs: Program[] = [
         question: 'What if we miss a session?',
         answer:
           'It is a short program, so reach out and we will share notes and help the student catch up before the next class. Our full withdrawal and refund terms are on the Refund Policy page.',
+      },
+    ],
+    furtherReading: [
+      {
+        href: '/blog/weighing-in-debate',
+        label: 'Weighing: how close rounds get decided',
+        note: 'Internal versus external weighing, and why it belongs in every speech.',
+      },
+      {
+        href: '/blog/third-speaker-world-schools-debate',
+        label: 'The whip speech',
+        note: 'Reorganizing a messy round into clashes, which the intensive drills hardest.',
+      },
+      {
+        href: '/blog/world-schools-case-files',
+        label: 'Building a case file',
+        note: 'Printed material is legal in the prep room; this is what to bring.',
+      },
+      {
+        href: '/motions',
+        label: 'The motion bank',
+        note: '12,400+ real motions, filterable by topic and type for scrimmages.',
+      },
+      {
+        href: '/blog/world-schools-debate-tournaments',
+        label: 'Where to compete next',
+        note: 'The US circuit and the international opens, for the season after the intensive.',
       },
     ],
   },

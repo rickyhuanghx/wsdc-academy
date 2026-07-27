@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'The 4 Types of World Schools Debate Motions (With Examples)',
+  title: 'The 4 World Schools Debate Motion Types',
   description:
-    'Policy, value, actor, and regret motions in World Schools Debate: what each motion type asks you to prove, where each debate is usually won or lost, and example motions for every type.',
+    'Policy, value, actor, and regret motions: what each asks you to prove, where each debate is won or lost, and example motions for every type.',
   alternates: { canonical: '/resources/motion-types' },
   openGraph: {
     title: 'The 4 Types of World Schools Debate Motions',

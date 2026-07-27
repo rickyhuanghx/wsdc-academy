@@ -3,7 +3,7 @@ import { execSync } from 'node:child_process';
 import { programs } from '@/data/programs';
 import { resources } from '@/data/resources';
 import { blogPosts } from '@/data/blog';
-import { motionTopics, motionYears } from '@/lib/motion-bank';
+import { motionTopics, topicPageCount } from '@/lib/motion-bank';
 import { SITE_URL } from '@/lib/site';
 
 const baseUrl = SITE_URL;
@@ -96,20 +96,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Motion topic/year pages change only when the motion bank (or their template) does.
-  const motionTopicPages = motionTopics.map((t) => ({
-    url: `${baseUrl}/motions/${t.slug}`,
-    lastModified: lastModified(MOTION_BANK_DATA, 'src/app/motions/[topic]/page.tsx'),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
+  // Motion topic pages change only when the motion bank (or their template) does.
+  // Pages 2+ are self-canonical and hold motions that appear nowhere else, so they
+  // belong in the sitemap; they rank below page 1, which carries the topic intro.
+  const motionTopicPages = motionTopics.flatMap((t) => {
+    const modified = lastModified(MOTION_BANK_DATA, 'src/app/motions/[topic]/page.tsx');
+    return Array.from({ length: topicPageCount(t.slug) }, (_, i) => ({
+      url: i === 0 ? `${baseUrl}/motions/${t.slug}` : `${baseUrl}/motions/${t.slug}/page/${i + 1}`,
+      lastModified: modified,
+      changeFrequency: 'monthly' as const,
+      priority: i === 0 ? 0.8 : 0.5,
+    }));
+  });
 
-  const motionYearPages = motionYears.map((y) => ({
-    url: `${baseUrl}/motions/year/${y}`,
-    lastModified: lastModified(MOTION_BANK_DATA, 'src/app/motions/year/[year]/page.tsx'),
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }));
+  // /motions/year/* is deliberately absent: every motion on a year page also appears
+  // on a topic page, so they are noindex,follow (see that route's metadata). A sitemap
+  // is a list of pages you want indexed — listing a noindex URL is a contradictory
+  // signal. They stay reachable via the topic pages and the explorer's year filter.
 
   // Blog posts already carry an authored publish date — the truest lastmod we have.
   const blogPages = blogPosts.map((p) => ({
@@ -119,5 +122,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...programPages, ...resourcePages, ...motionTopicPages, ...motionYearPages, ...blogPages];
+  return [...staticPages, ...programPages, ...resourcePages, ...motionTopicPages, ...blogPages];
 }

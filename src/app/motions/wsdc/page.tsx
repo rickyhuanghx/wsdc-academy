@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BreadcrumbJsonLd, CollectionPageJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { wsdcChampionshipMotions, Motion } from '@/lib/motion-bank';
+import { FurtherReading } from '@/components/FurtherReading';
 
 // Host cities are stable historical record (official WSDC archive + championship
 // records). 1988-1993 motions are not preserved in any public archive we found.
@@ -43,8 +44,8 @@ const HOSTS: Record<string, string> = {
 const count = wsdcChampionshipMotions.length;
 
 export const metadata: Metadata = {
-  title: `WSDC Motions: Every World Schools Debating Championships Motion Since 1994 (${count} Motions)`,
-  description: `The complete Worlds motion archive: ${count} WSDC motions from 32 championships (1994 to 2025), every round from prelims to Grand Finals, with prepared and impromptu rounds labeled. Free, no signup.`,
+  title: `WSDC Motions: Every Worlds Motion Since 1994`,
+  description: `The complete Worlds archive: ${count} WSDC motions from 32 championships (1994–2025), prelims to Grand Finals, prepared and impromptu labeled.`,
   alternates: { canonical: '/motions/wsdc' },
   openGraph: {
     title: 'Every WSDC Motion Since 1994: The Worlds Motion Archive',
@@ -188,6 +189,38 @@ export default function WsdcMotionsPage() {
             .
           </p>
         </section>
+
+        <FurtherReading
+          heading="How to actually use this archive"
+          intro="A list of 374 motions is a training resource only if you know what to do with it. These are the guides our own coaches point students at."
+          links={[
+            {
+              href: '/resources/motion-types',
+              label: 'The four motion types',
+              note: 'Policy, value, actor, and regret. Sorting a Worlds motion into the right type tells you what you have to prove before you write a single argument.',
+            },
+            {
+              href: '/resources/prep-hour-planner',
+              label: 'The 1-hour prep planner',
+              note: 'Half of every Worlds round is impromptu. This is the minute-by-minute routine for the prep hour those motions get.',
+            },
+            {
+              href: '/blog/world-schools-case-files',
+              label: 'Building a case file',
+              note: 'Prepared motions are released in advance and printed material is legal in the prep room. This is what to bring.',
+            },
+            {
+              href: '/motions',
+              label: 'The full motion bank',
+              note: 'Worlds is 374 of 12,400+. Filter the rest by topic, type, and year, or draw a random one for a scrimmage.',
+            },
+            {
+              href: '/usa-debate-team',
+              label: 'How to make the USA Debate team',
+              note: 'For students aiming at the championship these motions come from: eligibility, the application, and the timeline.',
+            },
+          ]}
+        />
 
         <div className="mt-14 bg-navy-900 p-8 text-center text-white">
           <h2 className="text-2xl font-bold">Train on the motions Worlds actually set.</h2>

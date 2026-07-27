@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
-  title: '40 World Schools Debate Practice Motions (By Motion Type)',
+  title: '40 World Schools Debate Practice Motions',
   description:
-    'A free bank of 40 World Schools Debate practice motions organized by type (10 policy, 10 value, 10 actor, and 10 regret motions) for scrimmages, prep-time drills, and casebuilding practice.',
+    'A free bank of 40 practice motions by type (10 policy, 10 value, 10 actor, 10 regret) for scrimmages, prep-time drills, and casebuilding.',
   alternates: { canonical: '/resources/practice-motions' },
   openGraph: {
     title: '40 World Schools Debate Practice Motions',

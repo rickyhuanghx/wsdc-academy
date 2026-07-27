@@ -4,9 +4,9 @@ import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
 import { PrintButton } from '@/components/PrintButton';
 
 export const metadata: Metadata = {
-  title: 'World Schools Debate Format: Quick Reference (Speech Order, Times, Judging)',
+  title: 'World Schools Debate Format: Quick Reference',
   description:
-    'The World Schools Debate format on one page: speech order and speaking times, reply speech rules, prep-time rules for impromptu motions, points of information, and the 40/40/20 judging criteria.',
+    'The format on one page: speech order and times, reply speech rules, prep-time rules, points of information, and the 40/40/20 judging criteria.',
   alternates: { canonical: '/resources/wsdc-format-quick-reference' },
   openGraph: {
     title: 'World Schools Debate Format Quick Reference',

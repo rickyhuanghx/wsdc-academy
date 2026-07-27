@@ -5,9 +5,9 @@ import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd'
 import { ArticleByline } from '@/components/ArticleByline';
 
 export const metadata: Metadata = {
-  title: 'How World Schools Debate Judging Works: 40/40/20 Explained (2026 Guide)',
+  title: 'World Schools Debate Judging: 40/40/20',
   description:
-    'World Schools Debate judging explained: how the 40% Style, 40% Content, 20% Strategy criteria actually work, what judges reward in each category, speaker scores, and how to train for all three.',
+    'How the 40% Style, 40% Content, 20% Strategy criteria actually work, what judges reward in each, and how to train for all three.',
   alternates: { canonical: '/world-schools-debate-judging' },
   openGraph: {
     title: 'How World Schools Debate Judging Works: 40/40/20 Explained',
@@ -166,11 +166,30 @@ export default function JudgingGuidePage() {
             room.
           </p>
           <p className="mt-4 leading-relaxed text-navy-700">
-            Content is also where <strong>rebuttal</strong> lives. A speech that
-            builds its own case but ignores the clash scores like half a speech.
-            The second and third speakers earn their Content marks largely on how
-            directly and completely they answer the strongest version of the
-            opposing case.
+            Content is also where{' '}
+            <Link
+              href="/blog/debate-rebuttal-guide"
+              className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+            >
+              rebuttal
+            </Link>{' '}
+            lives. A speech that builds its own case but ignores the clash scores
+            like half a speech. The{' '}
+            <Link
+              href="/blog/second-speaker-world-schools-debate"
+              className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+            >
+              second
+            </Link>{' '}
+            and{' '}
+            <Link
+              href="/blog/third-speaker-world-schools-debate"
+              className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+            >
+              third speakers
+            </Link>{' '}
+            earn their Content marks largely on how directly and completely they
+            answer the strongest version of the opposing case.
           </p>
         </section>
 
@@ -182,8 +201,21 @@ export default function JudgingGuidePage() {
             covers issue prioritization, speech structure, timing, role
             fulfillment (a third speaker who introduces brand-new substantive
             material is failing their role), and the tactical layer of{' '}
-            <strong>points of information</strong>: offering them at damaging
-            moments and taking one or two at moments you control.
+            <Link
+              href="/blog/points-of-information-debate"
+              className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+            >
+              points of information
+            </Link>
+            : offering them at damaging moments and taking one or two at moments
+            you control. The clearest Strategy signal of all is{' '}
+            <Link
+              href="/blog/weighing-in-debate"
+              className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+            >
+              weighing
+            </Link>
+            : telling the judge which issue decides the round, and why yours wins it.
           </p>
           <p className="mt-4 leading-relaxed text-navy-700">
             Strategy is only 20% of the score, but it is the least noisy category:

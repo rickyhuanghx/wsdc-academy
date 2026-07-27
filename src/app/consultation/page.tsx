@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import { FurtherReading } from '@/components/FurtherReading';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { CalendlyEmbed } from '@/components/CalendlyEmbed';
 import {
@@ -12,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: 'Book a Free World Schools Debate Consultation',
   description:
-    'Book a free consultation with WSDC Prep: we learn about your student, answer your questions about the World Schools format, and recommend the right place to start. No obligation.',
+    'Book a free call: we learn about your student, answer your questions about the World Schools format, and recommend where to start. No obligation.',
   alternates: { canonical: '/consultation' },
   openGraph: {
     title: 'Book a Free Consultation | WSDC Prep',
@@ -93,6 +95,50 @@ export default function ConsultationPage() {
               </p>
             </div>
 
+            <h2 className="mt-12 font-display text-xl font-semibold text-navy-900">
+              What we will ask you
+            </h2>
+            <p className="mt-3 leading-relaxed text-navy-700">
+              Nothing you need to prepare for. The call goes faster if you already
+              know roughly where your student sits on these, but a shrug is a fine
+              answer to any of them.
+            </p>
+            <ul className="mt-5 space-y-3 text-navy-700">
+              {[
+                'How much debate they have done, and in which format. Public Forum, Lincoln-Douglas, Congress, Model UN, and school-club debate all transfer differently.',
+                'Whether they want to compete, or want the skill without the tournament calendar. Both are legitimate; they lead to different programs.',
+                'What their week already looks like. A student with three other commitments should not start on a year-round squad.',
+                'Whether a coach or teacher is already working with them, so we do not contradict what they are being taught.',
+              ].map((line) => (
+                <li key={line} className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-signal-500" />
+                  <span className="leading-relaxed">{line}</span>
+                </li>
+              ))}
+            </ul>
+
+            <h2 className="mt-12 font-display text-xl font-semibold text-navy-900">
+              What you will leave with
+            </h2>
+            <p className="mt-3 leading-relaxed text-navy-700">
+              One named program, the reason it is that one and not the rung above
+              or below, and the term dates and price in writing. If the honest
+              answer is that none of our programs fit yet, we will say so and point
+              you at the free material instead. We would rather place a student
+              correctly a year from now than badly this month.
+            </p>
+            <p className="mt-4 leading-relaxed text-navy-700">
+              The call runs about twenty minutes and there is no second call
+              designed to close you. Everything we quote is on the{' '}
+              <Link
+                href="/programs"
+                className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+              >
+                programs page
+              </Link>{' '}
+              already.
+            </p>
+
             <div className="mt-8 text-sm text-navy-600">
               <p>
                 Prefer to reach us directly? Email{' '}
@@ -136,6 +182,38 @@ export default function ConsultationPage() {
             </div>
           </div>
         </div>
+
+        <FurtherReading
+          heading="Want to read first?"
+          intro="Plenty of families book the call already knowing what they want. If you would rather work it out yourself, start here. All of it is free and none of it asks for an email."
+          links={[
+            {
+              href: '/what-is-world-schools-debate',
+              label: 'What is World Schools Debate?',
+              note: 'The format explained for parents and newcomers: the 3-on-3 structure, the speeches, and how a round is judged.',
+            },
+            {
+              href: '/programs',
+              label: 'The five programs, compared',
+              note: 'Beginner bootcamp through invitation-only squad, with age bands, schedules, and prices on one page.',
+            },
+            {
+              href: '/world-schools-vs-public-forum',
+              label: 'World Schools vs Public Forum',
+              note: 'The comparison to read if your student already debates PF and you are weighing a switch.',
+            },
+            {
+              href: '/coaches',
+              label: 'Who would be coaching them',
+              note: 'The full roster, with competitive and adjudication records.',
+            },
+            {
+              href: '/faq',
+              label: 'Frequently asked questions',
+              note: 'Placement, make-up classes, tournament support, and what a term actually commits you to.',
+            },
+          ]}
+        />
       </section>
     </>
   );

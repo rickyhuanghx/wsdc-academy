@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { BreadcrumbJsonLd, ItemListJsonLd } from '@/components/JsonLd';
 import { resources, resourceCategories } from '@/data/resources';
 
 export const metadata: Metadata = {
-  title: 'World Schools Debate Resources: Cheat Sheets, Templates & References',
+  title: 'World Schools Debate Resources & Cheat Sheets',
   description:
-    'Free World Schools Debate resources: printable speaker cheat sheets, a 1-hour prep planner, a practice motion bank, format quick references, and a full glossary, built by coaches who train the format year-round.',
+    'Free World Schools Debate resources: printable speaker cheat sheets, a 1-hour prep planner, a practice motion bank, and a full glossary.',
   alternates: { canonical: '/resources' },
   openGraph: {
     title: 'World Schools Debate Resource Library',
@@ -34,6 +34,16 @@ export default function ResourcesPage() {
           { name: 'Home', href: '/' },
           { name: 'Resources', href: '/resources' },
         ]}
+      />
+      <ItemListJsonLd
+        name="World Schools Debate Resource Library"
+        description="Free printable cheat sheets, prep templates, practice motions, and quick references for World Schools Debate."
+        url="/resources"
+        items={resources.map((r) => ({
+          name: r.title,
+          href: `/resources/${r.slug}`,
+          description: r.description,
+        }))}
       />
 
       <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">

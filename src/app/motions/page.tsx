@@ -21,9 +21,9 @@ import {
 } from '@/lib/motion-bank';
 
 export const metadata: Metadata = {
-  title: 'Debate Motion Bank: 12,000+ Real World Schools & BP Motions, Searchable by Topic',
+  title: 'Debate Motion Bank: 12,000+ Real Motions',
   description:
-    'A free, searchable bank of 12,000+ real debate motions from 1,200+ tournaments (1994 to 2026): filter by topic, motion type, year, and info slide, including every World Schools Debating Championships motion since 1994. No signup.',
+    'A free, searchable bank of 12,000+ real debate motions from 1,200+ tournaments (1994–2026). Filter by topic, motion type, and year. No signup.',
   alternates: { canonical: '/motions' },
   openGraph: {
     title: 'The Debate Motion Bank: 12,000+ Real Tournament Motions',

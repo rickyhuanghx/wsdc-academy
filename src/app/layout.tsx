@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "A real training system for World Schools Debate: structured curriculum, judged practice rounds, and written feedback after every session. Year-round online coaching. Free consultation.",
+    "A real training system for World Schools Debate: structured curriculum, judged practice rounds, and written feedback every session. Free consultation.",
   keywords: [
     "World Schools Debate coaching",
     "World Schools Debate classes",

@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'World Schools Debate Glossary: Every Term, Defined',
+  title: 'World Schools Debate Glossary',
   description:
-    'A complete World Schools Debate glossary: burden, caseline, clash, countermodel, extension, mechanism, metric, POI, reply speech, split, weighing, whip, and every other term your coach will use.',
+    'Every World Schools term defined: burden, caseline, clash, countermodel, extension, mechanism, metric, POI, split, weighing, whip, and more.',
   alternates: { canonical: '/resources/glossary' },
   openGraph: {
     title: 'World Schools Debate Glossary',

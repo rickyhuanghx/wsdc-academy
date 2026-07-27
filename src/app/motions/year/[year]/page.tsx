@@ -6,6 +6,7 @@ import {
   motionYears,
   motionsForYear,
   motionTopics,
+  paginateYearGroups,
   Motion,
 } from '@/lib/motion-bank';
 
@@ -26,9 +27,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const count = motionsForYear(y).length;
 
   return {
-    title: `Debate Motions ${year}: ${count.toLocaleString('en-US')} Motions from the ${year} Season`,
-    description: `Every ${year} debate motion in the bank: ${count.toLocaleString('en-US')} motions from tournament records that season, grouped by tournament, with info slides where released. Free, no signup.`,
+    title: `${year} Debate Motions (${count.toLocaleString('en-US')})`,
+    description: `Every ${year} debate motion in the bank: ${count.toLocaleString('en-US')} motions from tournament records that season, grouped by tournament.`,
     alternates: { canonical: `/motions/year/${year}` },
+    // Every motion on a year page also appears on a /motions/[topic] page — these
+    // are a second cut of the same corpus, so they are a duplicate slice with no
+    // unique body content. Keep them crawlable and useful as a browsing filter,
+    // but out of the index so they don't dilute the topic pages. (SEO audit 2026-07-27)
+    robots: { index: false, follow: true },
     openGraph: {
       title: `Debate Motions ${year}`,
       description: `${count.toLocaleString('en-US')} real tournament motions from the ${year} season.`,
@@ -54,7 +60,13 @@ export default async function MotionYearPage({ params }: Props) {
   if (!motionYears.includes(y)) notFound();
 
   const list = motionsForYear(y);
-  const groups = groupByTournament(list);
+  // These pages are noindex, but a 2,432-motion season still shipped 3.3 MB of
+  // HTML to anyone browsing it. Cap what renders at the same size as a topic
+  // page; the explorer's year filter is the route to the rest.
+  const allGroups = groupByTournament(list);
+  const groups = paginateYearGroups(allGroups)[0] ?? [];
+  const shown = groups.reduce((n, [, items]) => n + items.length, 0);
+  const hidden = list.length - shown;
   const idx = motionYears.indexOf(y);
   const newer = idx > 0 ? motionYears[idx - 1] : null;
   const older = idx < motionYears.length - 1 ? motionYears[idx + 1] : null;
@@ -85,23 +97,41 @@ export default async function MotionYearPage({ params }: Props) {
             Debate motions from {year}
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-navy-700">
-            {list.length.toLocaleString('en-US')} motions set at{' '}
-            {groups.length.toLocaleString('en-US')} tournaments during {year},
-            verbatim from public tab records, largest tournaments first.
+            {list.length.toLocaleString('en-US')} motions were set at{' '}
+            {allGroups.length.toLocaleString('en-US')} tournaments during {year},
+            verbatim from public tab records. The{' '}
+            {shown.toLocaleString('en-US')} below come from that season&apos;s
+            largest tournaments.
             {wsdcCount > 0 ? (
               <>
-                {' '}It includes {wsdcCount} motions from that year&apos;s{' '}
+                {' '}They include {wsdcCount} motions from that year&apos;s{' '}
                 <Link href="/motions/wsdc" className="font-semibold text-signal-500 hover:text-signal-600">
                   World Schools Debating Championships
                 </Link>
                 .
               </>
             ) : null}{' '}
-            For keyword search and topic filters, use the{' '}
-            <Link href="/motions" className="font-semibold text-signal-500 hover:text-signal-600">
-              searchable bank
-            </Link>
-            .
+            {hidden > 0 ? (
+              <>
+                To reach the other {hidden.toLocaleString('en-US')}, or to search
+                by keyword and topic, use the{' '}
+                <Link
+                  href={`/motions?year=${year}#explorer`}
+                  className="font-semibold text-signal-500 hover:text-signal-600"
+                >
+                  explorer filtered to {year}
+                </Link>
+                .
+              </>
+            ) : (
+              <>
+                For keyword search and topic filters, use the{' '}
+                <Link href="/motions" className="font-semibold text-signal-500 hover:text-signal-600">
+                  searchable bank
+                </Link>
+                .
+              </>
+            )}
           </p>
         </header>
 

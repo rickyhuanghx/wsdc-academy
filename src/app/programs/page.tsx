@@ -22,9 +22,9 @@ const tocItems = [
 const programFaqs = faqs.filter((f) => f.category === 'programs' || f.category === 'logistics');
 
 export const metadata: Metadata = {
-  title: 'World Schools Debate Programs: Classes, Teams & Coaching',
+  title: 'World Schools Debate Programs & Classes',
   description:
-    'World Schools Debate programs for US students: an August beginner bootcamp, a Foundation class, a year-round Competition Team, the invitation-only National Team Sprint, and private 1-on-1 coaching. All online.',
+    'World Schools Debate programs for US students: a beginner bootcamp, a Foundation class, a year-round Competition Team, and 1-on-1 coaching.',
   alternates: { canonical: '/programs' },
   openGraph: {
     title: 'World Schools Debate Programs | WSDC Prep',

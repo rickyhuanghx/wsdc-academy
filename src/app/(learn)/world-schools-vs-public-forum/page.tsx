@@ -5,9 +5,9 @@ import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd'
 import { ArticleByline } from '@/components/ArticleByline';
 
 export const metadata: Metadata = {
-  title: 'World Schools vs Public Forum Debate: Every Difference Explained (2026)',
+  title: 'World Schools vs Public Forum: Every Difference',
   description:
-    'World Schools Debate vs Public Forum compared: team size, speech structure, motions vs resolutions, evidence culture, judging, and what PF debaters need to adjust when converting to World Schools.',
+    'World Schools vs Public Forum compared: team size, speech structure, evidence culture, judging, and what PF debaters must adjust to convert.',
   alternates: { canonical: '/world-schools-vs-public-forum' },
   openGraph: {
     title: 'World Schools vs Public Forum: Every Difference Explained',
@@ -189,13 +189,46 @@ export default function WsVsPfPage() {
         <section className="mt-12">
           <h2 className="text-2xl font-bold text-navy-900">What transfers well</h2>
           <p className="mt-4 leading-relaxed text-navy-700">
-            Plenty. Research habits make prepared motions faster to case. Rebuttal
-            instincts transfer directly into second- and third-speaker clash.
-            Weighing (comparing impacts instead of listing them) is the PF
-            skill that most impresses World Schools judges, because it scores
-            under both Content and Strategy. PF converts usually arrive with the
-            argumentative engine already built; what they need is the format&apos;s
-            delivery standard, its roles, and its clock.
+            Plenty. Research habits make prepared motions faster to case.{' '}
+            <Link
+              href="/blog/debate-rebuttal-guide"
+              className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+            >
+              Rebuttal
+            </Link>{' '}
+            instincts transfer directly into second- and third-speaker clash.{' '}
+            <Link
+              href="/blog/weighing-in-debate"
+              className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+            >
+              Weighing
+            </Link>{' '}
+            (comparing impacts instead of listing them) is the PF skill that most
+            impresses World Schools judges, because it scores under both Content
+            and Strategy. PF converts usually arrive with the argumentative engine
+            already built; what they need is the format&apos;s delivery standard,
+            its{' '}
+            <Link
+              href="/blog/first-speaker-world-schools-debate"
+              className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+            >
+              speaker roles
+            </Link>
+            , and its clock. The{' '}
+            <Link
+              href="/resources/wsdc-format-quick-reference"
+              className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+            >
+              format quick reference
+            </Link>{' '}
+            and the{' '}
+            <Link
+              href="/resources/glossary"
+              className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+            >
+              glossary
+            </Link>{' '}
+            cover both in an afternoon.
           </p>
           <p className="mt-4 leading-relaxed text-navy-700">
             That is a training problem, and a well-defined one. Our{' '}

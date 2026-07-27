@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { faqs } from '@/data/faqs';
 import { FAQJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
+import { FurtherReading } from '@/components/FurtherReading';
 
 export const metadata: Metadata = {
-  title: 'FAQ: World Schools Debate Coaching Questions Answered',
+  title: 'World Schools Debate Coaching FAQ',
   description:
     'Answers to common questions about World Schools Debate, the USA Debate team, NSDA Nationals, state divisions, and our online coaching programs.',
   alternates: { canonical: '/faq' },
@@ -76,6 +77,38 @@ export default function FAQPage() {
           </Link>
           . We reply within one business day.
         </p>
+
+        <FurtherReading
+          heading="Longer answers"
+          intro="Several of the questions above have a full guide behind them. All of these are free and need no account."
+          links={[
+            {
+              href: '/what-is-world-schools-debate',
+              label: 'What is World Schools Debate?',
+              note: 'The format from scratch: the 3-on-3 structure, speech order, prepared versus impromptu motions, and how a round runs.',
+            },
+            {
+              href: '/world-schools-debate-judging',
+              label: 'How World Schools judging works',
+              note: 'The 40/40/20 Style, Content, and Strategy criteria, what judges reward in each, and how to train for all three.',
+            },
+            {
+              href: '/world-schools-vs-public-forum',
+              label: 'World Schools vs Public Forum',
+              note: 'Every difference between the two formats, for students converting from PF.',
+            },
+            {
+              href: '/blog/world-schools-debate-pathway-us',
+              label: 'The World Schools pathway in the US',
+              note: 'Where American students actually compete: school teams, state leagues, NSDA Nationals, and the route to the national team.',
+            },
+            {
+              href: '/usa-debate-team',
+              label: 'How to make the USA Debate team',
+              note: 'Eligibility, the application, and the season-long timeline for national-team selection.',
+            },
+          ]}
+        />
       </section>
     </>
   );

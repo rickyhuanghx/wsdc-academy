@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { BreadcrumbJsonLd } from '@/components/JsonLd';
+import { BreadcrumbJsonLd, ItemListJsonLd } from '@/components/JsonLd';
 import { blogPosts } from '@/data/blog';
 
 export const metadata: Metadata = {
-  title: 'World Schools Debate Blog: Speaker Roles, Technique & the US Circuit',
+  title: 'World Schools Debate Blog: Roles & Technique',
   description:
-    'Coaching essays on World Schools Debate: full guides to all three speaker roles, argument and rebuttal technique, weighing, reply speeches, and the American pathway from first tournament to USA Debate.',
+    'Coaching essays on World Schools Debate: all three speaker roles, argument and rebuttal technique, weighing, and the American pathway.',
   alternates: { canonical: '/blog' },
   openGraph: {
     title: 'The WSDC Prep Blog',
@@ -47,6 +47,16 @@ export default function BlogIndexPage() {
           { name: 'Home', href: '/' },
           { name: 'Blog', href: '/blog' },
         ]}
+      />
+      <ItemListJsonLd
+        name="The WSDC Prep Blog"
+        description="Coaching essays on World Schools Debate: speaker roles, argument and rebuttal technique, weighing, and the American pathway."
+        url="/blog"
+        items={blogPosts.map((p) => ({
+          name: p.title,
+          href: `/blog/${p.slug}`,
+          description: p.metaDescription,
+        }))}
       />
 
       <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">

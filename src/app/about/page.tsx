@@ -3,11 +3,12 @@ import Link from 'next/link';
 import { coaches, founders } from '@/data/coaches';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { CONTACT_EMAIL } from '@/lib/site';
+import { FurtherReading } from '@/components/FurtherReading';
 
 export const metadata: Metadata = {
-  title: 'About WSDC Prep: Who Coaches Your World Schools Debate Training',
+  title: 'About Our World Schools Debate Coaching',
   description:
-    'WSDC Prep is a year-round online World Schools Debate training program founded in 2026 by a former head coach of the Columbia Debate Society. Who we are, how we train, and why.',
+    'A year-round online World Schools Debate program founded by a former head coach of the Columbia Debate Society. Who we are and how we train.',
   alternates: { canonical: '/about' },
   openGraph: {
     title: 'About WSDC Prep',
@@ -132,6 +133,33 @@ export default function AboutPage() {
           </Link>{' '}
           ends with a placement recommendation and no obligation.
         </p>
+
+        <FurtherReading
+          heading="What we publish"
+          intro="Most of what we know is free to read. These are the pages worth starting from."
+          links={[
+            {
+              href: '/motions',
+              label: 'The debate motion bank',
+              note: '12,400+ real motions from 1,200+ tournaments, 1994 to 2026, searchable by topic, type, and year. Nothing else like it is public.',
+            },
+            {
+              href: '/resources',
+              label: 'The resource library',
+              note: 'Printable speaker cheat sheets, a prep-hour planner, a format quick reference, and a full glossary.',
+            },
+            {
+              href: '/blog/world-schools-debate-tournaments',
+              label: 'The US tournament map',
+              note: 'Every place to compete, verified with links: the invitational circuit, TOC bid tiers, NSDA Nationals, and state championships.',
+            },
+            {
+              href: '/blog/does-debate-help-college-admissions',
+              label: 'What debate does for university admissions',
+              note: 'Where the world\u2019s best World Schools debaters actually end up, and how much of that the activity can honestly claim.',
+            },
+          ]}
+        />
       </section>
     </>
   );

@@ -289,6 +289,51 @@ export function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] }) {
   );
 }
 
+/**
+ * ItemList for a hub page that indexes its children (/blog, /resources).
+ * Both hubs carried only the sitewide Organization/WebSite nodes before, so
+ * nothing told a crawler what the page was actually a list OF. (SEO audit 2026-07-27)
+ */
+export function ItemListJsonLd({
+  name,
+  description,
+  url,
+  items,
+}: {
+  name: string;
+  description: string;
+  url: string;
+  items: { name: string; href: string; description?: string }[];
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${baseUrl}${url}`,
+    name,
+    description,
+    url: `${baseUrl}${url}`,
+    isPartOf: { '@id': `${baseUrl}/#website` },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: items.length,
+      itemListElement: items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `${baseUrl}${item.href}`,
+        name: item.name,
+        ...(item.description ? { description: item.description } : {}),
+      })),
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
 // Article Schema for guide pages
 export function ArticleJsonLd({
   title,

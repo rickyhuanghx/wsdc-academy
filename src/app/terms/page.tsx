@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <LegalPage title="Terms of Service" lastUpdated="July 11, 2026">
+    <LegalPage title="Terms of Service" lastUpdated="July 11, 2026" path="/terms">
       <LegalSection title="1. Agreement to terms">
         <p>
           By using wsdcacademy.com or enrolling in our programs, you agree to these Terms of

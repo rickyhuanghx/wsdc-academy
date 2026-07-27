@@ -4,9 +4,9 @@ import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd'
 import { PrintButton } from '@/components/PrintButton';
 
 export const metadata: Metadata = {
-  title: 'The 1-Hour Prep Planner: Minute-by-Minute World Schools Debate Prep',
+  title: 'The 1-Hour Prep Planner: World Schools Debate',
   description:
-    'How to use the one-hour prep time in World Schools Debate: a minute-by-minute team plan from motion analysis (0–10) through casebuilding (25–45) to the final sync check (55–60), with a printable checklist.',
+    'A minute-by-minute team plan for the impromptu prep hour: motion analysis, casebuilding, and the final sync check, with a printable checklist.',
   alternates: { canonical: '/resources/prep-hour-planner' },
   openGraph: {
     title: 'The 1-Hour Prep Planner (World Schools Debate)',

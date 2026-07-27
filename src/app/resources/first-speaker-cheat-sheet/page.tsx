@@ -5,9 +5,9 @@ import { PrintButton } from '@/components/PrintButton';
 import { Sheet, SheetSection, Field, FieldRow, SubBlock } from '@/components/CheatSheet';
 
 export const metadata: Metadata = {
-  title: 'First Speaker Cheat Sheet: Printable World Schools Debate Template',
+  title: 'World Schools First Speaker Cheat Sheet',
   description:
-    'A free printable cheat sheet for the first speaker in World Schools Debate: introduction framing, set-up, definitions, team stance, speaker split, winning metric, and two fully structured arguments.',
+    'A free printable first speaker template: set-up, definitions, team stance, the speaker split, winning metric, and two structured arguments.',
   alternates: { canonical: '/resources/first-speaker-cheat-sheet' },
   openGraph: {
     title: 'First Speaker Cheat Sheet (World Schools Debate)',

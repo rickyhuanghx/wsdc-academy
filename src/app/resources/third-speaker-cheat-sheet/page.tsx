@@ -5,9 +5,9 @@ import { PrintButton } from '@/components/PrintButton';
 import { Sheet, SheetSection, Field, SubBlock } from '@/components/CheatSheet';
 
 export const metadata: Metadata = {
-  title: 'Third Speaker (Whip) Cheat Sheet: Printable World Schools Debate Template',
+  title: 'World Schools Third Speaker (Whip) Cheat Sheet',
   description:
-    'A free printable cheat sheet for the third speaker in World Schools Debate: choosing 2–3 clashes, answering the opposition\'s strongest material, and internal vs. external weighing, with no new arguments.',
+    'A free printable whip template: choosing 2–3 clashes, answering the opposition\'s strongest material, and internal vs external weighing.',
   alternates: { canonical: '/resources/third-speaker-cheat-sheet' },
   openGraph: {
     title: 'Third Speaker Cheat Sheet (World Schools Debate)',

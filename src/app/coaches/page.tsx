@@ -3,11 +3,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { coaches } from '@/data/coaches';
 import { CoachListJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
+import { FurtherReading } from '@/components/FurtherReading';
 
 export const metadata: Metadata = {
   title: 'Our Coaches: World Schools Debate Specialists',
   description:
-    'Meet the WSDC Prep coaching team: international adjudicators and competitors from Oxford, Harvard, Yale, Brown, Columbia, and LSE, with coaching experience up to national-squad level.',
+    'Meet the coaching team: international adjudicators and competitors from Oxford, Harvard, Yale, Columbia, and LSE, up to national-squad level.',
   alternates: { canonical: '/coaches' },
   openGraph: {
     title: 'Our Coaches | WSDC Prep',
@@ -113,6 +114,33 @@ export default function CoachesPage() {
             Book a Consultation
           </Link>
         </div>
+
+        <FurtherReading
+          heading="How this team coaches"
+          intro="The method is not a secret. These pages set out what we teach and how rounds get scored."
+          links={[
+            {
+              href: '/world-schools-debate-judging',
+              label: 'How World Schools judging works',
+              note: 'The 40/40/20 criteria every one of our written feedback reports is scored against.',
+            },
+            {
+              href: '/blog/how-to-build-a-debate-argument',
+              label: 'Building an argument that holds',
+              note: 'Tagline, mechanisms, impact, weighing: the four-layer structure taught in every program.',
+            },
+            {
+              href: '/blog/weighing-in-debate',
+              label: 'Weighing: how close rounds get decided',
+              note: 'The comparison skill that separates teams who win panels from teams who split them.',
+            },
+            {
+              href: '/resources/prep-hour-planner',
+              label: 'The 1-hour prep planner',
+              note: 'The minute-by-minute team routine our students drill for impromptu rounds.',
+            },
+          ]}
+        />
       </section>
     </>
   );

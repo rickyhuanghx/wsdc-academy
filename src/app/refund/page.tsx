@@ -35,6 +35,7 @@ export default function RefundPage() {
     <LegalPage
       title="Refund Policy"
       lastUpdated="July 11, 2026"
+      path="/refund"
       intro="Circumstances change. This policy is designed to be fair, and to be readable before you pay rather than after."
     >
       <div className="mb-10">

@@ -5,9 +5,9 @@ import { PrintButton } from '@/components/PrintButton';
 import { Sheet, SheetSection, Field, SubBlock } from '@/components/CheatSheet';
 
 export const metadata: Metadata = {
-  title: 'Second Speaker Cheat Sheet: Printable World Schools Debate Template',
+  title: 'World Schools Second Speaker Cheat Sheet',
   description:
-    'A free printable cheat sheet for the second speaker (deputy) in World Schools Debate: rebuttal in "they say / however" form, rebuilding your first speaker\'s case, and the new extension argument.',
+    'A free printable deputy speech template: rebuttal in "they say / however" form, rebuilding your first speaker\'s case, and the extension.',
   alternates: { canonical: '/resources/second-speaker-cheat-sheet' },
   openGraph: {
     title: 'Second Speaker Cheat Sheet (World Schools Debate)',

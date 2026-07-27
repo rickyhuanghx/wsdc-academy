@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy Policy" lastUpdated="July 19, 2026">
+    <LegalPage title="Privacy Policy" lastUpdated="July 19, 2026" path="/privacy">
       <LegalSection title="1. Introduction">
         <p>
           {SITE_NAME} (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to

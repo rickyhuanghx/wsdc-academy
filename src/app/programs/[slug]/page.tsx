@@ -461,6 +461,32 @@ export default async function ProgramPage({ params }: Props) {
               </p>
             )}
 
+            {/* Further reading — the contextual internal links this page used to lack. */}
+            {program.furtherReading && program.furtherReading.length > 0 && (
+              <>
+                <h2 className="mt-12 text-2xl font-bold text-navy-900">
+                  Read this before you start
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-navy-600">
+                  Everything below is free and needs no account. It is the
+                  background the first few sessions of {program.name} assume.
+                </p>
+                <ul className="mt-5 divide-y divide-navy-100 border-t border-navy-100">
+                  {program.furtherReading.map((r) => (
+                    <li key={r.href} className="py-4">
+                      <Link
+                        href={r.href}
+                        className="font-semibold text-navy-900 underline decoration-navy-300 underline-offset-4 hover:text-signal-500 hover:decoration-signal-500"
+                      >
+                        {r.label}
+                      </Link>
+                      <p className="mt-1 text-sm leading-relaxed text-navy-600">{r.note}</p>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
             {/* Program FAQ */}
             {program.faqs && program.faqs.length > 0 && (
               <>

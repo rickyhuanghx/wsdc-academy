@@ -6,9 +6,9 @@ import { ArticleByline } from '@/components/ArticleByline';
 import { ColumnChart, GroupedColumnChart } from '@/components/DebateCharts';
 
 export const metadata: Metadata = {
-  title: 'What is World Schools Debate? Format, Rules & Judging (2026 Guide)',
+  title: 'What is World Schools Debate? Format & Rules',
   description:
-    'World Schools Debate explained: the 3v3 format, 8-minute speeches, reply speeches, prepared vs impromptu motions, POIs, and the 40/40/20 judging criteria, plus how the format works in US competition.',
+    'World Schools Debate explained: the 3v3 format, 8-minute speeches, prepared vs impromptu motions, POIs, and the 40/40/20 judging criteria.',
   alternates: { canonical: '/what-is-world-schools-debate' },
   openGraph: {
     title: 'What is World Schools Debate? The Complete 2026 Guide',

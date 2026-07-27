@@ -5,9 +5,9 @@ import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd'
 import { ArticleByline } from '@/components/ArticleByline';
 
 export const metadata: Metadata = {
-  title: 'How to Make the USA Debate Team: Application, Eligibility & Timeline (2026)',
+  title: 'How to Make the USA Debate Team (2026 Guide)',
   description:
-    'A complete guide to USA Debate, the national World Schools team: eligibility rules, the application timeline, the motion-response videos, the Development Team, and how to prepare a winning application.',
+    'How to make USA Debate, the national World Schools team: eligibility, the application timeline, the motion-response videos, and how to prepare.',
   alternates: { canonical: '/usa-debate-team' },
   openGraph: {
     title: 'How to Make the USA Debate Team (2026 Guide)',

@@ -214,6 +214,77 @@ export function motionsForYear(year: number): Motion[] {
 
 export const wsdcChampionshipMotions: Motion[] = motions.filter((m) => m.w === 1);
 
+/**
+ * Motions per paginated topic page.
+ *
+ * The topic pages used to render every motion in one document, which put
+ * /motions/international-relations at 1.6 MB of raw HTML (264 KB compressed)
+ * for 1,452 motions. Roughly 900 bytes of that per motion is markup, not text,
+ * so trimming copy would not have helped — only rendering fewer rows does.
+ * 200 keeps the largest page near 40 KB while staying a useful browsing chunk.
+ */
+export const MOTIONS_PER_PAGE = 200;
+
+export type YearGroup = [year: string, items: Motion[]];
+
+/** Newest season first; undated motions sort last. */
+export function groupByYear(list: Motion[]): YearGroup[] {
+  const map = new Map<string, Motion[]>();
+  for (const m of list) {
+    const key = m.y ? String(m.y) : 'Undated';
+    if (!map.has(key)) map.set(key, []);
+    map.get(key)!.push(m);
+  }
+  return Array.from(map.entries()).sort((a, b) => {
+    if (a[0] === 'Undated') return 1;
+    if (b[0] === 'Undated') return -1;
+    return Number(b[0]) - Number(a[0]);
+  });
+}
+
+/**
+ * Chunk year groups into pages of at most `perPage` motions.
+ *
+ * Prefers to keep a season whole, since the jump-to-year nav and the "newest
+ * first" reading order are organised by season. But a season bigger than
+ * `perPage` IS split across pages rather than shipped intact — 2021 alone runs
+ * to 303 motions under `economics`, which put a single page back at 412 KB and
+ * defeated the point of paginating. The overflow keeps the same year heading on
+ * the next page, so the grouping still reads correctly.
+ */
+export function paginateYearGroups(
+  groups: YearGroup[],
+  perPage = MOTIONS_PER_PAGE,
+): YearGroup[][] {
+  const pages: YearGroup[][] = [];
+  let current: YearGroup[] = [];
+  let count = 0;
+
+  const flush = () => {
+    if (current.length > 0) pages.push(current);
+    current = [];
+    count = 0;
+  };
+
+  for (const [year, items] of groups) {
+    let offset = 0;
+    while (offset < items.length) {
+      if (count >= perPage) flush();
+      const slice = items.slice(offset, offset + (perPage - count));
+      current.push([year, slice]);
+      count += slice.length;
+      offset += slice.length;
+    }
+  }
+  flush();
+  return pages.length > 0 ? pages : [[]];
+}
+
+/** Page count for a topic, so routes and sitemaps agree on the same number. */
+export function topicPageCount(slug: string): number {
+  return paginateYearGroups(groupByYear(motionsForTopic(slug))).length;
+}
+
 /** Years that get their own archive page (dense coverage only). */
 export const motionYears: number[] = Array.from(
   new Set(motions.map((m) => m.y).filter((y): y is number => y !== null && y >= 2011)),

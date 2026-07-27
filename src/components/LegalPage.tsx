@@ -2,22 +2,34 @@
 // navy header band + narrow prose column, matching the guide pages.
 
 import { ReactNode } from 'react';
+import { BreadcrumbJsonLd } from '@/components/JsonLd';
 
 export function LegalPage({
   kicker = 'Legal',
   title,
   lastUpdated,
   intro,
+  path,
   children,
 }: {
   kicker?: string;
   title: string;
   lastUpdated: string;
   intro?: string;
+  /** Route of this page, e.g. '/privacy'. Emits BreadcrumbList when supplied. */
+  path?: string;
   children: ReactNode;
 }) {
   return (
     <>
+      {path && (
+        <BreadcrumbJsonLd
+          items={[
+            { name: 'Home', href: '/' },
+            { name: title, href: path },
+          ]}
+        />
+      )}
       <section className="bg-navy-900 py-14 text-white">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-bold uppercase tracking-wider text-signal-400">{kicker}</p>
