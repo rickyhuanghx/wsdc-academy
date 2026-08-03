@@ -42,3 +42,30 @@ create index if not exists orders_fulfillment_idx
   on public.orders (fulfillment);
 
 alter table public.orders enable row level security;
+
+-- ============================================================
+-- ad_clicks: raw click log for the /go/<slug> vanity ad redirects.
+-- Written by src/app/go/[slug]/route.ts on every non-bot click.
+--
+-- This is the click *count* only — it is deliberately independent of GA4 so a
+-- blocked tag or an instant back-out still registers. Sessions, engagement and
+-- conversions stay in GA4; join the two on utm_campaign when reporting.
+-- ============================================================
+create table if not exists public.ad_clicks (
+  id           uuid primary key default gen_random_uuid(),
+  created_at   timestamptz not null default now(),
+  slug         text not null,          -- the /go/<slug> that was hit
+  utm_source   text not null,
+  utm_campaign text not null,
+  utm_content  text,                   -- which creative, when set
+  referrer     text,
+  user_agent   text,
+  ip           text
+);
+
+create index if not exists ad_clicks_created_at_idx
+  on public.ad_clicks (created_at desc);
+create index if not exists ad_clicks_slug_idx
+  on public.ad_clicks (slug, created_at desc);
+
+alter table public.ad_clicks enable row level security;
