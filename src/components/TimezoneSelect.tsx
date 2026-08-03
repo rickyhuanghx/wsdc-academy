@@ -16,7 +16,7 @@ export function useViewerTimezone() {
     if (!detected) return;
     if (!ZONES.some((z) => z.id === detected)) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setOptions([{ id: detected, label: `Your timezone (${friendlyZoneName(detected)})` }, ...ZONES]);
+      setOptions([{ id: detected, label: `${friendlyZoneName(detected)} (your timezone)` }, ...ZONES]);
     }
     setZone(detected);
   }, []);

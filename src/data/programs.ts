@@ -5,6 +5,8 @@
 // Schedules/term dates are owner-supplied (Term 1, 2026/27). Age bands on the Junior/Senior
 // tracks are reasonable placeholders — placement is by the coach — and need owner sign-off.
 
+import type { ScheduleSlot } from '@/lib/schedule';
+
 export interface Program {
   id: string;
   slug: string;
@@ -1064,7 +1066,20 @@ function to12h(hhmm: string): string {
 }
 
 export interface EnrollAgeOption { id: string; label: string }
-export interface EnrollTimeOption { id: string; label: string; ageId?: string }
+export interface EnrollTimeOption {
+  id: string;
+  /** Canonical ET label. This is what travels to Stripe / Supabase / the emails. */
+  label: string;
+  ageId?: string;
+  /**
+   * The same slot as ET anchors, so the pickers can re-render the label in the
+   * viewer's timezone (see formatSlotGroup in src/lib/schedule.ts). Display only —
+   * never send a converted label to the server.
+   */
+  slots?: ScheduleSlot[];
+  /** Option name to keep in front of a converted label, e.g. "Option A". */
+  optionName?: string;
+}
 
 /**
  * Age band + time slot a buyer must pick at checkout, or null if the program
@@ -1086,13 +1101,19 @@ export function getEnrollmentOptions(
         id: `${t.band}:${o.id}`,
         ageId: t.band,
         label: `${o.day} ${to12h(o.start)}–${to12h(o.end)} ET`,
+        slots: [{ day: o.day, dayOfWeek: o.dayOfWeek, start: o.start, end: o.end }],
       })),
     );
     return { ages, times };
   }
   if (program.bootcamp && program.ageGroups && program.ageGroups.length > 0) {
     const ages = program.ageGroups.map((g) => ({ id: g.id, label: g.label }));
-    const times = program.bootcamp.options.map((o) => ({ id: o.id, label: o.label }));
+    const times = program.bootcamp.options.map((o) => ({
+      id: o.id,
+      label: o.label,
+      slots: o.meetings,
+      optionName: `Option ${o.id.toUpperCase()}`,
+    }));
     return { ages, times };
   }
   return null;

@@ -5,11 +5,25 @@
 // captured (the checkout still shows it, pre-filled and editable). Time slots on
 // track programs are tied to a band via `ageId`; the bootcamp shares slots across
 // ages. The chosen ids ride on the cart line → payment-intent → Supabase.
+//
+// Times are DISPLAYED in the viewer's own timezone (detected on mount, with a
+// selector to override) and always carry the zone abbreviation. Only the display
+// changes: the option id and the canonical ET label are what get sent onward.
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
-import { getEnrollmentOptions, type Program } from '@/data/programs';
+import { getEnrollmentOptions, type EnrollTimeOption, type Program } from '@/data/programs';
+import { formatSlotGroup, friendlyZoneName } from '@/lib/schedule';
+import { TimezoneSelect, useViewerTimezone } from './TimezoneSelect';
+
+// The option label in the viewer's zone, falling back to the authored ET label.
+export function timeOptionLabel(option: EnrollTimeOption, zone: string): string {
+  if (!option.slots || option.slots.length === 0) return option.label;
+  const local = formatSlotGroup(option.slots, zone);
+  if (!local) return option.label;
+  return option.optionName ? `${option.optionName} · ${local}` : local;
+}
 
 const selectClass =
   'mt-1.5 w-full rounded-md border border-navy-200 bg-cream px-3.5 py-2.5 text-sm text-navy-900 focus:border-signal-500 focus:outline-none';
@@ -19,6 +33,7 @@ export function GroupEnrollPicker({ program }: { program: Program }) {
   const opts = getEnrollmentOptions(program);
   const { addItem, countInCart } = useCart();
   const router = useRouter();
+  const { zone, setZone, options: zoneOptions } = useViewerTimezone();
   const [ageGroup, setAgeGroup] = useState('');
   const [timeSlot, setTimeSlot] = useState('');
 
@@ -31,6 +46,7 @@ export function GroupEnrollPicker({ program }: { program: Program }) {
       : []
     : opts.times;
 
+  const zoneLabel = zoneOptions.find((z) => z.id === zone)?.label ?? friendlyZoneName(zone);
   const ready = Boolean(ageGroup && timeSlot);
   const alreadyInCart = countInCart(program.id) > 0;
 
@@ -86,10 +102,18 @@ export function GroupEnrollPicker({ program }: { program: Program }) {
           </option>
           {times.map((t) => (
             <option key={t.id} value={t.id}>
-              {t.label}
+              {timeOptionLabel(t, zone)}
             </option>
           ))}
         </select>
+        <div className="mt-2.5">
+          <TimezoneSelect
+            zone={zone}
+            options={zoneOptions}
+            onChange={setZone}
+            id={`enroll-tz-${program.id}`}
+          />
+        </div>
       </div>
 
       <button
@@ -103,7 +127,7 @@ export function GroupEnrollPicker({ program }: { program: Program }) {
           : `Enroll now · $${program.enrollment.amount.toLocaleString('en-US')}`}
       </button>
       <p className="text-center text-xs text-navy-500">
-        Times shown in US Eastern. A coach confirms your slot after you book.
+        Times shown in {zoneLabel}. A coach confirms your slot after you book.
       </p>
     </div>
   );

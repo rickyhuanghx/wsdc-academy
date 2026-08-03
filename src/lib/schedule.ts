@@ -24,6 +24,38 @@ export interface ScheduleSlot {
   end: string; // "HH:MM" ET
 }
 
+// Intl's en-US short zone name renders many non-US zones as "GMT+8", which reads
+// like a placeholder next to "EDT". Formatting with the zone's home English locale
+// yields the familiar abbreviation (BST, SGT, AEST) and stays DST-correct.
+const ABBR_LOCALE: Record<string, string> = {
+  'Europe/London': 'en-GB',
+  'Europe/Dublin': 'en-IE',
+  'Asia/Dubai': 'en-AE',
+  'Asia/Singapore': 'en-SG',
+  'Asia/Hong_Kong': 'en-HK',
+  'Asia/Kolkata': 'en-IN',
+  'Asia/Calcutta': 'en-IN',
+  'Asia/Tokyo': 'ja-JP',
+  'Pacific/Auckland': 'en-NZ',
+};
+
+function abbrLocale(zone: string): string {
+  return ABBR_LOCALE[zone] ?? (zone.startsWith('Australia/') ? 'en-AU' : 'en-US');
+}
+
+/** Zone abbreviation for `zone` at `instant`, e.g. "EDT", "BST", "SGT". */
+export function zoneAbbrAt(instant: Date, zone: string): string {
+  try {
+    return (
+      new Intl.DateTimeFormat(abbrLocale(zone), { timeZone: zone, timeZoneName: 'short' })
+        .formatToParts(instant)
+        .find((p) => p.type === 'timeZoneName')?.value ?? ''
+    );
+  } catch {
+    return '';
+  }
+}
+
 // Offset (ms) of `timeZone` from UTC at the given instant.
 function tzOffsetMs(timeZone: string, utcMs: number): number {
   const parts = new Intl.DateTimeFormat('en-US', {
@@ -78,16 +110,28 @@ export function formatSlot(slot: ScheduleSlot, zone: string): { day: string; tim
     const weekday = new Intl.DateTimeFormat('en-US', { timeZone: zone, weekday: 'long' }).format(new Date(startUtc));
     const t = (ms: number) =>
       new Intl.DateTimeFormat('en-US', { timeZone: zone, hour: 'numeric', minute: '2-digit', hour12: true }).format(new Date(ms));
-    const abbr =
-      new Intl.DateTimeFormat('en-US', { timeZone: zone, timeZoneName: 'short' })
-        .formatToParts(new Date(startUtc))
-        .find((p) => p.type === 'timeZoneName')?.value ?? '';
+    const abbr = zoneAbbrAt(new Date(startUtc), zone);
 
     return { day: `${weekday}s`, time: `${t(startUtc)} – ${t(endUtc)}`, abbr };
   } catch {
     // ICU/zone failure: fall back to the authored day + raw ET times.
     return { day: slot.day, time: `${slot.start}–${slot.end}`, abbr: 'ET' };
   }
+}
+
+// One-line label for a set of weekly meetings rendered in `zone`, e.g.
+// "Saturdays 1:00 PM – 3:00 PM EDT" or, when a slot meets twice a week at the
+// same hour, "Mondays & Thursdays 1:00 PM – 3:00 PM EDT". Used for the
+// enrollment / checkout time pickers so the buyer chooses in their own clock.
+export function formatSlotGroup(slots: ScheduleSlot[], zone: string): string {
+  if (slots.length === 0) return '';
+  const parts = slots.map((s) => formatSlot(s, zone));
+  const sameTime = parts.every((p) => p.time === parts[0].time && p.abbr === parts[0].abbr);
+  if (!sameTime) return parts.map((p) => `${p.day} ${p.time} ${p.abbr}`).join(' & ');
+  const days = parts.map((p) => p.day);
+  const dayList =
+    days.length === 1 ? days[0] : `${days.slice(0, -1).join(', ')} & ${days[days.length - 1]}`;
+  return `${dayList} ${parts[0].time} ${parts[0].abbr}`.trim();
 }
 
 export function friendlyZoneName(tz: string): string {

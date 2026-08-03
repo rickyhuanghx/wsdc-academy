@@ -13,6 +13,9 @@ import {
 } from '@/data/programs';
 import { getStripeClient } from '@/lib/stripe-client';
 import { CONTACT_EMAIL } from '@/lib/site';
+import { friendlyZoneName } from '@/lib/schedule';
+import { TimezoneSelect, useViewerTimezone } from '@/components/TimezoneSelect';
+import { timeOptionLabel } from '@/components/GroupEnrollPicker';
 
 // Age band + time slot the buyer must choose for group / bootcamp programs.
 function enrollOptionsForLine(item: CartItem) {
@@ -132,6 +135,10 @@ export default function CheckoutPage() {
   const [intentLoading, setIntentLoading] = useState(false);
   // Off by default: multiple lines usually means multiple kids.
   const [sameStudentForAll, setSameStudentForAll] = useState(false);
+  // Class times are shown in the buyer's own zone; the ids/ET labels sent to the
+  // server are unaffected.
+  const { zone, setZone, options: zoneOptions } = useViewerTimezone();
+  const zoneLabel = zoneOptions.find((z) => z.id === zone)?.label ?? friendlyZoneName(zone);
 
   const [formData, setFormData] = useState<BuyerForm>({
     parentName: '',
@@ -481,9 +488,17 @@ export default function CheckoutPage() {
                 <div>
                   <h2 className="text-xl font-bold text-navy-900">Class placement</h2>
                   <p className="mt-1 text-sm text-navy-500">
-                    Choose an age group and a preferred time for each enrollment. A coach confirms
-                    the placement with you after you book.
+                    Choose an age group and a preferred time for each enrollment. Times are shown in{' '}
+                    {zoneLabel}. A coach confirms the placement with you after you book.
                   </p>
+                  <div className="mt-4">
+                    <TimezoneSelect
+                      zone={zone}
+                      options={zoneOptions}
+                      onChange={setZone}
+                      id="placement-tz"
+                    />
+                  </div>
                   <div className="mt-5 space-y-6">
                     {items.map((item) => {
                       const opts = enrollOptionsForLine(item);
@@ -541,7 +556,7 @@ export default function CheckoutPage() {
                                 </option>
                                 {times.map((t) => (
                                   <option key={t.id} value={t.id}>
-                                    {t.label}
+                                    {timeOptionLabel(t, zone)}
                                   </option>
                                 ))}
                               </select>
