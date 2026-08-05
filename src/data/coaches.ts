@@ -67,19 +67,6 @@ export const coaches: Coach[] = [
     ],
   },
   {
-    name: 'Shaurya Chandravanshi',
-    slug: 'shaurya-chandravanshi',
-    role: 'World Schools Coach',
-    image: '/images/coaches/shaurya-chandravanshi.jpg',
-    highlight: 'UAE National Team alum',
-    credentials: [
-      'Represented the UAE on its national debate team',
-      'Broke into the top 10 speakers at the World University Debating Championship',
-      'Debated for the London School of Economics',
-      'Has served as chief adjudicator at international tournaments',
-    ],
-  },
-  {
     name: 'Netra Easwaran',
     slug: 'netra-easwaran',
     role: 'World Schools Coach',

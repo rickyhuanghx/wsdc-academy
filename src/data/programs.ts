@@ -637,7 +637,6 @@ export const programs: Program[] = [
       'perry-beckett',
       'zach-fleeser',
       'mac-hays',
-      'shaurya-chandravanshi',
     ],
     prerequisites:
       'None. 1-on-1 works at any level, from a first speech to national-circuit prep. The first session is a diagnostic, so the coach meets the student exactly where they are.',
