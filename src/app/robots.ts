@@ -11,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         // /go/ holds the vanity ad redirects — crawling them pollutes the
         // click count and offers nothing to index.
-        disallow: ['/api/', '/admin/', '/checkout/', '/go/'],
+        disallow: ['/api/', '/admin/', '/checkout/', '/go/', '/enroll'],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
