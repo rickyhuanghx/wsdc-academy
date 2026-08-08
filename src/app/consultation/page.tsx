@@ -2,9 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { FurtherReading } from '@/components/FurtherReading';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
-import { CalendlyEmbed } from '@/components/CalendlyEmbed';
+import { BookingChoice } from '@/components/BookingChoice';
 import {
-  CONSULTATION_CALENDLY_URL,
   CONTACT_EMAIL,
   CONTACT_PHONE,
   CONTACT_PHONE_TEL,
@@ -23,9 +22,6 @@ export const metadata: Metadata = {
     url: '/consultation',
   },
 };
-
-// Brand-styled embed URL: scarlet primary color, cookie banner hidden.
-const embedUrl = `${CONSULTATION_CALENDLY_URL}?hide_gdpr_banner=1&primary_color=c8102e`;
 
 const steps = [
   {
@@ -169,17 +165,9 @@ export default function ConsultationPage() {
             </div>
           </div>
 
-          {/* Right: the scheduler */}
+          {/* Right: the dual-path booking widget (callback request or Calendly Zoom) */}
           <div>
-            <h2 className="font-display text-xl font-semibold text-navy-900">
-              Pick a time that works
-            </h2>
-            <p className="mt-2 text-navy-600">
-              Choose a slot below and you will get a calendar invite by email.
-            </p>
-            <div className="mt-5 overflow-hidden rounded-sm border border-navy-100 bg-white">
-              <CalendlyEmbed url={embedUrl} />
-            </div>
+            <BookingChoice />
           </div>
         </div>
 
