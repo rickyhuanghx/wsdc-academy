@@ -12,8 +12,6 @@ import { trackEvent } from '@/lib/analytics';
 // Brand-styled embed URL: scarlet primary color, cookie banner hidden.
 const EMBED_URL = `${CONSULTATION_CALENDLY_URL}?hide_gdpr_banner=1&primary_color=c8102e`;
 
-const COUNTRY_CODES = ['+971', '+852', '+65', '+44', '+1', '+86', '+91', '+61', '+966', '+974'];
-
 const ALL_DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const;
 
 const DAY_SETS: Record<string, string[]> = {
@@ -23,7 +21,7 @@ const DAY_SETS: Record<string, string[]> = {
 };
 
 const QUICK_SETS = [
-  { id: 'all', label: 'All days' },
+  { id: 'all', label: 'Any day' },
   { id: 'weekdays', label: 'Weekdays' },
   { id: 'weekend', label: 'Weekends' },
 ] as const;
@@ -33,6 +31,12 @@ const WINDOWS = [
   { id: 'Afternoon', range: '12:00 PM – 5:00 PM' },
   { id: 'Evening', range: '5:00 PM – 8:00 PM' },
 ] as const;
+
+const WINDOW_SHORT: Record<string, string> = {
+  Morning: '9 AM–12 PM',
+  Afternoon: '12–5 PM',
+  Evening: '5–8 PM',
+};
 
 const FALLBACK_ZONES = [
   'Asia/Dubai',
@@ -75,13 +79,8 @@ function daySummary(sel: string[]): string {
 
 function windowSummary(sel: string[]): string {
   if (sel.length === WINDOWS.length) return 'Any time (9 AM – 8 PM)';
-  const ranges: Record<string, string> = {
-    Morning: '9 AM–12 PM',
-    Afternoon: '12–5 PM',
-    Evening: '5–8 PM',
-  };
   return WINDOWS.filter((w) => sel.includes(w.id))
-    .map((w) => `${w.id} (${ranges[w.id]})`)
+    .map((w) => `${w.id} (${WINDOW_SHORT[w.id]})`)
     .join(', ');
 }
 
@@ -212,7 +211,6 @@ export function BookingChoice() {
 
   // Form fields
   const [parentName, setParentName] = useState('');
-  const [code, setCode] = useState('+1');
   const [phone, setPhone] = useState('');
   const [childName, setChildName] = useState('');
   const [childAge, setChildAge] = useState('');
@@ -220,12 +218,13 @@ export function BookingChoice() {
   const [experience, setExperience] = useState('');
   const [notes, setNotes] = useState('');
   const [website, setWebsite] = useState(''); // honeypot
-  const [days, setDays] = useState<string[]>([]);
+  const [days, setDays] = useState<string[]>(DAY_SETS.all.slice());
   const [windows, setWindows] = useState<string[]>([]);
 
   // Timezone (populated on mount to avoid a server/client mismatch)
   const [zones, setZones] = useState<string[]>([]);
   const [tz, setTz] = useState('');
+  const [showTzPicker, setShowTzPicker] = useState(false);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<'idle' | 'submitting' | 'error'>('idle');
@@ -264,14 +263,8 @@ export function BookingChoice() {
     });
   }
 
-  function toggleDay(day: string) {
-    setDays((prev) => (prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]));
-    clearError('days');
-  }
-
   function applyDaySet(setId: string) {
-    const target = DAY_SETS[setId];
-    setDays((prev) => (sameSet(prev, target) ? [] : target));
+    setDays(DAY_SETS[setId].slice());
     clearError('days');
   }
 
@@ -285,7 +278,9 @@ export function BookingChoice() {
 
     const errs: Record<string, string> = {};
     if (!parentName.trim()) errs.parentName = 'Please add your name.';
-    if (!phone.trim()) errs.phone = 'Please add a phone number we can reach you on.';
+    if (phone.replace(/\D/g, '').length < 6) {
+      errs.phone = 'Please add a phone number we can reach you on, including the country code.';
+    }
     if (!childName.trim()) errs.childName = 'Please add their name.';
     if (!childAge) errs.childAge = 'Please select an age.';
     if (!school.trim()) errs.school = 'Please tell us the school or area.';
@@ -302,7 +297,7 @@ export function BookingChoice() {
         body: JSON.stringify({
           website,
           parentName: parentName.trim(),
-          phone: `${code} ${phone.trim()}`,
+          phone: phone.trim(),
           childName: childName.trim(),
           childAge,
           school: school.trim(),
@@ -318,7 +313,7 @@ export function BookingChoice() {
 
       trackEvent('callback_requested', { brand: SITE_NAME });
       setRecap([
-        ['Callback for', `${parentName.trim()} · ${code} ${phone.trim()}`],
+        ['Callback for', `${parentName.trim()} · ${phone.trim()}`],
         ['Child', `${childName.trim()}, age ${childAge}`],
         ['School / area', school.trim()],
         ['Days', daySummary(days)],
@@ -452,36 +447,22 @@ export function BookingChoice() {
 
               <div className="space-y-1.5">
                 <label htmlFor="cb-phone" className={labelClass}>
-                  Phone number
+                  Phone number <span className="font-medium text-navy-500">(with country code)</span>
                 </label>
-                <div className="flex gap-2">
-                  <select
-                    aria-label="Country code"
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                    className={`${inputClass} w-[104px] flex-none tabular-nums`}
-                  >
-                    {COUNTRY_CODES.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                  </select>
-                  <input
-                    id="cb-phone"
-                    type="tel"
-                    inputMode="tel"
-                    autoComplete="tel-national"
-                    placeholder="50 123 4567"
-                    value={phone}
-                    onChange={(e) => {
-                      setPhone(e.target.value);
-                      clearError('phone');
-                    }}
-                    aria-invalid={Boolean(errors.phone)}
-                    className={`${inputClass} ${errors.phone ? inputInvalid : ''}`}
-                  />
-                </div>
+                <input
+                  id="cb-phone"
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  placeholder="+1 555 123 4567"
+                  value={phone}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                    clearError('phone');
+                  }}
+                  aria-invalid={Boolean(errors.phone)}
+                  className={`${inputClass} ${errors.phone ? inputInvalid : ''}`}
+                />
                 {errors.phone && <p className={errorClass}>{errors.phone}</p>}
               </div>
 
@@ -582,85 +563,28 @@ export function BookingChoice() {
 
               <SectionRule>When to call</SectionRule>
 
-              <div className="space-y-1.5 sm:col-span-2">
-                <label htmlFor="cb-tz" className={labelClass}>
-                  Your timezone
-                </label>
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <select
-                    id="cb-tz"
-                    aria-describedby="cb-tz-hint"
-                    value={tz}
-                    onChange={(e) => setTz(e.target.value)}
-                    className={`${inputClass} w-auto min-w-0 flex-1 basis-[220px]`}
-                  >
-                    {zones.length === 0 ? (
-                      <option value="">Detecting…</option>
-                    ) : (
-                      zones.map((z) => (
-                        <option key={z} value={z}>
-                          {z.replace(/_/g, ' ')}
-                        </option>
-                      ))
-                    )}
-                  </select>
-                  <span className="flex-none font-mono text-sm font-medium tabular-nums text-navy-500">
-                    {tzOffset}
-                  </span>
-                </div>
-                <p id="cb-tz-hint" className="flex items-start gap-2 pt-0.5 text-xs leading-relaxed text-navy-500">
-                  <ClockIcon className="mt-0.5 h-3.5 w-3.5 flex-none" />
-                  <span>
-                    Detected automatically — change it if you&apos;re somewhere else. Call windows
-                    below are in this timezone.
-                  </span>
-                </p>
-              </div>
-
               <div className="space-y-2 sm:col-span-2">
                 <span id="cb-days-label" className={labelClass}>
                   Which days suit you?
                 </span>
-                <div className="flex flex-wrap gap-2" aria-label="Quick day selection">
+                <div className="flex flex-wrap gap-2" role="radiogroup" aria-labelledby="cb-days-label">
                   {QUICK_SETS.map((qs) => {
-                    const pressed = sameSet(days, DAY_SETS[qs.id]);
+                    const checked = sameSet(days, DAY_SETS[qs.id]);
                     return (
                       <button
                         key={qs.id}
                         type="button"
+                        role="radio"
+                        aria-checked={checked}
                         onClick={() => applyDaySet(qs.id)}
-                        aria-pressed={pressed}
-                        className={`rounded-sm px-3.5 py-1.5 text-xs font-semibold transition motion-reduce:transition-none ${
-                          pressed
-                            ? 'border border-signal-500 bg-signal-50 text-navy-900'
-                            : 'border border-dashed border-navy-200 text-signal-500 hover:border-signal-500 hover:bg-signal-50'
-                        }`}
-                      >
-                        {qs.label}
-                      </button>
-                    );
-                  })}
-                </div>
-                <div className="flex flex-wrap gap-2" role="group" aria-labelledby="cb-days-label">
-                  {ALL_DAYS.map((day) => {
-                    const checked = days.includes(day);
-                    return (
-                      <label
-                        key={day}
-                        className={`cursor-pointer rounded-sm border px-4 py-2 text-sm font-semibold tabular-nums transition has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-navy-900 motion-reduce:transition-none ${
+                        className={`cursor-pointer rounded-sm border px-4 py-2 text-sm font-semibold transition motion-reduce:transition-none ${
                           checked
                             ? 'border-signal-500 bg-signal-50 text-navy-900 ring-1 ring-inset ring-signal-500'
                             : 'border-navy-200 bg-white text-navy-500 hover:border-signal-500'
                         }`}
                       >
-                        <input
-                          type="checkbox"
-                          className="sr-only"
-                          checked={checked}
-                          onChange={() => toggleDay(day)}
-                        />
-                        {day}
-                      </label>
+                        {qs.label}
+                      </button>
                     );
                   })}
                 </div>
@@ -669,11 +593,11 @@ export function BookingChoice() {
 
               <div className="space-y-2 sm:col-span-2">
                 <span id="cb-windows-label" className={labelClass}>
-                  When should we call?{' '}
+                  What time of day?{' '}
                   <span className="font-medium text-navy-500">(select all that work)</span>
                 </span>
                 <div
-                  className="grid gap-2.5 sm:grid-cols-3"
+                  className="flex flex-wrap gap-2"
                   role="group"
                   aria-labelledby="cb-windows-label"
                 >
@@ -681,47 +605,76 @@ export function BookingChoice() {
                     const checked = windows.includes(win.id);
                     const Icon = WINDOW_ICONS[win.id];
                     return (
-                      <label
+                      <button
                         key={win.id}
-                        className={`relative flex cursor-pointer flex-col items-start gap-1 rounded-sm border bg-white p-3.5 pr-10 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-navy-900 motion-reduce:transition-none ${
+                        type="button"
+                        onClick={() => toggleWindow(win.id)}
+                        aria-pressed={checked}
+                        className={`inline-flex cursor-pointer items-center gap-2 rounded-sm border px-4 py-2 text-sm font-semibold transition motion-reduce:transition-none ${
                           checked
-                            ? 'border-signal-500 bg-signal-50 ring-1 ring-inset ring-signal-500'
-                            : 'border-navy-200 hover:border-signal-500'
+                            ? 'border-signal-500 bg-signal-50 text-navy-900 ring-1 ring-inset ring-signal-500'
+                            : 'border-navy-200 bg-white text-navy-500 hover:border-signal-500'
                         }`}
                       >
-                        <input
-                          type="checkbox"
-                          className="sr-only"
-                          checked={checked}
-                          onChange={() => toggleWindow(win.id)}
-                        />
-                        <span
-                          className={`absolute right-3 top-3 flex h-[17px] w-[17px] items-center justify-center rounded-full border transition motion-reduce:transition-none ${
-                            checked
-                              ? 'border-signal-500 bg-signal-500 text-white'
-                              : 'border-navy-200 bg-white text-transparent'
-                          }`}
-                          aria-hidden="true"
-                        >
-                          <svg
-                            viewBox="0 0 24 24"
-                            strokeWidth={3}
-                            {...stroke}
-                            className="h-2.5 w-2.5"
-                          >
-                            <path d="M20 6 9 17l-5-5" />
-                          </svg>
+                        <Icon className="h-4 w-4 text-signal-500" />
+                        {win.id}
+                        <span className="font-mono text-xs font-medium tabular-nums text-navy-500">
+                          {WINDOW_SHORT[win.id]}
                         </span>
-                        <Icon className="h-[18px] w-[18px] text-signal-500" />
-                        <span className="text-sm font-semibold text-navy-900">{win.id}</span>
-                        <span className="font-mono text-xs tabular-nums text-navy-500">
-                          {win.range}
-                        </span>
-                      </label>
+                      </button>
                     );
                   })}
                 </div>
                 {errors.windows && <p className={errorClass}>{errors.windows}</p>}
+              </div>
+
+              <div className="sm:col-span-2">
+                {!showTzPicker ? (
+                  <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs leading-relaxed text-navy-500">
+                    <ClockIcon className="h-3.5 w-3.5 flex-none" />
+                    <span>
+                      Times are in your timezone —{' '}
+                      <strong className="font-semibold text-navy-900">
+                        {tz.replace(/_/g, ' ')}
+                      </strong>
+                      {tzOffset ? ` (${tzOffset})` : ''}.
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setShowTzPicker(true)}
+                      className="font-semibold text-signal-500 underline underline-offset-2 transition hover:text-signal-600 motion-reduce:transition-none"
+                    >
+                      Change
+                    </button>
+                  </p>
+                ) : (
+                  <div className="space-y-1.5">
+                    <label htmlFor="cb-tz" className={labelClass}>
+                      Your timezone
+                    </label>
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <select
+                        id="cb-tz"
+                        value={tz}
+                        onChange={(e) => setTz(e.target.value)}
+                        className={`${inputClass} w-auto min-w-0 flex-1 basis-[220px]`}
+                      >
+                        {zones.length === 0 ? (
+                          <option value="">Detecting…</option>
+                        ) : (
+                          zones.map((z) => (
+                            <option key={z} value={z}>
+                              {z.replace(/_/g, ' ')}
+                            </option>
+                          ))
+                        )}
+                      </select>
+                      <span className="flex-none font-mono text-sm font-medium tabular-nums text-navy-500">
+                        {tzOffset}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
