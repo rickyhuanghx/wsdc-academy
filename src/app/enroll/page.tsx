@@ -301,6 +301,18 @@ function EnrollForm() {
                 : 'Payment pending — the place is held once the invoice is paid'}
             </p>
           )}
+          {!prefill.paid && prefill.invoiceUrl && /^https:\/\//.test(prefill.invoiceUrl) && (
+            <p className="text-sm mt-2">
+              <a
+                href={prefill.invoiceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2"
+              >
+                Pay the invoice
+              </a>
+            </p>
+          )}
           <p className="mt-3 text-sm text-navy-500">
             Set by our team when you signed up. If this looks wrong, reply to your enrollment email
             or write to{' '}

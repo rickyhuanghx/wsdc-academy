@@ -28,6 +28,7 @@ export interface EnrollmentPrefill {
   heardAbout?: string;
   paid?: boolean; // undefined on older Apps Script deployments
   paymentStatus?: string;
+  invoiceUrl?: string; // hosted invoice page (pay / receipt) for staff-invoice rows
   submitted?: boolean;
 }
 

@@ -13,7 +13,7 @@ const CSP_REPORT_ONLY = [
   "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://api.stripe.com https://m.stripe.network https://calendly.com",
+  "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://api.stripe.com https://m.stripe.network https://calendly.com https://script.google.com https://script.googleusercontent.com",
   "frame-src https://js.stripe.com https://hooks.stripe.com https://m.stripe.network https://calendly.com https://www.googletagmanager.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",
