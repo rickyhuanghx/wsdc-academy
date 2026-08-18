@@ -26,6 +26,7 @@ const EMPTY_FIELDS: EnrollmentFields = {
   parentPhone: '',
   notes: '',
   skills: '',
+  heardAbout: '',
 };
 
 // Ten skills World Schools debate training works on, spanning case
@@ -45,6 +46,25 @@ const SKILL_OPTIONS = [
 ];
 const SKILLS_TO_PICK = 5;
 
+// "Where did you find out about us?" — one pick; "Other" asks for a note.
+// Stored in the sheet as the option text, or "Other: <what they typed>".
+const HEARD_OPTIONS = [
+  'Referral from a friend or family',
+  'Online search (Google etc.)',
+  'School recommendation',
+  'Instagram',
+  'Advertisement',
+  'AI recommendation (ChatGPT etc.)',
+  'Other',
+];
+const HEARD_OTHER = 'Other';
+function parseHeard(value: string): { choice: string; other: string } {
+  const v = (value || '').trim();
+  if (!v) return { choice: '', other: '' };
+  if (HEARD_OPTIONS.includes(v) && v !== HEARD_OTHER) return { choice: v, other: '' };
+  return { choice: HEARD_OTHER, other: v.replace(/^Other:\s*/i, '') };
+}
+
 type Status = 'loading' | 'invalid' | 'error' | 'ready' | 'submitting' | 'done';
 
 function EnrollForm() {
@@ -56,6 +76,9 @@ function EnrollForm() {
   const [wasSubmitted, setWasSubmitted] = useState(false);
   const [skills, setSkills] = useState<string[]>([]);
   const [skillsError, setSkillsError] = useState('');
+  const [heardChoice, setHeardChoice] = useState('');
+  const [heardOther, setHeardOther] = useState('');
+  const [heardError, setHeardError] = useState('');
 
   useEffect(() => {
     if (!token) return;
@@ -80,8 +103,12 @@ function EnrollForm() {
           parentPhone: p.parentPhone || '',
           notes: p.parentNotes || '',
           skills: p.skills || '',
+          heardAbout: p.heardAbout || '',
         });
         setSkills((p.skills || '').split('; ').filter((s) => SKILL_OPTIONS.includes(s)));
+        const heard = parseHeard(p.heardAbout || '');
+        setHeardChoice(heard.choice);
+        setHeardOther(heard.other);
         setStatus('ready');
       })
       .catch(() => {
@@ -125,11 +152,19 @@ function EnrollForm() {
       next.parentEmail = 'Please check the email address.';
     }
     setErrors(next);
+    let ok = Object.keys(next).length === 0;
     if (skills.length !== SKILLS_TO_PICK) {
       setSkillsError(`Please pick ${SKILLS_TO_PICK}. You have ${skills.length} so far.`);
-      return false;
+      ok = false;
     }
-    return Object.keys(next).length === 0;
+    if (!heardChoice) {
+      setHeardError('Please tell us where you found out about us.');
+      ok = false;
+    } else if (heardChoice === HEARD_OTHER && !heardOther.trim()) {
+      setHeardError('Please tell us where — a few words is enough.');
+      ok = false;
+    }
+    return ok;
   };
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -137,7 +172,11 @@ function EnrollForm() {
     if (!validate()) return;
     setStatus('submitting');
     try {
-      const res = await submitEnrollment(token, { ...fields, skills: skills.join('; ') });
+      const res = await submitEnrollment(token, {
+        ...fields,
+        skills: skills.join('; '),
+        heardAbout: heardChoice === HEARD_OTHER ? `Other: ${heardOther.trim()}` : heardChoice,
+      });
       if (res.ok) {
         setStatus('done');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -459,6 +498,51 @@ function EnrollForm() {
                   onChange={set('notes')}
                   className={inputClass}
                 />
+              </div>
+              <div className="sm:col-span-2">
+                <p className={labelClass}>
+                  Where did you find out about us? <span aria-hidden>*</span>
+                </p>
+                <div className="grid sm:grid-cols-2 gap-3" role="radiogroup" aria-label="Where did you find out about us?">
+                  {HEARD_OPTIONS.map((opt) => {
+                    const checked = heardChoice === opt;
+                    return (
+                      <label
+                        key={opt}
+                        className={`flex items-start gap-3 border rounded-sm px-4 py-3 transition-colors ${
+                          checked ? 'border-signal-500/50 bg-signal-500/5' : 'cursor-pointer border-navy-200 hover:border-signal-400'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="heardAbout"
+                          value={opt}
+                          checked={checked}
+                          onChange={() => {
+                            setHeardChoice(opt);
+                            setHeardError('');
+                          }}
+                          className="mt-0.5 h-4 w-4 flex-none accent-signal-500"
+                        />
+                        <span className="text-sm leading-snug text-navy-900">{opt}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+                {heardChoice === HEARD_OTHER && (
+                  <input
+                    type="text"
+                    aria-label="Please specify where you found out about us"
+                    placeholder="Please specify"
+                    value={heardOther}
+                    onChange={(e) => {
+                      setHeardOther(e.target.value);
+                      setHeardError('');
+                    }}
+                    className={`${inputClass} mt-3`}
+                  />
+                )}
+                {heardError && <p className="mt-1.5 text-sm text-signal-600">{heardError}</p>}
               </div>
             </div>
           </div>

@@ -25,6 +25,7 @@ export interface EnrollmentPrefill {
   experience?: string;
   parentNotes?: string;
   skills?: string;
+  heardAbout?: string;
   submitted?: boolean;
 }
 
@@ -39,6 +40,7 @@ export interface EnrollmentFields {
   parentPhone: string;
   notes: string;
   skills: string;
+  heardAbout: string;
 }
 
 export async function fetchEnrollmentPrefill(token: string): Promise<EnrollmentPrefill> {
