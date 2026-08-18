@@ -215,7 +215,14 @@ export function MotionTopicView({ meta, page }: { meta: MotionTopic; page: numbe
             <Link href="/motions/wsdc" className="font-semibold text-signal-500 hover:text-signal-600">
               Worlds motions archive
             </Link>
-            .
+            . New to the format? Read{' '}
+            <Link
+              href="/what-is-world-schools-debate"
+              className="font-semibold text-signal-500 hover:text-signal-600"
+            >
+              What is World Schools Debate?
+            </Link>{' '}
+            first: it explains how motions like these get debated in a round.
           </p>
         </section>
 

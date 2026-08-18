@@ -63,6 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/motions/wsdc', file: 'src/app/motions/wsdc/page.tsx', changeFrequency: 'monthly', priority: 0.85 },
     { path: '/blog', file: 'src/app/blog/page.tsx', changeFrequency: 'weekly', priority: 0.85 },
     { path: '/programs', file: 'src/app/programs/page.tsx', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/debate-coaching', file: 'src/app/debate-coaching/page.tsx', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/consultation', file: 'src/app/consultation/page.tsx', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/coaches', file: 'src/app/coaches/page.tsx', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/faq', file: 'src/app/faq/page.tsx', changeFrequency: 'monthly', priority: 0.7 },

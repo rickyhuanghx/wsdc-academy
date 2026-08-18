@@ -22,12 +22,14 @@ const tocItems = [
 const programFaqs = faqs.filter((f) => f.category === 'programs' || f.category === 'logistics');
 
 export const metadata: Metadata = {
-  title: 'World Schools Debate Programs & Classes',
+  // "Coaching" leads: /programs already ranks for "world schools debate
+  // coaching" (2026-08-17 audit), so the title now says the term outright.
+  title: 'World Schools Debate Coaching, Classes & Teams',
   description:
-    'World Schools Debate programs for US students: a beginner bootcamp, a Foundation class, a year-round Competition Team, and 1-on-1 coaching.',
+    'World Schools Debate coaching for US students: a beginner bootcamp, a Foundation class, a year-round Competition Team, and private 1-on-1 tutoring.',
   alternates: { canonical: '/programs' },
   openGraph: {
-    title: 'World Schools Debate Programs | WSDC Prep',
+    title: 'World Schools Debate Coaching & Programs | WSDC Prep',
     description:
       'Beginner Foundation, year-round Competition Team, the invitation-only National Team Sprint, and 1-on-1 coaching: America’s World Schools Debate pathway.',
     url: '/programs',
@@ -59,12 +61,19 @@ export default function ProgramsPage() {
       <section className="bg-navy-900 py-16 text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            World Schools Debate Programs
+            World Schools Debate Coaching &amp; Programs
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-navy-100">
             Every program is live, online, scheduled for US time zones, and focused
-            on one thing: the World Schools format. Start where you are, and
-            we&apos;ll move you up the ladder.
+            on one thing: coaching the World Schools format. Start where you are,
+            and we&apos;ll move you up the ladder. New to coaching altogether?{' '}
+            <Link
+              href="/debate-coaching"
+              className="font-semibold text-white underline decoration-signal-400 underline-offset-4 hover:decoration-white"
+            >
+              Read how our debate coaching works
+            </Link>
+            .
           </p>
           {/* Above-the-fold CTAs: on mobile the first enroll button used to sit
               ~1,100px down the page (2026-08-17 audit). */}

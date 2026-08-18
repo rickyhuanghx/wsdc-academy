@@ -36,7 +36,10 @@ export function GET() {
 
     '## Guides\n' + GUIDE_LINKS.map((g) => item(g.title, u(g.href), g.blurb)).join('\n'),
 
-    '## Programs\n' + programs.map((p) => item(p.name, u(`/programs/${p.slug}`), p.tagline)).join('\n'),
+    '## Programs\n' +
+      item('Debate coaching overview', u('/debate-coaching'), 'What debate coaching should include, how ours works, and the three ways to train with us.') +
+      '\n' +
+      programs.map((p) => item(p.name, u(`/programs/${p.slug}`), p.tagline)).join('\n'),
 
     '## Blog\n' + blogPosts.map((p) => item(p.title, u(`/blog/${p.slug}`), p.description)).join('\n'),
 

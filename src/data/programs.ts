@@ -584,10 +584,10 @@ export const programs: Program[] = [
       'Private sessions with a World Schools specialist: speech redos, round reviews, impromptu drills, or application prep, depending on what the student needs.',
     longDescription:
       'One-on-one coaching pairs a student with a World Schools specialist for fully personalized training. Sessions adapt to exactly what the student needs: rebuilding a speaker role, reviewing tournament recordings round by round, running impromptu prep drills, or preparing a USA Debate application. Scheduling is flexible across US time zones.',
-    metaTitle: 'Private 1-on-1 World Schools Debate Coaching',
+    metaTitle: 'Private World Schools Debate Coaching & Tutoring',
     metaDescription:
-      'Work 1-on-1 with a private World Schools Debate coach online. Diagnostic session $80, hourly coaching at $120, and 10- or 20-hour packages. Flexible US scheduling.',
-    seoH1: 'Private 1-on-1 World Schools Debate Coaching',
+      'Work 1-on-1 with a private debate coach online. World Schools focus, diagnostic session $80, hourly tutoring at $120, and 10- or 20-hour packages. US scheduling.',
+    seoH1: 'Private 1-on-1 Debate Coaching & Tutoring',
     level: 'All Levels',
     ageRange: { min: 11, max: 18 },
     format: 'Private online',
