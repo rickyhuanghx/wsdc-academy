@@ -11,8 +11,16 @@ shown to the visitor.
 
 ## Sheet columns (header row, in order)
 
-| Timestamp | Brand | Type | Parent name | Phone | Child name | Child age | School/Area | Experience | Notes | Days | Windows | Timezone | Page URL | Status |
+| Timestamp | Brand | Type | Parent name | Phone | Child name | Child age | School/Area | Experience | Notes | Days | Windows | Timezone | Page URL | Status | GCLID |
 | --------- | ----- | ---- | ----------- | ----- | ---------- | --------- | ----------- | ---------- | ----- | ---- | ------- | -------- | -------- | ------ |
+
+`GCLID` (column P, added 2026-08-17) is the Google Ads click id captured on the
+landing page (`gclid`, or `gbraid:…` / `wbraid:…`); blank when the visit did
+not come from an ad. It exists so qualified leads (`Status` = `Booked` /
+`Enrolled`) can be fed back to Google Ads as offline conversions via a scheduled
+Google Sheets import — see the 5-brand Google Ads runbook. **Migration:** add the
+`GCLID` header in P1 and re-paste the script below (Manage deployments → Edit →
+New version; same URL). Older script versions simply ignore the extra field.
 
 - **Timestamp** is written by the Apps Script (`new Date()`), so it lands in the sheet's
   timezone. The API also sends `submittedAt` (ISO, UTC) but the script does not store it.
@@ -51,7 +59,7 @@ function doPost(e) {
   const d = JSON.parse(e.postData.contents);
   if (d.secret !== SECRET) return ContentService.createTextOutput('forbidden');
   const s = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
-  s.appendRow([new Date(), clean(d.brand), clean(d.type), clean(d.parentName), clean(d.phone), clean(d.childName), clean(d.childAge), clean(d.school), clean(d.experience), clean(d.notes), clean((d.days||[]).join(', ')), clean((d.windows||[]).join(', ')), clean(d.timezone), clean(d.pageUrl), '']);
+  s.appendRow([new Date(), clean(d.brand), clean(d.type), clean(d.parentName), clean(d.phone), clean(d.childName), clean(d.childAge), clean(d.school), clean(d.experience), clean(d.notes), clean((d.days||[]).join(', ')), clean((d.windows||[]).join(', ')), clean(d.timezone), clean(d.pageUrl), '', clean(d.gclid)]);
   return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
 }
 ```

@@ -6,6 +6,7 @@ import { CartProvider } from "@/context/CartContext";
 import { Footer } from "@/components/Footer";
 import { WebSiteJsonLd, OrganizationJsonLd, ServiceJsonLd } from "@/components/JsonLd";
 import { GoogleTagManager, GoogleTagManagerNoScript, GoogleAnalytics } from "@/components/GoogleTagManager";
+import { AdClickCapture } from "@/components/AdClickCapture";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 const sourceSerif = Source_Serif_4({
@@ -124,6 +125,7 @@ export default function RootLayout({
         <ServiceJsonLd />
         <GoogleTagManager />
         <GoogleAnalytics />
+        <AdClickCapture />
       </head>
       <body className="min-h-full flex flex-col">
         <GoogleTagManagerNoScript />

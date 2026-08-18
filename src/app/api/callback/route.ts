@@ -48,6 +48,10 @@ export async function POST(req: Request) {
   const notes = cleanString(body.notes, 2000);
   const timezone = cleanString(body.timezone, 64);
   const pageUrl = cleanString(body.pageUrl, 500);
+  // Google Ads click id (gclid, or gbraid:/wbraid:-prefixed) for offline
+  // conversion matching from the sheet. Optional; strict charset.
+  const gclid =
+    typeof body.gclid === 'string' && /^[A-Za-z0-9_.:-]{1,220}$/.test(body.gclid) ? body.gclid : '';
   const days = cleanList(body.days, VALID_DAYS);
   const windows = cleanList(body.windows, VALID_WINDOWS);
 
@@ -77,6 +81,7 @@ export async function POST(req: Request) {
     windows,
     timezone,
     pageUrl,
+    gclid,
     submittedAt: new Date().toISOString(),
   };
 
