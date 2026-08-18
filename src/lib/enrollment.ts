@@ -26,6 +26,8 @@ export interface EnrollmentPrefill {
   parentNotes?: string;
   skills?: string;
   heardAbout?: string;
+  paid?: boolean; // undefined on older Apps Script deployments
+  paymentStatus?: string;
   submitted?: boolean;
 }
 

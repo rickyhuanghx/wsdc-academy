@@ -288,6 +288,19 @@ function EnrollForm() {
               {[prefill.timing, prefill.location].filter(Boolean).join(' · ')}
             </p>
           )}
+          {typeof prefill.paid === 'boolean' && (
+            <p
+              className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium mt-3 ${
+                prefill.paid
+                  ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+                  : 'border-amber-200 bg-amber-50 text-amber-800'
+              }`}
+            >
+              {prefill.paid
+                ? 'Payment received'
+                : 'Payment pending — the place is held once the invoice is paid'}
+            </p>
+          )}
           <p className="mt-3 text-sm text-navy-500">
             Set by our team when you signed up. If this looks wrong, reply to your enrollment email
             or write to{' '}
