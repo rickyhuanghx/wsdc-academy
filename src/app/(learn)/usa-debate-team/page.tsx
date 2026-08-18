@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { ArticleByline } from '@/components/ArticleByline';
+import { WSDC_REVIEWER } from '@/data/author';
 
 export const metadata: Metadata = {
   title: 'How to Make the USA Debate Team (2026 Guide)',
@@ -50,6 +51,7 @@ export default function UsaDebateTeamPage() {
   return (
     <>
       <ArticleJsonLd
+        reviewedBy={WSDC_REVIEWER}
         title="How to Make the USA Debate Team: Application, Eligibility & Timeline (2026)"
         description="A complete guide to USA Debate national team selection: eligibility, timeline, application videos, and preparation."
         url="/usa-debate-team"
@@ -69,7 +71,7 @@ export default function UsaDebateTeamPage() {
           <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl">
             How to Make the USA Debate Team
           </h1>
-          <ArticleByline date="2026-06-11" />
+          <ArticleByline date="2026-06-11" reviewer={WSDC_REVIEWER} />
           <p className="mt-6 text-lg leading-relaxed text-navy-700">
             USA Debate is the national team program run by the National Speech &amp;
             Debate Association. It is the sole US representative at the World

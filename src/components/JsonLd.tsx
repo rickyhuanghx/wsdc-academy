@@ -1,6 +1,6 @@
 import { Program } from '@/data/programs';
 import { Coach } from '@/data/coaches';
-import { ARTICLE_AUTHOR } from '@/data/author';
+import { ARTICLE_AUTHOR, type ArticleReviewer } from '@/data/author';
 import { SITE_NAME, SITE_URL, CONTACT_EMAIL, CONTACT_PHONE, SITE_SLOGAN, SITE_DESCRIPTION } from '@/lib/site';
 
 const baseUrl = SITE_URL;
@@ -41,44 +41,49 @@ export function OrganizationJsonLd() {
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'World Schools Debate Programs',
+      // Each entry must be an Offer wrapping the thing offered; nesting
+      // OfferCatalog inside itemListElement is invalid schema.org structure.
       itemListElement: [
         {
-          '@type': 'OfferCatalog',
           name: 'World Schools Summer Bootcamp',
           description: 'A 12-hour August intensive introducing beginners to the World Schools format',
           url: `${baseUrl}/programs/summer-bootcamp`,
         },
         {
-          '@type': 'OfferCatalog',
           name: 'Advanced World Schools Summer Bootcamp',
           description: 'A 12-hour August intensive for students who already compete in World Schools',
           url: `${baseUrl}/programs/advanced-summer-bootcamp`,
         },
         {
-          '@type': 'OfferCatalog',
           name: 'World Schools Foundation',
           description: 'Beginner introduction to the World Schools format',
           url: `${baseUrl}/programs/foundations`,
         },
         {
-          '@type': 'OfferCatalog',
           name: 'Competition Team',
           description: 'Year-round World Schools squad training',
           url: `${baseUrl}/programs/competition-team`,
         },
         {
-          '@type': 'OfferCatalog',
           name: 'National Team Sprint',
           description: 'Invitation-only advanced squad for national-circuit and Nationals competitors',
           url: `${baseUrl}/programs/national-team-sprint`,
         },
         {
-          '@type': 'OfferCatalog',
           name: '1-on-1 Coaching',
           description: 'Private World Schools Debate coaching',
           url: `${baseUrl}/programs/private-coaching`,
         },
-      ],
+      ].map((course) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Course',
+          name: course.name,
+          description: course.description,
+          url: course.url,
+          provider: { '@id': `${baseUrl}/#organization` },
+        },
+      })),
     },
   };
 
@@ -342,6 +347,7 @@ export function ArticleJsonLd({
   datePublished,
   dateModified,
   image = '/images/og-home.jpg',
+  reviewedBy,
 }: {
   title: string;
   description: string;
@@ -352,6 +358,9 @@ export function ArticleJsonLd({
       against SITE_URL; defaults to the site OG image (1200×630). Pass a
       per-page hero where one exists. */
   image?: string;
+  /** WSDC-credentialed coach credited as reviewer. `reviewedBy` is a WebPage
+      property (not Article/CreativeWork), so it rides on mainEntityOfPage. */
+  reviewedBy?: ArticleReviewer;
 }) {
   const schema = {
     '@context': 'https://schema.org',
@@ -385,6 +394,19 @@ export function ArticleJsonLd({
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${baseUrl}${url}`,
+      ...(reviewedBy
+        ? {
+            reviewedBy: {
+              '@type': 'Person',
+              name: reviewedBy.name,
+              jobTitle: reviewedBy.role,
+              url: `${baseUrl}${reviewedBy.url}`,
+              image: `${baseUrl}${reviewedBy.image}`,
+              description: reviewedBy.credentials.join('; '),
+              worksFor: { '@id': `${baseUrl}/#organization` },
+            },
+          }
+        : {}),
     },
     about: {
       '@type': 'Thing',
@@ -422,7 +444,15 @@ export function DatasetJsonLd({
     creator: { '@id': `${baseUrl}/#organization` },
     isAccessibleForFree: true,
     variableMeasured: 'Debate motions with tournament, round, year, topic, and info slide',
-    size: `${size} motions`,
+    // `size` is not a schema.org Dataset property (Google ignored it); the
+    // count rides in description/keywords, coverage in temporalCoverage.
+    temporalCoverage: '1994/2026',
+    keywords: [
+      'debate motions',
+      'World Schools Debate',
+      'WSDC motions',
+      `${size} motions`,
+    ],
   };
 
   return (

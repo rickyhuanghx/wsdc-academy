@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { ArticleByline } from '@/components/ArticleByline';
+import { WSDC_REVIEWER } from '@/data/author';
 
 export const metadata: Metadata = {
   title: 'World Schools vs Public Forum: Every Difference',
@@ -40,6 +41,7 @@ export default function WsVsPfPage() {
   return (
     <>
       <ArticleJsonLd
+        reviewedBy={WSDC_REVIEWER}
         title="World Schools vs Public Forum Debate: Every Difference Explained (2026)"
         description="Team size, speech structure, motions, evidence culture, and judging compared, plus what PF debaters need to adjust."
         url="/world-schools-vs-public-forum"
@@ -59,7 +61,7 @@ export default function WsVsPfPage() {
           <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl">
             World Schools vs Public Forum
           </h1>
-          <ArticleByline date="2026-07-09" />
+          <ArticleByline date="2026-07-09" reviewer={WSDC_REVIEWER} />
           <p className="mt-6 text-lg leading-relaxed text-navy-700">
             Public Forum is America&apos;s most popular team debate format.{' '}
             <Link href="/what-is-world-schools-debate" className="font-semibold text-signal-500 hover:text-signal-600">

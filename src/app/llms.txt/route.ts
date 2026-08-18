@@ -32,7 +32,7 @@ export function GET() {
 
     `> ${SITE_DESCRIPTION}`,
 
-    `${SITE_NAME} is a year-round online training program for World Schools Debate (WSDC format) serving students ages 9 to 18 across the United States. Every program runs on a structured curriculum mapped to the 40/40/20 judging criteria, judged practice rounds, and written feedback after every session, from coaches who have competed and adjudicated at the top of the format.`,
+    `${SITE_NAME} is a year-round online training program for World Schools Debate (WSDC format) serving students ages 9 to 18 across the United States. Every program runs on a structured curriculum mapped to the 40/40/20 judging criteria, judged practice rounds, and written feedback after every session, from coaches who have competed and adjudicated at the top of the format. Disambiguation: ${SITE_NAME} is an independent coaching academy; it is not the World Schools Debating Championships (the tournament itself), not affiliated with its organizers or any national team, and unrelated to the World Swing Dance Council, which shares the WSDC acronym.`,
 
     '## Guides\n' + GUIDE_LINKS.map((g) => item(g.title, u(g.href), g.blurb)).join('\n'),
 

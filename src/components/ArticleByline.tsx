@@ -1,15 +1,19 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ARTICLE_AUTHOR, formatArticleDate } from '@/data/author';
+import { ARTICLE_AUTHOR, formatArticleDate, type ArticleReviewer } from '@/data/author';
 
 /** Visible author byline for guides and blog posts. `variant="onDark"` recolors
-    it for the navy hero on /what-is-world-schools-debate; default suits white. */
+    it for the navy hero on /what-is-world-schools-debate; default suits white.
+    Pass `reviewer` on WSDC-format content so a WSDC-credentialed coach is
+    visibly credited alongside the author (2026-08-17 SEO audit). */
 export function ArticleByline({
   date,
   variant = 'light',
+  reviewer,
 }: {
   date?: string;
   variant?: 'light' | 'onDark';
+  reviewer?: ArticleReviewer;
 }) {
   const onDark = variant === 'onDark';
   const nameClass = onDark ? 'font-semibold text-white' : 'font-semibold text-navy-900';
@@ -38,6 +42,16 @@ export function ArticleByline({
         {date && (
           <p className={metaClass}>
             <time dateTime={date}>{formatArticleDate(date)}</time>
+          </p>
+        )}
+        {reviewer && (
+          <p className={metaClass}>
+            Reviewed by{' '}
+            <Link href={reviewer.url} className={linkClass}>
+              {reviewer.name}
+            </Link>
+            {' · '}
+            {reviewer.byline}
           </p>
         )}
       </div>

@@ -75,6 +75,12 @@ export const faqs: FAQ[] = [
       'Yes. We coach school squads preparing for district and state World Schools competition: weekly team practices, motion prep support, and tournament-week coaching. Contact us and we’ll scope a program for your team.',
     category: 'programs',
   },
+  {
+    question: 'Is WSDC Prep affiliated with the World Schools Debating Championships?',
+    answer:
+      'No. WSDC Prep is an independent coaching academy. We train students in the World Schools format used at the World Schools Debating Championships (WSDC), but we are not run by, endorsed by, or affiliated with the championship, its organizers, or any national team. We are also unrelated to other organizations that share the WSDC acronym, such as the World Swing Dance Council.',
+    category: 'format',
+  },
 ];
 
 export const homepageFaqs = faqs.filter((f) => f.onHomepage);

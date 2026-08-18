@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { programs, formatPrice, getAgeGroupsDisplay, EARLY_BIRD_PERCENT } from '@/data/programs';
 import { faqs } from '@/data/faqs';
-import { BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
+import { BreadcrumbJsonLd, ItemListJsonLd } from '@/components/JsonLd';
 import { TermSchedule } from '@/components/TermSchedule';
 import { ProgramComparison } from '@/components/ProgramComparison';
 import { ProgramsCoachStrip } from '@/components/ProgramsCoachStrip';
@@ -43,7 +43,18 @@ export default function ProgramsPage() {
           { name: 'Programs', href: '/programs' },
         ]}
       />
-      <FAQJsonLd faqs={programFaqs} />
+      {/* FAQPage schema lives on /faq only; rendering it here too made Google
+          see the same Q&A markup on three URLs. The visible accordion stays. */}
+      <ItemListJsonLd
+        name="World Schools Debate Programs"
+        description="Live online World Schools Debate programs for US students: summer bootcamps, a beginner Foundation class, a year-round Competition Team, and 1-on-1 coaching."
+        url="/programs"
+        items={programs.map((p) => ({
+          name: p.name,
+          href: `/programs/${p.slug}`,
+          description: p.description,
+        }))}
+      />
 
       <section className="bg-navy-900 py-16 text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -55,6 +66,22 @@ export default function ProgramsPage() {
             on one thing: the World Schools format. Start where you are, and
             we&apos;ll move you up the ladder.
           </p>
+          {/* Above-the-fold CTAs: on mobile the first enroll button used to sit
+              ~1,100px down the page (2026-08-17 audit). */}
+          <div className="mt-7 flex flex-wrap items-center gap-4">
+            <Link
+              href="#programs-list"
+              className="inline-block rounded-md bg-signal-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
+            >
+              See the programs
+            </Link>
+            <Link
+              href="/consultation"
+              className="inline-block rounded-md border border-navy-300 px-6 py-3 text-sm font-semibold text-white transition-colors hover:border-white"
+            >
+              Book a consultation
+            </Link>
+          </div>
         </div>
       </section>
 

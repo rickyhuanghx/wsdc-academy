@@ -97,11 +97,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Motion topic pages change only when the motion bank (or their template) does.
-  // Pages 2+ are self-canonical and hold motions that appear nowhere else, so they
-  // belong in the sitemap; they rank below page 1, which carries the topic intro.
+  // Pages 2+ are self-canonical and hold motions that appear nowhere else — but
+  // only pages 1–3 per topic are LISTED here. The 2026-08-17 audit found deep
+  // pagination (page/4–8) was 53% of the whole sitemap for near-zero search
+  // intent; deeper pages stay live, indexable, and reachable via the on-page
+  // pager, they just don't spend sitemap/crawl attention.
+  const SITEMAP_PAGES_PER_TOPIC = 3;
   const motionTopicPages = motionTopics.flatMap((t) => {
     const modified = lastModified(MOTION_BANK_DATA, 'src/app/motions/[topic]/page.tsx');
-    return Array.from({ length: topicPageCount(t.slug) }, (_, i) => ({
+    return Array.from({ length: Math.min(topicPageCount(t.slug), SITEMAP_PAGES_PER_TOPIC) }, (_, i) => ({
       url: i === 0 ? `${baseUrl}/motions/${t.slug}` : `${baseUrl}/motions/${t.slug}/page/${i + 1}`,
       lastModified: modified,
       changeFrequency: 'monthly' as const,

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { ArticleByline } from '@/components/ArticleByline';
+import { JUDGING_REVIEWER } from '@/data/author';
 
 export const metadata: Metadata = {
   title: 'World Schools Debate Judging: 40/40/20',
@@ -40,6 +41,7 @@ export default function JudgingGuidePage() {
   return (
     <>
       <ArticleJsonLd
+        reviewedBy={JUDGING_REVIEWER}
         title="How World Schools Debate Judging Works: 40/40/20 Explained (2026 Guide)"
         description="How the Style / Content / Strategy criteria actually work, what judges reward in each, and how to train for all three."
         url="/world-schools-debate-judging"
@@ -59,7 +61,7 @@ export default function JudgingGuidePage() {
           <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl">
             How World Schools Debate judging works
           </h1>
-          <ArticleByline date="2026-07-09" />
+          <ArticleByline date="2026-07-09" reviewer={JUDGING_REVIEWER} />
           <p className="mt-6 text-lg leading-relaxed text-navy-700">
             Every speech in{' '}
             <Link href="/what-is-world-schools-debate" className="font-semibold text-signal-500 hover:text-signal-600">

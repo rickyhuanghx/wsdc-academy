@@ -65,6 +65,16 @@ export default function ConsultationPage() {
               free.
             </p>
 
+            {/* On mobile the booking widget stacks below this whole column
+                (~60% down a 10,500px page in the 2026-08-17 audit), so give
+                phones an above-the-fold jump straight to it. */}
+            <Link
+              href="#book"
+              className="mt-7 inline-block rounded-sm bg-signal-500 px-7 py-3.5 text-base font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98] lg:hidden"
+            >
+              Pick a time now
+            </Link>
+
             <ol className="mt-10 space-y-7">
               {steps.map((step, i) => (
                 <li key={step.title} className="flex gap-5">
@@ -166,7 +176,7 @@ export default function ConsultationPage() {
           </div>
 
           {/* Right: the dual-path booking widget (callback request or Calendly Zoom) */}
-          <div>
+          <div id="book" className="scroll-mt-24">
             <BookingChoice />
           </div>
         </div>

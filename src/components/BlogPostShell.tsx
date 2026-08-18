@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { ArticleByline } from '@/components/ArticleByline';
 import type { BlogPost } from '@/data/blog';
+import type { ArticleReviewer } from '@/data/author';
 
 interface FAQItem {
   question: string;
@@ -19,6 +20,8 @@ interface BlogPostShellProps {
   /** Deep-link target for the CTA's program button. Point each post at its most relevant program page. */
   ctaHref?: string;
   ctaLabel?: string;
+  /** WSDC-credentialed coach credited as reviewer on format content (byline + schema). */
+  reviewer?: ArticleReviewer;
 }
 
 /** Shared article chrome: schema, breadcrumbs, header, FAQ block, CTA band.
@@ -32,6 +35,7 @@ export function BlogPostShell({
   ctaBody = 'Every technique on this page is a drill in our weekly training cycle: judged rounds, oral adjudication, written feedback.',
   ctaHref = '/programs',
   ctaLabel = 'See our programs',
+  reviewer,
 }: BlogPostShellProps) {
   return (
     <>
@@ -40,6 +44,7 @@ export function BlogPostShell({
         description={post.description}
         url={`/blog/${post.slug}`}
         datePublished={post.date}
+        reviewedBy={reviewer}
       />
       {faqs && faqs.length > 0 && <FAQJsonLd faqs={faqs} />}
       <BreadcrumbJsonLd
@@ -58,7 +63,7 @@ export function BlogPostShell({
           <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl">
             {post.title}
           </h1>
-          <ArticleByline date={post.date} />
+          <ArticleByline date={post.date} reviewer={reviewer} />
           <div className="mt-6 text-lg leading-relaxed text-navy-700">{lede}</div>
         </header>
 

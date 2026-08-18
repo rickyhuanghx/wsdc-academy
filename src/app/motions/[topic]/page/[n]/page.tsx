@@ -28,9 +28,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!Number.isInteger(page) || page < 2 || page > total) return {};
 
   return {
-    // No "of N" here: it pushes the longest topic labels past the SERP cut.
-    // The page count is in the description and in the on-page pager.
-    title: `${meta.label} Debate Motions: Page ${page}`,
+    // No "of N", and "Motions" not "Debate Motions": the longest topic labels
+    // pushed the full form past the SERP cut. The page count is in the
+    // description and in the on-page pager.
+    title: `${meta.label} Motions: Page ${page}`,
     description: `Page ${page} of the ${meta.label.toLowerCase()} debate motion archive: more real tournament motions, grouped by season, with info slides where released.`,
     // Self-canonical, not a canonical back to page 1. Page 2 holds motions that
     // appear nowhere else, so pointing it at page 1 would deindex real content.

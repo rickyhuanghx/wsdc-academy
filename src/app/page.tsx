@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { programs, getAgeGroupsDisplay } from '@/data/programs';
 import { coaches } from '@/data/coaches';
 import { homepageFaqs } from '@/data/faqs';
-import { FAQJsonLd } from '@/components/JsonLd';
 import { ColumnChart, RankedBars, WaffleGrid } from '@/components/DebateCharts';
 import { TabbedExplorer } from '@/components/TabbedExplorer';
 import { TermSchedule } from '@/components/TermSchedule';
@@ -11,7 +10,8 @@ import { TermSchedule } from '@/components/TermSchedule';
 export default function HomePage() {
   return (
     <>
-      <FAQJsonLd faqs={homepageFaqs} />
+      {/* FAQPage schema lives on /faq only (the visible FAQ section stays);
+          duplicating it here put identical Q&A markup on three URLs. */}
 
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative min-h-[680px] bg-navy-950 text-white sm:min-h-[780px]">
@@ -43,7 +43,7 @@ export default function HomePage() {
             </p>
             <h1 className="font-display text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">
               A World Class Training system for{' '}
-              <em className="italic">World Schools</em> debate
+              <em className="italic">World Schools</em> debate (WSDC)
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-navy-100">
               Elite online World Schools Debate (WSDC) coaching, designed and

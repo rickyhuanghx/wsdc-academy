@@ -171,7 +171,9 @@ export function Navbar() {
           type="button"
           aria-label="Toggle menu"
           aria-expanded={open}
-          className="lg:hidden"
+          // p-2.5 grows the 24px icon to a 44px tap target; the negative
+          // margin keeps the icon visually flush with the container edge.
+          className="-mr-2.5 p-2.5 lg:hidden"
           onClick={() => setOpen(!open)}
         >
           <svg className="h-6 w-6 text-navy-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

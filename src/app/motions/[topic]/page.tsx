@@ -21,7 +21,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const count = motionsForTopic(topic).length;
 
   return {
-    title: `${meta.label} Debate Motions (${count.toLocaleString('en-US')})`,
+    // No count in the title: the longest topic labels pushed it past the SERP
+    // cut (65 chars rendered), and the count churned the title every rebuild.
+    // The count survives in the description.
+    title: `${meta.label} Debate Motions`,
     description: `${count.toLocaleString('en-US')} real ${meta.label.toLowerCase()} debate motions from tournament records, grouped by year, with info slides and coaching notes. Free, no signup.`,
     alternates: { canonical: `/motions/${topic}` },
     openGraph: {

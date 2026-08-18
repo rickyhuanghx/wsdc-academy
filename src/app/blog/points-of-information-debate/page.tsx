@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { BlogPostShell } from '@/components/BlogPostShell';
+import { WSDC_REVIEWER } from '@/data/author';
 import { getPostBySlug, postMetadata } from '@/data/blog';
 
 export const metadata = postMetadata('points-of-information-debate');
@@ -27,6 +28,7 @@ const faqs = [
 export default function POIPost() {
   return (
     <BlogPostShell
+      reviewer={WSDC_REVIEWER}
       post={post}
       faqs={faqs}
       ctaHref="/programs/foundations"

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { BlogPostShell } from '@/components/BlogPostShell';
+import { WSDC_REVIEWER } from '@/data/author';
 import { getPostBySlug, postMetadata } from '@/data/blog';
 
 export const metadata = postMetadata('third-speaker-world-schools-debate');
@@ -27,6 +28,7 @@ const faqs = [
 export default function ThirdSpeakerPost() {
   return (
     <BlogPostShell
+      reviewer={WSDC_REVIEWER}
       post={post}
       faqs={faqs}
       ctaHref="/programs/competition-team"
