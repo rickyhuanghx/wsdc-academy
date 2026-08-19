@@ -37,3 +37,35 @@ export function getAdClickId(): string {
   const m = document.cookie.match(/(?:^|;\s*)_gcl_aw=GCL\.\d+\.([A-Za-z0-9_.-]+)/);
   return m ? m[1] : '';
 }
+
+
+/**
+ * Campaign attribution stored by the AdClickCapture script from the landing
+ * URL: utm_source / utm_medium / utm_campaign plus Meta's fbclid. Fields are
+ * '' when the visit carried no campaign tags, so the callback payload can
+ * always spread this in. Values are trimmed and length-capped here; the API
+ * route sanitizes again server-side.
+ */
+export function getAdCampaign(): {
+  utmSource: string;
+  utmMedium: string;
+  utmCampaign: string;
+  fbclid: string;
+} {
+  const out = { utmSource: '', utmMedium: '', utmCampaign: '', fbclid: '' };
+  if (typeof window === 'undefined') return out;
+  try {
+    const raw = window.sessionStorage.getItem('ad_campaign');
+    if (!raw) return out;
+    const { s, m, c, f } = JSON.parse(raw) as Record<string, unknown>;
+    const tag = (v: unknown) =>
+      typeof v === 'string' ? v.replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, 200) : '';
+    out.utmSource = tag(s);
+    out.utmMedium = tag(m);
+    out.utmCampaign = tag(c);
+    out.fbclid = typeof f === 'string' && /^[A-Za-z0-9_.-]{1,255}$/.test(f) ? f : '';
+  } catch {
+    /* ignore */
+  }
+  return out;
+}

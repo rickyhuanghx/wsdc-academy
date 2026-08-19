@@ -7,7 +7,7 @@
 import { useEffect, useState } from 'react';
 import { CalendlyEmbed } from '@/components/CalendlyEmbed';
 import { CONSULTATION_CALENDLY_URL, CONTACT_EMAIL, SITE_NAME } from '@/lib/site';
-import { trackEvent, getAdClickId } from '@/lib/analytics';
+import { trackEvent, getAdClickId, getAdCampaign } from '@/lib/analytics';
 
 // Brand-styled embed URL: scarlet primary color, cookie banner hidden.
 const EMBED_URL = `${CONSULTATION_CALENDLY_URL}?hide_gdpr_banner=1&primary_color=c8102e`;
@@ -308,6 +308,7 @@ export function BookingChoice() {
           timezone: tz,
           pageUrl: window.location.href,
           gclid: getAdClickId(),
+          ...getAdCampaign(),
         }),
       });
       if (!res.ok) throw new Error(`Request failed: ${res.status}`);

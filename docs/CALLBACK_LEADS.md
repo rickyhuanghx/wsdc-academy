@@ -11,7 +11,7 @@ shown to the visitor.
 
 ## Sheet columns (header row, in order)
 
-| Timestamp | Brand | Type | Parent name | Phone | Child name | Child age | School/Area | Experience | Notes | Days | Windows | Timezone | Page URL | Status | GCLID |
+| Timestamp | Brand | Type | Parent name | Phone | Child name | Child age | School/Area | Experience | Notes | Days | Windows | Timezone | Page URL | Status | GCLID | UTM Source | UTM Medium | UTM Campaign | FBCLID |
 | --------- | ----- | ---- | ----------- | ----- | ---------- | --------- | ----------- | ---------- | ----- | ---- | ------- | -------- | -------- | ------ |
 
 `GCLID` (column P, added 2026-08-17) is the Google Ads click id captured on the
@@ -28,6 +28,19 @@ New version; same URL). Older script versions simply ignore the extra field.
   serves all brands and stays filterable.
 - **Timezone** is the visitor's IANA zone; the Days/Windows columns are in *their* local
   time. Convert before calling.
+`UTM Source` / `UTM Medium` / `UTM Campaign` / `FBCLID` (columns Q–T, added
+2026-08-19) carry the landing URL's `utm_source` / `utm_medium` /
+`utm_campaign` and Meta's `fbclid` click id, captured by the same
+`AdClickCapture` script (sessionStorage key `ad_campaign`) and read back with
+`getAdCampaign()`. This is what identifies **which campaign** a lead came from
+— but only when the ad's landing URL is tagged: Google Ads needs a final-URL
+suffix like `utm_source=google&utm_medium=cpc&utm_campaign={campaignid}`, and
+Meta ads should use the URL-parameters field (`utm_campaign={{campaign.name}}`);
+fbclid is appended by Meta automatically. The current deployable Apps Script
+(durable copy: `/Users/macbook/lead-ops-sheet/callback-webhook.gs`) extends the
+header row itself — re-paste it via Manage deployments → Edit → New version;
+no manual header edits needed. Older script versions ignore the extra fields.
+
 - **Status** starts blank. It is the team workflow column: fill in `Called`, `No answer`,
   `Booked`, etc. by hand.
 
@@ -59,7 +72,7 @@ function doPost(e) {
   const d = JSON.parse(e.postData.contents);
   if (d.secret !== SECRET) return ContentService.createTextOutput('forbidden');
   const s = SpreadsheetApp.openById(SHEET_ID).getSheets()[0];
-  s.appendRow([new Date(), clean(d.brand), clean(d.type), clean(d.parentName), clean(d.phone), clean(d.childName), clean(d.childAge), clean(d.school), clean(d.experience), clean(d.notes), clean((d.days||[]).join(', ')), clean((d.windows||[]).join(', ')), clean(d.timezone), clean(d.pageUrl), '', clean(d.gclid)]);
+  s.appendRow([new Date(), clean(d.brand), clean(d.type), clean(d.parentName), clean(d.phone), clean(d.childName), clean(d.childAge), clean(d.school), clean(d.experience), clean(d.notes), clean((d.days||[]).join(', ')), clean((d.windows||[]).join(', ')), clean(d.timezone), clean(d.pageUrl), '', clean(d.gclid), clean(d.utmSource), clean(d.utmMedium), clean(d.utmCampaign), clean(d.fbclid)]);
   return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
 }
 ```

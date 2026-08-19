@@ -52,6 +52,18 @@ export async function POST(req: Request) {
   // conversion matching from the sheet. Optional; strict charset.
   const gclid =
     typeof body.gclid === 'string' && /^[A-Za-z0-9_.:-]{1,220}$/.test(body.gclid) ? body.gclid : '';
+  // Campaign attribution captured from the landing URL (see AdClickCapture):
+  // UTM values are free text (strip control chars, cap length); fbclid is
+  // Meta's click id with a strict charset like gclid.
+  const utmTag = (v: unknown) =>
+    typeof v === 'string' ? v.replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, 200) : '';
+  const utmSource = utmTag(body.utmSource);
+  const utmMedium = utmTag(body.utmMedium);
+  const utmCampaign = utmTag(body.utmCampaign);
+  const fbclid =
+    typeof body.fbclid === 'string' && /^[A-Za-z0-9_.-]{1,255}$/.test(body.fbclid)
+      ? body.fbclid
+      : '';
   const days = cleanList(body.days, VALID_DAYS);
   const windows = cleanList(body.windows, VALID_WINDOWS);
 
@@ -82,6 +94,10 @@ export async function POST(req: Request) {
     timezone,
     pageUrl,
     gclid,
+    utmSource,
+    utmMedium,
+    utmCampaign,
+    fbclid,
     submittedAt: new Date().toISOString(),
   };
 
