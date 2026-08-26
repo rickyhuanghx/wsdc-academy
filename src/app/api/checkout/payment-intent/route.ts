@@ -13,6 +13,7 @@ import {
   GRADE_LEVELS,
 } from '@/data/programs';
 import { isRateLimited, getClientIp, isValidEmail, HONEYPOT_FIELD } from '@/lib/leads';
+import { isValidPromoCode, normalizePromoCode, promoDiscount } from '@/lib/promo';
 
 export const runtime = 'nodejs';
 
@@ -59,7 +60,11 @@ export async function POST(req: Request) {
     return jsonError(429, 'Too many requests. Please try again shortly.');
   }
 
-  const { items, buyer } = body as { items?: IncomingItem[]; buyer?: Record<string, unknown> };
+  const { items, buyer, promoCode } = body as {
+    items?: IncomingItem[];
+    buyer?: Record<string, unknown>;
+    promoCode?: unknown;
+  };
 
   if (!Array.isArray(items) || items.length === 0) return jsonError(400, 'Cart is empty');
   if (items.length > MAX_ITEMS) return jsonError(400, 'Too many items in cart');
@@ -74,6 +79,12 @@ export async function POST(req: Request) {
     return jsonError(400, 'Invalid phone');
   }
 
+  // Promo code: optional; if present it must be a code we recognise.
+  const promo = normalizePromoCode(promoCode);
+  if (promo && !isValidPromoCode(promo)) {
+    return jsonError(400, 'That promo code is not valid.');
+  }
+
   // Resolve each cart line server-side.
   type LineItem = {
     programId: string;
@@ -86,6 +97,7 @@ export async function POST(req: Request) {
     variantId?: string;
     ageGroupLabel?: string;
     timeSlotLabel?: string;
+    promoEligible: boolean;
   };
   const resolved: LineItem[] = [];
   let diagnosticCount = 0;
@@ -154,6 +166,8 @@ export async function POST(req: Request) {
       variantId,
       ageGroupLabel,
       timeSlotLabel,
+      // RETURNER27 excludes 1-on-1 coaching; every other line is an online class.
+      promoEligible: !program.oneOnOne,
     });
   }
 
@@ -163,6 +177,17 @@ export async function POST(req: Request) {
   }
 
   const totalMinor = resolved.reduce((sum, r) => sum + Math.round(r.amount * 100), 0);
+
+  // Discount is recomputed here from the resolved lines — never taken from the client.
+  const discountMinor = promo
+    ? Math.round(
+        promoDiscount(promo, resolved.map((r) => ({ amount: r.amount, eligible: r.promoEligible }))) * 100,
+      )
+    : 0;
+  if (promo && discountMinor === 0) {
+    return jsonError(400, `${promo} does not apply to anything in this cart (1-on-1 coaching is excluded).`);
+  }
+  const chargeMinor = totalMinor - discountMinor;
 
   // Per-student metadata keys (student_0, student_1, …): each Stripe metadata
   // value caps at 500 chars, so one key per line avoids truncating multi-kid
@@ -179,6 +204,10 @@ export async function POST(req: Request) {
       .join(' | ')
       .slice(0, 500),
   };
+  if (promo) {
+    metadata.promo_code = promo;
+    metadata.discount_amount = (discountMinor / 100).toFixed(2);
+  }
   resolved.forEach((r, i) => {
     metadata[`student_${i}`] = JSON.stringify({
       name: r.studentName,
@@ -194,7 +223,7 @@ export async function POST(req: Request) {
   try {
     const stripe = getStripe();
     const intent = await stripe.paymentIntents.create({
-      amount: totalMinor,
+      amount: chargeMinor,
       currency: 'usd',
       automatic_payment_methods: { enabled: true },
       receipt_email: sanitize(email, 254).toLowerCase(),

@@ -14,6 +14,7 @@ import {
 import { getStripeClient } from '@/lib/stripe-client';
 import { CONTACT_EMAIL } from '@/lib/site';
 import { friendlyZoneName } from '@/lib/schedule';
+import { RETURNER_CODE, RETURNER_NOTICE, isValidPromoCode, promoDiscount, type PromoLine } from '@/lib/promo';
 import { TimezoneSelect, useViewerTimezone } from '@/components/TimezoneSelect';
 import { timeOptionLabel } from '@/components/GroupEnrollPicker';
 
@@ -56,7 +57,10 @@ function isStudentInfoComplete(info: StudentInfo): boolean {
 }
 
 function formatUsd(amount: number): string {
-  return `$${amount.toLocaleString('en-US')}`;
+  return `$${amount.toLocaleString('en-US', {
+    minimumFractionDigits: Number.isInteger(amount) ? 0 : 2,
+    maximumFractionDigits: 2,
+  })}`;
 }
 
 // Struck "original" for a line: group programs carry a real compareAt in data;
@@ -129,6 +133,33 @@ function PaymentForm({ onError }: { onError: (msg: string) => void }) {
 
 export default function CheckoutPage() {
   const { items, removeItem, updateStudentInfo, updateLineSelection, getSubtotal } = useCart();
+  // Promo code (RETURNER27). Applied here for display only — the payment-intent
+  // route re-resolves every line and recomputes the discount.
+  const [promoInput, setPromoInput] = useState('');
+  const [promoCode, setPromoCode] = useState('');
+  const [promoError, setPromoError] = useState('');
+  // Everything here is online; only 1-on-1 lines are excluded.
+  const promoLines = (list: CartItem[]): PromoLine[] =>
+    list.map((i) => ({ amount: i.amount, eligible: !getProgramById(i.programId)?.oneOnOne }));
+  const promoOff = promoCode ? promoDiscount(promoCode, promoLines(items)) : 0;
+  const applyPromo = () => {
+    const code = promoInput.trim().toUpperCase();
+    if (!isValidPromoCode(code)) {
+      setPromoError('That code is not valid.');
+      return;
+    }
+    if (promoDiscount(code, promoLines(items)) === 0) {
+      setPromoError('This code does not apply to anything in your cart (1-on-1 coaching is excluded).');
+      return;
+    }
+    setPromoCode(code);
+    setPromoError('');
+  };
+  const removePromo = () => {
+    setPromoCode('');
+    setPromoInput('');
+    setPromoError('');
+  };
   const [step, setStep] = useState<'cart' | 'details' | 'payment'>('cart');
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
@@ -212,6 +243,7 @@ export default function CheckoutPage() {
             timeSlot: i.timeSlot,
           })),
           buyer: formData,
+          promoCode: promoCode || undefined,
         }),
       });
       const data: { clientSecret?: string; error?: string } = await res.json();
@@ -707,13 +739,68 @@ export default function CheckoutPage() {
                       </div>
                     </>
                   )}
+                  {promoOff > 0 && (
+                    <div className="flex justify-between text-sm font-semibold text-emerald-700">
+                      <span>Returning families ({RETURNER_CODE})</span>
+                      <span>&minus;{formatUsd(promoOff)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between">
                     <span className="font-semibold text-navy-900">Total</span>
-                    <span className="font-bold text-navy-900">{formatUsd(subtotal)}</span>
+                    <span className="font-bold text-navy-900">
+                      {formatUsd(Math.round((subtotal - promoOff) * 100) / 100)}
+                    </span>
                   </div>
                 </div>
               );
             })()}
+            {/* Returning families: notice + promo code */}
+            <div className="mt-5 border-t border-navy-100 pt-4">
+              <p className="rounded-sm border border-signal-200 bg-signal-50 px-4 py-3 text-xs leading-relaxed text-signal-600">{RETURNER_NOTICE}</p>
+              {promoCode ? (
+                <div className="mt-3 flex items-center justify-between gap-2 text-sm">
+                  <span className="font-semibold text-emerald-700">Code {promoCode} applied</span>
+                  {step !== 'payment' ? (
+                    <button
+                      type="button"
+                      onClick={removePromo}
+                      className="text-xs text-navy-500 underline underline-offset-2"
+                    >
+                      Remove
+                    </button>
+                  ) : (
+                    <span className="text-xs text-navy-500">Go back to change</span>
+                  )}
+                </div>
+              ) : step !== 'payment' ? (
+                <div className="mt-3">
+                  <label htmlFor="promo-code" className="block text-xs font-semibold text-navy-900">
+                    Promo code
+                  </label>
+                  <div className="mt-1 flex gap-2">
+                    <input
+                      id="promo-code"
+                      type="text"
+                      value={promoInput}
+                      onChange={(e) => setPromoInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          applyPromo();
+                        }
+                      }}
+                      placeholder="e.g. RETURNER27"
+                      autoCapitalize="characters"
+                      className="w-full min-w-0 flex-1 rounded-md border border-navy-200 px-3 py-2 text-sm text-navy-900 focus:border-navy-500 focus:outline-none"
+                    />
+                    <button type="button" onClick={applyPromo} className="shrink-0 rounded-md bg-navy-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-navy-700">
+                      Apply
+                    </button>
+                  </div>
+                  {promoError && <p className="mt-2 text-xs text-signal-600">{promoError}</p>}
+                </div>
+              ) : null}
+            </div>
             <p className="mt-5 border-t border-navy-100 pt-4 text-xs leading-relaxed text-navy-500">
               By completing this purchase you agree to our{' '}
               <Link href="/terms" className="underline underline-offset-2">
