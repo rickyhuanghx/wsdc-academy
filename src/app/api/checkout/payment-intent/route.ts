@@ -80,6 +80,9 @@ export async function POST(req: Request) {
   }
 
   // Promo code: optional; if present it must be a code we recognise.
+  if (promoCode !== undefined && promoCode !== null && typeof promoCode !== 'string') {
+    return jsonError(400, 'Invalid promo code.');
+  }
   const promo = normalizePromoCode(promoCode);
   if (promo && !isValidPromoCode(promo)) {
     return jsonError(400, 'That promo code is not valid.');
@@ -236,7 +239,9 @@ export async function POST(req: Request) {
       return jsonError(500, 'Could not start checkout. Please try again.');
     }
 
-    return NextResponse.json({ clientSecret: intent.client_secret });
+    // `amount` (major units) lets the confirmation page report the charged
+    // figure — not the undiscounted cart sum — as the purchase conversion value.
+    return NextResponse.json({ clientSecret: intent.client_secret, amount: chargeMinor / 100 });
   } catch (e) {
     console.error('[payment-intent] stripe error:', e);
     return jsonError(500, 'Could not start checkout. Please try again.');

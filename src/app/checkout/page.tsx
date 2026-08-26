@@ -140,8 +140,13 @@ export default function CheckoutPage() {
   const [promoError, setPromoError] = useState('');
   // Everything here is online; only 1-on-1 lines are excluded.
   const promoLines = (list: CartItem[]): PromoLine[] =>
-    list.map((i) => ({ amount: i.amount, eligible: !getProgramById(i.programId)?.oneOnOne }));
+    list.map((i) => {
+      const program = getProgramById(i.programId);
+      return { amount: i.amount, eligible: !!program && !program.oneOnOne };
+    });
   const promoOff = promoCode ? promoDiscount(promoCode, promoLines(items)) : 0;
+  // A code that no longer discounts anything (eligible lines removed) is not sent.
+  const promoActive = !!promoCode && promoOff > 0;
   const applyPromo = () => {
     const code = promoInput.trim().toUpperCase();
     if (!isValidPromoCode(code)) {
@@ -226,6 +231,10 @@ export default function CheckoutPage() {
   // the payment element only if the fetch succeeds.
   const goToPayment = async () => {
     if (items.length === 0) return;
+    // Drop any earlier intent first: its amount may no longer match the cart
+    // (promo applied/removed after it was created), and the old Elements must
+    // never stay mounted while the replacement is in flight.
+    setClientSecret(null);
     setIntentLoading(true);
     setCheckoutError(null);
     setStep('payment');
@@ -243,14 +252,24 @@ export default function CheckoutPage() {
             timeSlot: i.timeSlot,
           })),
           buyer: formData,
-          promoCode: promoCode || undefined,
+          promoCode: promoActive ? promoCode : undefined,
         }),
       });
-      const data: { clientSecret?: string; error?: string } = await res.json();
+      const data: { clientSecret?: string; amount?: number; error?: string } = await res.json();
       if (!res.ok || !data.clientSecret) {
         setCheckoutError(data.error || 'Could not start checkout. Please try again.');
       } else {
         setClientSecret(data.clientSecret);
+        // Remember the charged amount for the confirmation page's purchase
+        // conversion (the cart sum would over-report a discounted order).
+        try {
+          sessionStorage.setItem(
+            'wsdc-checkout-charged',
+            JSON.stringify({ pi: data.clientSecret.split('_secret')[0], amount: data.amount }),
+          );
+        } catch {
+          /* storage unavailable — confirmation falls back to the cart sum */
+        }
       }
     } catch {
       setCheckoutError('Network error. Please check your connection and try again.');
@@ -757,7 +776,16 @@ export default function CheckoutPage() {
             {/* Returning families: notice + promo code */}
             <div className="mt-5 border-t border-navy-100 pt-4">
               <p className="rounded-sm border border-signal-200 bg-signal-50 px-4 py-3 text-xs leading-relaxed text-signal-600">{RETURNER_NOTICE}</p>
-              {promoCode ? (
+              {promoCode && !promoActive ? (
+                <div className="mt-3 flex items-center justify-between gap-2 text-sm">
+                  <span className="text-amber-700">{promoCode} no longer applies to your cart.</span>
+                  {step !== 'payment' && (
+                    <button type="button" onClick={removePromo} className="text-xs underline underline-offset-2">
+                      Remove
+                    </button>
+                  )}
+                </div>
+              ) : promoCode ? (
                 <div className="mt-3 flex items-center justify-between gap-2 text-sm">
                   <span className="font-semibold text-emerald-700">Code {promoCode} applied</span>
                   {step !== 'payment' ? (
@@ -790,6 +818,7 @@ export default function CheckoutPage() {
                         }
                       }}
                       placeholder="e.g. RETURNER27"
+                      maxLength={32}
                       autoCapitalize="characters"
                       className="w-full min-w-0 flex-1 rounded-md border border-navy-200 px-3 py-2 text-sm text-navy-900 focus:border-navy-500 focus:outline-none"
                     />

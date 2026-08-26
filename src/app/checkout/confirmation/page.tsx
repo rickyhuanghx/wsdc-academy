@@ -22,6 +22,20 @@ const nextSteps = [
   },
 ];
 
+// The checkout page stashes the server-side charged amount (after any promo)
+// keyed by intent id; use it when it matches, else fall back to the cart sum.
+function chargedAmount(paymentIntentId: string | null): number | undefined {
+  if (!paymentIntentId) return undefined;
+  try {
+    const raw = sessionStorage.getItem('wsdc-checkout-charged');
+    if (!raw) return undefined;
+    const saved = JSON.parse(raw) as { pi?: string; amount?: number };
+    return saved.pi === paymentIntentId && typeof saved.amount === 'number' ? saved.amount : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 export default function CheckoutConfirmationPage() {
   const { items, clearCart } = useCart();
 
@@ -35,7 +49,9 @@ export default function CheckoutConfirmationPage() {
       if (items.length > 0) {
         trackEvent('purchase_completed', {
           transaction_id: params.get('payment_intent') ?? undefined,
-          value: items.reduce((total, item) => total + item.amount, 0),
+          value:
+            chargedAmount(params.get('payment_intent')) ??
+            items.reduce((total, item) => total + item.amount, 0),
           currency: 'USD',
         });
       }

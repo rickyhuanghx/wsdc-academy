@@ -95,6 +95,10 @@ async function handlePaymentIntentSucceeded(intent: Stripe.PaymentIntent) {
     program_ids: metadata.programIds || '',
     program_names: metadata.programNames || '',
     students,
+    // No promo column yet — record the code in notes so the order explains its own total.
+    notes: metadata.promo_code
+      ? `Promo ${metadata.promo_code}: -${metadata.discount_amount || '?'} ${intent.currency.toUpperCase()}`
+      : null,
   });
 
   // 23505 = unique_violation → this intent was already processed (order saved
@@ -112,6 +116,8 @@ async function handlePaymentIntentSucceeded(intent: Stripe.PaymentIntent) {
     amountTotal: intent.amount,
     currency: intent.currency,
     paymentIntentId: intent.id,
+    promoCode: metadata.promo_code || undefined,
+    discountAmount: metadata.discount_amount ? Math.round(Number(metadata.discount_amount) * 100) : undefined,
     items,
   };
   const userTpl = orderUserEmail(emailData);

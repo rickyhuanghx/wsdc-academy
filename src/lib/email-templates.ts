@@ -17,7 +17,10 @@ export interface OrderEmailItem {
 export interface OrderEmailData {
   email: string;
   parentName: string;
-  amountTotal: number; // minor units
+  amountTotal: number;
+  /** Promo applied at checkout (e.g. RETURNER27) and its value in minor units. */
+  promoCode?: string;
+  discountAmount?: number; // minor units
   currency: string; // lowercase ISO
   paymentIntentId: string;
   items: OrderEmailItem[];
@@ -94,6 +97,7 @@ export function orderUserEmail(d: OrderEmailData) {
      <p style="margin:0 0 16px;color:#3d4a63;font-size:15px;line-height:1.6;">We've received your payment and saved your enrollment. A coach will reach out within 24–48 hours to welcome you, place each student, and confirm scheduling.</p>
      ${detailsTable([
        ['Amount paid', formatMoney(d.amountTotal, d.currency)],
+       ...(d.promoCode && d.discountAmount ? ([[`Discount (${d.promoCode})`, `-${formatMoney(d.discountAmount, d.currency)}`]] as [string, string][]) : []),
        ['Payment reference', d.paymentIntentId],
      ])}
      <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:1px;color:#8a93a6;margin:24px 0 12px;">Enrollment details</h3>
@@ -111,7 +115,7 @@ export function orderUserEmail(d: OrderEmailData) {
     .join('\n\n');
   const text = `Thanks ${firstName}, your enrollment is confirmed.
 
-Amount paid: ${formatMoney(d.amountTotal, d.currency)}
+Amount paid: ${formatMoney(d.amountTotal, d.currency)}${d.promoCode && d.discountAmount ? `\nDiscount (${d.promoCode}): -${formatMoney(d.discountAmount, d.currency)}` : ''}
 Payment reference: ${d.paymentIntentId}
 
 Enrollment details:
@@ -138,6 +142,7 @@ export function orderAdminEmail(d: OrderEmailData) {
        ['Parent', d.parentName],
        ['Email', d.email],
        ['Amount', formatMoney(d.amountTotal, d.currency)],
+       ...(d.promoCode && d.discountAmount ? ([[`Discount (${d.promoCode})`, `-${formatMoney(d.discountAmount, d.currency)}`]] as [string, string][]) : []),
        ['Items', String(d.items.length)],
        ['Payment intent', d.paymentIntentId],
      ])}
