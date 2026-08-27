@@ -68,15 +68,22 @@ export default function WsVsPfPage() {
               World Schools
             </Link>{' '}
             is the format the rest of the world plays, and the one growing fastest
-            inside American leagues. Most students who join a World Schools squad
-            arrive from PF, and most of what they know transfers. But the two
-            formats reward genuinely different skills, and the differences are
-            exactly where converts win or lose their first season.
+            inside American leagues. The headline differences: World Schools puts
+            three speakers on each side instead of two, runs eight-minute speeches
+            instead of four, replaces crossfire with points of information taken
+            during a speech, and uses no evidence cards and no spreading. Half the
+            motions at a championship are impromptu, prepared in one hour with no
+            internet and no coaches. Judges score every speech 40% on style, 40% on
+            content, and 20% on strategy, so delivery is worth exactly as much as
+            argument. Most students who join a World Schools squad arrive from PF, and
+            most of what they know transfers. But the two formats reward genuinely
+            different skills, and the differences are exactly where converts win or
+            lose their first season.
           </p>
         </header>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-navy-900">The formats side by side</h2>
+          <h2 className="text-2xl font-bold text-navy-900">What is the difference between World Schools and Public Forum?</h2>
           <div className="mt-6 overflow-x-auto rounded-lg border border-navy-100">
             <table className="w-full min-w-[560px] text-sm">
               <thead className="bg-navy-900 text-left text-white">
@@ -123,7 +130,7 @@ export default function WsVsPfPage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-navy-900">The five adjustments PF converts actually make</h2>
+          <h2 className="text-2xl font-bold text-navy-900">What has to change when you switch from PF to World Schools?</h2>
 
           <h3 className="mt-8 text-xl font-bold text-navy-900">1. Style becomes a scored category</h3>
           <p className="mt-3 leading-relaxed text-navy-700">
@@ -189,7 +196,7 @@ export default function WsVsPfPage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-navy-900">What transfers well</h2>
+          <h2 className="text-2xl font-bold text-navy-900">Which Public Forum skills transfer to World Schools?</h2>
           <p className="mt-4 leading-relaxed text-navy-700">
             Plenty. Research habits make prepared motions faster to case.{' '}
             <Link
@@ -254,7 +261,7 @@ export default function WsVsPfPage() {
               <details key={faq.question} className="group rounded-lg border border-navy-100 bg-white p-5">
                 <summary className="cursor-pointer list-none font-semibold text-navy-900">
                   <span className="flex items-center justify-between gap-4">
-                    {faq.question}
+                    <h3 className="font-semibold text-navy-900">{faq.question}</h3>
                     <span className="text-signal-500 transition-transform group-open:rotate-45">+</span>
                   </span>
                 </summary>

@@ -21,10 +21,10 @@ export const metadata: Metadata = {
 };
 
 const tocItems = [
-  ['round', 'Anatomy of a round'],
+  ['round', 'How a round works'],
   ['motions', 'Prepared vs impromptu'],
   ['judging', 'How judging works'],
-  ['transfer', 'Why the skills transfer'],
+  ['transfer', 'What students gain'],
   ['ai', 'In the age of AI'],
   ['us', 'In the United States'],
   ['faq', 'FAQ'],
@@ -170,8 +170,9 @@ export default function WhatIsWorldSchoolsPage() {
       <section className="bg-white">
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-lg leading-relaxed text-navy-700">
-            World Schools Debate is the international standard for high school
-            debate: the format of the{' '}
+            World Schools Debate, known formally as World Schools Style debate and
+            abbreviated WSD or WSS, is the international standard format for high
+            school debate. It was designed in 1988 for the{' '}
             <a
               href="https://www.wsdcdebating.org/"
               target="_blank"
@@ -180,9 +181,15 @@ export default function WhatIsWorldSchoolsPage() {
             >
               World Schools Debating Championships
             </a>{' '}
-            (WSDC), where well over 60 national teams compete each year. In the
+            (WSDC), where well over 60 national teams now compete each year. Two
+            teams of three argue a motion phrased as &ldquo;This House&hellip;&rdquo;:
+            six substantive speeches of eight minutes each, then a four-minute reply
+            from each side. Half the motions at a championship are released weeks in
+            advance and half are impromptu, prepared in one hour with no internet and
+            no coaches. Judges score every substantive speech out of 100 against three
+            published criteria: Style (40%), Content (40%), and Strategy (20%). In the
             United States it is an official NSDA event with its own invitational at
-            the National Tournament, growing state divisions, and a national team:{' '}
+            the National Tournament, growing state divisions, and a national team,{' '}
             <Link href="/usa-debate-team" className="font-semibold text-signal-500 hover:text-signal-600">
               USA Debate
             </Link>
@@ -196,7 +203,7 @@ export default function WhatIsWorldSchoolsPage() {
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-signal-500">The breakdown</p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-navy-900">
-            Anatomy of a round
+            How does a World Schools debate round work?
           </h2>
           <p className="mt-5 leading-relaxed text-navy-700">
             Two teams, Proposition and Opposition, debate a single motion. Teams
@@ -214,10 +221,10 @@ export default function WhatIsWorldSchoolsPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-navy-100 bg-white text-navy-700">
-                <tr><td className="px-4 py-3 font-semibold text-navy-900">Prop 1 / Opp 1</td><td className="px-4 py-3">8 min each</td><td className="px-4 py-3">Define the motion, set up the team case</td></tr>
-                <tr><td className="px-4 py-3 font-semibold text-navy-900">Prop 2 / Opp 2</td><td className="px-4 py-3">8 min each</td><td className="px-4 py-3">Rebut, then extend the case with new substantive material</td></tr>
-                <tr><td className="px-4 py-3 font-semibold text-navy-900">Prop 3 / Opp 3</td><td className="px-4 py-3">8 min each</td><td className="px-4 py-3">Deep clash: compare the cases and win the key issues</td></tr>
-                <tr><td className="px-4 py-3 font-semibold text-navy-900">Opp Reply, then Prop Reply</td><td className="px-4 py-3">4 min each</td><td className="px-4 py-3">A &ldquo;biased adjudication&rdquo; of the round: why your side won. Opposition replies first; Proposition closes the debate.</td></tr>
+                <tr><td className="px-4 py-3 font-semibold text-navy-900">Prop 1 / Opp 1<span className="mt-1 block text-xs font-normal text-navy-500">Prime Minister / Leader of Opposition</span></td><td className="px-4 py-3">8 min each</td><td className="px-4 py-3">Define the motion, set up the team case</td></tr>
+                <tr><td className="px-4 py-3 font-semibold text-navy-900">Prop 2 / Opp 2<span className="mt-1 block text-xs font-normal text-navy-500">Deputy Prime Minister / Deputy Leader of Opposition</span></td><td className="px-4 py-3">8 min each</td><td className="px-4 py-3">Rebut, then extend the case with new substantive material</td></tr>
+                <tr><td className="px-4 py-3 font-semibold text-navy-900">Prop 3 / Opp 3<span className="mt-1 block text-xs font-normal text-navy-500">Government Whip / Opposition Whip</span></td><td className="px-4 py-3">8 min each</td><td className="px-4 py-3">Deep clash: compare the cases and win the key issues</td></tr>
+                <tr><td className="px-4 py-3 font-semibold text-navy-900">Opp Reply, then Prop Reply<span className="mt-1 block text-xs font-normal text-navy-500">Reply speeches</span></td><td className="px-4 py-3">4 min each</td><td className="px-4 py-3">A &ldquo;biased adjudication&rdquo; of the round: why your side won. Opposition replies first; Proposition closes the debate.</td></tr>
               </tbody>
             </table>
           </div>
@@ -245,7 +252,7 @@ export default function WhatIsWorldSchoolsPage() {
           <div className="mx-auto max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.15em] text-signal-500">What makes it different</p>
             <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-navy-900">
-              Prepared vs. impromptu motions
+              What is the difference between prepared and impromptu motions?
             </h2>
             <p className="mt-5 leading-relaxed text-navy-700">
               The thing that sets World Schools apart from every American format is
@@ -309,7 +316,7 @@ export default function WhatIsWorldSchoolsPage() {
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-signal-500">The scoresheet</p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-navy-900">
-            How judging works: 40/40/20
+            How is World Schools debate judged? The 40/40/20 split
           </h2>
           <p className="mt-5 leading-relaxed text-navy-700">
             World Schools is judged on three explicit, published criteria. Nothing
@@ -343,7 +350,7 @@ export default function WhatIsWorldSchoolsPage() {
         <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-signal-500">Why it matters</p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-navy-900">
-            The skills go further than the trophy
+            What do students gain from World Schools debate?
           </h2>
           <p className="mt-5 leading-relaxed text-navy-700">
             Competitive debate has some of the strongest long-run evidence of any
@@ -468,7 +475,7 @@ export default function WhatIsWorldSchoolsPage() {
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.15em] text-signal-500">Future-proof by accident</p>
               <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-navy-900">
-                World Schools in the age of AI
+                Why does World Schools debate matter in the age of AI?
               </h2>
               <p className="mt-5 leading-relaxed text-navy-700">
                 A language model can now draft a case, find the counterarguments,
@@ -552,7 +559,7 @@ export default function WhatIsWorldSchoolsPage() {
         <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-signal-500">The pathway</p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-navy-900">
-            World Schools in the United States
+            How does World Schools debate work in the United States?
           </h2>
           <div className="mt-8 space-y-8">
             <div className="border-t border-navy-200 pt-6">
@@ -604,7 +611,7 @@ export default function WhatIsWorldSchoolsPage() {
               <details key={faq.question} className="group py-5">
                 <summary className="cursor-pointer list-none font-semibold text-navy-900">
                   <span className="flex items-center justify-between gap-4">
-                    {faq.question}
+                    <h3 className="font-semibold text-navy-900">{faq.question}</h3>
                     <span className="text-signal-500 transition-transform group-open:rotate-45">+</span>
                   </span>
                 </summary>

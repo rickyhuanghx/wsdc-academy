@@ -69,16 +69,22 @@ export default function JudgingGuidePage() {
             </Link>{' '}
             is scored against three published criteria: <strong>Style (40%)</strong>,{' '}
             <strong>Content (40%)</strong>, and <strong>Strategy (20%)</strong>.
-            That one sentence explains more about who wins rounds than anything else
-            in the rules. It is also the single biggest adjustment for students and
-            parents coming from other American formats. This guide breaks down what
-            each category actually means to a judge, and what training for it looks
-            like.
+            Substantive speeches are marked out of 100 on that split (40 for style, 40
+            for content, 20 for strategy) and reply speeches out of 50 on the same
+            proportions. In practice judges work in a narrow band: constructive
+            speeches are scored from 60 to 80 with 70 as the average, and replies from
+            30 to 40. A two-point gap across six speeches is a normal margin, so
+            consistent marks in every category decide far more rounds than one
+            memorable moment does. That split explains more about who wins than
+            anything else in the rules, and it is the single biggest adjustment for
+            students and parents coming from other American formats. This guide breaks
+            down what each category actually means to a judge, and what training for
+            it looks like.
           </p>
         </header>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-navy-900">The 40/40/20 split at a glance</h2>
+          <h2 className="text-2xl font-bold text-navy-900">What is the 40/40/20 split in World Schools debate?</h2>
           <div className="mt-6 overflow-hidden rounded-lg border border-navy-100">
             <table className="w-full text-sm">
               <thead className="bg-navy-900 text-left text-white">
@@ -108,12 +114,10 @@ export default function JudgingGuidePage() {
             </table>
           </div>
           <p className="mt-4 leading-relaxed text-navy-700">
-            Substantive speeches are scored out of 100 (40 + 40 + 20); the shorter
-            reply speeches are scored out of 50 on the same proportions. Judges
-            work inside a deliberately narrow band around a defined average, which
-            means small, consistent advantages in each category, not one flashy
-            moment, are what separate teams across a round. The primary sources
-            are public: the{' '}
+            Every criterion is marked on its own, so a team can lose the round while
+            winning one of them: the side with the better arguments still loses if it
+            is harder to follow, because style and content carry identical weight. The
+            primary sources are public: the{' '}
             <a
               href="https://www.wsdcdebating.org/services-4"
               target="_blank"
@@ -136,7 +140,7 @@ export default function JudgingGuidePage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-navy-900">Style: the 40% American formats undertrain</h2>
+          <h2 className="text-2xl font-bold text-navy-900">What does Style mean in World Schools judging?</h2>
           <p className="mt-4 leading-relaxed text-navy-700">
             Style is everything about <em>how</em> the speech reaches the audience:
             vocal variety, pace, eye contact, presence, humor where it belongs, and
@@ -156,7 +160,7 @@ export default function JudgingGuidePage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-navy-900">Content: arguments for a reasonable person</h2>
+          <h2 className="text-2xl font-bold text-navy-900">What does Content mean in World Schools judging?</h2>
           <p className="mt-4 leading-relaxed text-navy-700">
             Content covers the substance: whether arguments are logically complete
             (claim, reasoning, impact), whether they are supported by examples and
@@ -196,7 +200,7 @@ export default function JudgingGuidePage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-navy-900">Strategy: the 20% that decides close rounds</h2>
+          <h2 className="text-2xl font-bold text-navy-900">What does Strategy mean in World Schools judging?</h2>
           <p className="mt-4 leading-relaxed text-navy-700">
             Strategy is the judgment category: did the speaker understand the
             issues that actually decide the debate and spend time accordingly? It
@@ -242,7 +246,7 @@ export default function JudgingGuidePage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-navy-900">How to train for 40/40/20</h2>
+          <h2 className="text-2xl font-bold text-navy-900">How do you train for the 40/40/20 criteria?</h2>
           <p className="mt-4 leading-relaxed text-navy-700">
             The criteria are public, which means improvement can be systematic.
             This is the premise our entire{' '}
@@ -281,7 +285,7 @@ export default function JudgingGuidePage() {
               <details key={faq.question} className="group rounded-lg border border-navy-100 bg-white p-5">
                 <summary className="cursor-pointer list-none font-semibold text-navy-900">
                   <span className="flex items-center justify-between gap-4">
-                    {faq.question}
+                    <h3 className="font-semibold text-navy-900">{faq.question}</h3>
                     <span className="text-signal-500 transition-transform group-open:rotate-45">+</span>
                   </span>
                 </summary>

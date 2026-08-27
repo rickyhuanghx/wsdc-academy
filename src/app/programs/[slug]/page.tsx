@@ -495,7 +495,7 @@ export default async function ProgramPage({ params }: Props) {
                   {program.faqs.map((faq) => (
                     <details key={faq.question} className="group py-4">
                       <summary className="cursor-pointer list-none font-semibold text-navy-900 marker:content-none">
-                        {faq.question}
+                        <h3 className="font-semibold text-navy-900">{faq.question}</h3>
                       </summary>
                       <p className="mt-2 text-sm leading-relaxed text-navy-600">{faq.answer}</p>
                     </details>

@@ -44,6 +44,15 @@ h3 {
   font-family: var(--font-display);
 }
 
+/* FAQ questions are marked up as <h3> inside <summary> so heading-based passage
+   extractors (AI search, snippet scoring) can see them, but they must stay in the
+   body font visually. A Tailwind `font-sans` class cannot do this: utilities live
+   in @layer utilities, and unlayered CSS (the rule above) wins the cascade
+   regardless of specificity. This unlayered rule is how the override sticks. */
+summary h3 {
+  font-family: var(--font-sans);
+}
+
 /* Stat figures line up in columns */
 dl dt,
 .stat {

@@ -242,7 +242,7 @@ export default function ProgramsPage() {
               >
                 <summary className="cursor-pointer list-none font-semibold text-navy-900">
                   <span className="flex items-center justify-between gap-4">
-                    {faq.question}
+                    <h3 className="font-semibold text-navy-900">{faq.question}</h3>
                     <span className="text-signal-500 transition-transform group-open:rotate-45">
                       +
                     </span>

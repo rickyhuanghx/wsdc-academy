@@ -76,9 +76,16 @@ export default function UsaDebateTeamPage() {
             USA Debate is the national team program run by the National Speech &amp;
             Debate Association. It is the sole US representative at the World
             Schools Debating Championships. In 2023, the team{' '}
-            <strong>won the world title</strong>. This guide covers exactly how
-            selection works, who is eligible, and how to prepare an application
-            that stands out.
+            <strong>won the world title</strong>. The program carries two squads, the
+            National Team that competes at the world championship and a Development
+            Team behind it. Applicants must be US secondary students who are citizens
+            (dual citizenship is fine) or permanent residents of at least two years,
+            and active NSDA members. Selection is not a tournament record: the
+            application is an online form, recommendations from a coach or school
+            administrator, and recorded speeches on three motions the NSDA provides.
+            The roster is announced in late August. This guide covers exactly how
+            selection works, who is eligible, and how to prepare an application that
+            stands out.
           </p>
           <figure className="mt-10">
             <div className="relative aspect-[16/9] overflow-hidden rounded-xl">
@@ -99,7 +106,7 @@ export default function UsaDebateTeamPage() {
         </header>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-navy-900">What USA Debate is</h2>
+          <h2 className="text-2xl font-bold text-navy-900">What is USA Debate?</h2>
           <p className="mt-4 leading-relaxed text-navy-700">
             Each year the NSDA selects a small national roster from its membership
             of roughly 140,000 students. The <strong>National Team</strong>{' '}
@@ -129,7 +136,7 @@ export default function UsaDebateTeamPage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-navy-900">Eligibility</h2>
+          <h2 className="text-2xl font-bold text-navy-900">Who is eligible for the USA Debate team?</h2>
           <ul className="mt-5 space-y-3 text-navy-700">
             {[
               'US citizen (dual citizenship OK) or a permanent resident for 2+ years',
@@ -146,7 +153,7 @@ export default function UsaDebateTeamPage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-navy-900">The application timeline</h2>
+          <h2 className="text-2xl font-bold text-navy-900">How does the USA Debate application work?</h2>
           <div className="mt-6 space-y-0">
             {[
               ['Early April', 'Application opens', 'The 2026–27 window opened April 1 at noon CT. Start preparing well before this.'],
@@ -207,7 +214,7 @@ export default function UsaDebateTeamPage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-navy-900">How to prepare, starting now</h2>
+          <h2 className="text-2xl font-bold text-navy-900">How do you prepare for USA Debate selection?</h2>
           <ul className="mt-5 space-y-4 text-navy-700">
             <li className="flex gap-3">
               <span className="mt-1 font-bold text-signal-500">1.</span>
@@ -264,7 +271,7 @@ export default function UsaDebateTeamPage() {
               <details key={faq.question} className="group rounded-lg border border-navy-100 bg-white p-5">
                 <summary className="cursor-pointer list-none font-semibold text-navy-900">
                   <span className="flex items-center justify-between gap-4">
-                    {faq.question}
+                    <h3 className="font-semibold text-navy-900">{faq.question}</h3>
                     <span className="text-signal-500 transition-transform group-open:rotate-45">+</span>
                   </span>
                 </summary>
