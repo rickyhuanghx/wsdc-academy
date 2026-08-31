@@ -233,6 +233,17 @@ export const blogPosts: BlogPost[] = [
     category: 'Why it matters',
     date: '2026-08-31',
   },
+  {
+    slug: 'best-world-schools-debate-classes',
+    title: 'Where to actually learn World Schools debate',
+    metaTitle: 'Best World Schools Debate Classes & Camps',
+    description:
+      'A coaches’ map of the programs that genuinely teach the World Schools format: the year-round academies, the summer camps with real WSDC divisions, the free and national-pathway routes, and the checklist that separates format-true training from a Public Forum class with a new label.',
+    metaDescription:
+      'A coaches’ map of where World Schools debate is really taught: year-round classes, the summer camps with true WSDC divisions, and the free routes in.',
+    category: 'Why it matters',
+    date: '2026-08-31',
+  },
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
