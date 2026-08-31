@@ -8,6 +8,11 @@ const post = getPostBySlug('debate-rebuttal-guide')!;
 
 const faqs = [
   {
+    question: 'What is a rebuttal in a debate?',
+    answer:
+      'A rebuttal is a structured response that shows a specific opposing argument no longer stands: you restate their claim fairly, attack it at a chosen layer (premise, mechanism, impact, or weighing), support the attack, and tell the judge what the exchange proves. It is distinct from your own constructive arguments and from weighing, though strong speeches braid all three together.',
+  },
+  {
     question: 'Should I respond to every argument the other team makes?',
     answer:
       'You must engage everything important, but not everything equally. Group minor points, answer them in a sentence, and spend your real time breaking the two or three arguments the round actually turns on. A completely dropped argument is dangerous because the opposition will call it conceded. Acknowledge everything, but triage your depth.',
@@ -35,11 +40,13 @@ export default function RebuttalGuidePost() {
       ctaBody="Our students run rebuttal ladders against live opposition weekly, with written feedback on target selection and completeness."
       lede={
         <p>
-          Rebuttal is not disagreement. Judges hear disagreement all round;
-          what they score is <em>demonstrated failure</em>: showing that a
-          specific argument, at a specific layer, no longer stands. That takes
-          a structure, a target, and the discipline to attack the strongest
-          version of what was said. This guide covers all three.
+          A rebuttal in debate is a structured response that shows a specific
+          opposing argument no longer stands. It is not disagreement. Judges
+          hear disagreement all round; what they score is{' '}
+          <em>demonstrated failure</em>: a named argument, attacked at a
+          specific layer, with the damage stated. That takes a structure, a
+          target, and the discipline to attack the strongest version of what
+          was said. This guide covers all three.
         </p>
       }
     >

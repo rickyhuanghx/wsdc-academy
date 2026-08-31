@@ -179,6 +179,28 @@ export const blogPosts: BlogPost[] = [
     date: '2026-07-09',
   },
   {
+    slug: 'how-to-debate',
+    title: 'How to debate: the skills, in the order they stack',
+    metaTitle: 'How to Debate: A Beginner’s Guide',
+    description:
+      'A beginner’s guide to debating: how a formal debate is structured, how to build an argument that survives contact, how to rebut, how to weigh, and the practice loop that turns those four skills into wins.',
+    metaDescription:
+      'How a formal debate works, how to build an argument, how to rebut and weigh, and the practice loop that turns those skills into wins. A beginner’s guide.',
+    category: 'Technique',
+    date: '2026-08-31',
+  },
+  {
+    slug: 'how-to-start-a-debate-speech',
+    title: 'How to start a debate speech (and how not to)',
+    metaTitle: 'How to Start a Debate Speech, With Examples',
+    description:
+      'Openings for every speech in a debate round: the first speaker’s framing, the rebuttal speaker’s pivot, and the closer’s big picture, with worked example openings and the three classic ways students waste their first thirty seconds.',
+    metaDescription:
+      'Openings for every speech in the round: the framer, the rebutter, the closer. With example openings and the three classic ways to waste thirty seconds.',
+    category: 'Technique',
+    date: '2026-08-31',
+  },
+  {
     slug: 'nsda-debate-topics',
     title: 'This season’s NSDA debate topics, in one place',
     metaTitle: 'NSDA Debate Topics 2026-27: PF, LD, Policy',
