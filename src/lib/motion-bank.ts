@@ -350,6 +350,11 @@ function pickDistinct(list: Motion[], n: number): Motion[] {
 const byYearDesc = (a: Motion, b: Motion) => (b.y ?? 0) - (a.y ?? 0);
 const motionById = new Map(motions.map((m) => [m.id, m]));
 
+/** Resolve curated stable-id lists (drops ids missing after a bank rebuild). */
+export function motionsByIds(ids: number[]): Motion[] {
+  return ids.map((id) => motionById.get(id)).filter((m): m is Motion => Boolean(m));
+}
+
 export const coachShelves: CoachShelf[] = [
   {
     slug: 'first-debates',

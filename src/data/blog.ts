@@ -178,6 +178,39 @@ export const blogPosts: BlogPost[] = [
     category: 'The US circuit',
     date: '2026-07-09',
   },
+  {
+    slug: 'nsda-debate-topics',
+    title: 'This season’s NSDA debate topics, in one place',
+    metaTitle: 'NSDA Debate Topics 2026-27: PF, LD, Policy',
+    description:
+      'The current NSDA resolutions for the 2026-27 season: the year-long Policy and Big Questions topics, the September/October Public Forum and Lincoln-Douglas topics, the novice LD topic, and the release calendar for the rest of the year.',
+    metaDescription:
+      'The current 2026-27 NSDA resolutions: Policy, Big Questions, September/October PF and LD, the novice LD topic, and the release calendar for the season.',
+    category: 'The US circuit',
+    date: '2026-08-31',
+  },
+  {
+    slug: 'best-debate-summer-camps',
+    title: 'Choosing a debate summer camp: the real options',
+    metaTitle: 'Best Debate Summer Camps: A 2027 Guide',
+    description:
+      'An honest map of the American debate camp landscape for summer 2027: university-hosted institutes, format-specific programs, local league camps, and online intensives, with what each kind is good for and how to compare them.',
+    metaDescription:
+      'The American debate camp landscape for 2027: university institutes, format-specific programs, league camps, and online intensives, and how to compare them.',
+    category: 'The US circuit',
+    date: '2026-08-31',
+  },
+  {
+    slug: 'best-online-debate-classes',
+    title: 'How to pick an online debate class that works',
+    metaTitle: 'Best Online Debate Classes for Kids & Teens',
+    description:
+      'A parent’s guide to online debate classes: the four things that separate real training from a weekly lecture, the main kinds of providers (marketplaces, format specialists, local clubs online), and how to evaluate any of them.',
+    metaDescription:
+      'A parent’s guide to online debate classes: what separates real training from a weekly lecture, the main kinds of providers, and how to evaluate them.',
+    category: 'Why it matters',
+    date: '2026-08-31',
+  },
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {

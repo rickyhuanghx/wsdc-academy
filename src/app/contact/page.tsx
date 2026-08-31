@@ -5,9 +5,9 @@ import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_TEL, WHATSAPP_URL } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Contact Us: World Schools Debate Coaching',
+  title: 'Contact Us',
   description:
-    'Questions about World Schools Debate coaching, school team programs, or placement? Contact WSDC Prep. We reply within one business day.',
+    'Questions about our debate programs, school team coaching, or placement? Contact WSDC Prep. We reply within one business day.',
   alternates: { canonical: '/contact' },
   openGraph: {
     title: 'Contact Us | WSDC Prep',

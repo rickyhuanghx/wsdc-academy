@@ -21,9 +21,9 @@ import {
 } from '@/lib/motion-bank';
 
 export const metadata: Metadata = {
-  title: 'Debate Motion Bank: 12,000+ Real Motions',
+  title: 'Debate Topics & Motions: 12,000+ Real Examples',
   description:
-    'A free, searchable bank of 12,000+ real debate motions from 1,200+ tournaments (1994–2026). Filter by topic, motion type, and year. No signup.',
+    'A free, searchable bank of 12,000+ real debate topics and motions from 1,200+ tournaments (1994–2026). Filter by subject, motion type, and year.',
   alternates: { canonical: '/motions' },
   openGraph: {
     title: 'The Debate Motion Bank: 12,000+ Real Tournament Motions',
@@ -102,7 +102,13 @@ export default function MotionBankPage() {
               complete Worlds archive
             </Link>{' '}
             back to 1994, and copy anything straight into your next practice.
-            Free, no signup, no app to fight with.
+            Free, no signup, no app to fight with. (A motion is what debaters
+            call a debate topic; if you want ready-made lists by grade level,
+            start with our{' '}
+            <Link href="/debate-topics" className="font-semibold text-signal-500 hover:text-signal-600">
+              curated debate topics
+            </Link>
+            {' '}instead.)
           </p>
         </header>
 

@@ -39,6 +39,10 @@ export function GET() {
     '## Programs\n' +
       item('Debate coaching overview', u('/debate-coaching'), 'What debate coaching should include, how ours works, and the three ways to train with us.') +
       '\n' +
+      item('Online debate classes', u('/online-debate-classes'), 'Live small-group online debate classes for ages 9 to 18: structured curriculum, judged practice debates, written feedback.') +
+      '\n' +
+      item('Summer debate camp', u('/summer-debate-camp'), 'A two-week live online debate bootcamp: 12 hours of small-group World Schools training with judged practice debates.') +
+      '\n' +
       programs.map((p) => item(p.name, u(`/programs/${p.slug}`), p.tagline)).join('\n'),
 
     '## Blog\n' + blogPosts.map((p) => item(p.title, u(`/blog/${p.slug}`), p.description)).join('\n'),
@@ -56,6 +60,12 @@ export function GET() {
         'WSDC Motions: the Worlds archive',
         u('/motions/wsdc'),
         `Every publicly recorded World Schools Debating Championships motion since 1994 (${bankStats.wsdc} motions), prepared and impromptu rounds labeled.`,
+      ) +
+      '\n' +
+      item(
+        'Debate topics for students',
+        u('/debate-topics'),
+        'Curated lists of 60+ real debate topics by level (beginner, middle school, high school, advanced, impromptu), every one set at a real tournament.',
       ) +
       '\n' +
       motionTopics.map((t) => item(`${t.label} debate motions`, u(`/motions/${t.slug}`), t.blurb)).join('\n'),

@@ -835,6 +835,11 @@ export const programs: Program[] = [
         note: 'Worth reading before the first session if the format is new.',
       },
       {
+        href: '/summer-debate-camp',
+        label: 'The summer debate camp, explained',
+        note: 'What the bootcamp covers, both tracks, and how it compares with other camps.',
+      },
+      {
         href: '/resources/wsdc-format-quick-reference',
         label: 'Format quick reference',
         note: 'Speech order and timings on one page, printable for the first week.',

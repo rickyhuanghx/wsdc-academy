@@ -27,6 +27,8 @@ export function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-navy-300">Programs</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li><Link href="/debate-coaching" className="text-navy-100 hover:text-white">Debate Coaching Overview</Link></li>
+              <li><Link href="/online-debate-classes" className="text-navy-100 hover:text-white">Online Debate Classes</Link></li>
+              <li><Link href="/summer-debate-camp" className="text-navy-100 hover:text-white">Summer Debate Camp</Link></li>
               <li><Link href="/programs/summer-bootcamp" className="text-navy-100 hover:text-white">Summer Bootcamp</Link></li>
               <li><Link href="/programs/advanced-summer-bootcamp" className="text-navy-100 hover:text-white">Advanced Summer Bootcamp</Link></li>
               <li><Link href="/programs/foundations" className="text-navy-100 hover:text-white">Foundation</Link></li>
@@ -53,6 +55,7 @@ export function Footer() {
               <li><Link href="/resources" className="text-navy-100 hover:text-white">Resource Library</Link></li>
               <li><Link href="/resources/first-speaker-cheat-sheet" className="text-navy-100 hover:text-white">Speaker Cheat Sheets</Link></li>
               <li><Link href="/motions" className="text-navy-100 hover:text-white">Motion Bank</Link></li>
+              <li><Link href="/debate-topics" className="text-navy-100 hover:text-white">Debate Topics</Link></li>
               <li><Link href="/motions/wsdc" className="text-navy-100 hover:text-white">WSDC Motions Archive</Link></li>
             </ul>
           </div>

@@ -4,12 +4,12 @@ import { BreadcrumbJsonLd, ItemListJsonLd } from '@/components/JsonLd';
 import { resources, resourceCategories } from '@/data/resources';
 
 export const metadata: Metadata = {
-  title: 'World Schools Debate Resources & Cheat Sheets',
+  title: 'Debate Cheat Sheets, Printables & Resources',
   description:
-    'Free World Schools Debate resources: printable speaker cheat sheets, a 1-hour prep planner, a practice motion bank, and a full glossary.',
+    'Free debate resources: printable speaker cheat sheets, a 1-hour prep planner, a practice motion bank, and a full World Schools glossary.',
   alternates: { canonical: '/resources' },
   openGraph: {
-    title: 'World Schools Debate Resource Library',
+    title: 'The WSDC Prep Resource Library',
     description:
       'Printable speaker cheat sheets, prep templates, practice motions, and quick references for World Schools Debate.',
     url: '/resources',
@@ -36,7 +36,7 @@ export default function ResourcesPage() {
         ]}
       />
       <ItemListJsonLd
-        name="World Schools Debate Resource Library"
+        name="WSDC Prep Resource Library"
         description="Free printable cheat sheets, prep templates, practice motions, and quick references for World Schools Debate."
         url="/resources"
         items={resources.map((r) => ({
@@ -50,7 +50,7 @@ export default function ResourcesPage() {
         <header className="max-w-3xl">
           <p className="text-sm font-bold uppercase tracking-wider text-signal-500">Resource Library</p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl">
-            World Schools Debate resources
+            The debate resource library
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-navy-700">
             Everything on this page is free, and everything is the real thing:

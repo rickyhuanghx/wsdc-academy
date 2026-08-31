@@ -4,9 +4,9 @@ import { BreadcrumbJsonLd, ItemListJsonLd } from '@/components/JsonLd';
 import { blogPosts } from '@/data/blog';
 
 export const metadata: Metadata = {
-  title: 'World Schools Debate Blog: Roles & Technique',
+  title: 'Debate Technique Blog: Roles & Skills',
   description:
-    'Coaching essays on World Schools Debate: all three speaker roles, argument and rebuttal technique, weighing, and the American pathway.',
+    'Coaching essays on competitive debate: all three speaker roles, argument and rebuttal technique, weighing, and the American World Schools pathway.',
   alternates: { canonical: '/blog' },
   openGraph: {
     title: 'The WSDC Prep Blog',

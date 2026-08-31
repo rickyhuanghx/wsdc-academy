@@ -176,6 +176,24 @@ export default function DebateCoachingPage() {
             </div>
           ))}
         </div>
+        <p className="mt-6 leading-relaxed text-navy-700">
+          Everything runs live online in small groups; the{' '}
+          <Link
+            href="/online-debate-classes"
+            className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+          >
+            online debate classes overview
+          </Link>{' '}
+          covers schedules, age groups, and what a session looks like, and
+          each summer a two-week{' '}
+          <Link
+            href="/summer-debate-camp"
+            className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+          >
+            online debate camp
+          </Link>{' '}
+          compresses the beginner curriculum into six sessions.
+        </p>
       </section>
 
       <section className="border-t border-navy-100 bg-cream">
