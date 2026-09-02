@@ -148,9 +148,16 @@ export default function HowToDebatePost() {
           volume), run prep against a timer with the{' '}
           <InLink href="/resources">free cheat sheets and prep
           planner</InLink>, and make sure someone qualified judges the round
-          and says who won and why. Solo drills fill the gaps between rounds;
-          they never replace them. If you want the loop built for you, that
-          is what a{' '}
+          and says who won and why. Solo drills fill the gaps between rounds
+          (the <InLink href="/blog/debate-practice">practice guide</InLink>{' '}
+          has a full drill menu and a weekly plan); they never replace them.
+          When your speeches need to go from spoken to structured, work
+          through{' '}
+          <InLink href="/blog/how-to-write-a-debate-speech">how to write
+          a debate speech</InLink>, and when the early gains flatten out,{' '}
+          <InLink href="/blog/how-to-get-better-at-debate">how to get
+          better at debate</InLink> is about breaking the plateau. If you
+          want the loop built for you, that is what a{' '}
           <InLink href="/debate-coaching">coached program</InLink> is.
         </p>
       </section>

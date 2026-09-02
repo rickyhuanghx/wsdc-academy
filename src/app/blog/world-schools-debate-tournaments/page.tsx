@@ -239,8 +239,12 @@ export default function TournamentsPost() {
           : one team per nation, well over sixty countries, eight preliminary
           rounds (four prepared, four impromptu) before elims. Recent editions:
           Hanoi 2023 (won by the USA), Belgrade 2024 (Scotland), Panama City
-          2025 (India), and Nairobi 2026, the championship&apos;s first visit
-          to East Africa. For American students, the only route in is{' '}
+          2025 (India), and Nairobi 2026 (Canada), the championship&apos;s
+          first visit to East Africa; the full record is on our{' '}
+          <Link href="/wsdc-champions" className="font-semibold text-signal-500 hover:text-signal-600">
+            WSDC champions page
+          </Link>
+          . For American students, the only route in is{' '}
           <Link href="/usa-debate-team" className="font-semibold text-signal-500 hover:text-signal-600">
             the USA Debate national team
           </Link>

@@ -164,9 +164,13 @@ export default function InternationalTournamentsPost() {
           impromptu), held each July–August in a rotating host country. Recent
           editions were Hanoi 2023 (won by the USA), Belgrade 2024 (Scotland),
           Panama City 2025 (India def. Australia 9–0), and Nairobi in July
-          2026, the championship&apos;s first visit to East Africa, with
-          Sofia, Bulgaria
-          expected for 2027. American students get there exactly one way:{' '}
+          2026, the championship&apos;s first visit to East Africa, where
+          Canada defeated defending champions India in the final; Sofia,
+          Bulgaria hosts in 2027. Every result since 1988 is on our{' '}
+          <Link href="/wsdc-champions" className="font-semibold text-signal-500 hover:text-signal-600">
+            WSDC champions page
+          </Link>
+          . American students get there exactly one way:{' '}
           <Link href="/usa-debate-team" className="font-semibold text-signal-500 hover:text-signal-600">
             the USA Debate national team
           </Link>

@@ -128,6 +128,10 @@ export default function WsdcMotionsPage() {
             <Link href="/usa-debate-team" className="font-semibold text-signal-500 hover:text-signal-600">
               how USA Debate selection works
             </Link>
+            . And for who actually won each of these championships, see the{' '}
+            <Link href="/wsdc-champions" className="font-semibold text-signal-500 hover:text-signal-600">
+              full champions record since 1988
+            </Link>
             .
           </p>
         </header>

@@ -112,7 +112,14 @@ export default function NsdaTopicsPost() {
           topics, each announced on the first of the preceding month (January
           on December 1, February on January 1, March on February 1, April on
           March 1). NSDA members vote on the shortlist in the week before each
-          release.
+          release. One NSDA format never appears on this page at all:{' '}
+          <Link
+            href="/blog/extemporaneous-debate"
+            className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+          >
+            Extemporaneous Debate
+          </Link>{' '}
+          posts a brand-new resolution 30 minutes before every round.
         </p>
       </section>
 

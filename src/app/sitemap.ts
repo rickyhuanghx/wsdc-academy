@@ -58,6 +58,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/usa-debate-team', file: 'src/app/(learn)/usa-debate-team/page.tsx', changeFrequency: 'monthly', priority: 0.95 },
     { path: '/world-schools-vs-public-forum', file: 'src/app/(learn)/world-schools-vs-public-forum/page.tsx', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/world-schools-debate-judging', file: 'src/app/(learn)/world-schools-debate-judging/page.tsx', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/wsdc-champions', file: 'src/app/(learn)/wsdc-champions/page.tsx', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/resources', file: 'src/app/resources/page.tsx', changeFrequency: 'weekly', priority: 0.9 },
     { path: '/motions', file: 'src/app/motions/page.tsx', changeFrequency: 'weekly', priority: 0.9 },
     { path: '/debate-topics', file: 'src/app/debate-topics/page.tsx', changeFrequency: 'weekly', priority: 0.9 },

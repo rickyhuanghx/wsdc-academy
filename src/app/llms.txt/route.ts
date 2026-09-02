@@ -16,6 +16,7 @@ export const dynamic = 'force-static';
 const GUIDE_LINKS = [
   { href: '/what-is-world-schools-debate', title: 'What is World Schools Debate?', blurb: 'The format, rules, speech order, and judging explained for newcomers.' },
   { href: '/world-schools-debate-judging', title: 'How World Schools judging works', blurb: 'The 40/40/20 Style / Content / Strategy criteria and how to train for each.' },
+  { href: '/wsdc-champions', title: 'WSDC champions by year', blurb: 'Every World Schools Debating Championships result 1988–2026: champions, runners-up, hosts, and confirmed final scores.' },
   { href: '/world-schools-vs-public-forum', title: 'World Schools vs Public Forum', blurb: 'Every difference between the two formats, for students converting over.' },
   { href: '/usa-debate-team', title: 'How to make the USA Debate team', blurb: 'Eligibility, the application, and the season-long timeline for national-team selection.' },
 ];

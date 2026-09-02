@@ -193,7 +193,12 @@ export default function WhatIsWorldSchoolsPage() {
             <Link href="/usa-debate-team" className="font-semibold text-signal-500 hover:text-signal-600">
               USA Debate
             </Link>
-            , which won the world championship in 2023.
+            , which won the world championship in 2023 (the full list of
+            winners since 1988 is on our{' '}
+            <Link href="/wsdc-champions" className="font-semibold text-signal-500 hover:text-signal-600">
+              WSDC champions page
+            </Link>
+            ).
           </p>
         </div>
       </section>

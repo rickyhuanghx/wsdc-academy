@@ -44,6 +44,7 @@ export function Footer() {
               <li><Link href="/what-is-world-schools-debate" className="text-navy-100 hover:text-white">What is World Schools Debate?</Link></li>
               <li><Link href="/world-schools-vs-public-forum" className="text-navy-100 hover:text-white">World Schools vs Public Forum</Link></li>
               <li><Link href="/world-schools-debate-judging" className="text-navy-100 hover:text-white">How Judging Works (40/40/20)</Link></li>
+              <li><Link href="/wsdc-champions" className="text-navy-100 hover:text-white">WSDC Champions by Year</Link></li>
               <li><Link href="/usa-debate-team" className="text-navy-100 hover:text-white">How to Make the USA Debate Team</Link></li>
             </ul>
           </div>

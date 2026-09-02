@@ -234,6 +234,50 @@ export const blogPosts: BlogPost[] = [
     date: '2026-08-31',
   },
   {
+    slug: 'extemporaneous-debate',
+    title: 'Extemporaneous debate: the 30-minute format, explained',
+    metaTitle: 'Extemporaneous Debate: Rules, Format & Prep Guide',
+    description:
+      'The NSDA Extemporaneous Debate format in full: the ten-segment round of two-minute speeches, the 30-minute prep window, what the rules allow during prep, how it differs from extemp speaking, and how to prepare a case in half an hour.',
+    metaDescription:
+      'NSDA Extemporaneous Debate explained: the round structure, the 30-minute prep window, what the rules allow, and how to actually prep a case in half an hour.',
+    category: 'The US circuit',
+    date: '2026-09-01',
+  },
+  {
+    slug: 'how-to-write-a-debate-speech',
+    title: 'How to write a debate speech that holds up out loud',
+    metaTitle: 'How to Write a Debate Speech (Structure + Example)',
+    description:
+      'The standard skeleton of a debate speech (roadmap, arguments in layers, rebuttal, weighing, close), how much of it to script versus deliver from notes, a worked example outline, and how to fit it all inside the clock.',
+    metaDescription:
+      'The standard skeleton of a debate speech, how much to script versus speak from notes, a worked example outline, and how to fit it inside the clock.',
+    category: 'Technique',
+    date: '2026-09-01',
+  },
+  {
+    slug: 'debate-practice',
+    title: 'Debate practice: drills that actually build the skill',
+    metaTitle: 'Debate Practice: Drills, Exercises & a Weekly Plan',
+    description:
+      'How to practice debate deliberately: solo drills for rebuttal, openings, and points of information, partner exercises, how often to run full practice rounds, and a weekly plan that fits around school.',
+    metaDescription:
+      'How to practice debate deliberately: solo drills, partner exercises, how often to run full practice rounds, and a weekly plan that fits around school.',
+    category: 'Technique',
+    date: '2026-09-01',
+  },
+  {
+    slug: 'how-to-get-better-at-debate',
+    title: 'How to get better at debate when you have plateaued',
+    metaTitle: 'How to Get Better at Debate: What Actually Works',
+    description:
+      'Why most debaters plateau after their first year, the feedback loop that separates improving debaters from busy ones, what to steal from watching championship rounds, and when coaching is worth paying for.',
+    metaDescription:
+      'Why most debaters plateau, the feedback loop that separates improving debaters from busy ones, and when coaching is actually worth paying for.',
+    category: 'Technique',
+    date: '2026-09-01',
+  },
+  {
     slug: 'best-world-schools-debate-classes',
     title: 'Where to actually learn World Schools debate',
     metaTitle: 'Best World Schools Debate Classes & Camps',
