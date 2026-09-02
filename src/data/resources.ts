@@ -54,6 +54,15 @@ export const resources: Resource[] = [
     printable: false,
   },
   {
+    slug: 'debate-research-system',
+    title: 'The Debate Research System',
+    shortTitle: 'Research System',
+    description:
+      'How to build the knowledge that wins content points: a weekly reading mix, a four-tier source ladder, a three-step fact-check for every statistic, and a reading routine that turns articles into case-file material.',
+    category: 'Practice & prep',
+    printable: true,
+  },
+  {
     slug: 'wsdc-format-quick-reference',
     title: 'World Schools Format Quick Reference',
     shortTitle: 'Format Reference',

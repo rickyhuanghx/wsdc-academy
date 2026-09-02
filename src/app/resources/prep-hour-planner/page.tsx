@@ -164,7 +164,11 @@ export default function PrepHourPlannerPage() {
           <p className="mt-4 leading-relaxed text-navy-700">
             The prep hour also rewards preparation that happened weeks earlier:
             printed case files are legal, so motion-area briefs, example banks,
-            and framing notes all travel with you. Fill your speakers&apos;
+            and framing notes all travel with you (the{' '}
+            <Link href="/resources/debate-research-system" className="font-semibold text-signal-500 hover:text-signal-600">
+              debate research system
+            </Link>{' '}
+            is how those files get built). Fill your speakers&apos;
             sheets faster with the{' '}
             <Link href="/resources/first-speaker-cheat-sheet" className="font-semibold text-signal-500 hover:text-signal-600">
               first

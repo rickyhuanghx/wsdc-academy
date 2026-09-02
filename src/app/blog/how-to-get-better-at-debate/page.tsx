@@ -134,7 +134,12 @@ export default function HowToGetBetterAtDebatePost() {
           12,000 real tournament motions by topic, and the info-slide
           motions are deliberately unfamiliar ground. Prep them at
           tournament speed. An hour of prep on a motion you find hard is
-          worth three practice rounds on one you do not.
+          worth three practice rounds on one you do not. And feed the
+          machine: content is 40 percent of the score, so a weekly
+          reading habit is training too. The{' '}
+          <InLink href="/resources/debate-research-system">debate
+          research system</InLink> is the version we assign our own
+          students.
         </p>
       </section>
 
