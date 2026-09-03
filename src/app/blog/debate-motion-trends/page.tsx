@@ -64,10 +64,11 @@ export default function DebateMotionTrendsPost() {
           sixth, judgment motions (regrets, prefers, opposes, supports)
           have grown from a rounding error to more than a quarter, info
           slides went from novelty to nearly half of new motions, and
-          the topics quietly rotated. Here is what the data shows, and
-          what it means for how debaters should train. Sample sizes by
-          era: 269 recorded motions from 1994–2009, then 3,171
-          (2010–14), 2,629 (2015–19), and 6,347 (2020–26).
+          the topics quietly rotated. None of this is visible from
+          inside a single season, which is what makes a long dataset
+          useful. Sample sizes by era: 269 recorded motions from
+          1994–2009, then 3,171 (2010–14), 2,629 (2015–19), and 6,347
+          (2020–26).
         </p>
       }
     >
@@ -219,10 +220,10 @@ export default function DebateMotionTrendsPost() {
           Education motions tripled, from 2.1 to 6.5 percent. Economics
           is the quiet constant, always near the top and leading the
           2020s at 11.6 percent, just ahead of international relations
-          at 10.5. And one absence is genuinely surprising: environment
+          at 10.5. The absence that surprised us: environment
           motions have never exceeded about 2 percent of recorded
           motions in any era, climate salience notwithstanding, which
-          makes them exactly the kind of underprepped area the{' '}
+          makes them the kind of underprepped area the{' '}
           <InLink href="/resources/debate-research-system">research
           system</InLink> tells you to read against.
         </p>

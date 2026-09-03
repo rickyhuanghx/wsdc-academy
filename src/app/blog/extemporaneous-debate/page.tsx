@@ -181,7 +181,8 @@ export default function ExtemporaneousDebatePost() {
           twenty-two: switch sides in your head and write the two best
           arguments against you, plus one answer to each; the{' '}
           <InLink href="/blog/debate-rebuttal-guide">rebuttal
-          four-step</InLink> compresses well into two-minute speeches.
+          four-step</InLink>{' '}
+          compresses well into two-minute speeches.
           Minutes twenty-two to thirty: script your first thirty seconds
           and your final rebuttal&apos;s comparison, the two moments that
           decide most XDB ballots. In a two-minute final rebuttal there

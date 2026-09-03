@@ -16,7 +16,7 @@ const faqs = [
   {
     question: 'What does the best speaker at WSDC score?',
     answer:
-      'The 2026 championship’s top speaker averaged 73.72 across six preliminary-round speeches. No ranked speaker at the tournament averaged above 74. That is the real shape of the scale: the best debater in the world sits about three points above the tournament average, not ten, which is why judges are trained to treat small, consistent differences as decisive.',
+      'The 2026 championship’s top speaker averaged 73.72 across six preliminary-round speeches. No ranked speaker at the tournament averaged above 74. The scale is far more compressed than newcomers assume: the best debater in the world sits about three points above the tournament average, not ten, so judges treat small, consistent differences as decisive.',
   },
   {
     question: 'How many wins do you need to break at WSDC?',
@@ -60,8 +60,8 @@ export default function WsdcSpeakerScoresPost() {
           tab, so we computed the statistics: 334 ranked speakers across
           eight preliminary rounds, a true average of 70.8, a world
           number one at 73.7, and an entire world championship separated
-          by about six points. Here is what the data shows, and what it
-          means for how you should read your own scores.
+          by about six points. That compression changes how a debater
+          should read their own scores.
         </p>
       }
     >
@@ -118,7 +118,7 @@ export default function WsdcSpeakerScoresPost() {
           against a 73 as &ldquo;basically the same speech.&rdquo; The
           tab says otherwise: two points per speech is the difference
           between the middle of the world championship and its top ten.
-          Judges are trained for exactly this compression, and it is
+          Judges are trained for this compression, and it is
           why our{' '}
           <InLink href="/resources/judging-ballot">printable judging
           ballot</InLink>{' '}

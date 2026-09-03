@@ -78,7 +78,8 @@ export default function BestDebateCampsPost() {
           </Ext>{' '}
           are long-running examples, and the{' '}
           <Ext href="https://snfi.stanford.edu/">Stanford National Forensic
-          Institute</Ext> runs both on-campus and online sessions. These suit
+          Institute</Ext>{' '}
+          runs both on-campus and online sessions. These suit
           committed competitors who want immersion and a national peer group.
           They are also the most expensive kind, so match the investment to
           the student&apos;s actual competitive goals.

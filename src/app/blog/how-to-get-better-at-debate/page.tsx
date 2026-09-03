@@ -149,7 +149,7 @@ export default function HowToGetBetterAtDebatePost() {
         </h2>
         <p className="mt-4 leading-relaxed text-navy-700">
           Every step above assumes someone can tell you what actually
-          cost you the round, and that is exactly what most school teams
+          cost you the round, and that is the piece most school teams
           are missing: parent judges give results, not diagnoses. A coach
           is a diagnosis machine. If you have real competition experience
           and a season of flat speaker scores, a few targeted{' '}

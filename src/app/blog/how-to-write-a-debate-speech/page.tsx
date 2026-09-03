@@ -183,9 +183,9 @@ export default function HowToWriteADebateSpeechPost() {
           </span>
         </Example>
         <p className="mt-4 leading-relaxed text-navy-700">
-          Notice what the outline carries: timestamps, taglines, and
-          mechanisms in shorthand. The sentences get made at delivery.
-          That is deliberate, and it is the next section.
+          The outline carries timestamps, taglines, and mechanisms in
+          shorthand, but no finished sentences. Those get made at
+          delivery, on purpose.
         </p>
       </section>
 

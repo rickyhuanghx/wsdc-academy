@@ -50,9 +50,9 @@ export default function DebatePracticePost() {
           with a motion on the whiteboard or running full rounds and hoping
           volume turns into skill. Deliberate practice is different: it
           isolates one skill, drills it against resistance, and feeds the
-          result back into the next round. Here is what that looks like
-          for a debater working alone, with a partner, and inside a team
-          week.
+          result back into the next round. The rest of this page is the
+          working version: drills for a debater alone, drills with a
+          partner, and a week that fits around school.
         </p>
       }
     >
@@ -155,7 +155,8 @@ export default function DebatePracticePost() {
           the loudest debater already believed. If your school cannot
           field judges, that is the single strongest reason to join a
           structured program; it is the thing{' '}
-          <InLink href="/debate-coaching">debate coaching</InLink> provides
+          <InLink href="/debate-coaching">debate coaching</InLink>{' '}
+          provides
           that self-study cannot. Build each round&apos;s motion sheet
           with the practice-set builder in the{' '}
           <InLink href="/motions">motion explorer</InLink>: check five

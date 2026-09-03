@@ -232,8 +232,8 @@ export default function JudgingBallotPage() {
             normal winning margin, so small consistent differences
             matter more than one dramatic mark. Third, decide the round
             before totting up the points, then reconcile: the winner is
-            the team that won the important clashes, which is exactly
-            the skill the{' '}
+            the team that won the important clashes, which is the same
+            skill the{' '}
             <InLink href="/blog/third-speaker-world-schools-debate">whip
             speech</InLink> and{' '}
             <InLink href="/blog/weighing-in-debate">weighing</InLink>{' '}
