@@ -270,7 +270,10 @@ export default function WsdcChampionsPage() {
             <InLink href="/blog/does-debate-help-college-admissions">
               university admissions study
             </InLink>{' '}
-            tracked where top WSDC speakers end up.
+            tracked where top WSDC speakers end up, and our{' '}
+            <InLink href="/blog/wsdc-speaker-scores">analysis of the
+            2026 speaker tab</InLink> shows what the scores behind these
+            results actually look like.
           </p>
         </section>
 

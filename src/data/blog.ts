@@ -234,6 +234,28 @@ export const blogPosts: BlogPost[] = [
     date: '2026-08-31',
   },
   {
+    slug: 'wsdc-speaker-scores',
+    title: 'What speaker scores at Worlds actually look like',
+    metaTitle: 'WSDC Speaker Scores: Real Data From the World Championship Tab',
+    description:
+      'Real speaker-score statistics computed from the published WSDC 2026 tab: the true average (70.8), what the world’s best speakers score, why the whole field lives inside about six points, and the win record it takes to break at Worlds.',
+    metaDescription:
+      'Real stats from the published WSDC 2026 tab: the true average score, what the best speakers in the world average, and the record it takes to break.',
+    category: 'International',
+    date: '2026-09-02',
+  },
+  {
+    slug: 'debate-motion-trends',
+    title: 'Three decades of debate motions, in data',
+    metaTitle: 'How Debate Motions Have Changed: 30 Years of Data',
+    description:
+      'What 12,416 real tournament motions from 1994 to 2026 show: the collapse of "This House would", the tenfold rise of regret and preference motions, info slides going from rarity to near half of all motions, and which topics quietly rose and fell.',
+    metaDescription:
+      'What 12,416 real motions from 1994–2026 show: the collapse of "This House would", the rise of regret motions, and info slides on nearly half of all motions.',
+    category: 'Why it matters',
+    date: '2026-09-02',
+  },
+  {
     slug: 'extemporaneous-debate',
     title: 'Extemporaneous debate: the 30-minute format, explained',
     metaTitle: 'Extemporaneous Debate: Rules, Format & Prep Guide',

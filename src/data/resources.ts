@@ -72,6 +72,15 @@ export const resources: Resource[] = [
     printable: true,
   },
   {
+    slug: 'judging-ballot',
+    title: 'World Schools Judging Ballot',
+    shortTitle: 'Judging Ballot',
+    description:
+      'A printable ballot for judging a World Schools round: per-speaker 40/40/20 score boxes, reply scoring out of 50, and a 60–80 speaker-scale calibration guide for new and parent judges.',
+    category: 'Quick references',
+    printable: true,
+  },
+  {
     slug: 'motion-types',
     title: 'The Four Motion Types',
     shortTitle: 'Motion Types',

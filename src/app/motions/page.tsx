@@ -108,7 +108,12 @@ export default function MotionBankPage() {
             <Link href="/debate-topics" className="font-semibold text-signal-500 hover:text-signal-600">
               curated debate topics
             </Link>
-            {' '}instead.)
+            {' '}instead.) For what this dataset reveals about how motions
+            have changed since 1994, read{' '}
+            <Link href="/blog/debate-motion-trends" className="font-semibold text-signal-500 hover:text-signal-600">
+              three decades of motions, in data
+            </Link>
+            .
           </p>
         </header>
 

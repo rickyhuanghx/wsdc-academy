@@ -274,7 +274,18 @@ export default function JudgingGuidePage() {
             <Link href="/world-schools-vs-public-forum" className="font-semibold text-signal-500 hover:text-signal-600">
               World Schools vs Public Forum
             </Link>{' '}
-            to see how the judging cultures differ.
+            to see how the judging cultures differ. And if you are about to
+            judge a round yourself, the printable{' '}
+            <Link href="/resources/judging-ballot" className="font-semibold text-signal-500 hover:text-signal-600">
+              judging ballot
+            </Link>{' '}
+            puts this whole rubric on one scoring sheet, with a calibration
+            guide for first-time judges. For proof the narrow band is real,{' '}
+            <Link href="/blog/wsdc-speaker-scores" className="font-semibold text-signal-500 hover:text-signal-600">
+              our analysis of the published World Championship speaker tab
+            </Link>{' '}
+            found the world&apos;s best speaker averaging 73.7 and the whole
+            field inside six and a half points.
           </p>
         </section>
 

@@ -1,0 +1,46 @@
+{
+ "wsdc2026": {
+  "source_speaker_api": "https://wsdc2026.calicotab.com/api/v1/tournaments/_/speakers/standings",
+  "source_speaker_html": "https://wsdc2026.calicotab.com/_/tab/speaker/",
+  "ranked_speakers": 334,
+  "total_speaker_rows": 458,
+  "mean": 70.7998609923011,
+  "median": 70.97569444444446,
+  "no1": 73.72222222222223,
+  "top10_cutoff": 73.13333333333334,
+  "top50_cutoff": 72.2,
+  "p25": 69.71279761904762,
+  "p75": 71.74107142857142,
+  "min": 67.22222222222223,
+  "max": 73.72222222222223,
+  "prelim_rounds": 8,
+  "teams": 74,
+  "r1_distinct_teams": 74,
+  "break_size": 32,
+  "lowest_breaker_wins": 4,
+  "breaking_teams_on_4": 5,
+  "scores": "substantive speeches only, prelim rounds R1-R8"
+ },
+ "wsdc2025": {
+  "teams": 59,
+  "break_size": 24,
+  "lowest_breaker_wins": 4,
+  "wins_dist": {
+   "7": 3,
+   "6": 5,
+   "5": 13,
+   "4": 16,
+   "3": 13,
+   "2": 6,
+   "1": 1,
+   "0": 2
+  },
+  "speaker_tab": "NOT public (401/403)"
+ },
+ "wsdc2024": {
+  "r1_distinct_teams": 68,
+  "break_size": 32,
+  "lowest_breaker_wins": 4,
+  "speaker_tab": "NOT public (401/403)"
+ }
+}
