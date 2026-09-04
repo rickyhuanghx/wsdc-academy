@@ -280,6 +280,23 @@ export default async function ProgramPage({ params }: Props) {
                     </div>
                   )}
                 </dl>
+                <p className="mt-4 border-t border-navy-100 pt-4 text-sm text-navy-600">
+                  Not sure which level fits?{' '}
+                  <Link
+                    href="/programs"
+                    className="font-medium underline underline-offset-2 hover:text-signal-500"
+                  >
+                    Compare all programs side by side
+                  </Link>{' '}
+                  or{' '}
+                  <Link
+                    href="/consultation"
+                    className="font-medium underline underline-offset-2 hover:text-signal-500"
+                  >
+                    book a free consultation
+                  </Link>{' '}
+                  — it ends with a placement recommendation.
+                </p>
               </div>
             )}
 
@@ -408,6 +425,32 @@ export default async function ProgramPage({ params }: Props) {
                 </p>
               </>
             )}
+
+            {/* Proof strip — same real logo set as the homepage */}
+            <div className="mt-12 rounded-xl border border-navy-100 bg-white p-6">
+              <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-navy-400">
+                Our students got accepted into
+              </p>
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-5">
+                {[
+                  { name: 'Harvard University', src: '/images/logos/harvard.webp', w: 240, h: 160, size: 'h-10 sm:h-12' },
+                  { name: 'Yale University', src: '/images/logos/yale.webp', w: 152, h: 160, size: 'h-9 sm:h-10' },
+                  { name: 'University of Oxford', src: '/images/logos/oxford.webp', w: 128, h: 160, size: 'h-9 sm:h-10' },
+                  { name: 'The University of Chicago', src: '/images/logos/uchicago.webp', w: 160, h: 160, size: 'h-9 sm:h-10' },
+                  { name: 'Northwestern University', src: '/images/logos/northwestern.webp', w: 160, h: 160, size: 'h-9 sm:h-10' },
+                  { name: 'London School of Economics', src: '/images/logos/lse.webp', w: 160, h: 160, size: 'h-8 sm:h-9' },
+                ].map((logo) => (
+                  <Image
+                    key={logo.name}
+                    src={logo.src}
+                    alt={`${logo.name} logo`}
+                    width={logo.w}
+                    height={logo.h}
+                    className={`${logo.size} w-auto object-contain mix-blend-multiply`}
+                  />
+                ))}
+              </div>
+            </div>
 
             {/* How enrollment works */}
             <h2 className="mt-12 text-2xl font-bold text-navy-900">
@@ -603,6 +646,14 @@ export default async function ProgramPage({ params }: Props) {
                     </Link>
                   </>
                 )}
+                <p className="mt-4 border-t border-navy-100 pt-4 text-xs leading-relaxed text-navy-500">
+                  Full refund within 7 days of enrollment, before the second session — the first
+                  class is effectively risk-free (
+                  <Link href="/refund" className="underline underline-offset-2 hover:text-signal-500">
+                    refund policy
+                  </Link>
+                  ). Transparent all-in pricing: no placement or assessment fees.
+                </p>
               </div>
 
               <div className="rounded-xl bg-navy-50 p-6">
@@ -618,6 +669,34 @@ export default async function ProgramPage({ params }: Props) {
               </div>
             </div>
           </aside>
+        </div>
+      </section>
+
+      {/* Closing CTA band */}
+      <section className="bg-navy-900">
+        <div className="mx-auto max-w-4xl px-4 py-14 text-center sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-white sm:text-3xl">
+            {isInvite ? `Think you belong in ${program.shortName}?` : `Ready to start ${program.shortName}?`}
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-navy-200">
+            {isInvite
+              ? 'Places are offered by coach invitation — tell us about your competitive record and we will take a look.'
+              : `Classes are capped at ${program.classSize ?? '8 students'}, and the first class is covered by our 7-day full-refund policy.`}
+          </p>
+          <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link
+              href={isInvite ? '/contact' : isOneOnOne ? '#pricing' : hasEnrollOptions ? '#enroll' : '/consultation'}
+              className="rounded-md bg-signal-500 px-7 py-3.5 font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
+            >
+              {isInvite ? 'Request consideration' : 'Enroll now'}
+            </Link>
+            <Link
+              href="/consultation"
+              className="font-medium text-navy-200 underline underline-offset-2 hover:text-white"
+            >
+              or book a free consultation first
+            </Link>
+          </div>
         </div>
       </section>
     </>

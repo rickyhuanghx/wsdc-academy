@@ -164,7 +164,7 @@ export interface Program {
 const TERM_1: Program['term'] = {
   label: 'Term 1 · 2026/27',
   start: 'Classes run September 1 to December 18, 2026',
-  earlyBird: 'Enroll before August 15 for the early-bird rate',
+  earlyBird: 'Late joiners welcome — we provide catch-up materials, and classes are capped at 8',
 };
 
 const TERM_1_DATES: Program['termDates'] = { start: '2026-09-01', end: '2026-12-18' };
@@ -191,7 +191,6 @@ export const programs: Program[] = [
     imageAlt: 'A student delivering a practice speech in class',
     pricing: { amount: 756, compareAt: 945, currency: 'USD', model: 'per term' },
     enrollment: { unitLabel: 'One term (Term 1, 2026/27)', amount: 756 },
-    earlyBird: { deadlineLabel: 'August 15' },
     classSize: '6–8 students',
     sessionLength: '2 hours',
     instruction: { totalHours: 28, sessions: 14 },
@@ -282,6 +281,11 @@ export const programs: Program[] = [
           'Life happens. Reach out and we will help the student catch up, and offer a make-up where we can. Our full withdrawal and refund terms are on the Refund Policy page.',
       },
       {
+        question: 'What if it turns out not to be a fit?',
+        answer:
+          'You get a full refund within 7 days of enrollment, before the student attends a second session — so the first class is effectively risk-free. After that, refunds are pro-rated up to the program midpoint. Full terms are on the Refund Policy page.',
+      },
+      {
         question: 'What comes after Foundation?',
         answer:
           'Foundation students who want to compete move into the Competition Team, our year-round squad with weekly practice debates and tournament support. The best way to find the right starting point is a free consultation, which ends with a placement recommendation.',
@@ -337,7 +341,6 @@ export const programs: Program[] = [
     imageAlt: 'A debate team preparing cases together before rounds',
     pricing: { amount: 980, compareAt: 1225, currency: 'USD', model: 'per term' },
     enrollment: { unitLabel: 'One term (Term 1, 2026/27)', amount: 980 },
-    earlyBird: { deadlineLabel: 'August 15' },
     classSize: '6–8 students',
     sessionLength: '2 hours',
     instruction: { totalHours: 28, sessions: 14 },
@@ -431,6 +434,11 @@ export const programs: Program[] = [
         question: 'What if we miss a session?',
         answer:
           'Reach out and we will help the student catch up, and offer a make-up where we can. Our full withdrawal and refund terms are on the Refund Policy page.',
+      },
+      {
+        question: 'What if it turns out not to be a fit?',
+        answer:
+          'You get a full refund within 7 days of enrollment, before the student attends a second session — so the first class is effectively risk-free. After that, refunds are pro-rated up to the program midpoint. Full terms are on the Refund Policy page.',
       },
     ],
     furtherReading: [
