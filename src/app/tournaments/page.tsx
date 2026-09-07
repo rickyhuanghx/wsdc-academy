@@ -56,8 +56,11 @@ export default async function TournamentsPage({ searchParams }: Props) {
         />
       )}
 
-      <section className="bg-navy-900 py-16 text-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden bg-navy-950 py-16 text-white sm:py-20">
+        {/* eslint-disable-next-line @next/next/no-img-element -- full-bleed background, sized by CSS */}
+        <img src="/images/tournaments/listing-hero.jpg" alt="" className="absolute inset-0 h-full w-full object-cover object-[center_30%]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-950/85 to-navy-900/60" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center gap-2 text-sm text-navy-300">
             <Link href="/" className="hover:text-white">Home</Link>
             <span className="text-navy-500">/</span>
@@ -83,6 +86,18 @@ export default async function TournamentsPage({ searchParams }: Props) {
             </Link>{' '}
             that prepare students for it.
           </p>
+          <ul className="mt-10 grid max-w-3xl grid-cols-3 gap-3">
+            {[
+              ['/images/tournaments/finals-day.jpg', 'A WSDC Prep team on finals day'],
+              ['/images/tournaments/online-debating.jpg', 'A student debating online'],
+              ['/images/tournaments/awards.jpg', 'Students with tournament awards'],
+            ].map(([src, alt]) => (
+              <li key={src} className="overflow-hidden rounded-sm border border-white/15">
+                {/* eslint-disable-next-line @next/next/no-img-element -- static site photos */}
+                <img src={src} alt={alt} className="aspect-[4/3] h-full w-full object-cover" loading="lazy" />
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

@@ -212,16 +212,23 @@ function CalendarCard({ t, zone, preview }: { t: PublicTournament; zone: string;
 
   return (
     <article className="flex flex-col overflow-hidden rounded-xl border border-navy-100 bg-white">
-      <Link href={href} className="group block bg-navy-950 p-5 text-white">
-        <div className="flex flex-wrap items-center gap-2">
+      <Link href={href} className="group relative block overflow-hidden bg-navy-950 p-5 text-white">
+        {t.heroImageUrl && (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element -- card photo from the catalogue */}
+            <img src={t.heroImageUrl} alt="" className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" loading="lazy" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy-950/95 via-navy-950/80 to-navy-950/45" />
+          </>
+        )}
+        <div className="relative flex flex-wrap items-center gap-2">
           <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${statusTone(t.status)}`}>{STATUS_LABELS[t.status]}</span>
           <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-semibold text-white">{t.mode === 'online' ? 'Online' : 'In person'}</span>
           {t.preview && <span className="rounded-full bg-amber-400 px-2.5 py-0.5 text-xs font-semibold text-navy-950">Preview</span>}
         </div>
-        <h3 className="mt-4 font-display text-xl font-semibold leading-snug group-hover:underline group-hover:decoration-signal-400 group-hover:underline-offset-4">
+        <h3 className={`relative font-display text-xl font-semibold leading-snug group-hover:underline group-hover:decoration-signal-400 group-hover:underline-offset-4 ${t.heroImageUrl ? 'mt-20' : 'mt-4'}`}>
           {t.name}
         </h3>
-        <p className="mt-1 text-sm text-navy-200">{FORMAT_LABELS[t.format]}</p>
+        <p className="relative mt-1 text-sm text-navy-200">{FORMAT_LABELS[t.format]}</p>
       </Link>
       <div className="flex flex-1 flex-col p-5">
         <dl className="space-y-2 text-sm">
