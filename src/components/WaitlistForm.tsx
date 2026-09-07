@@ -21,11 +21,14 @@ export function WaitlistForm({
   slug,
   tournamentName,
   generic = false,
+  mode = 'waitlist',
 }: {
   slug?: string;
   tournamentName?: string;
   /** Interest form for when nothing is open: no DOB/school required. */
   generic?: boolean;
+  /** 'interest' = registration not open yet; same fields, different copy */
+  mode?: 'waitlist' | 'interest';
 }) {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [error, setError] = useState('');
@@ -72,12 +75,14 @@ export function WaitlistForm({
     return (
       <div className="rounded-xl border border-navy-100 bg-white p-6">
         <p className="font-semibold text-navy-900">
-          {generic ? 'Thanks, you are on the list.' : 'You are on the waitlist.'}
+          {generic ? 'Thanks, you are on the list.' : mode === 'interest' ? 'Thanks, we have your interest.' : 'You are on the waitlist.'}
         </p>
         <p className="mt-2 text-sm text-navy-600">
           {generic
             ? 'We will email you when the next tournament opens for registration.'
-            : `We will email you if a place opens up${tournamentName ? ` for ${tournamentName}` : ''}.`}
+            : mode === 'interest'
+              ? `We will email you the moment registration opens${tournamentName ? ` for ${tournamentName}` : ''}.`
+              : `We will email you if a place opens up${tournamentName ? ` for ${tournamentName}` : ''}.`}
         </p>
       </div>
     );
@@ -166,7 +171,7 @@ export function WaitlistForm({
         disabled={status === 'submitting'}
         className="w-full rounded-md bg-signal-500 px-7 py-3.5 font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98] disabled:opacity-60 sm:w-auto"
       >
-        {status === 'submitting' ? 'Sending…' : generic ? 'Tell me when one opens' : 'Join the waitlist'}
+        {status === 'submitting' ? 'Sending…' : generic ? 'Tell me when one opens' : mode === 'interest' ? 'Register interest' : 'Join the waitlist'}
       </button>
       <p className="text-xs text-navy-500">
         Questions? Write to{' '}

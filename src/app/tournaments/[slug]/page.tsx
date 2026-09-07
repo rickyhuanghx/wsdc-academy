@@ -214,7 +214,7 @@ export default async function TournamentPage({ params, searchParams }: Props) {
                 <p className="text-xs font-semibold uppercase tracking-wider text-navy-400">Entry fee</p>
                 <p className="mt-1 font-display text-3xl font-semibold text-navy-900">
                   {formatTournamentPrice(t)}
-                  <span className="ml-2 text-base font-normal text-navy-500">per student</span>
+                  {priceUsd(t) > 0 && <span className="ml-2 text-base font-normal text-navy-500">per student</span>}
                 </p>
 
                 <div className="mt-6 border-t border-navy-100 pt-5">

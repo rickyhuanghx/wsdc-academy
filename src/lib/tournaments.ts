@@ -22,6 +22,8 @@ export type TournamentFormat = 'wsdc' | 'bp' | 'pf' | 'other';
 export type TournamentMode = 'online' | 'in_person';
 export type TournamentStatus =
   | 'draft'
+  | 'interest'
+  | 'invite_only'
   | 'upcoming'
   | 'open'
   | 'full'
@@ -278,6 +280,7 @@ export function priceUsd(t: Pick<PublicTournament, 'price'>): number {
 
 export function formatTournamentPrice(t: Pick<PublicTournament, 'price'>): string {
   const amount = priceUsd(t);
+  if (!(amount > 0)) return 'Fee to be announced';
   const cur = (t.price.currency || 'usd').toUpperCase();
   const num = amount.toLocaleString('en-US', {
     minimumFractionDigits: Number.isInteger(amount) ? 0 : 2,
@@ -295,6 +298,8 @@ export const FORMAT_LABELS: Record<TournamentFormat, string> = {
 
 export const STATUS_LABELS: Record<TournamentStatus, string> = {
   draft: 'Draft',
+  interest: 'Registration not open',
+  invite_only: 'Invitation only',
   upcoming: 'Opening soon',
   open: 'Open',
   full: 'Full',
@@ -332,7 +337,7 @@ export function eligibilityParts(t: PublicTournament): string[] {
 
 /** Bucket for the listing page. */
 export function isListedAsOpen(t: PublicTournament): boolean {
-  return t.status === 'open' || t.status === 'full' || t.status === 'upcoming';
+  return t.status === 'open' || t.status === 'full' || t.status === 'upcoming' || t.status === 'interest' || t.status === 'invite_only';
 }
 
 export function isPast(t: PublicTournament): boolean {

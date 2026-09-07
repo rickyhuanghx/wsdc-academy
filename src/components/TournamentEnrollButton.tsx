@@ -11,7 +11,7 @@ import { WaitlistForm } from './WaitlistForm';
 type Props = {
   slug: string;
   name: string;
-  status: 'draft' | 'upcoming' | 'open' | 'full' | 'closed' | 'cancelled' | 'completed';
+  status: 'draft' | 'interest' | 'invite_only' | 'upcoming' | 'open' | 'full' | 'closed' | 'cancelled' | 'completed';
   amountUsd: number;
   priceLabel: string;
   /** Pre-formatted opening date for the upcoming state, when the organiser has published one. */
@@ -69,12 +69,31 @@ export function TournamentEnrollButton({ slug, name, status, amountUsd, priceLab
     );
   }
 
-  if (status === 'upcoming') {
+  if (status === 'interest' || status === 'upcoming') {
+    return (
+      <div className={className}>
+        <p className="text-sm font-semibold text-navy-900">
+          {opensLabel ? `Registration opens ${opensLabel}.` : 'Registration is not open yet.'}
+        </p>
+        <p className="mt-1 text-sm text-navy-500">
+          Register your interest and we will email you the moment it opens. No payment now.
+        </p>
+        <div className="mt-5">
+          <WaitlistForm slug={slug} tournamentName={name} mode="interest" />
+        </div>
+      </div>
+    );
+  }
+
+  if (status === 'invite_only') {
     return (
       <div className={className}>
         <button type="button" disabled className={disabledClass}>
-          {opensLabel ? `Registration opens ${opensLabel}` : 'Registration opens soon'}
+          Invitation only
         </button>
+        <p className="mt-3 text-sm text-navy-500">
+          Entry to this tournament is by invitation. Students in our competition programs are put forward by their coach.
+        </p>
       </div>
     );
   }

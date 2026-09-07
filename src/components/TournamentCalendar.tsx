@@ -15,6 +15,7 @@ import {
   STATUS_LABELS,
   eligibilityParts,
   formatTournamentPrice,
+  priceUsd,
   type PublicTournament,
   type TournamentFormat,
 } from '@/lib/tournaments';
@@ -51,7 +52,10 @@ function statusTone(status: PublicTournament['status']): string {
     case 'full':
       return 'bg-amber-400 text-navy-950';
     case 'upcoming':
-      return 'bg-sky-500 text-white';
+    case 'interest':
+      return 'bg-violet-500 text-white';
+    case 'invite_only':
+      return 'bg-white/15 text-white';
     case 'completed':
       return 'bg-navy-200 text-navy-700';
     default:
@@ -196,6 +200,10 @@ function CalendarCard({ t, zone, preview }: { t: PublicTournament; zone: string;
       <Link href={href} className="rounded-md bg-amber-400 px-4 py-2 text-center text-sm font-semibold text-navy-950 transition hover:bg-amber-300">
         Join the waitlist
       </Link>
+    ) : t.status === 'interest' || t.status === 'upcoming' ? (
+      <Link href={href} className="rounded-md bg-navy-900 px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-navy-800">
+        Register interest
+      </Link>
     ) : (
       <span className="rounded-md border border-navy-200 px-4 py-2 text-center text-sm font-semibold text-navy-400">
         {STATUS_LABELS[t.status]}
@@ -235,7 +243,7 @@ function CalendarCard({ t, zone, preview }: { t: PublicTournament; zone: string;
             {eligibility.length > 0 && <span>{eligibility.join(' · ')}</span>}
             {t.mode !== 'online' && t.venue && <span>{t.venue}</span>}
           </div>
-          <div className="font-semibold text-navy-900">{formatTournamentPrice(t)} per student</div>
+          <div className="font-semibold text-navy-900">{formatTournamentPrice(t)}{priceUsd(t) > 0 ? ' per student' : ''}</div>
         </dl>
         {t.blurb && <p className="mt-3 text-sm leading-relaxed text-navy-600">{t.blurb}</p>}
         {t.status === 'open' && t.seatsLeft !== null && t.seatsLeft <= 10 && (
