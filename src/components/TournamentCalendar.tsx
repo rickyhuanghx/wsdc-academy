@@ -23,7 +23,9 @@ type ModeFilter = 'all' | 'online' | 'in_person';
 
 function monthKey(iso: string, zone: string): string {
   try {
-    return new Intl.DateTimeFormat('en-US', { timeZone: zone, year: 'numeric', month: '2-digit' }).format(new Date(iso));
+    const parts = new Intl.DateTimeFormat('en-US', { timeZone: zone, year: 'numeric', month: '2-digit' }).formatToParts(new Date(iso));
+    const get = (t: string) => parts.find((p) => p.type === t)?.value ?? '';
+    return `${get('year')}-${get('month')}`; // sortable YYYY-MM
   } catch {
     return iso.slice(0, 7);
   }
