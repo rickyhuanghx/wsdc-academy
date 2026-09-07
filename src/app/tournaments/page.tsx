@@ -86,28 +86,6 @@ export default async function TournamentsPage({ searchParams }: Props) {
             </Link>{' '}
             that prepare students for it.
           </p>
-          <div className="mt-7 flex flex-wrap items-center gap-3">
-            <a
-              href={CONSULTATION_CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-md bg-signal-500 px-6 py-3 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
-            >
-              Talk to a coach about your child
-            </a>
-            <span className="text-sm text-navy-200">A 20-minute call to pick the right tournament and level.</span>
-          </div>
-          <div className="mt-8 max-w-3xl rounded-sm border border-white/15 bg-white/5 p-5">
-            <p className="text-xs font-semibold uppercase tracking-wider text-navy-200">What&apos;s included if you sign up through us</p>
-            <ol className="mt-3 grid gap-3 sm:grid-cols-3">
-              {['4 hours of coaching by experts', 'Sorted registration and judge requirement', 'Feedback about the tournament after the rounds'].map((item, i) => (
-                <li key={item} className="flex gap-3 text-sm text-white">
-                  <span className="font-display text-2xl font-semibold leading-none text-signal-400">{i + 1}</span>
-                  <span className="pt-1">{item}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
           <ul className="mt-10 grid max-w-3xl grid-cols-3 gap-3">
             {[
               ['/images/tournaments/finals-day.jpg', 'A WSDC Prep team on finals day'],
@@ -120,6 +98,33 @@ export default async function TournamentsPage({ searchParams }: Props) {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="border-b border-navy-100 bg-white">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-5 lg:px-8">
+          <div className="lg:col-span-2">
+            <p className="font-display text-xl font-semibold text-navy-900">A 20-minute call to pick the right tournament and level.</p>
+            <a
+              href={CONSULTATION_CALENDLY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-block rounded-md bg-signal-500 px-6 py-3 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
+            >
+              Talk to a coach about your child
+            </a>
+          </div>
+          <div className="lg:col-span-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-navy-400">What&apos;s included if you sign up through us</p>
+            <ol className="mt-3 grid gap-4 sm:grid-cols-3">
+              {['4 hours of coaching by experts', 'Sorted registration and judge requirement', 'Feedback about the tournament after the rounds'].map((item, i) => (
+                <li key={item} className="flex gap-3">
+                  <span className="font-display text-3xl font-semibold leading-none text-signal-500">{i + 1}</span>
+                  <span className="pt-1.5 text-sm leading-snug text-navy-800">{item}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </section>
 
