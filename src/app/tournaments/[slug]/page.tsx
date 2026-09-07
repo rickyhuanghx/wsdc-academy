@@ -231,10 +231,13 @@ export default async function TournamentPage({ params, searchParams }: Props) {
                     <dt className="text-xs font-semibold uppercase tracking-wider text-navy-400">Where</dt>
                     <dd className="mt-1 text-navy-900">{where}</dd>
                   </div>
-                  {eligibility.length > 0 && (
+                  {(eligibility.length > 0 || t.eligibilityNote) && (
                     <div>
                       <dt className="text-xs font-semibold uppercase tracking-wider text-navy-400">Eligibility</dt>
-                      <dd className="mt-1 text-navy-900">{eligibility.join(' · ')}</dd>
+                      <dd className="mt-1 text-navy-900">
+                        {eligibility.length > 0 && <span>{eligibility.join(' · ')}</span>}
+                        {t.eligibilityNote && <span className="block text-sm text-navy-600">{t.eligibilityNote}</span>}
+                      </dd>
                     </div>
                   )}
                   {t.seatsLeft !== null && (t.status === 'open' || t.status === 'full') && (

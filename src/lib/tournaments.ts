@@ -68,6 +68,7 @@ export interface PublicTournament {
   content: ContentBlock[];
   heroImageUrl: string | null;
   eligibility: TournamentEligibility;
+  eligibilityNote: string | null;
   teamSize: number;
   organiserName: string | null;
   organiserUrl: string | null;
@@ -152,6 +153,7 @@ function normalize(t: PublicTournament): PublicTournament {
     content: Array.isArray(t.content) ? t.content : [],
     heroImageUrl: t.heroImageUrl ?? null,
     eligibility: t.eligibility && typeof t.eligibility === 'object' ? t.eligibility : {},
+    eligibilityNote: typeof t.eligibilityNote === 'string' && t.eligibilityNote.trim() ? t.eligibilityNote.trim() : null,
     teamSize: typeof t.teamSize === 'number' ? t.teamSize : 1,
     organiserName: t.organiserName ?? null,
     organiserUrl: t.organiserUrl ?? null,
