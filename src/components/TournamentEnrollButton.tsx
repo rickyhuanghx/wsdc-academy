@@ -14,6 +14,7 @@ type Props = {
   status: 'draft' | 'interest' | 'invite_only' | 'upcoming' | 'open' | 'full' | 'closed' | 'cancelled' | 'completed';
   amountUsd: number;
   priceLabel: string;
+  existingStudentDiscountPct?: number;
   /** Pre-formatted opening date for the upcoming state, when the organiser has published one. */
   opensLabel?: string;
   className?: string;
@@ -22,7 +23,7 @@ type Props = {
 const disabledClass =
   'w-full cursor-not-allowed rounded-md border border-navy-200 bg-navy-50 px-7 py-3.5 text-center font-semibold text-navy-400 sm:w-auto';
 
-export function TournamentEnrollButton({ slug, name, status, amountUsd, priceLabel, opensLabel, className = '' }: Props) {
+export function TournamentEnrollButton({ slug, name, status, amountUsd, priceLabel, existingStudentDiscountPct = 0, opensLabel, className = '' }: Props) {
   const { addTournamentItem, countInCart } = useCart();
   const router = useRouter();
   const count = countInCart(`tournament:${slug}`);
@@ -41,7 +42,7 @@ export function TournamentEnrollButton({ slug, name, status, amountUsd, priceLab
             } catch {
               // storage unavailable — preview simply will not carry over
             }
-            addTournamentItem({ slug, name, amountUsd });
+            addTournamentItem({ slug, name, amountUsd, existingStudentDiscountPct });
             router.push('/checkout');
           }}
           className="w-full rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98] sm:w-auto"
@@ -50,6 +51,7 @@ export function TournamentEnrollButton({ slug, name, status, amountUsd, priceLab
         </button>
         <p className="mt-3 text-sm text-navy-500">
           One entry per student. Registering more than one child? Click again for each.
+          {existingStudentDiscountPct > 0 && ` Existing students select the ${existingStudentDiscountPct}% discount at checkout.`}
         </p>
       </div>
     );

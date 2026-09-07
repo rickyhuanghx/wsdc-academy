@@ -10,6 +10,7 @@ import {
   STATUS_LABELS,
   cleanPreviewToken,
   eligibilityParts,
+  existingStudentPriceUsd,
   formatTournamentPrice,
   getTournament,
   priceUsd,
@@ -216,6 +217,11 @@ export default async function TournamentPage({ params, searchParams }: Props) {
                   {formatTournamentPrice(t)}
                   {priceUsd(t) > 0 && <span className="ml-2 text-base font-normal text-navy-500">per student</span>}
                 </p>
+                {priceUsd(t) > 0 && t.existingStudentDiscountPct > 0 && (
+                  <p className="mt-2 rounded-sm border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+                    <span className="font-semibold">${existingStudentPriceUsd(t).toLocaleString('en-US', { maximumFractionDigits: 2 })}</span> for existing WSDC Prep students ({t.existingStudentDiscountPct}% off, selected at checkout).
+                  </p>
+                )}
 
                 <div className="mt-6 border-t border-navy-100 pt-5">
                   <TournamentDates
@@ -259,6 +265,7 @@ export default async function TournamentPage({ params, searchParams }: Props) {
                     status={t.status}
                     amountUsd={priceUsd(t)}
                     priceLabel={formatTournamentPrice(t)}
+                    existingStudentDiscountPct={t.existingStudentDiscountPct}
                     opensLabel={
                       t.registrationOpensAt
                         ? new Intl.DateTimeFormat('en-GB', { timeZone: t.timezone, day: 'numeric', month: 'short' }).format(new Date(t.registrationOpensAt))

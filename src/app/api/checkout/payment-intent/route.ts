@@ -92,13 +92,15 @@ export async function POST(req: Request) {
     return jsonError(429, 'Too many requests. Please try again shortly.');
   }
 
-  const { items, buyer, promoCode, attribution, preview: previewRaw } = body as {
+  const { items, buyer, promoCode, attribution, preview: previewRaw, existingStudent: existingStudentRaw } = body as {
     items?: IncomingItem[];
     buyer?: Record<string, unknown>;
     promoCode?: unknown;
     attribution?: unknown;
     preview?: unknown;
+    existingStudent?: unknown;
   };
+  const existingStudentClaimed = existingStudentRaw === true;
   // Preview token (staff testing placeholder tournaments): the API validates it.
   const preview = cleanPreviewToken(previewRaw);
 
@@ -287,6 +289,9 @@ export async function POST(req: Request) {
   // Tournament carts: one tournament per intent (the metadata contract carries a
   // single tournament_id), and the API has the last word on eligibility + seats.
   let tournament: PublicTournament | null = null;
+  let existingDiscountMinor = 0;
+  let existingPct = 0;
+  let existingVerified = false;
   if (isTournamentCart) {
     const slugs = Array.from(new Set(resolved.map((r) => r.tournamentSlug!)));
     if (slugs.length > 1) {
@@ -320,6 +325,16 @@ export async function POST(req: Request) {
     // The check response is the freshest price; apply it to every line.
     const amount = Math.round(check.price.amountMinor) / 100;
     for (const r of resolved) r.amount = amount;
+    // Existing-student discount: the parent selected it; ClassDesk says whether
+    // the email is on file (order or enrollment with any brand). Either way the
+    // discount applies; the entry is stamped verified / claimed for the admin.
+    const pct = Math.max(0, Math.min(100, check.existingStudentDiscountPct ?? tournament.existingStudentDiscountPct ?? 0));
+    if (existingStudentClaimed && pct > 0) {
+      existingDiscountMinor = resolved.length * Math.round(check.price.amountMinor * (pct / 100));
+      existingPct = pct;
+      const verify = await checkTournament(slugs[0], [], preview, sanitize(email, 254).toLowerCase());
+      existingVerified = verify?.existingStudent === true;
+    }
   }
 
   const totalMinor = resolved.reduce((sum, r) => sum + Math.round(r.amount * 100), 0);
@@ -333,7 +348,8 @@ export async function POST(req: Request) {
   if (promo && discountMinor === 0) {
     return jsonError(400, `${promo} does not apply to anything in this cart (1-on-1 coaching is excluded).`);
   }
-  const chargeMinor = totalMinor - discountMinor;
+  const chargeMinor = totalMinor - discountMinor - existingDiscountMinor;
+  if (chargeMinor <= 0) return jsonError(400, 'Nothing to charge.');
 
   // Per-student metadata keys (student_0, student_1, …): each Stripe metadata
   // value caps at 500 chars, so one key per line avoids truncating multi-kid
@@ -360,6 +376,11 @@ export async function POST(req: Request) {
   if (promo) {
     metadata.promo_code = promo;
     metadata.discount_amount = (discountMinor / 100).toFixed(2);
+  }
+  if (existingDiscountMinor > 0) {
+    metadata.promo_code = `EXISTING${existingPct}`;
+    metadata.discount_amount = (existingDiscountMinor / 100).toFixed(2);
+    metadata.existing_student = existingVerified ? 'verified' : 'claimed';
   }
   // Ad / campaign attribution from the browser (sessionStorage via analytics.ts).
   // Only well-formed, non-empty values are stamped.

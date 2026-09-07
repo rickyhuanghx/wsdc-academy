@@ -14,6 +14,7 @@ import {
   FORMAT_LABELS,
   STATUS_LABELS,
   eligibilityParts,
+  existingStudentPriceUsd,
   formatTournamentPrice,
   priceUsd,
   type PublicTournament,
@@ -251,6 +252,9 @@ function CalendarCard({ t, zone, preview }: { t: PublicTournament; zone: string;
             {t.mode !== 'online' && t.venue && <span>{t.venue}</span>}
           </div>
           <div className="font-semibold text-navy-900">{formatTournamentPrice(t)}{priceUsd(t) > 0 ? ' per student' : ''}</div>
+          {priceUsd(t) > 0 && t.existingStudentDiscountPct > 0 && (
+            <div className="text-xs font-medium text-emerald-700">Existing students: ${existingStudentPriceUsd(t).toLocaleString('en-US', { maximumFractionDigits: 2 })} ({t.existingStudentDiscountPct}% off)</div>
+          )}
         </dl>
         {t.blurb && <p className="mt-3 text-sm leading-relaxed text-navy-600">{t.blurb}</p>}
         {t.status === 'open' && t.seatsLeft !== null && t.seatsLeft <= 10 && (

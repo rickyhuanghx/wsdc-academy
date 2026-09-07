@@ -160,6 +160,8 @@ function CheckoutInner() {
   // route re-resolves every line and recomputes the discount.
   const [promoInput, setPromoInput] = useState('');
   const [promoCode, setPromoCode] = useState('');
+  // Existing-student discount (tournament carts): selected by the parent, verified server-side by email.
+  const [existingStudent, setExistingStudent] = useState(false);
   const [promoError, setPromoError] = useState('');
   // Everything here is online; only 1-on-1 lines are excluded.
   const promoLines = (list: CartItem[]): PromoLine[] =>
@@ -170,6 +172,11 @@ function CheckoutInner() {
   const promoOff = promoCode ? promoDiscount(promoCode, promoLines(items)) : 0;
   // A code that no longer discounts anything (eligible lines removed) is not sent.
   const promoActive = !!promoCode && promoOff > 0;
+  const existingOff =
+    allTournament && existingStudent
+      ? items.reduce((s, it) => s + Math.round(it.amount * (it.existingStudentDiscountPct ?? 0)) / 100, 0)
+      : 0;
+  const existingPct = items.find((it) => (it.existingStudentDiscountPct ?? 0) > 0)?.existingStudentDiscountPct ?? 0;
   const applyPromo = () => {
     const code = promoInput.trim().toUpperCase();
     if (!isValidPromoCode(code)) {
@@ -223,9 +230,10 @@ function CheckoutInner() {
     let cancelled = false;
     fetch(`/api/tournaments/${encodeURIComponent(slug)}`)
       .then((res) => (res.ok ? res.json() : null))
-      .then((data: { slug?: string; name?: string; status?: string; price?: { usd?: number } } | null) => {
+      .then((data: { slug?: string; name?: string; status?: string; price?: { usd?: number }
+          existingStudentDiscountPct?: number; } | null) => {
         if (cancelled || !data || data.status !== 'open' || typeof data.price?.usd !== 'number' || !data.name) return;
-        addTournamentItem({ slug, name: data.name, amountUsd: data.price.usd, studentName: student });
+        addTournamentItem({ slug, name: data.name, amountUsd: data.price.usd, studentName: student, existingStudentDiscountPct: data.existingStudentDiscountPct ?? 0 });
         setStep('details');
       })
       .catch(() => {
@@ -309,6 +317,7 @@ function CheckoutInner() {
           })),
           buyer: formData,
           promoCode: promoActive && !allTournament ? promoCode : undefined,
+          existingStudent: allTournament && existingStudent,
           // Staff preview token for hidden tournaments (set by the enroll button).
           preview: (() => {
             try {
@@ -477,6 +486,24 @@ function CheckoutInner() {
 
           {step === 'details' && (
             <section className="space-y-10">
+              {allTournament && existingPct > 0 && (
+                <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
+                  <label className="flex cursor-pointer items-start gap-3">
+                    <input
+                      type="checkbox"
+                      checked={existingStudent}
+                      onChange={(e) => setExistingStudent(e.target.checked)}
+                      className="mt-1 h-4 w-4 accent-emerald-700"
+                    />
+                    <span>
+                      <span className="block font-semibold text-navy-900">Existing WSDC Prep or Atlantic Ivy student: {existingPct}% off each entry</span>
+                      <span className="mt-1 block text-sm text-navy-600">
+                        Tick this if your child is enrolled in one of our classes. We check the parent email against our records; if it does not match, we will be in touch before the tournament.
+                      </span>
+                    </span>
+                  </label>
+                </div>
+              )}
               <div>
                 <h2 className="text-xl font-bold text-navy-900">Parent / guardian</h2>
                 <div className="mt-5 space-y-5">
@@ -869,10 +896,16 @@ function CheckoutInner() {
                       <span>&minus;{formatUsd(promoOff)}</span>
                     </div>
                   )}
+                  {existingOff > 0 && (
+                    <div className="flex justify-between text-sm font-semibold text-emerald-700">
+                      <span>Existing student ({existingPct}% off)</span>
+                      <span>&minus;{formatUsd(existingOff)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between">
                     <span className="font-semibold text-navy-900">Total</span>
                     <span className="font-bold text-navy-900">
-                      {formatUsd(Math.round((subtotal - promoOff) * 100) / 100)}
+                      {formatUsd(Math.round((subtotal - promoOff - existingOff) * 100) / 100)}
                     </span>
                   </div>
                 </div>

@@ -38,6 +38,8 @@ export interface CartItem {
   // by the ClassDesk API, not programs.ts. Absent (= 'program') on class lines.
   kind?: 'program' | 'tournament';
   tournamentSlug?: string;
+  /** % off for families already enrolled with us (tournament lines) */
+  existingStudentDiscountPct?: number;
 }
 
 // What a tournament "Register" button hands to the cart.
@@ -46,6 +48,7 @@ export interface TournamentLine {
   name: string;
   amountUsd: number;
   studentName?: string;
+  existingStudentDiscountPct?: number;
 }
 
 // What a 1-on-1 variant "Add" button hands to the cart.
@@ -170,6 +173,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         amount: line.amountUsd,
         kind: 'tournament',
         tournamentSlug: line.slug,
+        existingStudentDiscountPct: line.existingStudentDiscountPct ?? 0,
         studentInfo: { name: line.studentName ?? '', gradeLevel: '', school: '', dob: '' },
       },
     ]);

@@ -66,6 +66,8 @@ export interface PublicTournament {
   seatsLeft: number | null;
   capacity: number | null;
   price: TournamentPrice;
+  /** % off per entry for families already enrolled with any of our brands */
+  existingStudentDiscountPct: number;
   blurb: string | null;
   content: ContentBlock[];
   heroImageUrl: string | null;
@@ -90,6 +92,9 @@ export interface CheckResult {
   waitlistAvailable: boolean;
   students: { eligible: boolean; reasons: string[]; unknown: string[] }[];
   price: TournamentPrice;
+  existingStudentDiscountPct?: number;
+  /** null when no email was sent; true when the email has an order or enrollment with any brand */
+  existingStudent?: boolean | null;
 }
 
 export interface WaitlistPayload {
@@ -160,6 +165,7 @@ function normalize(t: PublicTournament): PublicTournament {
     seatsLeft: typeof t.seatsLeft === 'number' ? t.seatsLeft : null,
     capacity: typeof t.capacity === 'number' ? t.capacity : null,
     blurb: t.blurb ?? null,
+    existingStudentDiscountPct: typeof t.existingStudentDiscountPct === 'number' && t.existingStudentDiscountPct > 0 ? Math.min(100, t.existingStudentDiscountPct) : 0,
     content: Array.isArray(t.content) ? t.content : [],
     heroImageUrl: t.heroImageUrl ?? null,
     eligibility: t.eligibility && typeof t.eligibility === 'object' ? t.eligibility : {},
@@ -223,13 +229,14 @@ export async function checkTournament(
   slug: string,
   students: CheckStudentIn[],
   preview?: string,
+  parentEmail?: string,
 ): Promise<CheckResult | null> {
   try {
     const res = await fetch(url(`/tournaments/${encodeURIComponent(slug)}/check`, preview), {
       method: 'POST',
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ brand: TOURNAMENT_BRAND, students }),
+      body: JSON.stringify({ brand: TOURNAMENT_BRAND, students, ...(parentEmail ? { parentEmail } : {}) }),
     });
     if (!res.ok) {
       console.error('[tournaments] check failed:', slug, res.status);
@@ -284,6 +291,13 @@ export async function joinWaitlist(
 /** Price in USD major units (the checkout only sells in USD). */
 export function priceUsd(t: Pick<PublicTournament, 'price'>): number {
   return Math.round(t.price.amountMinor) / 100;
+}
+
+/** Price per student for a family already enrolled with us (0 when no discount). */
+export function existingStudentPriceUsd(t: Pick<PublicTournament, 'price' | 'existingStudentDiscountPct'>): number {
+  const pct = t.existingStudentDiscountPct || 0;
+  if (pct <= 0) return priceUsd(t);
+  return Math.round(priceUsd(t) * (1 - pct / 100) * 100) / 100;
 }
 
 export function formatTournamentPrice(t: Pick<PublicTournament, 'price'>): string {
