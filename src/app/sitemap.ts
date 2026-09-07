@@ -5,6 +5,7 @@ import { resources } from '@/data/resources';
 import { blogPosts } from '@/data/blog';
 import { motionTopics, topicPageCount } from '@/lib/motion-bank';
 import { SITE_URL } from '@/lib/site';
+import { getTournaments } from '@/lib/tournaments';
 
 const baseUrl = SITE_URL;
 
@@ -17,6 +18,10 @@ const MOTION_BANK_DATA = 'src/data/motion-bank.json';
 // shallow CI checkout). It MUST be a fixed constant, never `new Date()` — the
 // whole point of this file is to stop lastmod churning site-wide every deploy.
 const FALLBACK_DATE = new Date('2026-07-23T00:00:00.000Z');
+
+// Tournament pages come from the ClassDesk API, which carries no "content
+// changed" date; use a fixed constant for the same no-churn reason.
+const TOURNAMENTS_DATE = new Date('2026-09-07T00:00:00.000Z');
 
 // Last git commit that touched a path -> a genuine "content modified" date
 // instead of the build clock. Cached so we shell out at most once per file.
@@ -44,7 +49,7 @@ function lastModified(...paths: string[]): Date {
   return new Date(newest || FALLBACK_DATE.getTime());
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static routes paired with the source file that authors their content, so
   // lastmod moves only when that page changes — not on every build.
   const staticRoutes: {
@@ -67,6 +72,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/motions/wsdc', file: 'src/app/motions/wsdc/page.tsx', changeFrequency: 'monthly', priority: 0.85 },
     { path: '/blog', file: 'src/app/blog/page.tsx', changeFrequency: 'weekly', priority: 0.85 },
     { path: '/programs', file: 'src/app/programs/page.tsx', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/tournaments', file: 'src/app/tournaments/page.tsx', changeFrequency: 'weekly', priority: 0.85 },
     { path: '/debate-coaching', file: 'src/app/debate-coaching/page.tsx', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/consultation', file: 'src/app/consultation/page.tsx', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/coaches', file: 'src/app/coaches/page.tsx', changeFrequency: 'monthly', priority: 0.8 },
@@ -131,5 +137,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...programPages, ...resourcePages, ...motionTopicPages, ...blogPages];
+  // Public tournaments (open / full / upcoming / completed) from the ClassDesk
+  // API. Any failure simply lists none — the build must never depend on it.
+  let tournamentPages: MetadataRoute.Sitemap = [];
+  try {
+    const tournaments = await getTournaments();
+    tournamentPages = tournaments
+      .filter((t) => !t.preview && t.status !== 'draft' && t.status !== 'cancelled')
+      .map((t) => ({
+        url: `${baseUrl}/tournaments/${t.slug}`,
+        lastModified: TOURNAMENTS_DATE,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      }));
+  } catch {
+    tournamentPages = [];
+  }
+
+  return [...staticPages, ...programPages, ...resourcePages, ...motionTopicPages, ...blogPages, ...tournamentPages];
 }

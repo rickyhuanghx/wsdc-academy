@@ -1,6 +1,7 @@
 // Creates the Stripe PaymentIntent for /checkout. Prices are always
-// re-resolved from src/data/programs.ts — client-sent amounts are never
-// trusted. Buyer + per-student info ride along as intent metadata; the
+// re-resolved server-side — program lines from src/data/programs.ts,
+// tournament entries from the ClassDesk public API — client-sent amounts are
+// never trusted. Buyer + per-student info ride along as intent metadata; the
 // webhook turns them into the Supabase orders row after payment succeeds.
 
 import { NextResponse } from 'next/server';
@@ -14,11 +15,17 @@ import {
 } from '@/data/programs';
 import { isRateLimited, getClientIp, isValidEmail, HONEYPOT_FIELD } from '@/lib/leads';
 import { isValidPromoCode, normalizePromoCode, promoDiscount } from '@/lib/promo';
+import { checkTournament, cleanPreviewToken, getTournament, priceUsd, type PublicTournament } from '@/lib/tournaments';
 
 export const runtime = 'nodejs';
 
 const MAX_ITEMS = 12;
 const VALID_GRADES = new Set<string>(GRADE_LEVELS);
+const TOURNAMENT_PREFIX = 'tournament:';
+const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,120}$/i;
+const DOB_RE = /^\d{4}-\d{2}-\d{2}$/;
+// Attribution values that may be stamped on the intent (Central CRM contract).
+const TAG_RE = /^[A-Za-z0-9_.-]{1,200}$/;
 
 function jsonError(status: number, message: string) {
   return NextResponse.json({ error: message }, { status });
@@ -32,6 +39,17 @@ function isNonEmptyString(value: unknown, max: number): value is string {
   return typeof value === 'string' && value.trim().length > 0 && value.length <= max;
 }
 
+// Whole years between a YYYY-MM-DD date and today (UTC); NaN for an invalid date.
+function ageFromDob(dob: string): number {
+  const d = new Date(`${dob}T00:00:00Z`);
+  if (Number.isNaN(d.getTime()) || d.toISOString().slice(0, 10) !== dob) return NaN;
+  const now = new Date();
+  let age = now.getUTCFullYear() - d.getUTCFullYear();
+  const m = now.getUTCMonth() - d.getUTCMonth();
+  if (m < 0 || (m === 0 && now.getUTCDate() < d.getUTCDate())) age -= 1;
+  return age;
+}
+
 type IncomingItem = {
   programId?: unknown;
   studentInfo?: unknown;
@@ -39,8 +57,22 @@ type IncomingItem = {
   quantity?: unknown;
   ageGroup?: unknown;
   timeSlot?: unknown;
+  kind?: unknown;
+  tournamentSlug?: unknown;
 };
-type StudentInfoIn = { name?: unknown; gradeLevel?: unknown; school?: unknown };
+type StudentInfoIn = { name?: unknown; gradeLevel?: unknown; school?: unknown; dob?: unknown };
+
+function tournamentSlugOf(item: IncomingItem): string | null {
+  if (typeof item.tournamentSlug === 'string' && item.tournamentSlug) return item.tournamentSlug;
+  if (typeof item.programId === 'string' && item.programId.startsWith(TOURNAMENT_PREFIX)) {
+    return item.programId.slice(TOURNAMENT_PREFIX.length);
+  }
+  return null;
+}
+
+function isTournamentLine(item: IncomingItem): boolean {
+  return item.kind === 'tournament' || tournamentSlugOf(item) !== null;
+}
 
 export async function POST(req: Request) {
   let body: Record<string, unknown>;
@@ -60,11 +92,15 @@ export async function POST(req: Request) {
     return jsonError(429, 'Too many requests. Please try again shortly.');
   }
 
-  const { items, buyer, promoCode } = body as {
+  const { items, buyer, promoCode, attribution, preview: previewRaw } = body as {
     items?: IncomingItem[];
     buyer?: Record<string, unknown>;
     promoCode?: unknown;
+    attribution?: unknown;
+    preview?: unknown;
   };
+  // Preview token (staff testing placeholder tournaments): the API validates it.
+  const preview = cleanPreviewToken(previewRaw);
 
   if (!Array.isArray(items) || items.length === 0) return jsonError(400, 'Cart is empty');
   if (items.length > MAX_ITEMS) return jsonError(400, 'Too many items in cart');
@@ -79,6 +115,14 @@ export async function POST(req: Request) {
     return jsonError(400, 'Invalid phone');
   }
 
+  // Tournament entries and class enrollments are fulfilled by different
+  // systems (ClassDesk vs. our own webhook emails), so one intent = one kind.
+  const tournamentLines = items.filter(isTournamentLine).length;
+  if (tournamentLines > 0 && tournamentLines < items.length) {
+    return jsonError(400, 'Please check out tournament entries separately from classes.');
+  }
+  const isTournamentCart = tournamentLines > 0;
+
   // Promo code: optional; if present it must be a code we recognise.
   if (promoCode !== undefined && promoCode !== null && typeof promoCode !== 'string') {
     return jsonError(400, 'Invalid promo code.');
@@ -86,6 +130,9 @@ export async function POST(req: Request) {
   const promo = normalizePromoCode(promoCode);
   if (promo && !isValidPromoCode(promo)) {
     return jsonError(400, 'That promo code is not valid.');
+  }
+  if (promo && isTournamentCart) {
+    return jsonError(400, 'Promo codes do not apply to tournament entries.');
   }
 
   // Resolve each cart line server-side.
@@ -97,6 +144,8 @@ export async function POST(req: Request) {
     studentName: string;
     studentGrade: string;
     studentSchool: string;
+    studentDob?: string;
+    tournamentSlug?: string;
     variantId?: string;
     ageGroupLabel?: string;
     timeSlotLabel?: string;
@@ -104,7 +153,64 @@ export async function POST(req: Request) {
   };
   const resolved: LineItem[] = [];
   let diagnosticCount = 0;
+  // One uncached API read per tournament slug, shared across sibling lines.
+  const tournamentCache = new Map<string, PublicTournament | null>();
+
   for (const item of items) {
+    const si = (item.studentInfo || {}) as StudentInfoIn;
+
+    if (isTournamentCart) {
+      const slug = tournamentSlugOf(item);
+      if (!slug || !SLUG_RE.test(slug)) return jsonError(400, 'Invalid tournament entry');
+      if (!tournamentCache.has(slug)) {
+        tournamentCache.set(slug, await getTournament(slug, { noStore: true, preview }));
+      }
+      const t = tournamentCache.get(slug);
+      if (!t) return jsonError(400, 'That tournament is no longer available.');
+      if (t.status !== 'open') {
+        return jsonError(
+          400,
+          t.status === 'full'
+            ? `${t.name} is full. You can join the waitlist on the tournament page.`
+            : `Registration for ${t.name} is not open.`,
+        );
+      }
+      if ((t.price.currency || '').toLowerCase() !== 'usd') {
+        return jsonError(400, `${t.name} is not priced in USD and cannot be paid for here.`);
+      }
+
+      if (typeof si.name !== 'string' || si.name.trim().length < 2 || si.name.trim().length > 80) {
+        return jsonError(400, `Student full name is required for ${t.name}`);
+      }
+      if (typeof si.gradeLevel !== 'string' || !VALID_GRADES.has(si.gradeLevel)) {
+        return jsonError(400, `Student grade is required for ${t.name}`);
+      }
+      if (!isNonEmptyString(si.school, 200)) {
+        return jsonError(400, `Student school is required for ${t.name}`);
+      }
+      if (typeof si.dob !== 'string' || !DOB_RE.test(si.dob)) {
+        return jsonError(400, `Student date of birth is required for ${t.name}`);
+      }
+      const age = ageFromDob(si.dob);
+      if (!(age >= 4 && age <= 25)) {
+        return jsonError(400, `Please check the date of birth for ${sanitize(si.name, 80)}.`);
+      }
+
+      resolved.push({
+        programId: `${TOURNAMENT_PREFIX}${t.slug}`,
+        programName: t.name,
+        unitLabel: 'Tournament entry',
+        amount: priceUsd(t),
+        studentName: sanitize(si.name, 80),
+        studentGrade: si.gradeLevel,
+        studentSchool: sanitize(si.school, 200),
+        studentDob: si.dob,
+        tournamentSlug: t.slug,
+        promoEligible: false,
+      });
+      continue;
+    }
+
     if (typeof item.programId !== 'string') return jsonError(400, 'Invalid cart item');
     const program = getProgramById(item.programId);
     if (!program) return jsonError(400, `Unknown program: ${item.programId}`);
@@ -112,7 +218,6 @@ export async function POST(req: Request) {
       return jsonError(400, `${program.name} is invitation only and not available for online checkout`);
     }
 
-    const si = (item.studentInfo || {}) as StudentInfoIn;
     if (!isNonEmptyString(si.name, 200)) {
       return jsonError(400, `Student name is required for ${program.name}`);
     }
@@ -179,6 +284,44 @@ export async function POST(req: Request) {
     return jsonError(400, 'The diagnostic session can only be purchased once.');
   }
 
+  // Tournament carts: one tournament per intent (the metadata contract carries a
+  // single tournament_id), and the API has the last word on eligibility + seats.
+  let tournament: PublicTournament | null = null;
+  if (isTournamentCart) {
+    const slugs = Array.from(new Set(resolved.map((r) => r.tournamentSlug!)));
+    if (slugs.length > 1) {
+      return jsonError(400, 'Please check out one tournament at a time.');
+    }
+    tournament = tournamentCache.get(slugs[0]) ?? null;
+    if (!tournament) return jsonError(400, 'That tournament is no longer available.');
+
+    const check = await checkTournament(
+      slugs[0],
+      resolved.map((r) => ({ dob: r.studentDob, grade: r.studentGrade })),
+      preview,
+    );
+    if (!check) {
+      return jsonError(500, 'Could not confirm tournament availability. Please try again.');
+    }
+    if (!check.canRegister) {
+      const ineligible = check.students.find((s) => s && s.eligible === false && s.reasons?.length);
+      const reason =
+        ineligible?.reasons[0] ||
+        (check.closed
+          ? 'Registration has closed'
+          : check.seatsLeft !== null && check.seatsLeft < resolved.length
+            ? `Only ${check.seatsLeft} ${check.seatsLeft === 1 ? 'seat' : 'seats'} left`
+            : 'Registration is not available right now');
+      return jsonError(400, reason);
+    }
+    if ((check.price.currency || '').toLowerCase() !== 'usd') {
+      return jsonError(400, `${tournament.name} is not priced in USD and cannot be paid for here.`);
+    }
+    // The check response is the freshest price; apply it to every line.
+    const amount = Math.round(check.price.amountMinor) / 100;
+    for (const r of resolved) r.amount = amount;
+  }
+
   const totalMinor = resolved.reduce((sum, r) => sum + Math.round(r.amount * 100), 0);
 
   // Discount is recomputed here from the resolved lines — never taken from the client.
@@ -198,30 +341,65 @@ export async function POST(req: Request) {
   const metadata: Record<string, string> = {
     // Central CRM attribution keys: every brand checkout stamps these.
     brand: 'wsdc',
-    course_id: resolved.map((r) => r.programId).join(','),
     parentName: sanitize(parentName, 200),
     phone: typeof phone === 'string' ? sanitize(phone, 50) : '',
-    programIds: resolved.map((r) => r.programId).join(','),
-    programNames: resolved
+  };
+  if (tournament) {
+    metadata.tournament_id = tournament.slug;
+    metadata.tournament_name = tournament.name.slice(0, 500);
+    metadata.source = 'wsdc-site';
+    metadata.caller = 'checkout';
+  } else {
+    metadata.course_id = resolved.map((r) => r.programId).join(',');
+    metadata.programIds = resolved.map((r) => r.programId).join(',');
+    metadata.programNames = resolved
       .map((r) => r.programName)
       .join(' | ')
-      .slice(0, 500),
-  };
+      .slice(0, 500);
+  }
   if (promo) {
     metadata.promo_code = promo;
     metadata.discount_amount = (discountMinor / 100).toFixed(2);
   }
+  // Ad / campaign attribution from the browser (sessionStorage via analytics.ts).
+  // Only well-formed, non-empty values are stamped.
+  if (attribution && typeof attribution === 'object') {
+    const a = attribution as Record<string, unknown>;
+    const pairs: [string, unknown][] = [
+      ['utm_source', a.utmSource ?? a.utm_source],
+      ['utm_medium', a.utmMedium ?? a.utm_medium],
+      ['utm_campaign', a.utmCampaign ?? a.utm_campaign],
+      ['gclid', a.gclid],
+      ['fbclid', a.fbclid],
+    ];
+    for (const [key, v] of pairs) {
+      if (typeof v === 'string' && TAG_RE.test(v)) metadata[key] = v;
+    }
+  }
   resolved.forEach((r, i) => {
-    metadata[`student_${i}`] = JSON.stringify({
-      name: r.studentName,
-      gradeLevel: r.studentGrade,
-      school: r.studentSchool,
-      programId: r.programId,
-      unitLabel: r.unitLabel,
-      ...(r.ageGroupLabel ? { ageGroup: r.ageGroupLabel } : {}),
-      ...(r.timeSlotLabel ? { timeSlot: r.timeSlotLabel } : {}),
-    }).slice(0, 500);
+    metadata[`student_${i}`] = JSON.stringify(
+      r.tournamentSlug
+        ? {
+            name: r.studentName,
+            dob: r.studentDob,
+            gradeLevel: r.studentGrade,
+            school: r.studentSchool,
+          }
+        : {
+            name: r.studentName,
+            gradeLevel: r.studentGrade,
+            school: r.studentSchool,
+            programId: r.programId,
+            unitLabel: r.unitLabel,
+            ...(r.ageGroupLabel ? { ageGroup: r.ageGroupLabel } : {}),
+            ...(r.timeSlotLabel ? { timeSlot: r.timeSlotLabel } : {}),
+          },
+    ).slice(0, 500);
   });
+
+  const description = tournament
+    ? `${tournament.name} — ${resolved.length} ${resolved.length === 1 ? 'entry' : 'entries'}`.slice(0, 500)
+    : resolved.map((r) => r.programName).join(', ').slice(0, 500);
 
   try {
     const stripe = getStripe();
@@ -230,7 +408,7 @@ export async function POST(req: Request) {
       currency: 'usd',
       automatic_payment_methods: { enabled: true },
       receipt_email: sanitize(email, 254).toLowerCase(),
-      description: resolved.map((r) => r.programName).join(', ').slice(0, 500),
+      description,
       metadata,
     });
 

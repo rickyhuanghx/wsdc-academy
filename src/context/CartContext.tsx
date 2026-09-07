@@ -12,6 +12,9 @@ export interface StudentInfo {
   name: string;
   gradeLevel: string;
   school: string;
+  // Date of birth (YYYY-MM-DD). Collected only for tournament entries, where
+  // the organiser's age rules apply; absent on program lines.
+  dob?: string;
 }
 
 export const emptyStudentInfo = (): StudentInfo => ({ name: '', gradeLevel: '', school: '' });
@@ -31,6 +34,18 @@ export interface CartItem {
   // specific option ids across lines.
   ageGroup?: string;
   timeSlot?: string;
+  // Tournament entries (src/lib/tournaments.ts) share the cart but are priced
+  // by the ClassDesk API, not programs.ts. Absent (= 'program') on class lines.
+  kind?: 'program' | 'tournament';
+  tournamentSlug?: string;
+}
+
+// What a tournament "Register" button hands to the cart.
+export interface TournamentLine {
+  slug: string;
+  name: string;
+  amountUsd: number;
+  studentName?: string;
 }
 
 // What a 1-on-1 variant "Add" button hands to the cart.
@@ -43,8 +58,12 @@ export interface VariantLine {
 
 interface CartContextType {
   items: CartItem[];
+  // True once localStorage has been read; effects that add lines on mount
+  // (checkout ?tournament= prefill) must wait for it or hydration overwrites them.
+  isHydrated: boolean;
   addItem: (program: Program, selection?: { ageGroup?: string; timeSlot?: string }) => void;
   addVariantItem: (program: Program, variant: VariantLine) => void;
+  addTournamentItem: (line: TournamentLine) => void;
   removeItem: (lineId: string) => void;
   updateStudentInfo: (lineId: string, info: StudentInfo) => void;
   updateLineSelection: (lineId: string, patch: { ageGroup?: string; timeSlot?: string }) => void;
@@ -53,7 +72,12 @@ interface CartContextType {
   getItemCount: () => number;
   countInCart: (programId: string) => number;
   countVariantInCart: (programId: string, variantId: string) => number;
+  hasTournamentItems: () => boolean;
 }
+
+export const TOURNAMENT_ID_PREFIX = 'tournament:';
+export const isTournamentItem = (item: CartItem) =>
+  item.kind === 'tournament' || item.programId.startsWith(TOURNAMENT_ID_PREFIX);
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
@@ -135,6 +159,22 @@ export function CartProvider({ children }: { children: ReactNode }) {
     ]);
   }, []);
 
+  const addTournamentItem = useCallback((line: TournamentLine) => {
+    setItems((prev) => [
+      ...prev,
+      {
+        lineId: `${TOURNAMENT_ID_PREFIX}${line.slug}-${crypto.randomUUID()}`,
+        programId: `${TOURNAMENT_ID_PREFIX}${line.slug}`,
+        programName: line.name,
+        unitLabel: 'Tournament entry',
+        amount: line.amountUsd,
+        kind: 'tournament',
+        tournamentSlug: line.slug,
+        studentInfo: { name: line.studentName ?? '', gradeLevel: '', school: '', dob: '' },
+      },
+    ]);
+  }, []);
+
   const removeItem = useCallback((lineId: string) => {
     setItems((prev) => prev.filter((item) => item.lineId !== lineId));
   }, []);
@@ -164,13 +204,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
     items.filter((item) => item.programId === programId).length;
   const countVariantInCart = (programId: string, variantId: string) =>
     items.filter((item) => item.programId === programId && item.variantId === variantId).length;
+  const hasTournamentItems = () => items.some(isTournamentItem);
 
   return (
     <CartContext.Provider
       value={{
         items,
+        isHydrated,
         addItem,
         addVariantItem,
+        addTournamentItem,
         removeItem,
         updateStudentInfo,
         updateLineSelection,
@@ -179,6 +222,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         getItemCount,
         countInCart,
         countVariantInCart,
+        hasTournamentItems,
       }}
     >
       {children}

@@ -58,6 +58,7 @@ export function Footer() {
               <li><Link href="/motions" className="text-navy-100 hover:text-white">Motion Bank</Link></li>
               <li><Link href="/debate-topics" className="text-navy-100 hover:text-white">Debate Topics</Link></li>
               <li><Link href="/motions/wsdc" className="text-navy-100 hover:text-white">WSDC Motions Archive</Link></li>
+              <li><Link href="/tournaments" className="text-navy-100 hover:text-white">Tournaments</Link></li>
             </ul>
           </div>
 

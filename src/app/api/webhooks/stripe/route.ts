@@ -4,6 +4,9 @@
 // 2. Send buyer confirmation + admin notification via Resend.
 // Email failures are logged but never fail the webhook — the order row is the
 // source of truth. Signature verification needs the raw body: keep req.text().
+// Tournament entries (metadata.tournament_id, sold via the ClassDesk API) get
+// the orders row only: ClassDesk consumes the same Stripe event and sends the
+// confirmation, so no emails go out from here.
 
 import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
@@ -15,24 +18,28 @@ import { getProgramById } from '@/data/programs';
 
 export const runtime = 'nodejs';
 
-function parseStudents(metadata: Record<string, string>): OrderStudent[] {
+function parseStudents(metadata: Record<string, string>, defaultProgramId?: string): OrderStudent[] {
   // Students live in per-item keys student_0, student_1, … (see payment-intent route).
+  // Tournament entries carry no programId of their own; the caller supplies
+  // 'tournament:<slug>' so every row still names what was bought.
   const students: OrderStudent[] = [];
   for (let i = 0; metadata[`student_${i}`] !== undefined; i++) {
     try {
       const s = JSON.parse(metadata[`student_${i}`]);
+      const programId = typeof s?.programId === 'string' ? s.programId : defaultProgramId;
       if (
         s &&
         typeof s.name === 'string' &&
         typeof s.gradeLevel === 'string' &&
         typeof s.school === 'string' &&
-        typeof s.programId === 'string'
+        typeof programId === 'string'
       ) {
         students.push({
           name: s.name,
           gradeLevel: s.gradeLevel,
           school: s.school,
-          programId: s.programId,
+          programId,
+          ...(typeof s.dob === 'string' ? { dob: s.dob } : {}),
           ...(typeof s.unitLabel === 'string' ? { unitLabel: s.unitLabel } : {}),
           ...(typeof s.ageGroup === 'string' ? { ageGroup: s.ageGroup } : {}),
           ...(typeof s.timeSlot === 'string' ? { timeSlot: s.timeSlot } : {}),
@@ -64,6 +71,32 @@ async function handlePaymentIntentSucceeded(intent: Stripe.PaymentIntent) {
   const receiptEmail = intent.receipt_email;
   if (!receiptEmail) {
     console.error('[stripe-webhook] payment_intent.succeeded missing receipt_email:', intent.id);
+    return;
+  }
+
+  // Tournament entry: persist the order, then stop. ClassDesk owns the
+  // confirmation email for these.
+  const tournamentSlug = metadata.tournament_id;
+  if (tournamentSlug) {
+    const programId = `tournament:${tournamentSlug}`;
+    const supabase = getSupabaseAdmin();
+    const { error: dbError } = await supabase.from('orders').insert({
+      stripe_payment_intent_id: intent.id,
+      amount_total: intent.amount,
+      currency: intent.currency,
+      status: 'paid',
+      receipt_email: receiptEmail,
+      parent_name: metadata.parentName || '',
+      parent_phone: metadata.phone || null,
+      program_ids: programId,
+      program_names: metadata.tournament_name || tournamentSlug,
+      students: parseStudents(metadata, programId),
+      notes: `Tournament entry via ClassDesk (${tournamentSlug}); confirmation email sent by ClassDesk`,
+    });
+    if (dbError && dbError.code !== '23505') {
+      console.error('[stripe-webhook] tournament orders insert failed:', dbError);
+      throw new Error('Order persistence failed');
+    }
     return;
   }
 

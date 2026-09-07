@@ -1,10 +1,11 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { Elements, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import type { Stripe } from '@stripe/stripe-js';
-import { useCart, type StudentInfo, type CartItem } from '@/context/CartContext';
+import { useCart, isTournamentItem, type StudentInfo, type CartItem } from '@/context/CartContext';
 import {
   EARLY_BIRD_PERCENT,
   GRADE_LEVELS,
@@ -13,6 +14,7 @@ import {
 } from '@/data/programs';
 import { getStripeClient } from '@/lib/stripe-client';
 import { CONTACT_EMAIL } from '@/lib/site';
+import { getAdCampaign, getAdClickId } from '@/lib/analytics';
 import { friendlyZoneName } from '@/lib/schedule';
 import { RETURNER_CODE, RETURNER_NOTICE, isValidPromoCode, promoDiscount, type PromoLine } from '@/lib/promo';
 import { TimezoneSelect, useViewerTimezone } from '@/components/TimezoneSelect';
@@ -50,10 +52,18 @@ type BuyerForm = {
   phone: string;
 };
 
-function isStudentInfoComplete(info: StudentInfo): boolean {
-  return (
-    info.name.trim().length > 0 && info.gradeLevel !== '' && info.school.trim().length > 0
-  );
+function isStudentInfoComplete(item: CartItem): boolean {
+  const info = item.studentInfo;
+  const base =
+    info.name.trim().length > 0 && info.gradeLevel !== '' && info.school.trim().length > 0;
+  // Tournament entries also need a date of birth (organiser age rules).
+  return isTournamentItem(item) ? base && !!info.dob : base;
+}
+
+// Today's date (local) for the DOB input's max attribute.
+function todayIso(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 
 function formatUsd(amount: number): string {
@@ -131,8 +141,21 @@ function PaymentForm({ onError }: { onError: (msg: string) => void }) {
   );
 }
 
+// useSearchParams needs a Suspense boundary above it on a prerendered route.
 export default function CheckoutPage() {
-  const { items, removeItem, updateStudentInfo, updateLineSelection, getSubtotal } = useCart();
+  return (
+    <Suspense fallback={null}>
+      <CheckoutInner />
+    </Suspense>
+  );
+}
+
+function CheckoutInner() {
+  const { items, isHydrated, removeItem, updateStudentInfo, updateLineSelection, addTournamentItem, getSubtotal } =
+    useCart();
+  const searchParams = useSearchParams();
+  // All-tournament carts skip the class-only chrome (promo box, early-bird badge).
+  const allTournament = items.length > 0 && items.every(isTournamentItem);
   // Promo code (RETURNER27). Applied here for display only — the payment-intent
   // route re-resolves every line and recomputes the discount.
   const [promoInput, setPromoInput] = useState('');
@@ -182,6 +205,37 @@ export default function CheckoutPage() {
     phone: '',
   });
 
+  // /checkout?tournament=<slug>&student=<name>: add the entry line if it is not
+  // already in the cart and jump straight to the details step. Runs once,
+  // after the cart has hydrated from localStorage.
+  const prefillDone = useRef(false);
+  useEffect(() => {
+    if (!isHydrated || prefillDone.current) return;
+    const slug = searchParams.get('tournament')?.trim();
+    if (!slug || !/^[a-z0-9][a-z0-9-]{0,120}$/i.test(slug)) return;
+    prefillDone.current = true;
+    const student = (searchParams.get('student') ?? '').trim().slice(0, 80);
+    if (items.some((it) => it.tournamentSlug === slug)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setStep('details');
+      return;
+    }
+    let cancelled = false;
+    fetch(`/api/tournaments/${encodeURIComponent(slug)}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: { slug?: string; name?: string; status?: string; price?: { usd?: number } } | null) => {
+        if (cancelled || !data || data.status !== 'open' || typeof data.price?.usd !== 'number' || !data.name) return;
+        addTournamentItem({ slug, name: data.name, amountUsd: data.price.usd, studentName: student });
+        setStep('details');
+      })
+      .catch(() => {
+        /* leave the cart as it is */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [isHydrated, searchParams, items, addTournamentItem]);
+
   // Only resolve the Stripe.js client once we actually have an intent, and
   // don't crash the page if the publishable key isn't configured yet.
   const stripePromise = useMemo<Promise<Stripe | null> | null>(() => {
@@ -218,7 +272,7 @@ export default function CheckoutPage() {
     formData.parentName.trim().length > 0 &&
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
   const itemsToValidate = sameStudentForAll && items.length > 1 ? items.slice(0, 1) : items;
-  const isStudentsComplete = itemsToValidate.every((it) => isStudentInfoComplete(it.studentInfo));
+  const isStudentsComplete = itemsToValidate.every(isStudentInfoComplete);
   // Placement (age + time) is per enrollment line, so validate every line.
   const isPlacementsComplete = items.every(isPlacementComplete);
   const canContinueToPayment = isParentComplete && isStudentsComplete && isPlacementsComplete;
@@ -250,9 +304,27 @@ export default function CheckoutPage() {
             quantity: i.quantity,
             ageGroup: i.ageGroup,
             timeSlot: i.timeSlot,
+            kind: i.kind,
+            tournamentSlug: i.tournamentSlug,
           })),
           buyer: formData,
-          promoCode: promoActive ? promoCode : undefined,
+          promoCode: promoActive && !allTournament ? promoCode : undefined,
+          // Staff preview token for hidden tournaments (set by the enroll button).
+          preview: (() => {
+            try {
+              return sessionStorage.getItem('wsdc-tournament-preview') || undefined;
+            } catch {
+              return undefined;
+            }
+          })(),
+          // Ad / campaign attribution captured on landing (analytics.ts);
+          // the server stamps only well-formed, non-empty values.
+          attribution: {
+            source: 'wsdc-site',
+            caller: 'checkout',
+            gclid: getAdClickId(),
+            ...getAdCampaign(),
+          },
         }),
       });
       const data: { clientSecret?: string; amount?: number; error?: string } = await res.json();
@@ -375,11 +447,23 @@ export default function CheckoutPage() {
               </div>
               <div className="mt-4 border-t border-navy-100 pt-6">
                 <p className="mb-4 text-sm text-navy-500">
-                  Enrolling more than one child? Add the program once per student from the{' '}
-                  <Link href="/programs" className="underline underline-offset-2">
-                    programs page
-                  </Link>
-                  .
+                  {allTournament ? (
+                    <>
+                      Entering more than one child? Add the tournament once per student from the{' '}
+                      <Link href="/tournaments" className="underline underline-offset-2">
+                        tournaments page
+                      </Link>
+                      .
+                    </>
+                  ) : (
+                    <>
+                      Enrolling more than one child? Add the program once per student from the{' '}
+                      <Link href="/programs" className="underline underline-offset-2">
+                        programs page
+                      </Link>
+                      .
+                    </>
+                  )}
                 </p>
                 <button
                   onClick={() => setStep('details')}
@@ -514,20 +598,39 @@ export default function CheckoutPage() {
                             </select>
                           </div>
                         </div>
-                        <div className="mt-4">
-                          <label className={labelClass}>
-                            School <span className="text-signal-500">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            required
-                            value={item.studentInfo.school}
-                            onChange={(e) =>
-                              handleStudentChange(item.lineId, 'school', e.target.value)
-                            }
-                            placeholder="School name"
-                            className={inputClass}
-                          />
+                        <div className={`mt-4 grid gap-5 ${isTournamentItem(item) ? 'sm:grid-cols-2' : ''}`}>
+                          {isTournamentItem(item) && (
+                            <div>
+                              <label className={labelClass}>
+                                Date of birth <span className="text-signal-500">*</span>
+                              </label>
+                              <input
+                                type="date"
+                                required
+                                max={todayIso()}
+                                value={item.studentInfo.dob ?? ''}
+                                onChange={(e) =>
+                                  handleStudentChange(item.lineId, 'dob', e.target.value)
+                                }
+                                className={inputClass}
+                              />
+                            </div>
+                          )}
+                          <div>
+                            <label className={labelClass}>
+                              School <span className="text-signal-500">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              required
+                              value={item.studentInfo.school}
+                              onChange={(e) =>
+                                handleStudentChange(item.lineId, 'school', e.target.value)
+                              }
+                              placeholder="School name"
+                              className={inputClass}
+                            />
+                          </div>
                         </div>
                       </div>
                     ),
@@ -712,9 +815,11 @@ export default function CheckoutPage() {
           <div className="sticky top-24 rounded-sm border border-navy-200 bg-white p-6">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <h3 className="text-lg font-bold text-navy-900">Order summary</h3>
-              <span className="rounded-full bg-signal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-signal-600">
-                {EARLY_BIRD_PERCENT}% off early-bird
-              </span>
+              {!allTournament && (
+                <span className="rounded-full bg-signal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-signal-600">
+                  {EARLY_BIRD_PERCENT}% off early-bird
+                </span>
+              )}
             </div>
             <div className="mt-4 space-y-3">
               {items.map((item) => {
@@ -773,7 +878,8 @@ export default function CheckoutPage() {
                 </div>
               );
             })()}
-            {/* Returning families: notice + promo code */}
+            {/* Returning families: notice + promo code (classes only) */}
+            {!allTournament && (
             <div className="mt-5 border-t border-navy-100 pt-4">
               <p className="rounded-sm border border-signal-200 bg-signal-50 px-4 py-3 text-xs leading-relaxed text-signal-600">{RETURNER_NOTICE}</p>
               {promoCode && !promoActive ? (
@@ -830,6 +936,7 @@ export default function CheckoutPage() {
                 </div>
               ) : null}
             </div>
+            )}
             <p className="mt-5 border-t border-navy-100 pt-4 text-xs leading-relaxed text-navy-500">
               By completing this purchase you agree to our{' '}
               <Link href="/terms" className="underline underline-offset-2">
@@ -839,8 +946,11 @@ export default function CheckoutPage() {
               <Link href="/refund" className="underline underline-offset-2">
                 Refund Policy
               </Link>
-              . After payment, a coach reaches out within 24–48 hours to place each student
-              and confirm scheduling. Questions? Write to{' '}
+              .{' '}
+              {allTournament
+                ? 'After payment, the tournament confirmation and joining details are emailed to you.'
+                : 'After payment, a coach reaches out within 24–48 hours to place each student and confirm scheduling.'}{' '}
+              Questions? Write to{' '}
               <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-2">
                 {CONTACT_EMAIL}
               </a>

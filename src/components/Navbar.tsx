@@ -50,6 +50,7 @@ const nav: NavItem[] = [
     ],
     footerLink: { href: '/programs', label: 'View all programs' },
   },
+  { href: '/tournaments', label: 'Tournaments' },
   { href: '/what-is-world-schools-debate', label: 'What is World Schools?' },
   { href: '/coaches', label: 'Our Coaches' },
   {

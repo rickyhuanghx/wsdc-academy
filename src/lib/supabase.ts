@@ -8,7 +8,8 @@ export type OrderStudent = {
   name: string;
   gradeLevel: string;
   school: string;
-  programId: string;
+  programId: string; // 'tournament:<slug>' for tournament entries
+  dob?: string; // YYYY-MM-DD, tournament entries only
   unitLabel?: string; // resolved checkout unit (e.g. 1-on-1 variant label)
   ageGroup?: string; // selected age band label (group programs / bootcamp)
   timeSlot?: string; // selected time-slot label

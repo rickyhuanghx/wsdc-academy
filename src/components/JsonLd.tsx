@@ -2,6 +2,7 @@ import { Program } from '@/data/programs';
 import { Coach } from '@/data/coaches';
 import { ARTICLE_AUTHOR, type ArticleReviewer } from '@/data/author';
 import { SITE_NAME, SITE_URL, CONTACT_EMAIL, CONTACT_PHONE, SITE_SLOGAN, SITE_DESCRIPTION } from '@/lib/site';
+import { type PublicTournament, tournamentDescription } from '@/lib/tournaments';
 
 const baseUrl = SITE_URL;
 
@@ -519,6 +520,59 @@ export function CoachListJsonLd({ coaches }: { coaches: Coach[] }) {
         description: coach.credentials.join('; '),
       },
     })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// Event schema for tournament pages (/tournaments/[slug]). Data comes from the
+// ClassDesk public API (src/lib/tournaments.ts); the only price emitted is the
+// real charged entry fee.
+export function EventJsonLd({ tournament, url }: { tournament: PublicTournament; url: string }) {
+  const t = tournament;
+  const online = t.mode === 'online';
+  const soldOut = t.status === 'full';
+  const purchasable = t.status === 'open' || t.status === 'full' || t.status === 'upcoming';
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    '@id': `${baseUrl}${url}#event`,
+    name: t.name,
+    description: tournamentDescription(t),
+    url: `${baseUrl}${url}`,
+    ...(t.heroImageUrl ? { image: t.heroImageUrl } : {}),
+    startDate: t.startsAt,
+    endDate: t.endsAt,
+    eventStatus:
+      t.status === 'cancelled'
+        ? 'https://schema.org/EventCancelled'
+        : 'https://schema.org/EventScheduled',
+    eventAttendanceMode: online
+      ? 'https://schema.org/OnlineEventAttendanceMode'
+      : 'https://schema.org/OfflineEventAttendanceMode',
+    location: online
+      ? { '@type': 'VirtualLocation', url: `${baseUrl}${url}` }
+      : { '@type': 'Place', name: t.venue || t.name, address: t.venue || undefined },
+    organizer: t.organiserName
+      ? { '@type': 'Organization', name: t.organiserName, ...(t.organiserUrl ? { url: t.organiserUrl } : {}) }
+      : { '@id': `${baseUrl}/#organization` },
+    ...(purchasable
+      ? {
+          offers: {
+            '@type': 'Offer',
+            price: (t.price.amountMinor / 100).toFixed(2),
+            priceCurrency: (t.price.currency || 'usd').toUpperCase(),
+            availability: soldOut ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
+            ...(t.registrationClosesAt ? { validThrough: t.registrationClosesAt } : {}),
+            url: `${baseUrl}${url}`,
+          },
+        }
+      : {}),
   };
 
   return (

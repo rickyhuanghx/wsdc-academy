@@ -46,6 +46,9 @@ export function GET() {
       '\n' +
       programs.map((p) => item(p.name, u(`/programs/${p.slug}`), p.tagline)).join('\n'),
 
+    '## Tournaments\n' +
+      item('Debate tournaments', u('/tournaments'), 'Student debate tournaments run by WSDC Prep and partner organisers: dates, entry fees, eligibility, and online registration.'),
+
     '## Blog\n' + blogPosts.map((p) => item(p.title, u(`/blog/${p.slug}`), p.description)).join('\n'),
 
     '## Resources\n' + resources.map((r) => item(r.title, u(`/resources/${r.slug}`), r.description)).join('\n'),
