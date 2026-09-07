@@ -109,9 +109,17 @@ type FetchOpts = { preview?: string };
 
 // Only a well-formed token goes to the API; anything else is treated as "no preview".
 export function cleanPreviewToken(raw: unknown): string | undefined {
-  if (typeof raw !== 'string') return undefined;
-  const v = raw.trim();
-  return /^[A-Za-z0-9_-]{8,200}$/.test(v) ? v : undefined;
+  if (typeof raw === 'string') {
+    const v = raw.trim();
+    if (/^[A-Za-z0-9_-]{8,200}$/.test(v)) return v;
+  }
+  // Local development only: TOURNAMENT_PREVIEW_TOKEN in .env.local shows the
+  // hidden catalogue without a query string. Never applied in production.
+  if (process.env.NODE_ENV !== 'production') {
+    const dev = process.env.TOURNAMENT_PREVIEW_TOKEN?.trim();
+    if (dev && /^[A-Za-z0-9_-]{8,200}$/.test(dev)) return dev;
+  }
+  return undefined;
 }
 
 function url(path: string, preview?: string): string {
