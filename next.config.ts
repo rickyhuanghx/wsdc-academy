@@ -38,6 +38,12 @@ const nextConfig: NextConfig = {
         source: '/:path*',
         headers: SECURITY_HEADERS,
       },
+      // Private per-family proposal pages (/for/*): shared by direct link only.
+      // Belt and braces with the noindex metadata in src/app/for/layout.tsx.
+      {
+        source: '/for/:path*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet, noimageindex' }],
+      },
     ];
   },
   async redirects() {
