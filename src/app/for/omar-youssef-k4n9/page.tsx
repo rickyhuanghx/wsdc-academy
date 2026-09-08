@@ -155,7 +155,7 @@ const RUBRIC = [
 
 const INCLUDED = [
   'Ten private 60-minute sessions with Netra over ten weeks, on Zoom',
-  'Weekend-morning slots (Riyadh time), fixed with Netra before the first session',
+  'Weekend slots (Riyadh time), fixed with Netra before the first session',
   'A short written note after every session: what went well, what to work on, the home task',
   'The five-skill progress rubric, scored weekly and shared with you',
   'A recorded showcase speech in week 10 and a written progress report',
@@ -192,7 +192,7 @@ export default function OmarProposalPage() {
             {[
               ['Student', `${STUDENT.name}, age ${STUDENT.age}`],
               ['Format', '10 × 60 min, private, online'],
-              ['Timing', 'Weekend mornings, Riyadh time'],
+              ['Timing', 'Weekends, Riyadh time'],
               ['Coach', 'Netra Easwaran, Yale'],
             ].map(([k, v]) => (
               <div key={k}>
