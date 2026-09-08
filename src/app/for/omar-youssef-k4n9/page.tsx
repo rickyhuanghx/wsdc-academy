@@ -48,9 +48,9 @@ const GOALS = ['Public speaking', 'Confidence', 'Listening skills', 'Communicati
 
 // 60-minute session shape, the same every week so Omar knows what is coming.
 const SESSION_SHAPE = [
-  { time: '0:00', title: 'Warm-up game', detail: 'Ten minutes of voice or body play (tongue twisters, one-word stories, statue-to-speaker) so he is talking before anything feels like a test.' },
+  { time: '0:00', title: 'Warm-up game', detail: 'Ten minutes of voice or body games (tongue twisters, one-word stories, statue-to-speaker) so he is already talking before the real work starts.' },
   { time: '0:10', title: 'Skill of the week', detail: 'One idea, taught directly with a demonstration by Netra, then named so Omar can use the word himself.' },
-  { time: '0:25', title: 'Practice with coaching', detail: 'Omar speaks, gets one correction, and goes again. Most of the hour is him on his feet, not listening to a lecture.' },
+  { time: '0:25', title: 'Practice with coaching', detail: 'Omar speaks, gets one correction, and goes again. He spends most of the hour on his feet rather than listening to Netra talk.' },
   { time: '0:50', title: 'Feedback and home task', detail: 'One thing he did well, one thing to work on, and a five-minute daily task for the week.' },
 ];
 
@@ -66,9 +66,9 @@ const WEEKS: Week[] = [
   {
     n: 1,
     title: 'Hello, audience',
-    focus: 'Getting comfortable, and learning that a speech is a gift to the listener',
+    focus: 'Getting comfortable, and learning who a speech is for',
     inSession:
-      'A one-minute ice-breaker speech (three things about me), then the speaker-listener-message-feedback loop explained in nine-year-old terms. Netra sets the tone: mistakes are how we practise.',
+      'A one-minute ice-breaker speech (three things about me), then the speaker-listener-message-feedback loop explained in nine-year-old terms. Netra makes clear from the first minute that mistakes are part of practising.',
     homeTask: 'Tell a family member one thing about the day in exactly three sentences.',
   },
   {
@@ -76,7 +76,7 @@ const WEEKS: Week[] = [
     title: 'The voice toolbox',
     focus: 'Volume, speed, pitch, and tone',
     inSession:
-      'Belly breathing, then a short poem read four ways (loud, slow, happy, serious). Omar learns that the same words can mean different things, and that a big room needs a bigger voice, not a shout.',
+      'Belly breathing, then a short poem read four ways (loud, slow, happy, serious). Omar hears how the same words change meaning with the delivery, and learns to fill a big room by projecting rather than shouting.',
     homeTask: 'Read the same poem to someone at home in two different voices.',
   },
   {
@@ -108,7 +108,7 @@ const WEEKS: Week[] = [
     title: 'Think on your feet',
     focus: 'Impromptu answers with a structure',
     inSession:
-      'Table-topics style: fun surprise questions answered in thirty seconds, growing to a minute, using the PREP pattern (Point, Reason, Example, Point). This is the first bridge to debate.',
+      'Table-topics style: fun surprise questions answered in thirty seconds, growing to a minute, using the PREP pattern (Point, Reason, Example, Point). This is the first skill that carries straight over into debate.',
     homeTask: 'Family asks two surprise questions at dinner; Omar answers with a point and a reason.',
   },
   {
@@ -124,7 +124,7 @@ const WEEKS: Week[] = [
     title: 'Listen, then answer',
     focus: 'Active listening and handling questions from an audience',
     inSession:
-      'The week the family asked for. Omar learns to repeat a question back, answer with a reason, and stay calm on a hard one. He also asks questions of a speech Netra gives and practises giving a kind, specific compliment.',
+      'This is the week you asked about. Omar learns to repeat a question back, answer it with a reason, and stay calm when the question is a hard one. He also asks questions of a speech Netra gives and practises giving a kind, specific compliment.',
     homeTask: 'Watch a three-minute speech by another child and write down one thing it did well.',
   },
   {
@@ -183,9 +183,9 @@ export default function OmarProposalPage() {
             A 10-week public speaking plan for {STUDENT.first}
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-navy-100">
-            Dear {PARENT}, thank you for the call last week. This page sets out exactly what we
+            Dear {PARENT}, thank you for the call last week. This page sets out what we
             propose for {STUDENT.name}: who will coach him, what the ten weeks cover, what it
-            costs, and where it leads afterwards.
+            costs, and what he could move on to afterwards.
           </p>
 
           <dl className="mt-10 grid grid-cols-2 gap-6 border-t border-navy-700 pt-8 sm:grid-cols-4">
@@ -237,9 +237,9 @@ export default function OmarProposalPage() {
             ))}
           </ul>
           <p className="mt-5 max-w-2xl text-sm leading-relaxed text-navy-600">
-            Every week below is built to serve one or more of these. Answering questions from
-            an audience gets its own week (week 8) and then appears at the end of every speech
-            from then on.
+            Each week below works on at least one of these. Answering questions from an
+            audience gets a week of its own (week 8), and after that every speech he gives ends
+            with questions.
           </p>
         </div>
       </section>
@@ -301,7 +301,7 @@ export default function OmarProposalPage() {
                   'Yale University student, Yale Debate Association',
                   'Helps run the Tournament of Champions at Yale',
                   'Strong record on the APDA circuit; late elimination rounds at the Harvard Invitational',
-                  'Directs World Scholar’s Cup programs for younger students',
+                  'Directs World Scholar\'s Cup programs for younger students',
                   'Director-General, Yale Model United Nations',
                   'President, Yale International Relations Association',
                 ].map((c) => (
@@ -319,8 +319,9 @@ export default function OmarProposalPage() {
                 <p className="mt-2 text-sm leading-relaxed text-navy-700">
                   Most debate coaches are used to teenagers. Netra&apos;s World Scholar&apos;s Cup
                   work means she spends much of her coaching time with children of {STUDENT.first}&apos;s
-                  age, and her own competing at Yale means she knows exactly which habits matter
-                  later. Sessions with her are playful on the surface and precise underneath.
+                  age, and her own competing at Yale means she knows which habits matter later.
+                  Expect games and some silliness in the first ten minutes of each session, and
+                  very specific corrections after that.
                 </p>
               </div>
             </div>
@@ -336,9 +337,10 @@ export default function OmarProposalPage() {
             The 10-week curriculum
           </h2>
           <p className="mt-4 max-w-2xl leading-relaxed text-navy-700">
-            Ten skills, one per week, each ending in {STUDENT.first} on his feet giving a real
-            speech. The order goes from comfort, to voice and body, to structure, to thinking on
-            his feet, to handling an audience, and finishes with a recorded showcase.
+            One skill a week, and every session ends with {STUDENT.first} on his feet giving a
+            short speech. The early weeks are about comfort, voice, and body. The middle weeks add
+            structure and thinking on his feet. The last weeks deal with an audience and end with
+            a recorded showcase.
           </p>
 
           {/* Session shape */}
@@ -449,7 +451,7 @@ export default function OmarProposalPage() {
               <div className="mt-8 border-t border-navy-100 pt-6 text-sm leading-relaxed text-navy-600">
                 <p>
                   Hours are valid for one year from the date of purchase. If a session has to
-                  move, tell Netra 24 hours ahead and it is rescheduled, not lost. Refund terms
+                  move, tell Netra 24 hours ahead and we reschedule it rather than count it as used. Refund terms
                   are the standard {SITE_NAME} terms at{' '}
                   <Link href="/refund" className="underline decoration-navy-300 underline-offset-4 hover:text-signal-500">
                     wsdcacademy.com/refund
@@ -530,8 +532,9 @@ export default function OmarProposalPage() {
           <p className="mt-4 max-w-2xl leading-relaxed text-navy-700">
             The ten weeks are a term of their own. If {STUDENT.first} finishes them scoring 3 or
             better on Voice, Structure, and Audience, Netra will recommend moving him into the
-            Junior World Schools Foundation class for the following term. Public speaking is the
-            first 40% of a debate score; Foundation adds the other 60%.
+            Junior World Schools Foundation class for the following term. In World Schools judging, style is 40% of the
+            score, and that is what these ten weeks build. Foundation adds content and strategy,
+            the other 60%.
           </p>
 
           {/* Pathway */}
@@ -546,7 +549,7 @@ export default function OmarProposalPage() {
               {
                 step: 'Next term',
                 title: 'Junior World Schools Foundation',
-                detail: `Small group, ages ${foundation?.tracks?.[0]?.ageRange.min ?? 9}–${foundation?.tracks?.[0]?.ageRange.max ?? 12}. Speaker roles, building an argument, points of information, monthly judged practice debates. Netra teaches it.`,
+                detail: `Small group, ages ${foundation?.tracks?.[0]?.ageRange.min ?? 9} to ${foundation?.tracks?.[0]?.ageRange.max ?? 12}. Speaker roles, building an argument, points of information, monthly judged practice debates. Netra teaches it.`,
                 current: false,
               },
               {
@@ -593,8 +596,8 @@ export default function OmarProposalPage() {
                     >
                       {foundation.name}
                     </Link>
-                    . Term dates and pricing for the next term are confirmed closer to the time;
-                    families continuing from 1-on-1 coaching are told first.
+                    . Term dates and pricing for the next term are confirmed closer to the time.
+                    Families continuing from 1-on-1 coaching hear first.
                   </p>
                 </div>
                 <dl className="divide-y divide-navy-100 text-sm">
