@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated design-sync bundle (gitignored build output, not source).
+    "ds-bundle/**",
+    // Netlify build output and the design-sync workspace, both gitignored.
+    ".netlify/**",
+    ".ds-sync/**",
   ]),
 ]);
 

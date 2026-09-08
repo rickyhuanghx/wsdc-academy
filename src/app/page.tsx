@@ -6,6 +6,7 @@ import { homepageFaqs } from '@/data/faqs';
 import { ColumnChart, RankedBars, WaffleGrid } from '@/components/DebateCharts';
 import { TabbedExplorer } from '@/components/TabbedExplorer';
 import { TermSchedule } from '@/components/TermSchedule';
+import { WritingInterestSection } from '@/components/WritingInterestSection';
 
 export default function HomePage() {
   return (
@@ -618,6 +619,9 @@ export default function HomePage() {
           </p>
         </div>
       </section>
+
+      {/* ── Writing competitions (essay contests + journals via Atlantic Ivy) ── */}
+      <WritingInterestSection />
 
       {/* ── CTA ──────────────────────────────────────────────── */}
       <section className="bg-navy-900">
