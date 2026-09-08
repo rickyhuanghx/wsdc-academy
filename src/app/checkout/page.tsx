@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Elements, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import type { Stripe } from '@stripe/stripe-js';
-import { useCart, isTournamentItem, type StudentInfo, type CartItem } from '@/context/CartContext';
+import { useCart, isTournamentItem, isWritingItem, type StudentInfo, type CartItem } from '@/context/CartContext';
+import { getExistingStudentChoice, setExistingStudentChoice } from '@/lib/existing-student';
 import {
   EARLY_BIRD_PERCENT,
   GRADE_LEVELS,
@@ -156,16 +157,30 @@ function CheckoutInner() {
   const searchParams = useSearchParams();
   // All-tournament carts skip the class-only chrome (promo box, early-bird badge).
   const allTournament = items.length > 0 && items.every(isTournamentItem);
+  // The early-bird badge belongs to programs.ts lines only: writing-competition
+  // packages are ClassDesk-priced with no struck original.
+  const hasProgramLines = items.some((it) => !isTournamentItem(it) && !isWritingItem(it));
   // Promo code (RETURNER27). Applied here for display only — the payment-intent
   // route re-resolves every line and recomputes the discount.
   const [promoInput, setPromoInput] = useState('');
   const [promoCode, setPromoCode] = useState('');
   // Existing-student discount (tournament carts): selected by the parent, verified server-side by email.
-  const [existingStudent, setExistingStudent] = useState(false);
+  const [existingStudent, setExistingStudentState] = useState(false);
+  const setExistingStudent = (v: boolean) => {
+    setExistingStudentState(v);
+    setExistingStudentChoice(v);
+  };
+  useEffect(() => {
+    // Start from the answer given at the Register button.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setExistingStudentState(getExistingStudentChoice() === true);
+  }, []);
   const [promoError, setPromoError] = useState('');
-  // Everything here is online; only 1-on-1 lines are excluded.
+  // Everything here is online; only 1-on-1 lines are excluded. Writing lines
+  // carry their own flag (journals + the Ivy Scholar 1-on-1 package are out).
   const promoLines = (list: CartItem[]): PromoLine[] =>
     list.map((i) => {
+      if (isWritingItem(i)) return { amount: i.amount, eligible: i.promoEligible === true };
       const program = getProgramById(i.programId);
       return { amount: i.amount, eligible: !!program && !program.oneOnOne };
     });
@@ -184,7 +199,7 @@ function CheckoutInner() {
       return;
     }
     if (promoDiscount(code, promoLines(items)) === 0) {
-      setPromoError('This code does not apply to anything in your cart (1-on-1 coaching is excluded).');
+      setPromoError('This code does not apply to anything in your cart (1-on-1 coaching and journal packages are excluded).');
       return;
     }
     setPromoCode(code);
@@ -314,6 +329,7 @@ function CheckoutInner() {
             timeSlot: i.timeSlot,
             kind: i.kind,
             tournamentSlug: i.tournamentSlug,
+            sku: i.sku,
           })),
           buyer: formData,
           promoCode: promoActive && !allTournament ? promoCode : undefined,
@@ -461,6 +477,14 @@ function CheckoutInner() {
                       Entering more than one child? Add the tournament once per student from the{' '}
                       <Link href="/tournaments" className="underline underline-offset-2">
                         tournaments page
+                      </Link>
+                      .
+                    </>
+                  ) : items.every(isWritingItem) ? (
+                    <>
+                      Enrolling more than one child? Add the package once per student from the{' '}
+                      <Link href="/#writing-competitions" className="underline underline-offset-2">
+                        writing competitions section
                       </Link>
                       .
                     </>
@@ -842,7 +866,7 @@ function CheckoutInner() {
           <div className="sticky top-24 rounded-sm border border-navy-200 bg-white p-6">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <h3 className="text-lg font-bold text-navy-900">Order summary</h3>
-              {!allTournament && (
+              {hasProgramLines && (
                 <span className="rounded-full bg-signal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-signal-600">
                   {EARLY_BIRD_PERCENT}% off early-bird
                 </span>

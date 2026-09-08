@@ -36,10 +36,30 @@ export interface CartItem {
   timeSlot?: string;
   // Tournament entries (src/lib/tournaments.ts) share the cart but are priced
   // by the ClassDesk API, not programs.ts. Absent (= 'program') on class lines.
-  kind?: 'program' | 'tournament';
+  // Writing-competition packages (src/lib/competitions.ts) are also ClassDesk-
+  // priced but behave like class lines everywhere else (they may share a cart
+  // with programs, take the returning-families code where eligible, and are
+  // fulfilled by our own webhook emails).
+  kind?: 'program' | 'tournament' | 'writing';
   tournamentSlug?: string;
   /** % off for families already enrolled with us (tournament lines) */
   existingStudentDiscountPct?: number;
+  /** Writing lines: the ClassDesk package sku (also the tail of programId). */
+  sku?: string;
+  competitionSlug?: string;
+  /** Writing lines: whether RETURNER27 applies (journals and 1-on-1 packages do not). Display only; the server re-derives it. */
+  promoEligible?: boolean;
+}
+
+// What a writing-competition "Add to cart" control hands to the cart.
+export interface WritingLine {
+  sku: string;
+  competitionSlug: string;
+  competitionName: string;
+  packageLabel: string;
+  hours: number;
+  amountUsd: number;
+  promoEligible?: boolean;
 }
 
 // What a tournament "Register" button hands to the cart.
@@ -67,6 +87,7 @@ interface CartContextType {
   addItem: (program: Program, selection?: { ageGroup?: string; timeSlot?: string }) => void;
   addVariantItem: (program: Program, variant: VariantLine) => void;
   addTournamentItem: (line: TournamentLine) => void;
+  addWritingItem: (line: WritingLine) => void;
   removeItem: (lineId: string) => void;
   updateStudentInfo: (lineId: string, info: StudentInfo) => void;
   updateLineSelection: (lineId: string, patch: { ageGroup?: string; timeSlot?: string }) => void;
@@ -81,6 +102,10 @@ interface CartContextType {
 export const TOURNAMENT_ID_PREFIX = 'tournament:';
 export const isTournamentItem = (item: CartItem) =>
   item.kind === 'tournament' || item.programId.startsWith(TOURNAMENT_ID_PREFIX);
+
+export const WRITING_ID_PREFIX = 'writing:';
+export const isWritingItem = (item: CartItem) =>
+  item.kind === 'writing' || item.programId.startsWith(WRITING_ID_PREFIX);
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
@@ -179,6 +204,24 @@ export function CartProvider({ children }: { children: ReactNode }) {
     ]);
   }, []);
 
+  const addWritingItem = useCallback((line: WritingLine) => {
+    setItems((prev) => [
+      ...prev,
+      {
+        lineId: `${WRITING_ID_PREFIX}${line.sku}-${crypto.randomUUID()}`,
+        programId: `${WRITING_ID_PREFIX}${line.sku}`,
+        programName: `${line.competitionName} · ${line.packageLabel}`,
+        unitLabel: 'Enrolment',
+        amount: line.amountUsd,
+        kind: 'writing',
+        sku: line.sku,
+        competitionSlug: line.competitionSlug,
+        promoEligible: line.promoEligible ?? false,
+        studentInfo: emptyStudentInfo(),
+      },
+    ]);
+  }, []);
+
   const removeItem = useCallback((lineId: string) => {
     setItems((prev) => prev.filter((item) => item.lineId !== lineId));
   }, []);
@@ -218,6 +261,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         addItem,
         addVariantItem,
         addTournamentItem,
+        addWritingItem,
         removeItem,
         updateStudentInfo,
         updateLineSelection,

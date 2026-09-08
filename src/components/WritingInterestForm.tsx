@@ -87,7 +87,7 @@ export function WritingInterestForm({ options }: { options: WritingInterestOptio
   if (status === 'success') {
     const names = options.filter((o) => chosen.includes(o.slug)).map((o) => o.shortName);
     return (
-      <div className="rounded-sm border border-navy-200 bg-white p-6" role="status">
+      <div id="writing-interest-form" className="rounded-sm border border-navy-200 bg-white p-6" role="status">
         <p className="font-display text-xl font-semibold text-navy-900">Thanks. We&apos;ll be in touch about {listNames(names)}.</p>
         <p className="mt-2 text-sm leading-relaxed text-navy-600">
           A coach from Atlantic Ivy will email you the dates, the fit for your student&apos;s grade, and
@@ -98,7 +98,19 @@ export function WritingInterestForm({ options }: { options: WritingInterestOptio
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5 rounded-sm border border-navy-200 bg-white p-6">
+    <form
+      id="writing-interest-form"
+      onSubmit={handleSubmit}
+      noValidate
+      className="scroll-mt-24 space-y-5 rounded-sm border border-navy-200 bg-white p-6"
+    >
+      <div>
+        <h3 className="font-display text-xl font-semibold text-navy-900">Not ready to enrol?</h3>
+        <p className="mt-1 text-sm leading-relaxed text-navy-600">
+          Tell us which competitions you are interested in and a coach will email you.
+        </p>
+      </div>
+
       {/* Honeypot: humans never see this field */}
       <input
         type="text"

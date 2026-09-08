@@ -71,7 +71,10 @@ export interface PublicCycle {
 }
 
 export interface PublicPackage {
+  /** ClassDesk course slug; doubles as the cart/metadata id for the line. */
   sku: string;
+  /** Short buyer-facing name, e.g. "Junior package 1 (22 h)"; null when the API sends none. */
+  label: string | null;
   hours: number;
   priceMinor: number;
   currency: string;
@@ -117,7 +120,7 @@ export interface PublicCompetition {
   preview: boolean;
 }
 
-type FetchOpts = { preview?: string };
+type FetchOpts = { preview?: string; noStore?: boolean };
 
 // Only a well-formed token goes to the API; anything else is treated as "no preview".
 export function cleanPreviewToken(raw: unknown): string | undefined {
@@ -139,8 +142,10 @@ function url(path: string, preview?: string): string {
   return u.toString();
 }
 
-function cacheOptions(preview?: string): RequestInit {
-  return preview ? { cache: 'no-store' } : { next: { revalidate: COMPETITION_REVALIDATE_SECONDS } };
+function cacheOptions(opts: FetchOpts): RequestInit {
+  return opts.noStore || opts.preview
+    ? { cache: 'no-store' }
+    : { next: { revalidate: COMPETITION_REVALIDATE_SECONDS } };
 }
 
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
@@ -193,6 +198,23 @@ function normalizeCycle(c: unknown): PublicCycle | null {
   };
 }
 
+const SKU_RE = /^[a-z0-9][a-z0-9-]{0,120}$/i;
+
+function normalizePackage(p: unknown): PublicPackage | null {
+  if (!p || typeof p !== 'object') return null;
+  const r = p as Record<string, unknown>;
+  if (typeof r.sku !== 'string' || !SKU_RE.test(r.sku)) return null;
+  if (typeof r.priceMinor !== 'number' || !Number.isFinite(r.priceMinor) || r.priceMinor <= 0) return null;
+  return {
+    sku: r.sku,
+    label: typeof r.label === 'string' && r.label.trim() ? r.label.trim() : null,
+    hours: typeof r.hours === 'number' && Number.isFinite(r.hours) ? r.hours : 0,
+    priceMinor: Math.round(r.priceMinor),
+    currency: typeof r.currency === 'string' && r.currency ? r.currency.toLowerCase() : 'usd',
+    href: typeof r.href === 'string' ? r.href : '#writing-competitions',
+  };
+}
+
 function normalizeOffer(o: unknown): PublicOffer | null {
   if (!o || typeof o !== 'object') return null;
   const r = o as Record<string, unknown>;
@@ -204,7 +226,9 @@ function normalizeOffer(o: unknown): PublicOffer | null {
     blurb: typeof r.blurb === 'string' && r.blurb.trim() ? r.blurb.trim() : null,
     startsAt: typeof r.startsAt === 'string' && ISO_DATE_RE.test(r.startsAt) ? r.startsAt : null,
     closesAt: typeof r.closesAt === 'string' && ISO_DATE_RE.test(r.closesAt) ? r.closesAt : null,
-    packages: Array.isArray(r.packages) ? (r.packages as PublicPackage[]) : [],
+    packages: Array.isArray(r.packages)
+      ? r.packages.map(normalizePackage).filter((p): p is PublicPackage => p !== null)
+      : [],
     priceFrom:
       r.priceFrom && typeof r.priceFrom === 'object' ? (r.priceFrom as PublicOffer['priceFrom']) : null,
     cycleId: typeof r.cycleId === 'string' ? r.cycleId : null,
@@ -252,20 +276,84 @@ export const SEED_SLUGS: ReadonlySet<string> = new Set(SEED_COMPETITIONS.map((c)
  * to render. Log lines say which happened.
  */
 export async function getCompetitions(opts: FetchOpts = {}): Promise<PublicCompetition[]> {
+  const live = await fetchCatalogue(opts);
+  if (live === null) return SEED_COMPETITIONS;
+  return live.length > 0 ? live : SEED_COMPETITIONS;
+}
+
+/**
+ * The live catalogue only: null when the API cannot be read (network, non-OK,
+ * bad JSON). Checkout uses this so a ClassDesk outage refuses the sale rather
+ * than charging a price from the bundled seed.
+ */
+export async function fetchCatalogue(opts: FetchOpts = {}): Promise<PublicCompetition[] | null> {
   try {
-    const res = await fetch(url('/competitions', opts.preview), cacheOptions(opts.preview));
+    const res = await fetch(url('/competitions', opts.preview), cacheOptions(opts));
     if (!res.ok) {
-      console.error('[competitions] list failed, using seed:', res.status);
-      return SEED_COMPETITIONS;
+      console.error('[competitions] list failed:', res.status);
+      return null;
     }
     const data = (await res.json()) as { competitions?: unknown };
-    if (!Array.isArray(data.competitions)) return SEED_COMPETITIONS;
-    const list = data.competitions.filter(isCompetition).map(normalize);
-    return list.length > 0 ? list : SEED_COMPETITIONS;
+    if (!Array.isArray(data.competitions)) return null;
+    return data.competitions.filter(isCompetition).map(normalize);
   } catch (e) {
-    console.error('[competitions] list error, using seed:', e instanceof Error ? e.message : e);
-    return SEED_COMPETITIONS;
+    console.error('[competitions] list error:', e instanceof Error ? e.message : e);
+    return null;
   }
+}
+
+/** One competition by slug. 404 / failure → null. */
+export async function getCompetition(
+  slug: string,
+  opts: FetchOpts = {},
+): Promise<PublicCompetition | null> {
+  if (!SKU_RE.test(slug)) return null;
+  try {
+    const res = await fetch(url(`/competitions/${encodeURIComponent(slug)}`, opts.preview), cacheOptions(opts));
+    if (res.status === 404) return null;
+    if (!res.ok) {
+      console.error('[competitions] detail failed:', slug, res.status);
+      return null;
+    }
+    const data = (await res.json()) as { competition?: unknown };
+    return isCompetition(data.competition) ? normalize(data.competition) : null;
+  } catch (e) {
+    console.error('[competitions] detail error:', slug, e instanceof Error ? e.message : e);
+    return null;
+  }
+}
+
+export interface WritingPackageMatch {
+  competition: PublicCompetition;
+  package: PublicPackage;
+}
+
+/**
+ * Server-side price source for a writing package in the cart. Reads the live
+ * wsdc catalogue uncached (or the caller's preloaded copy) and returns the
+ * competition + package whose sku matches, honouring effectiveOffer: once our
+ * own registration close date has passed the package is gone and this returns
+ * null, so a stale cart line cannot be paid for.
+ */
+export async function resolveWritingPackage(
+  sku: string,
+  opts: { catalogue?: PublicCompetition[] | null; today?: string } = {},
+): Promise<WritingPackageMatch | null> {
+  if (!SKU_RE.test(sku)) return null;
+  const catalogue = opts.catalogue === undefined ? await fetchCatalogue({ noStore: true }) : opts.catalogue;
+  if (!catalogue) return null;
+  const today = opts.today ?? todayIso();
+  for (const competition of catalogue) {
+    const offer = effectiveOffer(competition, today);
+    const pkg = offer?.packages.find((p) => p.sku === sku);
+    if (pkg) return { competition, package: pkg };
+  }
+  return null;
+}
+
+/** True when the sku is listed on a competition regardless of the close date (for a "closed" message). */
+export function isListedWritingSku(catalogue: PublicCompetition[], sku: string): PublicCompetition | null {
+  return catalogue.find((c) => c.offer?.packages.some((p) => p.sku === sku)) ?? null;
 }
 
 export interface InterestPayload {
@@ -404,6 +492,21 @@ export function effectiveOffer(c: PublicCompetition, today = todayIso()): Public
     };
   }
   return o;
+}
+
+/** "$1,200" from minor units. */
+export function formatPackagePrice(p: Pick<PublicPackage, 'priceMinor'>): string {
+  const usd = p.priceMinor / 100;
+  return `$${usd.toLocaleString('en-US', {
+    minimumFractionDigits: Number.isInteger(usd) ? 0 : 2,
+    maximumFractionDigits: 2,
+  })}`;
+}
+
+/** Cart/metadata display name for a package line: "The Schola · 10 hours". */
+export function writingLineName(c: Pick<PublicCompetition, 'name'>, p: Pick<PublicPackage, 'label' | 'hours'>): string {
+  const label = p.label ?? (p.hours > 0 ? `${p.hours} hours` : 'Package');
+  return `${c.name} · ${label}`;
 }
 
 export type KindTag = 'Essay' | 'Journal' | 'Team';

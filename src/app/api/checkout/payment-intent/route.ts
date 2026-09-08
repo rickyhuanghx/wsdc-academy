@@ -1,7 +1,7 @@
 // Creates the Stripe PaymentIntent for /checkout. Prices are always
 // re-resolved server-side — program lines from src/data/programs.ts,
-// tournament entries from the ClassDesk public API — client-sent amounts are
-// never trusted. Buyer + per-student info ride along as intent metadata; the
+// tournament entries and writing-competition packages from the ClassDesk
+// public API — client-sent amounts are never trusted. Buyer + per-student info ride along as intent metadata; the
 // webhook turns them into the Supabase orders row after payment succeeds.
 
 import { NextResponse } from 'next/server';
@@ -14,14 +14,22 @@ import {
   GRADE_LEVELS,
 } from '@/data/programs';
 import { isRateLimited, getClientIp, isValidEmail, HONEYPOT_FIELD } from '@/lib/leads';
-import { isValidPromoCode, normalizePromoCode, promoDiscount } from '@/lib/promo';
+import { isValidPromoCode, isWritingPromoEligible, normalizePromoCode, promoDiscount } from '@/lib/promo';
 import { checkTournament, cleanPreviewToken, getTournament, priceUsd, type PublicTournament } from '@/lib/tournaments';
+import {
+  fetchCatalogue,
+  isListedWritingSku,
+  resolveWritingPackage,
+  writingLineName,
+  type PublicCompetition,
+} from '@/lib/competitions';
 
 export const runtime = 'nodejs';
 
 const MAX_ITEMS = 12;
 const VALID_GRADES = new Set<string>(GRADE_LEVELS);
 const TOURNAMENT_PREFIX = 'tournament:';
+const WRITING_PREFIX = 'writing:';
 const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,120}$/i;
 const DOB_RE = /^\d{4}-\d{2}-\d{2}$/;
 // Attribution values that may be stamped on the intent (Central CRM contract).
@@ -59,6 +67,7 @@ type IncomingItem = {
   timeSlot?: unknown;
   kind?: unknown;
   tournamentSlug?: unknown;
+  sku?: unknown;
 };
 type StudentInfoIn = { name?: unknown; gradeLevel?: unknown; school?: unknown; dob?: unknown };
 
@@ -72,6 +81,20 @@ function tournamentSlugOf(item: IncomingItem): string | null {
 
 function isTournamentLine(item: IncomingItem): boolean {
   return item.kind === 'tournament' || tournamentSlugOf(item) !== null;
+}
+
+// Writing-competition package lines: the sku is a ClassDesk course slug. The
+// cart carries it both as `sku` and as programId 'writing:<sku>'.
+function writingSkuOf(item: IncomingItem): string | null {
+  if (typeof item.sku === 'string' && item.sku) return item.sku;
+  if (typeof item.programId === 'string' && item.programId.startsWith(WRITING_PREFIX)) {
+    return item.programId.slice(WRITING_PREFIX.length);
+  }
+  return null;
+}
+
+function isWritingLine(item: IncomingItem): boolean {
+  return item.kind === 'writing' || (typeof item.programId === 'string' && item.programId.startsWith(WRITING_PREFIX));
 }
 
 export async function POST(req: Request) {
@@ -148,6 +171,7 @@ export async function POST(req: Request) {
     studentSchool: string;
     studentDob?: string;
     tournamentSlug?: string;
+    writingSku?: string;
     variantId?: string;
     ageGroupLabel?: string;
     timeSlotLabel?: string;
@@ -157,6 +181,9 @@ export async function POST(req: Request) {
   let diagnosticCount = 0;
   // One uncached API read per tournament slug, shared across sibling lines.
   const tournamentCache = new Map<string, PublicTournament | null>();
+  // One uncached read of the writing catalogue for the whole cart (undefined =
+  // not loaded yet, null = ClassDesk unreachable).
+  let writingCatalogue: PublicCompetition[] | null | undefined;
 
   for (const item of items) {
     const si = (item.studentInfo || {}) as StudentInfoIn;
@@ -214,6 +241,57 @@ export async function POST(req: Request) {
     }
 
     if (typeof item.programId !== 'string') return jsonError(400, 'Invalid cart item');
+
+    // Writing-competition package: ClassDesk is the price source. Priced from
+    // the live catalogue (never the seed, never the client), and refused once
+    // our registration close date has passed.
+    if (isWritingLine(item)) {
+      const sku = writingSkuOf(item);
+      if (!sku || !SLUG_RE.test(sku)) return jsonError(400, 'Invalid writing package');
+      if (writingCatalogue === undefined) writingCatalogue = await fetchCatalogue({ noStore: true });
+      if (!writingCatalogue) {
+        return jsonError(500, 'Could not confirm the package price right now. Please try again in a moment.');
+      }
+      const match = await resolveWritingPackage(sku, { catalogue: writingCatalogue });
+      if (!match) {
+        const listed = isListedWritingSku(writingCatalogue, sku);
+        return jsonError(
+          400,
+          listed
+            ? `Registration for ${listed.name} has closed for this season. Use the interest form and we will tell you about the next one.`
+            : 'That writing package is no longer available. Please remove it from your cart.',
+        );
+      }
+      const { competition, package: pkg } = match;
+      if (pkg.currency !== 'usd') {
+        return jsonError(400, `${competition.name} is not priced in USD and cannot be paid for here.`);
+      }
+      const lineName = writingLineName(competition, pkg);
+      if (!isNonEmptyString(si.name, 200)) {
+        return jsonError(400, `Student name is required for ${lineName}`);
+      }
+      if (typeof si.gradeLevel !== 'string' || !VALID_GRADES.has(si.gradeLevel)) {
+        return jsonError(400, `Student grade is required for ${lineName}`);
+      }
+      if (!isNonEmptyString(si.school, 200)) {
+        return jsonError(400, `Student school is required for ${lineName}`);
+      }
+      resolved.push({
+        // The raw sku is the programId so ClassDesk attributes the course by
+        // slug under brand wsdc (course_id / programIds below).
+        programId: pkg.sku,
+        programName: lineName,
+        unitLabel: 'Enrolment',
+        amount: pkg.priceMinor / 100,
+        studentName: sanitize(si.name, 200),
+        studentGrade: si.gradeLevel,
+        studentSchool: sanitize(si.school, 200),
+        writingSku: pkg.sku,
+        promoEligible: isWritingPromoEligible(competition.kind, pkg.sku),
+      });
+      continue;
+    }
+
     const program = getProgramById(item.programId);
     if (!program) return jsonError(400, `Unknown program: ${item.programId}`);
     if (program.invitationOnly) {
@@ -346,7 +424,7 @@ export async function POST(req: Request) {
       )
     : 0;
   if (promo && discountMinor === 0) {
-    return jsonError(400, `${promo} does not apply to anything in this cart (1-on-1 coaching is excluded).`);
+    return jsonError(400, `${promo} does not apply to anything in this cart (1-on-1 coaching and journal packages are excluded).`);
   }
   const chargeMinor = totalMinor - discountMinor - existingDiscountMinor;
   if (chargeMinor <= 0) return jsonError(400, 'Nothing to charge.');
@@ -372,6 +450,9 @@ export async function POST(req: Request) {
       .map((r) => r.programName)
       .join(' | ')
       .slice(0, 500);
+    // Writing packages: the skus in cart order, for ClassDesk's course lookup.
+    const writingSkus = resolved.filter((r) => r.writingSku).map((r) => r.writingSku!);
+    if (writingSkus.length > 0) metadata.writing_skus = writingSkus.join(',').slice(0, 500);
   }
   if (promo) {
     metadata.promo_code = promo;

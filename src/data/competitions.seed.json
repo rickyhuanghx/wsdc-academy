@@ -1,7 +1,70 @@
 {
   "_note": "Fallback catalogue for the homepage writing-competitions section, resolved to brand wsdc (offer = offers.wsdc). Source of truth is ClassDesk (GET /api/public/competitions?brand=wsdc); this file only renders when that call fails or returns nothing. Re-generate from the shared seed rather than hand-editing dates.",
-  "verifiedAt": "2026-09-07T00:00:00Z",
+  "verifiedAt": "2026-09-08T00:00:00Z",
   "competitions": [
+    {
+      "slug": "curieux",
+      "name": "Curieux Academic Journal",
+      "shortName": "Curieux",
+      "kind": "journal",
+      "cadence": "rolling",
+      "organiserName": "Curieux Academic Journal",
+      "organiserUrl": "https://www.curieuxacademicjournal.com/submissions",
+      "subjects": [
+        "any"
+      ],
+      "eligibility": {
+        "max_grade": 12,
+        "min_grade": 6
+      },
+      "eligibilityNote": "High school and middle school students worldwide, any academic subject.",
+      "entry": {
+        "feeNote": "Free to submit; a $200 publication fee applies if the paper is accepted.",
+        "reviewTime": "Decision in 2–5 weeks; published 2–3 months after acceptance"
+      },
+      "blurb": "A youth-led non-profit journal publishing research papers by high school and middle school students in any subject, year-round.",
+      "content": [
+        {
+          "text": "Founded in 2017, Curieux accepts research papers in the sciences, social sciences, humanities and the arts on a rolling basis. Authors hear back within two to five weeks; accepted papers appear in the next issue two to three months later. Its sister publication, the Curieux Review, showcases student work in digital and themed formats.",
+          "type": "paragraph"
+        }
+      ],
+      "heroImageUrl": null,
+      "cycles": [],
+      "offer": {
+        "type": "package",
+        "href": "https://atlanticivy.com/writing-scholars/journals?utm_source=wsdcacademy&utm_medium=referral&utm_campaign=writing-interest",
+        "ctaLabel": "Add a mentorship package to cart",
+        "blurb": "Mentorship packages of 10 or 20 hours through Atlantic Ivy.",
+        "startsAt": null,
+        "closesAt": null,
+        "packages": [
+          {
+            "sku": "curieux-10-hours",
+            "label": "10 hours",
+            "hours": 10,
+            "priceMinor": 120000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          },
+          {
+            "sku": "curieux-20-hours",
+            "label": "20 hours",
+            "hours": 20,
+            "priceMinor": 200000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          }
+        ],
+        "priceFrom": {
+          "amountMinor": 120000,
+          "currency": "usd"
+        },
+        "cycleId": null
+      },
+      "verifiedAt": "2026-09-07T00:00:00+00:00",
+      "preview": false
+    },
     {
       "slug": "harvard-international-review",
       "name": "Harvard International Review Academic Writing Contest",
@@ -16,45 +79,46 @@
         "economics"
       ],
       "eligibility": {
-        "min_grade": 7,
-        "max_grade": 12
+        "max_grade": 12,
+        "min_grade": 7
       },
       "eligibilityNote": "Grades 7–12 worldwide. A separate Junior Division runs for younger entrants.",
       "entry": {
-        "wordLimit": "800–1,200 words",
-        "feeNote": "Entry fee is not published by HIR; it is paid to HIR at registration."
+        "feeNote": "Entry fee is not published by HIR; it is paid to HIR at registration.",
+        "wordLimit": "800–1,200 words"
       },
       "blurb": "Harvard's undergraduate journal of international affairs runs three contest cycles a year; medallists defend their essay on Defense Day.",
       "content": [
         {
-          "type": "paragraph",
-          "text": "Entrants write an 800–1,200 word analytical essay on one of the cycle's themes, then medal candidates present and defend it in a 15-minute session on Defense Day. Medals are awarded by global percentile: Gold to roughly the top 3%, Silver the top 10%, Bronze the top 20%."
+          "text": "Entrants write an 800–1,200 word analytical essay on one of the cycle's themes, then medal candidates present and defend it in a 15-minute session on Defense Day. Medals are awarded by global percentile: Gold to roughly the top 3%, Silver the top 10%, Bronze the top 20%.",
+          "type": "paragraph"
         },
         {
           "type": "list",
-          "title": "Fall/Winter 2026 cycle",
           "items": [
             "Register with HIR by 25 October 2026",
             "Essay due 2 January 2027",
             "Defense Day 5 February 2027"
-          ]
+          ],
+          "title": "Fall/Winter 2026 cycle"
         },
         {
-          "type": "faq",
+          "a": "Yes. Registration and the entry fee go to HIR directly. Our course prepares the essay and the Defense Day presentation.",
           "q": "Do we register for HIR ourselves?",
-          "a": "Yes. Registration and the entry fee go to HIR directly. Our course prepares the essay and the Defense Day presentation."
+          "type": "faq"
         }
       ],
       "heroImageUrl": null,
       "cycles": [
         {
-          "id": "hir-summer-2026",
+          "id": "871ded8a-6f88-4fe0-a676-08be5166dc71",
           "label": "Summer 2026",
           "status": "closed",
           "milestones": [
             {
               "key": "submission_due",
               "at": "2026-08-24",
+              "endAt": null,
               "tz": "America/New_York",
               "confirmed": true,
               "label": "Essay due",
@@ -63,21 +127,29 @@
             {
               "key": "event",
               "at": "2026-10-05",
+              "endAt": null,
               "tz": "America/New_York",
               "confirmed": true,
               "label": "Defense Day",
               "url": null
             }
-          ]
+          ],
+          "nextMilestone": {
+            "key": "event",
+            "at": "2026-10-05",
+            "confirmed": true,
+            "label": "Defense Day"
+          }
         },
         {
-          "id": "hir-fall-winter-2026",
+          "id": "b3af5948-0fa9-4c16-9b11-61a8bc9a7bea",
           "label": "Fall/Winter 2026",
           "status": "open",
           "milestones": [
             {
               "key": "reg_closes",
               "at": "2026-10-25",
+              "endAt": null,
               "tz": "America/New_York",
               "confirmed": true,
               "label": "Register with HIR",
@@ -86,6 +158,7 @@
             {
               "key": "submission_due",
               "at": "2027-01-02",
+              "endAt": null,
               "tz": "America/New_York",
               "confirmed": true,
               "label": "Essay due",
@@ -94,29 +167,69 @@
             {
               "key": "event",
               "at": "2027-02-05",
+              "endAt": null,
               "tz": "America/New_York",
               "confirmed": true,
               "label": "Defense Day",
               "url": null
             }
-          ]
+          ],
+          "nextMilestone": {
+            "key": "reg_closes",
+            "at": "2026-10-25",
+            "confirmed": true,
+            "label": "Register with HIR"
+          }
         }
       ],
       "offer": {
         "type": "course",
         "href": "https://atlanticivy.com/writing-scholars/harvard-international-review?utm_source=wsdcacademy&utm_medium=referral&utm_campaign=writing-interest",
-        "ctaLabel": "HIR prep at Atlantic Ivy",
+        "ctaLabel": "Add to cart",
         "blurb": "Prep runs through our sister academy, Atlantic Ivy.",
         "startsAt": null,
         "closesAt": null,
-        "packages": [],
+        "packages": [
+          {
+            "sku": "hir-writing-contest-prep-junior",
+            "label": "Junior package 1 (22 h)",
+            "hours": 22,
+            "priceMinor": 100000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          },
+          {
+            "sku": "hir-writing-contest-prep-junior-package-2",
+            "label": "Junior package 2 (26 h)",
+            "hours": 26,
+            "priceMinor": 130000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          },
+          {
+            "sku": "hir-writing-contest-prep-senior",
+            "label": "Senior package 1 (22 h)",
+            "hours": 22,
+            "priceMinor": 100000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          },
+          {
+            "sku": "hir-writing-contest-prep-senior-package-2",
+            "label": "Senior package 2 (26 h)",
+            "hours": 26,
+            "priceMinor": 130000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          }
+        ],
         "priceFrom": {
           "amountMinor": 100000,
           "currency": "usd"
         },
         "cycleId": null
       },
-      "verifiedAt": "2026-09-07T00:00:00Z",
+      "verifiedAt": "2026-09-07T00:00:00+00:00",
       "preview": false
     },
     {
@@ -132,45 +245,46 @@
         "international-relations"
       ],
       "eligibility": {
-        "min_grade": 9,
-        "max_grade": 12
+        "max_grade": 12,
+        "min_grade": 9
       },
       "eligibilityNote": "Teams of 3–6 students in grades 9–12 from the same school or after-school programme. Atlantic Ivy fields its own teams.",
       "entry": {
-        "wordLimit": "Qualifying essay up to 3,000 words, MLA",
         "feeNote": "$25 per team, paid by Atlantic Ivy for its teams.",
         "teamSize": {
-          "min": 3,
-          "max": 6
-        }
+          "max": 6,
+          "min": 3
+        },
+        "wordLimit": "Qualifying essay up to 3,000 words, MLA"
       },
       "blurb": "Written policy debate in teams: a qualifying essay, then knockout rounds of written cases, ending in oral finals at NYU School of Law.",
       "content": [
         {
-          "type": "paragraph",
-          "text": "2026–27 resolution: The United Nations should prioritize protecting the rights of women and girls over respecting state sovereignty. Teams submit a qualifying essay, and the Top 64 go into written knockout rounds from November to March. The Elite Eight are flown to New York for oral finals; the grand prize is $10,000."
+          "text": "2026–27 resolution: The United Nations should prioritize protecting the rights of women and girls over respecting state sovereignty. Teams submit a qualifying essay, and the Top 64 go into written knockout rounds from November to March. The Elite Eight are flown to New York for oral finals; the grand prize is $10,000.",
+          "type": "paragraph"
         },
         {
           "type": "list",
-          "title": "2026–27 season",
           "items": [
             "Registration and qualifying essay due 13 October 2026",
             "Top 64 announced 6 November 2026",
             "Round of 64 papers 13 November; Top 32 announced 29 December",
             "Finals in New York 16–17 April 2027"
-          ]
+          ],
+          "title": "2026–27 season"
         }
       ],
       "heroImageUrl": null,
       "cycles": [
         {
-          "id": "ippf-2026-27",
+          "id": "10c01946-890b-4816-85e7-8fd0bc0082c5",
           "label": "2026–27",
           "status": "open",
           "milestones": [
             {
               "key": "reg_closes",
               "at": "2026-10-13",
+              "endAt": null,
               "tz": "America/New_York",
               "confirmed": true,
               "label": "Registration and qualifying essay due",
@@ -179,6 +293,7 @@
             {
               "key": "shortlist",
               "at": "2026-11-06",
+              "endAt": null,
               "tz": "America/New_York",
               "confirmed": true,
               "label": "Top 64 announced",
@@ -187,6 +302,7 @@
             {
               "key": "shortlist",
               "at": "2026-12-29",
+              "endAt": null,
               "tz": "America/New_York",
               "confirmed": true,
               "label": "Top 32 announced",
@@ -201,24 +317,39 @@
               "label": "Finals, New York",
               "url": null
             }
-          ]
+          ],
+          "nextMilestone": {
+            "key": "reg_closes",
+            "at": "2026-10-13",
+            "confirmed": true,
+            "label": "Registration and qualifying essay due"
+          }
         }
       ],
       "offer": {
         "type": "course",
         "href": "https://atlanticivy.com/writing-scholars/ippf?utm_source=wsdcacademy&utm_medium=referral&utm_campaign=writing-interest",
-        "ctaLabel": "IPPF team course at Atlantic Ivy",
+        "ctaLabel": "Add to cart",
         "blurb": "Team course starts 14 September; registration closes 12 September.",
         "startsAt": "2026-09-14",
         "closesAt": "2026-09-12",
-        "packages": [],
+        "packages": [
+          {
+            "sku": "ippf-qualifying-prep",
+            "label": "IPPF team course (16 h)",
+            "hours": 16,
+            "priceMinor": 64000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          }
+        ],
         "priceFrom": {
           "amountMinor": 64000,
           "currency": "usd"
         },
-        "cycleId": "ippf-2026-27"
+        "cycleId": "10c01946-890b-4816-85e7-8fd0bc0082c5"
       },
-      "verifiedAt": "2026-09-07T00:00:00Z",
+      "verifiedAt": "2026-09-07T00:00:00+00:00",
       "preview": false
     },
     {
@@ -243,31 +374,32 @@
       },
       "eligibilityNote": "Open to students aged 18 or younger on the submission deadline; a Junior category runs for under-15s.",
       "entry": {
-        "wordLimit": "2,000 words",
-        "feeNote": "Entry is free; a late-entry fee applies after the deadline."
+        "feeNote": "Entry is free; a late-entry fee applies after the deadline.",
+        "wordLimit": "2,000 words"
       },
       "blurb": "Seven subject categories, 2,000 words, and an Oxford awards ceremony. The 2027 questions have not been published; dates below are projected from the 2026 cycle.",
       "content": [
         {
-          "type": "paragraph",
-          "text": "The competition drew more than 63,000 entries from over 150 countries in 2025. Questions are released in late January, registration runs February to March, and essays are due at the end of May. Shortlisted candidates are invited to the awards in Oxford in the autumn."
+          "text": "The competition drew more than 63,000 entries from over 150 countries in 2025. Questions are released in late January, registration runs February to March, and essays are due at the end of May. Shortlisted candidates are invited to the awards in Oxford in the autumn.",
+          "type": "paragraph"
         },
         {
-          "type": "faq",
+          "a": "No. The John Locke Institute has not announced the 2027 competition. Every date shown as expected is projected from the 2026 cycle and will be updated the day the Institute publishes.",
           "q": "Are the 2027 dates confirmed?",
-          "a": "No. The John Locke Institute has not announced the 2027 competition. Every date shown as expected is projected from the 2026 cycle and will be updated the day the Institute publishes."
+          "type": "faq"
         }
       ],
       "heroImageUrl": null,
       "cycles": [
         {
-          "id": "john-locke-2027",
+          "id": "6016c154-b4ee-41ad-986a-28fe301bfa30",
           "label": "2027",
           "status": "projected",
           "milestones": [
             {
               "key": "announcement",
               "at": "2027-01-25",
+              "endAt": null,
               "tz": "Europe/London",
               "confirmed": false,
               "label": "Questions released",
@@ -276,6 +408,7 @@
             {
               "key": "reg_opens",
               "at": "2027-02-02",
+              "endAt": null,
               "tz": "Europe/London",
               "confirmed": false,
               "label": "Registration opens",
@@ -284,6 +417,7 @@
             {
               "key": "reg_closes",
               "at": "2027-03-31",
+              "endAt": null,
               "tz": "Europe/London",
               "confirmed": false,
               "label": "Registration closes",
@@ -292,6 +426,7 @@
             {
               "key": "submission_due",
               "at": "2027-05-31",
+              "endAt": null,
               "tz": "Europe/London",
               "confirmed": false,
               "label": "Essay due",
@@ -300,136 +435,69 @@
             {
               "key": "shortlist",
               "at": "2027-07-15",
+              "endAt": null,
               "tz": "Europe/London",
               "confirmed": false,
               "label": "Shortlist announced",
               "url": null
             }
-          ]
+          ],
+          "nextMilestone": {
+            "key": "announcement",
+            "at": "2027-01-25",
+            "confirmed": false,
+            "label": "Questions released"
+          }
         }
       ],
       "offer": {
-        "type": "interest",
+        "type": "course",
         "href": "https://atlanticivy.com/john-locke-contest?utm_source=wsdcacademy&utm_medium=referral&utm_campaign=writing-interest",
-        "ctaLabel": "Tell me when 2027 opens",
+        "ctaLabel": "Add to cart",
         "blurb": "We will email you the day the 2027 questions are published.",
         "startsAt": null,
         "closesAt": null,
-        "packages": [],
-        "priceFrom": null,
-        "cycleId": "john-locke-2027"
-      },
-      "verifiedAt": "2026-09-07T00:00:00Z",
-      "preview": false
-    },
-    {
-      "slug": "concord-review",
-      "name": "The Concord Review",
-      "shortName": "Concord Review",
-      "kind": "essay",
-      "cadence": "quarterly",
-      "organiserName": "The Concord Review",
-      "organiserUrl": "https://tcr.org/submit",
-      "subjects": [
-        "history"
-      ],
-      "eligibility": {
-        "min_grade": 9,
-        "max_grade": 12
-      },
-      "eligibilityNote": "Secondary students worldwide; papers are usually written in grades 10–12.",
-      "entry": {
-        "wordLimit": "5,000–10,000+ words with Turabian endnotes",
-        "feeNote": "The journal charges a submission fee at tcr.org.",
-        "reviewTime": "Roughly 5% of submissions are published."
-      },
-      "blurb": "The only journal that publishes the academic history research of secondary students, founded 1987. Quarterly deadlines; about one paper in twenty is accepted.",
-      "content": [
-        {
-          "type": "paragraph",
-          "text": "A Concord Review paper is a 5,000 to 10,000 word piece of original history research with full scholarly apparatus. Submissions are accepted on four fixed dates a year and reviewed for the following issue."
+        "packages": [
+          {
+            "sku": "academic-essay-basics",
+            "label": "Academic Essay Basics (24 h)",
+            "hours": 24,
+            "priceMinor": 87000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          },
+          {
+            "sku": "john-locke-basics",
+            "label": "John Locke Basics (30 h)",
+            "hours": 30,
+            "priceMinor": 130000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          },
+          {
+            "sku": "economics-scholar-foundations",
+            "label": "Economics Scholar Foundations (28 h)",
+            "hours": 28,
+            "priceMinor": 84000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          },
+          {
+            "sku": "ivy-scholar",
+            "label": "Ivy Scholar 1-on-1 (20 h)",
+            "hours": 20,
+            "priceMinor": 260000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          }
+        ],
+        "priceFrom": {
+          "amountMinor": 84000,
+          "currency": "usd"
         },
-        {
-          "type": "faq",
-          "q": "Which deadline should we aim for?",
-          "a": "Our year-long programme paces the paper over twelve months, so the target deadline is set with the family at intake rather than chased quarter by quarter."
-        }
-      ],
-      "heroImageUrl": null,
-      "cycles": [
-        {
-          "id": "tcr-2026-11",
-          "label": "November 2026 deadline",
-          "status": "open",
-          "milestones": [
-            {
-              "key": "submission_due",
-              "at": "2026-11-01",
-              "tz": "America/New_York",
-              "confirmed": true,
-              "label": "Submission deadline",
-              "url": "https://tcr.org/submit"
-            }
-          ]
-        },
-        {
-          "id": "tcr-2027-02",
-          "label": "February 2027 deadline",
-          "status": "announced",
-          "milestones": [
-            {
-              "key": "submission_due",
-              "at": "2027-02-01",
-              "tz": "America/New_York",
-              "confirmed": true,
-              "label": "Submission deadline",
-              "url": "https://tcr.org/submit"
-            }
-          ]
-        },
-        {
-          "id": "tcr-2027-05",
-          "label": "May 2027 deadline",
-          "status": "announced",
-          "milestones": [
-            {
-              "key": "submission_due",
-              "at": "2027-05-01",
-              "tz": "America/New_York",
-              "confirmed": true,
-              "label": "Submission deadline",
-              "url": "https://tcr.org/submit"
-            }
-          ]
-        },
-        {
-          "id": "tcr-2027-08",
-          "label": "August 2027 deadline",
-          "status": "announced",
-          "milestones": [
-            {
-              "key": "submission_due",
-              "at": "2027-08-01",
-              "tz": "America/New_York",
-              "confirmed": true,
-              "label": "Submission deadline",
-              "url": "https://tcr.org/submit"
-            }
-          ]
-        }
-      ],
-      "offer": {
-        "type": "interest",
-        "href": "https://atlanticivy.com/writing-scholars/concord-review?utm_source=wsdcacademy&utm_medium=referral&utm_campaign=writing-interest",
-        "ctaLabel": "Tell me about the next intake",
-        "blurb": "A twelve-month research mentorship; we will contact you about the next intake.",
-        "startsAt": null,
-        "closesAt": null,
-        "packages": [],
-        "priceFrom": null,
-        "cycleId": null
+        "cycleId": "6016c154-b4ee-41ad-986a-28fe301bfa30"
       },
-      "verifiedAt": "2026-09-07T00:00:00Z",
+      "verifiedAt": "2026-09-07T00:00:00+00:00",
       "preview": false
     },
     {
@@ -446,8 +514,8 @@
         "creative-nonfiction"
       ],
       "eligibility": {
-        "min_grade": 9,
-        "max_grade": 12
+        "max_grade": 12,
+        "min_grade": 9
       },
       "eligibilityNote": "High school students worldwide.",
       "entry": {
@@ -457,20 +525,21 @@
       "blurb": "A student-edited international literary magazine for high school writers. Two free general-submission windows a year, plus seasonal contests.",
       "content": [
         {
-          "type": "paragraph",
-          "text": "Polyphony Lit publishes poetry, fiction and creative nonfiction by high school students and is edited by high school students. Volume 22 general submissions open in two windows: 1 October to 30 November 2026 and 1 March to 30 April 2027, each closing at 200 submissions. Seasonal contests (Winter, Black History, Spring, API Month, Pride) run between the windows."
+          "text": "Polyphony Lit publishes poetry, fiction and creative nonfiction by high school students and is edited by high school students. Volume 22 general submissions open in two windows: 1 October to 30 November 2026 and 1 March to 30 April 2027, each closing at 200 submissions. Seasonal contests (Winter, Black History, Spring, API Month, Pride) run between the windows.",
+          "type": "paragraph"
         }
       ],
       "heroImageUrl": null,
       "cycles": [
         {
-          "id": "polyphony-autumn-2026",
+          "id": "99e371ea-7eac-409e-9980-368cfa2c8716",
           "label": "Autumn 2026 window",
           "status": "announced",
           "milestones": [
             {
               "key": "window_opens",
               "at": "2026-10-01",
+              "endAt": null,
               "tz": "America/Chicago",
               "confirmed": true,
               "label": "Submissions open",
@@ -479,21 +548,29 @@
             {
               "key": "window_closes",
               "at": "2026-11-30",
+              "endAt": null,
               "tz": "America/Chicago",
               "confirmed": true,
               "label": "Window closes (or at 200 pieces)",
               "url": null
             }
-          ]
+          ],
+          "nextMilestone": {
+            "key": "window_opens",
+            "at": "2026-10-01",
+            "confirmed": true,
+            "label": "Submissions open"
+          }
         },
         {
-          "id": "polyphony-spring-2027",
+          "id": "8c66f25d-483e-4e75-8bfb-48a514f41b5a",
           "label": "Spring 2027 window",
           "status": "announced",
           "milestones": [
             {
               "key": "window_opens",
               "at": "2027-03-01",
+              "endAt": null,
               "tz": "America/Chicago",
               "confirmed": true,
               "label": "Submissions open",
@@ -502,29 +579,203 @@
             {
               "key": "window_closes",
               "at": "2027-04-30",
+              "endAt": null,
               "tz": "America/Chicago",
               "confirmed": true,
               "label": "Window closes (or at 200 pieces)",
               "url": null
             }
-          ]
+          ],
+          "nextMilestone": {
+            "key": "window_opens",
+            "at": "2027-03-01",
+            "confirmed": true,
+            "label": "Submissions open"
+          }
         }
       ],
       "offer": {
-        "type": "interest",
+        "type": "package",
         "href": "https://atlanticivy.com/writing-scholars/journals?utm_source=wsdcacademy&utm_medium=referral&utm_campaign=writing-interest",
-        "ctaLabel": "I'm interested",
+        "ctaLabel": "Add a mentorship package to cart",
         "blurb": "Mentorship packages of 10 or 20 hours through Atlantic Ivy.",
         "startsAt": null,
         "closesAt": null,
-        "packages": [],
+        "packages": [
+          {
+            "sku": "polyphony-lit-10-hours",
+            "label": "10 hours",
+            "hours": 10,
+            "priceMinor": 120000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          },
+          {
+            "sku": "polyphony-lit-20-hours",
+            "label": "20 hours",
+            "hours": 20,
+            "priceMinor": 200000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          }
+        ],
         "priceFrom": {
           "amountMinor": 120000,
           "currency": "usd"
         },
         "cycleId": null
       },
-      "verifiedAt": "2026-09-07T00:00:00Z",
+      "verifiedAt": "2026-09-07T00:00:00+00:00",
+      "preview": false
+    },
+    {
+      "slug": "concord-review",
+      "name": "The Concord Review",
+      "shortName": "Concord Review",
+      "kind": "essay",
+      "cadence": "quarterly",
+      "organiserName": "The Concord Review",
+      "organiserUrl": "https://tcr.org/submit",
+      "subjects": [
+        "history"
+      ],
+      "eligibility": {
+        "max_grade": 12,
+        "min_grade": 9
+      },
+      "eligibilityNote": "Secondary students worldwide; papers are usually written in grades 10–12.",
+      "entry": {
+        "feeNote": "The journal charges a submission fee at tcr.org.",
+        "wordLimit": "5,000–10,000+ words with Turabian endnotes",
+        "reviewTime": "Roughly 5% of submissions are published."
+      },
+      "blurb": "The only journal that publishes the academic history research of secondary students, founded 1987. Quarterly deadlines; about one paper in twenty is accepted.",
+      "content": [
+        {
+          "text": "A Concord Review paper is a 5,000 to 10,000 word piece of original history research with full scholarly apparatus. Submissions are accepted on four fixed dates a year and reviewed for the following issue.",
+          "type": "paragraph"
+        },
+        {
+          "a": "Our year-long programme paces the paper over twelve months, so the target deadline is set with the family at intake rather than chased quarter by quarter.",
+          "q": "Which deadline should we aim for?",
+          "type": "faq"
+        }
+      ],
+      "heroImageUrl": null,
+      "cycles": [
+        {
+          "id": "d4a82ead-d40d-45cf-9148-772d75cdd298",
+          "label": "November 2026 deadline",
+          "status": "open",
+          "milestones": [
+            {
+              "key": "submission_due",
+              "at": "2026-11-01",
+              "endAt": null,
+              "tz": "America/New_York",
+              "confirmed": true,
+              "label": "Submission deadline",
+              "url": "https://tcr.org/submit"
+            }
+          ],
+          "nextMilestone": {
+            "key": "submission_due",
+            "at": "2026-11-01",
+            "confirmed": true,
+            "label": "Submission deadline"
+          }
+        },
+        {
+          "id": "955f39e3-6072-4be8-aaa9-df9404b7cb31",
+          "label": "February 2027 deadline",
+          "status": "open",
+          "milestones": [
+            {
+              "key": "submission_due",
+              "at": "2027-02-01",
+              "endAt": null,
+              "tz": "America/New_York",
+              "confirmed": true,
+              "label": "Submission deadline",
+              "url": "https://tcr.org/submit"
+            }
+          ],
+          "nextMilestone": {
+            "key": "submission_due",
+            "at": "2027-02-01",
+            "confirmed": true,
+            "label": "Submission deadline"
+          }
+        },
+        {
+          "id": "be06a9af-3e59-400a-93e0-90fd4d6e9379",
+          "label": "May 2027 deadline",
+          "status": "open",
+          "milestones": [
+            {
+              "key": "submission_due",
+              "at": "2027-05-01",
+              "endAt": null,
+              "tz": "America/New_York",
+              "confirmed": true,
+              "label": "Submission deadline",
+              "url": "https://tcr.org/submit"
+            }
+          ],
+          "nextMilestone": {
+            "key": "submission_due",
+            "at": "2027-05-01",
+            "confirmed": true,
+            "label": "Submission deadline"
+          }
+        },
+        {
+          "id": "574919ac-dba8-46d8-b831-2d19e7323ce7",
+          "label": "August 2027 deadline",
+          "status": "open",
+          "milestones": [
+            {
+              "key": "submission_due",
+              "at": "2027-08-01",
+              "endAt": null,
+              "tz": "America/New_York",
+              "confirmed": true,
+              "label": "Submission deadline",
+              "url": "https://tcr.org/submit"
+            }
+          ],
+          "nextMilestone": {
+            "key": "submission_due",
+            "at": "2027-08-01",
+            "confirmed": true,
+            "label": "Submission deadline"
+          }
+        }
+      ],
+      "offer": {
+        "type": "course",
+        "href": "https://atlanticivy.com/writing-scholars/concord-review?utm_source=wsdcacademy&utm_medium=referral&utm_campaign=writing-interest",
+        "ctaLabel": "Add to cart",
+        "blurb": "A twelve-month research mentorship; we will contact you about the next intake.",
+        "startsAt": null,
+        "closesAt": null,
+        "packages": [
+          {
+            "sku": "concord-review-program",
+            "label": "Year-long programme (72 h)",
+            "hours": 72,
+            "priceMinor": 400000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          }
+        ],
+        "priceFrom": {
+          "amountMinor": 400000,
+          "currency": "usd"
+        },
+        "cycleId": null
+      },
+      "verifiedAt": "2026-09-07T00:00:00+00:00",
       "preview": false
     },
     {
@@ -544,8 +795,8 @@
         "public-policy"
       ],
       "eligibility": {
-        "min_grade": 9,
-        "max_grade": 12
+        "max_grade": 12,
+        "min_grade": 9
       },
       "eligibilityNote": "High school students worldwide.",
       "entry": {
@@ -555,73 +806,44 @@
       "blurb": "A quarterly online journal of humanities and social-science essays by high school students. Rolling submissions, decisions in two to three weeks.",
       "content": [
         {
-          "type": "paragraph",
-          "text": "The Schola publishes essays in philosophy, politics, sociology, history, literature and public policy. Submissions are accepted year-round and reviewed within two to three weeks; each manuscript is submitted separately with its own $180 fee."
+          "text": "The Schola publishes essays in philosophy, politics, sociology, history, literature and public policy. Submissions are accepted year-round and reviewed within two to three weeks; each manuscript is submitted separately with its own $180 fee.",
+          "type": "paragraph"
         }
       ],
       "heroImageUrl": null,
       "cycles": [],
       "offer": {
-        "type": "interest",
+        "type": "package",
         "href": "https://atlanticivy.com/writing-scholars/journals?utm_source=wsdcacademy&utm_medium=referral&utm_campaign=writing-interest",
-        "ctaLabel": "I'm interested",
+        "ctaLabel": "Add a mentorship package to cart",
         "blurb": "Mentorship packages of 10 or 20 hours through Atlantic Ivy.",
         "startsAt": null,
         "closesAt": null,
-        "packages": [],
+        "packages": [
+          {
+            "sku": "the-schola-10-hours",
+            "label": "10 hours",
+            "hours": 10,
+            "priceMinor": 120000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          },
+          {
+            "sku": "the-schola-20-hours",
+            "label": "20 hours",
+            "hours": 20,
+            "priceMinor": 200000,
+            "currency": "usd",
+            "href": "#writing-competitions"
+          }
+        ],
         "priceFrom": {
           "amountMinor": 120000,
           "currency": "usd"
         },
         "cycleId": null
       },
-      "verifiedAt": "2026-09-07T00:00:00Z",
-      "preview": false
-    },
-    {
-      "slug": "curieux",
-      "name": "Curieux Academic Journal",
-      "shortName": "Curieux",
-      "kind": "journal",
-      "cadence": "rolling",
-      "organiserName": "Curieux Academic Journal",
-      "organiserUrl": "https://www.curieuxacademicjournal.com/submissions",
-      "subjects": [
-        "any"
-      ],
-      "eligibility": {
-        "min_grade": 6,
-        "max_grade": 12
-      },
-      "eligibilityNote": "High school and middle school students worldwide, any academic subject.",
-      "entry": {
-        "feeNote": "Free to submit; a $200 publication fee applies if the paper is accepted.",
-        "reviewTime": "Decision in 2–5 weeks; published 2–3 months after acceptance"
-      },
-      "blurb": "A youth-led non-profit journal publishing research papers by high school and middle school students in any subject, year-round.",
-      "content": [
-        {
-          "type": "paragraph",
-          "text": "Founded in 2017, Curieux accepts research papers in the sciences, social sciences, humanities and the arts on a rolling basis. Authors hear back within two to five weeks; accepted papers appear in the next issue two to three months later. Its sister publication, the Curieux Review, showcases student work in digital and themed formats."
-        }
-      ],
-      "heroImageUrl": null,
-      "cycles": [],
-      "offer": {
-        "type": "interest",
-        "href": "https://atlanticivy.com/writing-scholars/journals?utm_source=wsdcacademy&utm_medium=referral&utm_campaign=writing-interest",
-        "ctaLabel": "I'm interested",
-        "blurb": "Mentorship packages of 10 or 20 hours through Atlantic Ivy.",
-        "startsAt": null,
-        "closesAt": null,
-        "packages": [],
-        "priceFrom": {
-          "amountMinor": 120000,
-          "currency": "usd"
-        },
-        "cycleId": null
-      },
-      "verifiedAt": "2026-09-07T00:00:00Z",
+      "verifiedAt": "2026-09-07T00:00:00+00:00",
       "preview": false
     }
   ]

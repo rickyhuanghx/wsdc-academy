@@ -101,10 +101,14 @@ async function handlePaymentIntentSucceeded(intent: Stripe.PaymentIntent) {
   }
 
   const students = parseStudents(metadata);
-  const items: OrderEmailItem[] = students.map((s) => {
+  // programNames is joined from the same resolved lines as student_i, in the
+  // same order, so it names lines programs.ts knows nothing about (writing-
+  // competition packages, whose programId is a ClassDesk sku).
+  const namesFromMetadata = (metadata.programNames || '').split(' | ').map((n) => n.trim());
+  const items: OrderEmailItem[] = students.map((s, i) => {
     const program = getProgramById(s.programId);
     return {
-      programName: program?.name || s.programId,
+      programName: program?.name || namesFromMetadata[i] || s.programId,
       // Prefer the resolved per-line unit (e.g. a 1-on-1 variant); fall back to
       // the program's fixed enrollment unit for older orders without it.
       unitLabel: s.unitLabel || program?.enrollment.unitLabel || '',

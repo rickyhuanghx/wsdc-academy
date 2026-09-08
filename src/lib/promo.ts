@@ -28,3 +28,15 @@ export function promoDiscount(code: string, lines: PromoLine[]): number {
   const eligible = lines.filter((l) => l.eligible).reduce((sum, l) => sum + l.amount, 0);
   return Math.round(eligible * RETURNER_PERCENT) / 100;
 }
+
+/**
+ * RETURNER27 on writing-competition packages (ClassDesk skus sold from the
+ * homepage section): group essay courses qualify like any online class; the
+ * student-journal packages and the Ivy Scholar 1-on-1 package do not.
+ */
+export const WRITING_PROMO_EXCLUDED_SKUS: ReadonlySet<string> = new Set(['ivy-scholar']);
+
+export function isWritingPromoEligible(kind: 'essay' | 'journal', sku: string): boolean {
+  if (kind === 'journal') return false;
+  return !WRITING_PROMO_EXCLUDED_SKUS.has(sku);
+}

@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useCart } from '@/context/CartContext';
+import { useCart, isWritingItem, type CartItem } from '@/context/CartContext';
 import { CONTACT_EMAIL } from '@/lib/site';
 import { trackEvent } from '@/lib/analytics';
 
@@ -38,6 +38,9 @@ function chargedAmount(paymentIntentId: string | null): number | undefined {
 
 export default function CheckoutConfirmationPage() {
   const { items, clearCart } = useCart();
+  // Snapshot of the lines that were paid for, taken before the cart is cleared,
+  // so the page can still list what was bought.
+  const [purchased, setPurchased] = useState<CartItem[]>([]);
 
   // Stripe's return_url appends payment_intent + redirect_status; clear the
   // cart only on success so a failed-payment return preserves it for retry.
@@ -47,6 +50,8 @@ export default function CheckoutConfirmationPage() {
     const params = new URLSearchParams(window.location.search);
     if (params.get('redirect_status') === 'succeeded') {
       if (items.length > 0) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setPurchased(items);
         trackEvent('purchase_completed', {
           transaction_id: params.get('payment_intent') ?? undefined,
           value:
@@ -70,6 +75,31 @@ export default function CheckoutConfirmationPage() {
       <p className="mt-4 text-lg leading-relaxed text-navy-600">
         Your payment went through and your enrollment is saved. Here&apos;s what happens next.
       </p>
+
+      {purchased.length > 0 && (
+        <div className="mt-8 rounded-sm border border-navy-200 bg-white p-5">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-signal-500">What you enrolled in</h2>
+          <ul className="mt-3 divide-y divide-navy-100">
+            {purchased.map((item) => (
+              <li key={item.lineId} className="flex justify-between gap-4 py-2 text-sm">
+                <span className="text-navy-900">
+                  {item.programName}
+                  {item.studentInfo.name.trim() && (
+                    <span className="text-navy-500"> · {item.studentInfo.name.trim()}</span>
+                  )}
+                </span>
+                <span className="text-navy-500">{item.unitLabel}</span>
+              </li>
+            ))}
+          </ul>
+          {purchased.some(isWritingItem) && (
+            <p className="mt-3 text-sm leading-relaxed text-navy-600">
+              Writing-competition packages are coached by our sister academy, Atlantic Ivy. Class times for
+              group courses are confirmed by email after checkout.
+            </p>
+          )}
+        </div>
+      )}
 
       <div className="mt-10">
         {nextSteps.map((s, i) => (
