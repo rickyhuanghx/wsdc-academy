@@ -79,6 +79,13 @@ function EnrollForm() {
   const [heardChoice, setHeardChoice] = useState('');
   const [heardOther, setHeardOther] = useState('');
   const [heardError, setHeardError] = useState('');
+  const [slowLoad, setSlowLoad] = useState(false);
+
+  useEffect(() => {
+    if (status !== 'loading') return;
+    const t = setTimeout(() => setSlowLoad(true), 8000);
+    return () => clearTimeout(t);
+  }, [status]);
 
   useEffect(() => {
     if (!token) return;
@@ -164,6 +171,28 @@ function EnrollForm() {
       setHeardError('Please tell us where — a few words is enough.');
       ok = false;
     }
+    if (!ok) {
+      // On a phone the error text sits far above the Confirm button, so an
+      // invalid submit used to look like a dead button. Bring the first
+      // problem into view.
+      const firstId = next.studentName
+        ? 'studentName'
+        : skills.length !== SKILLS_TO_PICK
+          ? 'enroll-skills-hint'
+          : next.parentName
+            ? 'parentName'
+            : next.parentPhone
+              ? 'parentPhone'
+              : next.parentEmail
+                ? 'parentEmail'
+                : 'enroll-heard-error';
+      setTimeout(() => {
+        const el = document.getElementById(firstId);
+        if (!el) return;
+        el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        if (el instanceof HTMLInputElement) el.focus({ preventScroll: true });
+      }, 60);
+    }
     return ok;
   };
 
@@ -196,6 +225,34 @@ function EnrollForm() {
           aria-hidden
         />
         <p className="mt-4 text-navy-600">Loading your enrollment&hellip;</p>
+        {slowLoad && (<p className="mt-4 text-navy-600">Still loading. This can take up to 30 seconds. Please keep this page open.</p>)}
+      </div>
+    );
+  }
+
+  if (status === 'error' && !prefill) {
+    return (
+      <div className="mx-auto max-w-xl py-16 text-center">
+        <h1 className="mb-4 font-display text-3xl font-semibold tracking-tight text-navy-900 md:text-4xl">
+          We couldn&rsquo;t load your enrollment
+        </h1>
+        <p className="mb-2 text-navy-600">Loading took too long or the connection dropped. This usually clears within a minute.</p>
+        <p>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="mt-2 mb-4 underline underline-offset-4 font-medium"
+          >
+            Try again
+          </button>
+        </p>
+        <p className="text-navy-600">
+          Need help? Write to{' '}
+          <a href={`mailto:${CONTACT_EMAIL}`} className={linkClass}>
+            {CONTACT_EMAIL}
+          </a>{' '}
+          and we&rsquo;ll sort it out.
+        </p>
       </div>
     );
   }
@@ -445,7 +502,7 @@ function EnrollForm() {
                 );
               })}
             </div>
-            <p aria-live="polite" className={`mt-3 text-sm ${skillsError ? 'text-signal-600' : 'text-navy-500'}`}>
+            <p id="enroll-skills-hint" aria-live="polite" className={`mt-3 text-sm ${skillsError ? 'text-signal-600' : 'text-navy-500'}`}>
               {skillsError || `${skills.length} of ${SKILLS_TO_PICK} picked`}
             </p>
           </div>
@@ -567,7 +624,7 @@ function EnrollForm() {
                     className={`${inputClass} mt-3`}
                   />
                 )}
-                {heardError && <p className="mt-1.5 text-sm text-signal-600">{heardError}</p>}
+                {heardError && <p id="enroll-heard-error" className="mt-1.5 text-sm text-signal-600">{heardError}</p>}
               </div>
             </div>
           </div>
