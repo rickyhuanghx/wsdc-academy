@@ -1,6 +1,7 @@
 'use client';
 
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { normalizePhone } from '@/lib/phone';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Elements, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
@@ -570,6 +571,7 @@ function CheckoutInner() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
+                        onBlur={() => setFormData((d) => ({ ...d, phone: normalizePhone(d.phone) }))}
                         className={inputClass}
                       />
                     </div>

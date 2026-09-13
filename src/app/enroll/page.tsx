@@ -1,5 +1,6 @@
 'use client';
 
+import { DIAL_CODES, needsDialCode, normalizePhone, phoneProblem, withDialCode } from '@/lib/phone';
 import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { CONTACT_EMAIL, SITE_NAME } from '@/lib/site';
@@ -107,7 +108,7 @@ function EnrollForm() {
           experience: p.experience || '',
           parentName: p.parentName || '',
           parentEmail: p.parentEmail || '',
-          parentPhone: p.parentPhone || '',
+          parentPhone: normalizePhone(p.parentPhone),
           notes: p.parentNotes || '',
           skills: p.skills || '',
           heardAbout: p.heardAbout || '',
@@ -148,12 +149,12 @@ function EnrollForm() {
     const next: typeof errors = {};
     if (!fields.studentName.trim()) next.studentName = 'Please enter the student’s name.';
     if (!fields.parentName.trim()) next.parentName = 'Please enter the parent or guardian’s name.';
-    const phone = fields.parentPhone.trim();
-    if (!phone) {
-      next.parentPhone = 'Please enter a phone number with country code.';
-    } else if (!/^\+\d[\d\s().-]{6,}$/.test(phone)) {
-      next.parentPhone = 'Please include the country code, e.g. +971 50 123 4567.';
-    }
+    // Strip invisible characters pasted from WhatsApp/Contacts, fix "00" and
+    // full-width digits, then check for a country code.
+    const phone = normalizePhone(fields.parentPhone);
+    if (phone !== fields.parentPhone) setFields((f) => ({ ...f, parentPhone: phone }));
+    const phoneMsg = phoneProblem(phone);
+    if (phoneMsg) next.parentPhone = phoneMsg;
     const email = fields.parentEmail.trim();
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       next.parentEmail = 'Please check the email address.';
@@ -203,6 +204,7 @@ function EnrollForm() {
     try {
       const res = await submitEnrollment(token, {
         ...fields,
+        parentPhone: normalizePhone(fields.parentPhone),
         skills: skills.join('; '),
         heardAbout: heardChoice === HEARD_OTHER ? `Other: ${heardOther.trim()}` : heardChoice,
       });
@@ -546,9 +548,28 @@ function EnrollForm() {
                   className={inputClass}
                 />
                 {errors.parentPhone ? (
-                  <p className="mt-1.5 text-sm text-signal-600">{errors.parentPhone}</p>
+                  <div id="enroll-phone-error">
+                    <p className="mt-1.5 text-sm text-signal-600">{errors.parentPhone}</p>
+                    {needsDialCode(fields.parentPhone) && (
+                      <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label="Add a country code">
+                        {DIAL_CODES.map((d) => (
+                          <button
+                            key={d.code}
+                            type="button"
+                            className="rounded-full border px-3 py-1 text-xs border-navy-200 text-navy-900 hover:border-navy-500"
+                            onClick={() => {
+                              setFields((f) => ({ ...f, parentPhone: withDialCode(f.parentPhone, d.code) }));
+                              setErrors((er) => ({ ...er, parentPhone: undefined }));
+                            }}
+                          >
+                            {d.code} {d.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ) : (
-                  <p className="mt-1.5 text-sm text-navy-500">Include the country code.</p>
+                  <p className="mt-1.5 text-sm text-navy-500">Start with your country code, e.g. +971 or +1.</p>
                 )}
               </div>
               <div className="sm:col-span-2">
