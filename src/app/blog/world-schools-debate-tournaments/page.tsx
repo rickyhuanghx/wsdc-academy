@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { BlogPostShell } from '@/components/BlogPostShell';
 import { getPostBySlug, postMetadata } from '@/data/blog';
+import { CIRCUIT_GENERATED, circuitStats, postedTournaments } from '@/lib/ws-circuit';
 
 export const metadata = postMetadata('world-schools-debate-tournaments');
 
@@ -19,77 +20,90 @@ function Ext({ href, children }: { href: string; children: React.ReactNode }) {
   );
 }
 
-const usSeason: { window: string; events: { name: string; where: string; note: string; href?: string }[] }[] = [
+const GENERATED_LABEL = new Date(`${CIRCUIT_GENERATED}T12:00:00Z`).toLocaleDateString('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+
+const springboard = postedTournaments.filter((t) => t.tags.includes('nsda-springboard-scrimmage'));
+
+const highlights: { window: string; events: { name: string; where: string; note: string; href?: string }[] }[] = [
   {
     window: 'September',
     events: [
-      { name: 'Greenhill Fall Classic', where: 'Greenhill School, Addison, TX', note: 'Quarters bid (Gold division), the highest bid tier, right out of the gate.' },
-      { name: 'NSDA Season Opener', where: 'Online (Univ. of Kentucky)', note: 'The circuit’s curtain-raiser, fully online; semis bid.' },
-      { name: 'Grapevine Classic', where: 'Grapevine HS, TX', note: 'Texas season opener; finals bid.' },
-      { name: 'Jack Howe Memorial', where: 'CSU Long Beach, CA', note: 'West-coast opener; finals bid. The Stephen Stewart Memorial (Milpitas HS) follows later in the month.' },
+      { name: 'Greenhill Fall Classic', where: 'Greenhill School, Addison, TX · Sep 16–21, 2026', note: 'Quarters bid (Gold division), the highest bid tier, right out of the gate. A Green division for developing teams.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40192' },
+      { name: 'NSDA Season Opener', where: 'Online (NSDA Campus) · Sep 11–13, 2026', note: 'The circuit’s curtain-raiser, fully online; semis bid, plus a Junior division.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40313' },
+      { name: 'Grapevine Classic', where: 'Grapevine HS, TX · Sep 11–13, 2026', note: 'Texas season opener; finals bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39477' },
+      { name: 'Stephen Stewart Memorial', where: 'Milpitas HS, CA · Sep 25–27, 2026', note: 'West-coast opener; finals bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39935' },
     ],
   },
   {
     window: 'October',
     events: [
-      { name: 'Yale Invitational', where: 'Yale University, New Haven, CT', note: 'The Northeast’s marquee fall WS division (34th edition: Oct 2–4, 2026); semis bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38436' },
-      { name: 'Westminster', where: 'The Westminster Schools, Atlanta, GA', note: 'Georgia’s circuit anchor; finals bid. Coppell Classic (TX) also runs this month; semis bid.' },
-      { name: 'Heart of Texas', where: 'St. Mark’s School, Dallas, TX', note: 'Major national-circuit stop (Oct 16–18, 2026); finals bid.' },
-      { name: 'Florida Blue Key', where: 'University of Florida, Gainesville', note: 'Oct 29–Nov 1, 2026; school entries capped in WS, no hired judging; finals bid.', href: 'https://www.fbkdebate.org/' },
+      { name: 'Yale Invitational', where: 'Yale University, New Haven, CT · Oct 2–4, 2026', note: 'The Northeast’s marquee fall WS division; semis bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38436' },
+      { name: 'Jack Howe Memorial', where: 'CSU Long Beach, CA · Oct 3–5, 2026', note: 'Open World Schools division; finals bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40450' },
+      { name: 'Westminster', where: 'The Westminster Schools, Atlanta, GA · Oct 9–11, 2026', note: 'Georgia’s circuit anchor; finals bid. Coppell Classic (TX, Oct 15–17) runs a semis-bid division and a round robin the same week.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40714' },
+      { name: 'Heart of Texas', where: 'St. Mark’s School, Dallas, TX · Oct 16–18, 2026', note: 'Major national-circuit stop; finals bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40242' },
+      { name: 'Florida Blue Key', where: 'University of Florida, Gainesville · Oct 29–Nov 1, 2026', note: 'School entries capped in WS, no hired judging; finals bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38785' },
     ],
   },
   {
     window: 'November',
     events: [
-      { name: 'Ed Long Invitational', where: 'The Hockaday School, Dallas, TX', note: 'Nov 6–7, 2026; semis bid.' },
-      { name: 'Peach State Classic', where: 'Carrollton HS, GA', note: 'Full WS division with published motions.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36804' },
-      { name: 'John Lewis SVUDL Invitational', where: 'Notre Dame San Jose HS, CA', note: 'Hosted by the Silicon Valley Urban Debate League; finals bid.' },
+      { name: 'Ed Long Invitational', where: 'The Hockaday School, Dallas, TX · Nov 6–7, 2026', note: 'Semis bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39900' },
+      { name: 'Peach State Classic', where: 'Online · Nov 13–15, 2026', note: 'Full WS division with published motions.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40761' },
+      { name: 'John Lewis SVUDL Invitational', where: 'Online (NSDA Campus) · Nov 20–22, 2026', note: 'Hosted by the Silicon Valley Urban Debate League; finals bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39924' },
     ],
   },
   {
     window: 'December',
     events: [
-      { name: 'Longhorn Classic', where: 'UT Austin, TX', note: 'Dec 4–6, 2026; one of the deeper WS fields. Quarters bid.' },
-      { name: 'John Edie Holiday Debates', where: 'The Blake School, Minneapolis, MN', note: 'Late-December tradition; semis bid.' },
-      { name: 'Isidore Newman Invitational', where: 'New Orleans, LA', note: 'Finals bid. Dripping Springs Tiger Tussle (TX) also runs mid-month; finals bid.' },
+      { name: 'Longhorn Classic', where: 'UT Austin, TX · Dec 4–6, 2026', note: 'One of the deeper WS fields. Quarters bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38583' },
+      { name: 'Isidore Newman Invitational', where: 'New Orleans, LA · Dec 11–13, 2026', note: 'Finals bid. Dripping Springs Tiger Tussle (TX, Dec 11–12) runs novice and varsity WS the same weekend; finals bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40760' },
+      { name: 'John Edie Holiday Debates', where: 'The Blake School, Minneapolis, MN · Dec 18–21, 2026', note: 'Late-December tradition; semis bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40798' },
     ],
   },
   {
     window: 'January',
     events: [
-      { name: 'Sunvitational', where: 'NSU University School, Davie, FL', note: 'Florida’s big winter WS division, middle-school divisions too (its WS division carries no TOC bid).', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=35615' },
-      { name: 'Cavalier Invitational', where: 'Durham Academy, NC', note: 'Jan 15–18, 2027; finals bid.' },
-      { name: 'Mount Vernon Invitational', where: 'Mount Vernon HS, WA', note: 'The Northwest’s WS stop; semis bid. Southlake Carroll Dragon Faire (TX) same weekend; semis bid.' },
+      { name: 'Cavalier Invitational', where: 'Durham Academy, NC · Jan 15–18, 2027', note: 'Finals bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39720' },
+      { name: 'Barkley Forum for High Schools', where: 'Emory University, Atlanta, GA · Jan 22–24, 2027', note: 'Emory’s national tournament now runs a World Schools division.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39754' },
+      { name: 'Sunvitational', where: 'NSU University School, Davie, FL · expected mid-January', note: 'Florida’s big winter WS division, middle-school divisions too (its WS division carries no TOC bid). 2027 page not yet posted.' },
+      { name: 'Mount Vernon Invitational', where: 'Mount Vernon HS, WA · Jan 15–16, 2027 (hybrid)', note: 'The Northwest’s WS stop; semis bid. Southlake Carroll Dragon Faire (TX, online) the same weekend; semis bid. Neither page is on Tabroom yet.' },
     ],
   },
   {
     window: 'February',
     events: [
-      { name: 'Harvard National Tournament', where: 'Cambridge, MA (in-person AND online divisions)', note: 'Presidents’ Day weekend (Feb 13–15, 2027); quarters bids in both divisions. WS added in 2026.' },
-      { name: 'Stanford Invitational', where: 'Stanford University, CA', note: 'Quarters bid.' },
-      { name: 'Cal Invitational', where: 'UC Berkeley, CA', note: 'Feb 13–15, 2027; finals bid.' },
+      { name: 'Harvard National Tournament', where: 'Cambridge, MA (varsity in person, open online) · Feb 11–15, 2027', note: 'Presidents’ Day weekend; quarters bids in both divisions.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40853' },
+      { name: 'Stanford Invitational', where: 'Online (NSDA Campus) · Feb 6–8, 2027', note: 'TOC division (quarters bid) plus a novice division.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40749' },
+      { name: 'Cal Invitational', where: 'UC Berkeley, CA (WS division online) · Feb 13–15, 2027', note: 'Finals bid.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39887' },
+      { name: 'Liberty Bell Classic', where: 'University of Pennsylvania, Philadelphia · Feb 5–7, 2027', note: 'Penn’s in-person invitational with a WS division.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40599' },
     ],
   },
   {
     window: 'March',
     events: [
-      { name: 'Penn World Schools Invitational', where: 'Online (University of Pennsylvania)', note: 'Dedicated all-WS online tournament (2026: Mar 28–29, 60-team cap, ESL/EFL categories).', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39557' },
-      { name: 'State championships', where: 'TFA State (TX, Mar), ISSDA State (IN, Jan), FFL states (FL)', note: 'See the state section below.' },
+      { name: 'Penn World Schools Invitational', where: 'Online (University of Pennsylvania) · expected late March', note: 'Dedicated all-WS online tournament (2026: Mar 28–29, 60-team cap, ESL/EFL categories). 2027 page not yet posted.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39557' },
+      { name: 'TOC Digital Series 3', where: 'Online (University of Kentucky) · Mar 5–7, 2027', note: 'The last of Kentucky’s three online semis-bid weekends (Series 1: Dec 4–6; Series 2: Feb 19–21).' },
     ],
   },
   {
     window: 'April',
     events: [
-      { name: 'Tournament of Champions (WS division)', where: 'University of Kentucky, Lexington', note: 'The circuit’s championship, entered via season bids (55th edition: Apr 17–19, 2027).', href: 'https://ci.uky.edu/debate/toc/bids/bid-tournaments' },
-      { name: 'Harvard College WS Invitational', where: 'Harvard University, Cambridge, MA', note: 'Dedicated all-WS tournament run by Harvard’s college debaters.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=35272' },
-      { name: 'Bluebonnet WS International', where: 'Grand Oaks HS, Spring, TX', note: 'NSDA-hosted, all-impromptu, 9th edition Apr 23–25, 2026; championship + novice divisions; international delegations attend.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36305' },
+      { name: 'Tournament of Champions (WS division)', where: 'University of Kentucky, Lexington · Apr 17–19, 2027', note: 'The circuit’s championship, entered via season bids (55th edition).', href: 'https://ci.uky.edu/debate/toc/bids/bid-tournaments' },
+      { name: 'Harvard College WS Invitational', where: 'Harvard University, Cambridge, MA · expected April', note: 'Dedicated all-WS tournament run by Harvard’s college debaters. 2027 page not yet posted.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=35272' },
+      { name: 'Bluebonnet WS International', where: 'Grand Oaks HS, Spring, TX · Apr 22–24, 2027', note: '10th edition: championship and novice divisions, plus a clinic and a training track; international delegations attend.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40857' },
+      { name: 'NSDA Last Chance Qualifier', where: 'Des Moines, IA (online rounds) · Apr 29–May 1, 2027', note: 'The final route into NSDA Nationals for teams that missed districts.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41099' },
     ],
   },
   {
     window: 'May – June',
     events: [
-      { name: 'WISDAA State Debate Festival', where: 'Madison, WI', note: 'Wisconsin’s state festival runs exactly two debate events: Congress and World Schools.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38164' },
-      { name: 'NSDA Nationals (USA World Schools Debate Invitational)', where: '2026: Richmond, VA · 2027: Phoenix, AZ (Jun 13–18)', note: 'Qualify through your NSDA district; up to two teams of 3–5 per district.', href: 'https://www.speechanddebate.org/uswsdi-manual/' },
+      { name: 'WISDAA State Debate Festival', where: 'Madison, WI · expected early May', note: 'Wisconsin’s state festival runs exactly two debate events: Congress and World Schools, in person and online.', href: 'https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38164' },
+      { name: 'NSDA Nationals (USA World Schools Debate Invitational)', where: 'Phoenix, AZ · Jun 13–18, 2027', note: 'Qualify through your NSDA district; up to two teams of 3–5 per district.', href: 'https://www.speechanddebate.org/uswsdi-manual/' },
     ],
   },
 ];
@@ -115,12 +129,15 @@ const faqs = [
   {
     question: 'What is a TOC bid in World Schools?',
     answer:
-      'The Tournament of Champions at the University of Kentucky runs a World Schools division entered by earning bids, which means reaching a specified elimination round at designated events across the season. The official 2026–27 list names 33 qualifying tournaments in three tiers: five quarters-bid events (Greenhill, Longhorn, Stanford, and Harvard’s two divisions), fifteen semis-bid events, and thirteen finals-bid events. Several are online, and a handful are hosted abroad.',
+      'The Tournament of Champions at the University of Kentucky runs a World Schools division entered by earning bids, which means reaching a specified elimination round at designated events across the season. The official 2026–27 list names 36 qualifying tournaments in three tiers: five quarters-bid events (Greenhill Gold, Longhorn, Stanford, and Harvard’s two divisions), fifteen semis-bid events, and sixteen finals-bid events. Several are online, and a handful are hosted abroad.',
   },
   {
     question: 'How current is this list?',
-    answer:
-      'Every event here was verified against its most recent edition or the official 2026–27 TOC bid list as of July 2026. Tournament calendars move (hosts change, divisions get added and dropped), so treat the months as "typically held" and confirm on the tournament’s Tabroom page or invite before committing travel.',
+    answer: `The full directory page was built on ${GENERATED_LABEL} by reading every tournament page on Tabroom's North American calendars for the 2026–27 season (about 3,700 tournaments) and keeping the ones with a posted World Schools event, then cross-checking against the official TOC bid list. Hosts keep posting pages through the autumn, so the "expected" list will keep converting into confirmed dates; we re-run the scan monthly. Always confirm on the tournament's Tabroom page or invite before committing travel.`,
+  },
+  {
+    question: 'Which tournaments are online?',
+    answer: `${circuitStats.online} of the ${circuitStats.posted} posted World Schools events run online or in a hybrid form, including the NSDA Season Opener, the Stanford Invitational, Harvard National's open division, Peach State Classic, John Lewis SVUDL, and the free NSDA Springboard scrimmages. They are all marked Online in the full directory page.`,
   },
 ];
 
@@ -141,8 +158,12 @@ export default function TournamentsPost() {
           bid system, dedicated WS tournaments, state championships, and a
           national invitational, plus a set of international opens that
           American school teams can enter directly. Here is the whole map,
-          with links. (Months reflect each event&apos;s most recent edition,
-          verified July 2026; always confirm against the current invite.)
+          with links: the highlights first, then{' '}
+          <a href="#directory" className="font-semibold text-signal-500 hover:text-signal-600">
+            every posted World Schools division for 2026–27
+          </a>{' '}
+          ({circuitStats.posted} events across {circuitStats.states} states plus the online circuit, read
+          straight from Tabroom on {GENERATED_LABEL}).
         </p>
       }
     >
@@ -153,12 +174,12 @@ export default function TournamentsPost() {
           <Ext href="https://ci.uky.edu/debate/toc/bids/bid-tournaments">
             Tournament of Champions World Schools bid list
           </Ext>
-          : 33 tournaments in the 2026–27 season, tiered by bid level
+          : 36 tournaments in the 2026–27 season, tiered by bid level
           (reaching quarters, semis, or finals at a designated event earns
           the TOC qualification). The highlights:
         </p>
         <div className="mt-6 space-y-8">
-          {usSeason.map((month) => (
+          {highlights.map((month) => (
             <div key={month.window}>
               <h3 className="font-display text-lg font-bold text-signal-500">{month.window}</h3>
               <ul className="mt-3">
@@ -180,27 +201,56 @@ export default function TournamentsPost() {
           <p className="mt-2 text-sm leading-relaxed text-navy-700">
             A striking share of the bid list is reachable from your bedroom:
             the NSDA Season Opener (September), Kentucky&apos;s three TOC
-            Digital Series weekends (December–March), Harvard&apos;s three
+            Digital Series weekends (December to March), Harvard&apos;s three
             online International Series qualifiers, Harvard National&apos;s
-            online division (a quarters bid), and Penn&apos;s all-WS
-            invitational all run online. The NSDA also runs free{' '}
+            online division (a quarters bid), the Stanford Invitational, and
+            Penn&apos;s all-WS invitational all run online. The NSDA also runs
+            free{' '}
             <Ext href="https://www.speechanddebate.org/springboard-series/">
               Springboard Series
             </Ext>{' '}
-            WS scrimmages on NSDA Campus, open even to non-members. That is
-            the lowest-stakes first tournament there is.
+            WS scrimmages on NSDA Campus, open even to non-members:{' '}
+            {springboard.length} are already scheduled this autumn (see below).
+            That is the lowest-stakes first tournament there is.
           </p>
         </div>
         <p className="mt-6 text-sm leading-relaxed text-navy-600">
-          The bid list even reaches abroad: the Taiwan Invitational (Taipei
-          American School), Hanoi&apos;s Olympia Championship, the Punta Cana
-          Cup (Dominican Republic), and Vocalize (UAE) all carry US TOC bids.
-          Texas fields seven bid tournaments on its own. Check the{' '}
+          The bid list also reaches a handful of tournaments hosted in Asia. Texas fields more bid tournaments than any
+          other state. Check the{' '}
           <Ext href="https://ci.uky.edu/debate/toc/bids/bid-tournaments">
             official list
           </Ext>{' '}
-          for the full set and each event&apos;s bid level.
+          for each event&apos;s bid level.
         </p>
+      </section>
+
+      <section id="directory" className="mt-14 scroll-mt-24">
+        <h2 className="text-2xl font-bold text-navy-900">The full 2026–27 directory</h2>
+        <p className="mt-4 leading-relaxed text-navy-700">
+          The highlights above are the events most families plan a season around. The complete list is
+          a page of its own:{' '}
+          <Link href="/world-schools-debate-tournaments" className="font-semibold text-signal-500 hover:text-signal-600">
+            every North American tournament with a posted World Schools division
+          </Link>
+          , {circuitStats.posted} events across {circuitStats.states} states plus the online circuit, month by
+          month, with TOC bid tiers, Tabroom links, the {circuitStats.expected} hosts expected to post from last
+          season, and a subscribable calendar feed. It was built by reading every tournament page on
+          Tabroom on {GENERATED_LABEL} and is re-scanned monthly.
+        </p>
+        <div className="mt-5 flex flex-wrap gap-3 text-sm">
+          <Link
+            href="/world-schools-debate-tournaments"
+            className="inline-block rounded-sm bg-navy-900 px-4 py-2 font-semibold text-white transition hover:bg-navy-800"
+          >
+            Open the directory
+          </Link>
+          <a
+            href="/world-schools-tournaments.ics"
+            className="inline-block rounded-sm border border-navy-900 px-4 py-2 font-semibold text-navy-900 transition hover:bg-navy-50"
+          >
+            Subscribe to the calendar (.ics)
+          </a>
+        </div>
       </section>
 
       <section className="mt-12">
@@ -216,14 +266,17 @@ export default function TournamentsPost() {
           , whose ISSDA State Debate runs a WS bracket each winter; Florida,
           whose FFL has offered WS at its Open State Championship;
           Washington, which has staged WS as a trial event at the WIAA state
-          championships;{' '}
+          championships and whose district qualifiers now run it;{' '}
           <Ext href="https://www.wisdaa.org/docs/debate/debate-categories-rules/debate-categories/">Wisconsin</Ext>
           , whose WISDAA festival runs only two debate events, Congress and
           World Schools; and Arkansas, whose{' '}
           <Ext href="https://actaa.org/World-Schools-Debate-(WS)">ACTAA</Ext>{' '}
-          lists WS among its official events. Georgia is the interesting
+          lists WS among its official events. Idaho is the quiet success
+          story in the directory above: more than a dozen Idaho invitationals
+          now run novice and varsity WS divisions, and the Idaho State Debate
+          Tournament ran one in 2026. Georgia is the interesting
           case: no WS at GFCA State, but a healthy invitational scene
-          (Westminster, Peach State Classic). If your state runs nothing, the
+          (Westminster, Peach State Classic, Barkley Forum). If your state runs nothing, the
           NSDA district route, the online events above, and the invitational
           circuit are all open regardless.
         </p>

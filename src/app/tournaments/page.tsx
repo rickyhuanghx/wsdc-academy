@@ -155,8 +155,8 @@ export default async function TournamentsPage({ searchParams }: Props) {
                   free consultation
                 </a>{' '}
                 is the quickest way to find the right class, and our{' '}
-                <Link href="/blog/world-schools-debate-tournaments" className="underline underline-offset-2 hover:text-signal-500">
-                  tournament directory
+                <Link href="/world-schools-debate-tournaments" className="underline underline-offset-2 hover:text-signal-500">
+                  World Schools tournament directory
                 </Link>{' '}
                 lists the season&apos;s events. Questions? Write to{' '}
                 <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-2 hover:text-signal-500">

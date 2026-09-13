@@ -584,8 +584,8 @@ export default function WhatIsWorldSchoolsPage() {
                 a WIAA trial event. The Tournament of Champions runs a World Schools
                 division entered through a season-long bid system spanning roughly
                 thirty tournaments.{' '}
-                <Link href="/blog/world-schools-debate-tournaments" className="font-semibold text-signal-500 hover:text-signal-600">
-                  See the full tournament map
+                <Link href="/world-schools-debate-tournaments" className="font-semibold text-signal-500 hover:text-signal-600">
+                  See every World Schools tournament this season
                 </Link>
                 .
               </p>

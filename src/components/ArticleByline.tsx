@@ -8,10 +8,13 @@ import { ARTICLE_AUTHOR, formatArticleDate, type ArticleReviewer } from '@/data/
     visibly credited alongside the author (2026-08-17 SEO audit). */
 export function ArticleByline({
   date,
+  updated,
   variant = 'light',
   reviewer,
 }: {
   date?: string;
+  /** Last substantive revision, shown after the publish date. */
+  updated?: string;
   variant?: 'light' | 'onDark';
   reviewer?: ArticleReviewer;
 }) {
@@ -42,6 +45,12 @@ export function ArticleByline({
         {date && (
           <p className={metaClass}>
             <time dateTime={date}>{formatArticleDate(date)}</time>
+            {updated && updated !== date && (
+              <>
+                {' · Updated '}
+                <time dateTime={updated}>{formatArticleDate(updated)}</time>
+              </>
+            )}
           </p>
         )}
         {reviewer && (

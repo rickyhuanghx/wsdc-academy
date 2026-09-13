@@ -44,6 +44,7 @@ export function BlogPostShell({
         description={post.description}
         url={`/blog/${post.slug}`}
         datePublished={post.date}
+        dateModified={post.updated}
         reviewedBy={reviewer}
       />
       {faqs && faqs.length > 0 && <FAQJsonLd faqs={faqs} />}
@@ -63,7 +64,7 @@ export function BlogPostShell({
           <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl">
             {post.title}
           </h1>
-          <ArticleByline date={post.date} reviewer={reviewer} />
+          <ArticleByline date={post.date} updated={post.updated} reviewer={reviewer} />
           <div className="mt-6 text-lg leading-relaxed text-navy-700">{lede}</div>
         </header>
 

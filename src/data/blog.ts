@@ -10,6 +10,8 @@ export interface BlogPost {
   metaDescription: string;
   category: 'Why it matters' | 'Speaker roles' | 'Technique' | 'The US circuit' | 'International';
   date: string; // ISO
+  /** ISO date of the last substantive revision; feeds Article dateModified + the visible byline. */
+  updated?: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -148,13 +150,14 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'world-schools-debate-tournaments',
     title: 'Where to compete: the World Schools tournament map',
-    metaTitle: 'World Schools Debate Tournaments: US Circuit',
+    metaTitle: 'Where to Compete: World Schools Tournament Map',
     description:
-      'Every place to compete in World Schools Debate, with links: the US invitational circuit month by month, TOC and NSDA Nationals, state championships, and the international tournaments American school teams can actually enter.',
+      'Where to compete in World Schools Debate, with links: the US season’s highlights month by month, TOC and NSDA Nationals, state championships, the international tournaments American school teams can actually enter, and how to build a season from the full 2026–27 directory.',
     metaDescription:
-      'Every place to compete, with links: the US invitational circuit month by month, TOC and NSDA Nationals, state championships, and international opens.',
+      'Where to compete in World Schools: the season’s highlights month by month, TOC and Nationals, state championships, international opens, and how to plan a season.',
     category: 'The US circuit',
     date: '2026-07-10',
+    updated: '2026-09-12',
   },
   {
     slug: 'international-world-schools-tournaments',

@@ -64,6 +64,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/world-schools-vs-public-forum', file: 'src/app/(learn)/world-schools-vs-public-forum/page.tsx', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/world-schools-debate-judging', file: 'src/app/(learn)/world-schools-debate-judging/page.tsx', changeFrequency: 'monthly', priority: 0.9 },
     { path: '/wsdc-champions', file: 'src/app/(learn)/wsdc-champions/page.tsx', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/world-schools-debate-tournaments', file: 'src/data/ws-circuit-2026-27.json', changeFrequency: 'weekly', priority: 0.95 },
     { path: '/resources', file: 'src/app/resources/page.tsx', changeFrequency: 'weekly', priority: 0.9 },
     { path: '/motions', file: 'src/app/motions/page.tsx', changeFrequency: 'weekly', priority: 0.9 },
     { path: '/debate-topics', file: 'src/app/debate-topics/page.tsx', changeFrequency: 'weekly', priority: 0.9 },

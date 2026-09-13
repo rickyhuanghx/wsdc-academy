@@ -448,9 +448,9 @@ export const programs: Program[] = [
         note: 'Where a competing student actually goes: school teams, state leagues with WS divisions, and NSDA Nationals.',
       },
       {
-        href: '/blog/world-schools-debate-tournaments',
-        label: 'The US tournament circuit',
-        note: 'The invitational calendar month by month, with the TOC bid tiers marked.',
+        href: '/world-schools-debate-tournaments',
+        label: 'Every World Schools tournament this season',
+        note: 'The full North American directory month by month, with TOC bid tiers and Tabroom links.',
       },
       {
         href: '/blog/weighing-in-debate',

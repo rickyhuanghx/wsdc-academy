@@ -1,0 +1,4504 @@
+{
+ "generated": "2026-09-12",
+ "season": "2026-27",
+ "posted": [
+  {
+   "tourn_id": "40568",
+   "name": "Plano Clark Swing",
+   "startDate": "2026-08-27",
+   "endDate": "2026-08-29",
+   "city": "Plano",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Closed",
+   "ws_events": [
+    "Worlds Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40568"
+  },
+  {
+   "tourn_id": "40490",
+   "name": "College Park Cavalier TFA Classic",
+   "startDate": "2026-08-28",
+   "endDate": "2026-08-29",
+   "city": "The Woodlands",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Closed",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40490"
+  },
+  {
+   "tourn_id": "40376",
+   "name": "Jordan Warrior Classic",
+   "startDate": "2026-08-28",
+   "endDate": "2026-08-29",
+   "city": "Fulshear",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Closed",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40376"
+  },
+  {
+   "tourn_id": "40103",
+   "name": "Westwood Bowl",
+   "startDate": "2026-08-28",
+   "endDate": "2026-08-29",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Closed",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40103"
+  },
+  {
+   "tourn_id": "40429",
+   "name": "The Northland Christian Classic at Jersey Village",
+   "startDate": "2026-09-04",
+   "endDate": "2026-09-05",
+   "city": "Jersey Village",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Closed",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40429"
+  },
+  {
+   "tourn_id": "40976",
+   "name": "The Glenn Grizzley Glennvitational TFA",
+   "startDate": "2026-09-05",
+   "endDate": "2026-09-05",
+   "city": "Tom Glenn High School (L",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Closed",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40976"
+  },
+  {
+   "tourn_id": "40856",
+   "name": "AECHS Knights of The Round Table",
+   "startDate": "2026-09-11",
+   "endDate": "2026-09-12",
+   "city": "Houston",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Closed",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40856"
+  },
+  {
+   "tourn_id": "40820",
+   "name": "Cy Woods Wildcat Classic",
+   "startDate": "2026-09-11",
+   "endDate": "2026-09-12",
+   "city": "Cypress",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Closed",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40820"
+  },
+  {
+   "tourn_id": "39477",
+   "name": "Grapevine Classic",
+   "startDate": "2026-09-11",
+   "endDate": "2026-09-13",
+   "city": "Grapevine",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Closed",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "finals",
+   "toc_name": "Grapevine Classic",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39477"
+  },
+  {
+   "tourn_id": "40469",
+   "name": "Guy P Yates Tournament at West Texas A and M University",
+   "startDate": "2026-09-11",
+   "endDate": "2026-09-12",
+   "city": "Canyon",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Closed",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40469"
+  },
+  {
+   "tourn_id": "40313",
+   "name": "National Speech and Debate Season Opener",
+   "startDate": "2026-09-11",
+   "endDate": "2026-09-13",
+   "city": "On NSDA Campus",
+   "state": "EDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Closed",
+   "ws_events": [
+    "World Schools - Junior",
+    "World Schools - TOC Bid Event"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "semis",
+   "toc_name": "National Speech and Debate Season Opener",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40313"
+  },
+  {
+   "tourn_id": "40232",
+   "name": "Chuck Ballingall Memorial Invitational at Damien",
+   "startDate": "2026-09-12",
+   "endDate": "2026-09-13",
+   "city": "La Verne",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "reg_status": "Closed",
+   "ws_events": [
+    "Worlds Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40232"
+  },
+  {
+   "tourn_id": "40192",
+   "name": "Greenhill Fall Classic",
+   "startDate": "2026-09-16",
+   "endDate": "2026-09-21",
+   "city": "Addison",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Closed",
+   "ws_events": [
+    "World Schools (Gold)",
+    "World Schools (Green)"
+   ],
+   "ws_circuit": true,
+   "toc_tier": "quarters",
+   "toc_name": "Greenhill Fall Classic (Gold Division Only)",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40192"
+  },
+  {
+   "tourn_id": "41020",
+   "name": "Elkins HS 24th Annual Speech and Debate Tournament",
+   "startDate": "2026-09-18",
+   "endDate": "2026-09-20",
+   "city": "Houston",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 9/16 5:00 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41020"
+  },
+  {
+   "tourn_id": "40213",
+   "name": "Seven Lakes Spartan Symposium TFA IQT",
+   "startDate": "2026-09-18",
+   "endDate": "2026-09-19",
+   "city": "Katy",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 9/15 11:55 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40213"
+  },
+  {
+   "tourn_id": "40717",
+   "name": "Summer Bash Warren Final Splash 26",
+   "startDate": "2026-09-18",
+   "endDate": "2026-09-19",
+   "city": "San Antonio",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 9/14 11:55 PM CDT",
+   "ws_events": [
+    "Warrior-World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40717"
+  },
+  {
+   "tourn_id": "40718",
+   "name": "Lebanon Trail TFA Qualifier and UIL Academic Invitational",
+   "startDate": "2026-09-19",
+   "endDate": "2026-09-19",
+   "city": "Frisco",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 9/14 5:00 PM CDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40718"
+  },
+  {
+   "tourn_id": "40363",
+   "name": "Peach Fuzz Speech and Debate Online Tournament",
+   "startDate": "2026-09-19",
+   "endDate": "2026-09-19",
+   "city": "Carrollton",
+   "state": "GA",
+   "stateLabel": "GA",
+   "mode": "hybrid",
+   "reg_status": "Closed",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40363"
+  },
+  {
+   "tourn_id": "40995",
+   "name": "Scottsdale Prep Congress and World Schools Debate",
+   "startDate": "2026-09-19",
+   "endDate": "2026-09-19",
+   "city": "Scottsdale",
+   "state": "AZ",
+   "stateLabel": "AZ",
+   "mode": "in-person",
+   "reg_status": "Due 9/14 6:00 PM MST",
+   "ws_events": [
+    "World Schools Debate (HS)"
+   ],
+   "ws_circuit": true,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40995"
+  },
+  {
+   "tourn_id": "40846",
+   "name": "UH Case Tournament 1",
+   "startDate": "2026-09-19",
+   "endDate": "2026-09-19",
+   "city": "Houston",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 9/16 6:00 PM CDT",
+   "ws_events": [
+    "Novice World Schools Debate",
+    "Varsity World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40846"
+  },
+  {
+   "tourn_id": "40061",
+   "name": "Chapel Hill Lindale Virtual Swing TFATOCNIETOC Qualifier",
+   "startDate": "2026-09-24",
+   "endDate": "2026-09-26",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 9/21 4:00 PM CDT",
+   "ws_events": [
+    "World Schools Debate Chapel Hill",
+    "World Schools Debate Lindale"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40061"
+  },
+  {
+   "tourn_id": "40473",
+   "name": "NSDA Springboard Scrimmage 1",
+   "startDate": "2026-09-24",
+   "endDate": "2026-09-24",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 9/24 12:00 PM CDT",
+   "ws_events": [
+    "Open World Schools",
+    "Rising Stars World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "nsda-springboard-scrimmage"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40473"
+  },
+  {
+   "tourn_id": "39935",
+   "name": "Stephen Stewart Memorial Invitational at Milpitas",
+   "startDate": "2026-09-25",
+   "endDate": "2026-09-27",
+   "city": "Milpitas",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "reg_status": "Due 9/18 11:00 PM PDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "finals",
+   "toc_name": "Stephen Stewart Memorial Middle and High School Invitational",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39935"
+  },
+  {
+   "tourn_id": "40956",
+   "name": "Trojan Classic at LC Anderson High School",
+   "startDate": "2026-09-25",
+   "endDate": "2026-09-26",
+   "city": "Austin",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 9/22 11:55 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40956"
+  },
+  {
+   "tourn_id": "41372",
+   "name": "NUDL Tournament 1 Back to School Bash",
+   "startDate": "2026-09-26",
+   "endDate": "2026-09-26",
+   "city": "Nashville",
+   "state": "TN",
+   "stateLabel": "TN",
+   "mode": "in-person",
+   "reg_status": "Due 9/26 10:00 AM CDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41372"
+  },
+  {
+   "tourn_id": "40958",
+   "name": "Ridge Round Robin",
+   "startDate": "2026-09-26",
+   "endDate": "2026-09-26",
+   "city": "Twin Falls",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "reg_status": "Due 9/23 5:00 PM MDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40958"
+  },
+  {
+   "tourn_id": "40228",
+   "name": "71st Annual Bellaire Forensic Tournament",
+   "startDate": "2026-10-02",
+   "endDate": "2026-10-04",
+   "city": "Bellaire",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 9/25 6:00 PM CDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40228"
+  },
+  {
+   "tourn_id": "40772",
+   "name": "The Dulles Viking Classic",
+   "startDate": "2026-10-02",
+   "endDate": "2026-10-03",
+   "city": "",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 9/28 5:00 PM CDT",
+   "ws_events": [
+    "Varsity World Schools Debate (WSD)"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40772"
+  },
+  {
+   "tourn_id": "41129",
+   "name": "The Reagan Saint Mary's Hall Swing",
+   "startDate": "2026-10-02",
+   "endDate": "2026-10-03",
+   "city": "San Antonio",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 10/1 10:00 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41129"
+  },
+  {
+   "tourn_id": "40331",
+   "name": "UNT John S Gossett Memorial",
+   "startDate": "2026-10-02",
+   "endDate": "2026-10-03",
+   "city": "Denton",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 9/29 5:00 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40331"
+  },
+  {
+   "tourn_id": "38436",
+   "name": "Yale Invitational",
+   "startDate": "2026-10-02",
+   "endDate": "2026-10-04",
+   "city": "New Haven",
+   "state": "CT",
+   "stateLabel": "CT",
+   "mode": "in-person",
+   "reg_status": "Due 9/25 11:59 PM EDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "semis",
+   "toc_name": "Yale Invitational",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38436"
+  },
+  {
+   "tourn_id": "40450",
+   "name": "Jack Howe Memorial Tournament",
+   "startDate": "2026-10-03",
+   "endDate": "2026-10-05",
+   "city": "Long Beach",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "reg_status": "Due 9/30 11:00 PM PDT",
+   "ws_events": [
+    "Open World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "finals",
+   "toc_name": "Jack Howe Memorial Tournament",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40450"
+  },
+  {
+   "tourn_id": "40479",
+   "name": "NSDA Springboard Scrimmage 2",
+   "startDate": "2026-10-08",
+   "endDate": "2026-10-08",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 10/8 12:00 PM CDT",
+   "ws_events": [
+    "Open World Schools",
+    "Rising Stars World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "nsda-springboard-scrimmage"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40479"
+  },
+  {
+   "tourn_id": "40714",
+   "name": "Westminster",
+   "startDate": "2026-10-09",
+   "endDate": "2026-10-11",
+   "city": "Atlanta",
+   "state": "GA",
+   "stateLabel": "GA",
+   "mode": "in-person",
+   "reg_status": "Due 9/30 8:00 PM EDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "finals",
+   "toc_name": "Westminster",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40714"
+  },
+  {
+   "tourn_id": "40869",
+   "name": "Lions Den Debate",
+   "startDate": "2026-10-10",
+   "endDate": "2026-10-11",
+   "city": "Glendale",
+   "state": "AZ",
+   "stateLabel": "AZ",
+   "mode": "in-person",
+   "reg_status": "Due 10/6 5:00 PM MST",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40869"
+  },
+  {
+   "tourn_id": "40737",
+   "name": "Nova Titan Invitational",
+   "startDate": "2026-10-10",
+   "endDate": "2026-10-11",
+   "city": "Davie",
+   "state": "FL",
+   "stateLabel": "FL",
+   "mode": "in-person",
+   "reg_status": "Due 10/2 8:00 PM EDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40737"
+  },
+  {
+   "tourn_id": "40531",
+   "name": "NSDA Springboard Scrimmage 3",
+   "startDate": "2026-10-13",
+   "endDate": "2026-10-13",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 10/13 12:00 PM CDT",
+   "ws_events": [
+    "Open World Schools",
+    "Rising Stars World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "nsda-springboard-scrimmage"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40531"
+  },
+  {
+   "tourn_id": "40973",
+   "name": "Coppell Classic",
+   "startDate": "2026-10-15",
+   "endDate": "2026-10-17",
+   "city": "Coppell",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 10/10 5:00 PM CDT",
+   "ws_events": [
+    "WSD Round Robin",
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "semis",
+   "toc_name": "Coppell Classic",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40973"
+  },
+  {
+   "tourn_id": "40532",
+   "name": "NSDA Springboard Scrimmage 4",
+   "startDate": "2026-10-15",
+   "endDate": "2026-10-15",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 10/15 12:00 PM CDT",
+   "ws_events": [
+    "Open World Schools",
+    "Rising Stars World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "nsda-springboard-scrimmage"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40532"
+  },
+  {
+   "tourn_id": "41133",
+   "name": "Borah Novice",
+   "startDate": "2026-10-16",
+   "endDate": "2026-10-16",
+   "city": "Boise",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "reg_status": "Open 10/1 8:00 AM MDT",
+   "ws_events": [
+    "World School Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41133"
+  },
+  {
+   "tourn_id": "40242",
+   "name": "Heart of Texas Invitational",
+   "startDate": "2026-10-16",
+   "endDate": "2026-10-18",
+   "city": "Dallas",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 10/15 3:00 PM CDT",
+   "ws_events": [
+    "WSD"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "finals",
+   "toc_name": "Heart of Texas Invitational",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40242"
+  },
+  {
+   "tourn_id": "39028",
+   "name": "New York City Invitational Debate and Speech Tournament",
+   "startDate": "2026-10-16",
+   "endDate": "2026-10-18",
+   "city": "New York",
+   "state": "NY",
+   "stateLabel": "NY",
+   "mode": "in-person",
+   "reg_status": "Due 10/16 8:00 AM EDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39028"
+  },
+  {
+   "tourn_id": "41114",
+   "name": "The Falcon Forum at Tompkins High School",
+   "startDate": "2026-10-16",
+   "endDate": "2026-10-17",
+   "city": "Katy",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 10/9 11:55 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41114"
+  },
+  {
+   "tourn_id": "41235",
+   "name": "Boerne Champion TFA and NIETOC",
+   "startDate": "2026-10-17",
+   "endDate": "2026-10-17",
+   "city": "Boerne",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 10/13 11:00 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41235"
+  },
+  {
+   "tourn_id": "40977",
+   "name": "Cedar Ridge TFA",
+   "startDate": "2026-10-17",
+   "endDate": "2026-10-17",
+   "city": "Cedar Ridge (Round Rock)",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 10/14 11:55 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40977"
+  },
+  {
+   "tourn_id": "37785",
+   "name": "Diamondback Ouroboros",
+   "startDate": "2026-10-17",
+   "endDate": "2026-10-17",
+   "city": "Pocatello",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "reg_status": "No open registration",
+   "ws_events": [
+    "Novice World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "novice-only"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37785"
+  },
+  {
+   "tourn_id": "40492",
+   "name": "College Park FULL ACADEMICS UIL Online",
+   "startDate": "2026-10-18",
+   "endDate": "2026-10-24",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 10/14 7:00 AM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40492"
+  },
+  {
+   "tourn_id": "41284",
+   "name": "Weeknight Online Rounds of Debate 1",
+   "startDate": "2026-10-20",
+   "endDate": "2026-10-20",
+   "city": "Online",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 10/19 12:00 PM CDT",
+   "ws_events": [
+    "World Schools: Impromptu",
+    "World Schools: Prepared"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "weeknight-online-series"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41284"
+  },
+  {
+   "tourn_id": "41230",
+   "name": "Spartan Ram Fall Classic Cypress Lakes and Cypress Ridge",
+   "startDate": "2026-10-21",
+   "endDate": "2026-10-24",
+   "city": "Houston",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "hybrid",
+   "reg_status": "Open 9/14 8:00 AM CDT",
+   "ws_events": [
+    "Lakes World Schools Debate (Online)",
+    "Ridge World Schools Debate (In Person)"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41230"
+  },
+  {
+   "tourn_id": "40191",
+   "name": "Colleyville Heritage TFA Invitational",
+   "startDate": "2026-10-23",
+   "endDate": "2026-10-24",
+   "city": "Colleyville",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 10/16 9:00 PM CDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40191"
+  },
+  {
+   "tourn_id": "41064",
+   "name": "D5 Novice Harvest",
+   "startDate": "2026-10-23",
+   "endDate": "2026-10-24",
+   "city": "Pocatello",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "reg_status": "Due 10/19 11:00 AM MDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41064"
+  },
+  {
+   "tourn_id": "41092",
+   "name": "Jim Fountain Classic",
+   "startDate": "2026-10-23",
+   "endDate": "2026-10-24",
+   "city": "Tempe",
+   "state": "AZ",
+   "stateLabel": "AZ",
+   "mode": "in-person",
+   "reg_status": "Due 10/19 5:00 PM MST",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41092"
+  },
+  {
+   "tourn_id": "39489",
+   "name": "Laird Lewis Invitational",
+   "startDate": "2026-10-23",
+   "endDate": "2026-10-24",
+   "city": "Charlotte",
+   "state": "NC",
+   "stateLabel": "NC",
+   "mode": "in-person",
+   "reg_status": "Due 10/22 6:00 PM EDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39489"
+  },
+  {
+   "tourn_id": "41118",
+   "name": "SVUDL Sojourner Truth",
+   "startDate": "2026-10-23",
+   "endDate": "2026-10-24",
+   "city": "San Jose",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "reg_status": "No open registration",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41118"
+  },
+  {
+   "tourn_id": "41201",
+   "name": "Jack C Hays Hawkoween Classic TFA and NIETOC Qualifier",
+   "startDate": "2026-10-24",
+   "endDate": "2026-10-24",
+   "city": "Buda",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Open 9/22 8:00 AM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41201"
+  },
+  {
+   "tourn_id": "41208",
+   "name": "NMSDA World Schools Debate Invitational",
+   "startDate": "2026-10-24",
+   "endDate": "2026-10-24",
+   "city": "Albuquerque",
+   "state": "NM",
+   "stateLabel": "NM",
+   "mode": "in-person",
+   "reg_status": "Open 9/16 11:00 AM MDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41208"
+  },
+  {
+   "tourn_id": "40317",
+   "name": "TCFL Novice Debate",
+   "startDate": "2026-10-24",
+   "endDate": "2026-10-24",
+   "city": "Newhall",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "reg_status": "Due 10/16 11:55 PM PDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40317"
+  },
+  {
+   "tourn_id": "41091",
+   "name": "The Woodlands Middle School Spooktacular",
+   "startDate": "2026-10-24",
+   "endDate": "2026-10-24",
+   "city": "The Woodlands",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 10/20 4:00 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "middle-school"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41091"
+  },
+  {
+   "tourn_id": "41285",
+   "name": "Weeknight Online Rounds of Debate 2",
+   "startDate": "2026-10-26",
+   "endDate": "2026-10-26",
+   "city": "Online",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 10/25 12:00 PM CDT",
+   "ws_events": [
+    "World Schools: Impromptu",
+    "World Schools: Prepared"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "weeknight-online-series"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41285"
+  },
+  {
+   "tourn_id": "40533",
+   "name": "NSDA Springboard Scrimmage 5",
+   "startDate": "2026-10-27",
+   "endDate": "2026-10-27",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 10/27 12:00 PM CDT",
+   "ws_events": [
+    "Open World Schools",
+    "Rising Stars World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "nsda-springboard-scrimmage"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40533"
+  },
+  {
+   "tourn_id": "38785",
+   "name": "Florida Blue Key Speech and Debate Tournament",
+   "startDate": "2026-10-29",
+   "endDate": "2026-11-01",
+   "city": "Gainesville",
+   "state": "FL",
+   "stateLabel": "FL",
+   "mode": "in-person",
+   "reg_status": "Due 10/28 10:15 AM EDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "finals",
+   "toc_name": "Florida Blue Key Speech and Debate Tournament",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38785"
+  },
+  {
+   "tourn_id": "40810",
+   "name": "Melissas Kenneth Wooten Online TFATOCNIETOC",
+   "startDate": "2026-10-29",
+   "endDate": "2026-10-31",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 10/27 5:00 PM CDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40810"
+  },
+  {
+   "tourn_id": "41326",
+   "name": "D6 Novice",
+   "startDate": "2026-10-30",
+   "endDate": "2026-10-30",
+   "city": "Idaho Falls",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "reg_status": "Open 9/15 8:00 AM MDT",
+   "ws_events": [
+    "Novice World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "novice-only"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41326"
+  },
+  {
+   "tourn_id": "40864",
+   "name": "Grand Oaks TFA and NIETOC Tournament",
+   "startDate": "2026-10-30",
+   "endDate": "2026-10-31",
+   "city": "Spring",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 10/26 12:00 PM CDT",
+   "ws_events": [
+    "Novice World Schools Debate",
+    "World Schools Debate"
+   ],
+   "ws_circuit": true,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40864"
+  },
+  {
+   "tourn_id": "39982",
+   "name": "Plano West Werewolf Howloween Classic",
+   "startDate": "2026-10-30",
+   "endDate": "2026-10-31",
+   "city": "Plano",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 10/23 5:00 PM CDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39982"
+  },
+  {
+   "tourn_id": "40359",
+   "name": "Tim Averill Invitational ONLINE",
+   "startDate": "2026-10-30",
+   "endDate": "2026-11-01",
+   "city": "On NSDA Campus",
+   "state": "EDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 10/28 3:00 PM EDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40359"
+  },
+  {
+   "tourn_id": "40865",
+   "name": "Walter Cotter Classic Online",
+   "startDate": "2026-10-31",
+   "endDate": "2026-10-31",
+   "city": "On NSDA Campus",
+   "state": "EDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 10/26 5:00 PM EDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40865"
+  },
+  {
+   "tourn_id": "41286",
+   "name": "Weeknight Online Rounds of Debate 3",
+   "startDate": "2026-11-02",
+   "endDate": "2026-11-02",
+   "city": "Online",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 11/1 11:00 AM CDT",
+   "ws_events": [
+    "World Schools: Impromptu",
+    "World Schools: Prepared"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "weeknight-online-series"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41286"
+  },
+  {
+   "tourn_id": "40534",
+   "name": "NSDA Springboard Scrimmage 6",
+   "startDate": "2026-11-05",
+   "endDate": "2026-11-05",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 11/5 12:00 PM CDT",
+   "ws_events": [
+    "Open World Schools",
+    "Rising Stars World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "nsda-springboard-scrimmage"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40534"
+  },
+  {
+   "tourn_id": "41234",
+   "name": "Canyon County Classic",
+   "startDate": "2026-11-06",
+   "endDate": "2026-11-07",
+   "city": "Caldwell",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "reg_status": "Open 9/14 12:00 PM MDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41234"
+  },
+  {
+   "tourn_id": "40741",
+   "name": "Roadrunner Rendezvous",
+   "startDate": "2026-11-06",
+   "endDate": "2026-11-07",
+   "city": "Tucson",
+   "state": "AZ",
+   "stateLabel": "AZ",
+   "mode": "in-person",
+   "reg_status": "Due 11/3 5:00 PM MST",
+   "ws_events": [
+    "Open World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40741"
+  },
+  {
+   "tourn_id": "41301",
+   "name": "San Angelo Central Bobcat Bonanza Swing TFA NIETOC",
+   "startDate": "2026-11-06",
+   "endDate": "2026-11-07",
+   "city": "San Angelo",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Open 9/15 8:00 AM CDT",
+   "ws_events": [
+    "World Schools Debate Orange"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41301"
+  },
+  {
+   "tourn_id": "41331",
+   "name": "Skyline Grizzly Growl",
+   "startDate": "2026-11-06",
+   "endDate": "2026-11-07",
+   "city": "Idaho Falls",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "reg_status": "Open 9/14 12:00 AM MDT",
+   "ws_events": [
+    "Varsity World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41331"
+  },
+  {
+   "tourn_id": "39900",
+   "name": "The Ed Long Invitational at The Hockaday School",
+   "startDate": "2026-11-06",
+   "endDate": "2026-11-07",
+   "city": "Dallas",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Open 9/25 6:00 AM CDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "semis",
+   "toc_name": "Ed Long Invitational at The Hockaday School",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39900"
+  },
+  {
+   "tourn_id": "40494",
+   "name": "Damus Invitational",
+   "startDate": "2026-11-07",
+   "endDate": "2026-11-09",
+   "city": "Sherman Oaks",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "reg_status": "Due 11/3 5:00 PM PDT",
+   "ws_events": [
+    "WSD"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40494"
+  },
+  {
+   "tourn_id": "40428",
+   "name": "The Constellation",
+   "startDate": "2026-11-07",
+   "endDate": "2026-11-08",
+   "city": "Orlando",
+   "state": "FL",
+   "stateLabel": "FL",
+   "mode": "in-person",
+   "reg_status": "Due 11/1 11:55 PM EDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40428"
+  },
+  {
+   "tourn_id": "40535",
+   "name": "NSDA Springboard Scrimmage 7",
+   "startDate": "2026-11-10",
+   "endDate": "2026-11-10",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 11/10 11:00 AM CDT",
+   "ws_events": [
+    "Open World Schools",
+    "Rising Stars World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "nsda-springboard-scrimmage"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40535"
+  },
+  {
+   "tourn_id": "41287",
+   "name": "Weeknight Online Rounds of Debate 4",
+   "startDate": "2026-11-10",
+   "endDate": "2026-11-10",
+   "city": "Online",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 11/9 11:00 AM CDT",
+   "ws_events": [
+    "World Schools: Impromptu",
+    "World Schools: Prepared"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "weeknight-online-series"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41287"
+  },
+  {
+   "tourn_id": "40866",
+   "name": "Katy Taylor TFA TOC NIETOC Fall Classic",
+   "startDate": "2026-11-12",
+   "endDate": "2026-11-14",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 11/11 12:00 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40866"
+  },
+  {
+   "tourn_id": "40738",
+   "name": "Auburn High School Invitational",
+   "startDate": "2026-11-13",
+   "endDate": "2026-11-14",
+   "city": "Auburn",
+   "state": "WA",
+   "stateLabel": "WA",
+   "mode": "in-person",
+   "reg_status": "Open 9/28 2:00 AM PDT",
+   "ws_events": [
+    "Worlds Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40738"
+  },
+  {
+   "tourn_id": "40547",
+   "name": "Gate City Invitational",
+   "startDate": "2026-11-13",
+   "endDate": "2026-11-14",
+   "city": "Pocatello",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "reg_status": "Due 11/10 10:00 AM MDT",
+   "ws_events": [
+    "Novice World Schools Debate",
+    "Varsity World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40547"
+  },
+  {
+   "tourn_id": "39971",
+   "name": "Park City Snow Globe",
+   "startDate": "2026-11-13",
+   "endDate": "2026-11-14",
+   "city": "Park City",
+   "state": "UT",
+   "stateLabel": "UT",
+   "mode": "in-person",
+   "reg_status": "Due 11/11 6:00 PM MDT",
+   "ws_events": [
+    "F - World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39971"
+  },
+  {
+   "tourn_id": "40761",
+   "name": "Peach State Classic",
+   "startDate": "2026-11-13",
+   "endDate": "2026-11-15",
+   "city": "Online",
+   "state": "EDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 11/6 12:00 PM EDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40761"
+  },
+  {
+   "tourn_id": "40655",
+   "name": "Speak at the Creek TFA at Cypress Ranch",
+   "startDate": "2026-11-13",
+   "endDate": "2026-11-14",
+   "city": "Cypress",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Open 10/8 12:00 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40655"
+  },
+  {
+   "tourn_id": "40116",
+   "name": "The Roundup at Ridgevue - NIETOC",
+   "startDate": "2026-11-13",
+   "endDate": "2026-11-14",
+   "city": "Nampa",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "reg_status": "Due 11/12 12:00 PM MDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40116"
+  },
+  {
+   "tourn_id": "40979",
+   "name": "Austin McCallum TFA Invitational",
+   "startDate": "2026-11-14",
+   "endDate": "2026-11-14",
+   "city": "McCallum HS (Austin)",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 11/11 11:55 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40979"
+  },
+  {
+   "tourn_id": "40931",
+   "name": "China Spring TFA Speech and Debate Spectacular",
+   "startDate": "2026-11-14",
+   "endDate": "2026-11-14",
+   "city": "China Spring (Waco)",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 11/11 5:00 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40931"
+  },
+  {
+   "tourn_id": "40491",
+   "name": "College Park Middle School Classic",
+   "startDate": "2026-11-14",
+   "endDate": "2026-11-14",
+   "city": "The Woodlands",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 11/10 6:00 AM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "middle-school"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40491"
+  },
+  {
+   "tourn_id": "41335",
+   "name": "Marlborough Middle School and Novice 1",
+   "startDate": "2026-11-14",
+   "endDate": "2026-11-14",
+   "city": "Los Angeles",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "reg_status": "Due 11/9 10:00 PM PDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "middle-school"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41335"
+  },
+  {
+   "tourn_id": "40986",
+   "name": "Orange County Speech League Fall Open 2026",
+   "startDate": "2026-11-14",
+   "endDate": "2026-11-14",
+   "city": "Cypress",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "reg_status": "Due 11/11 10:55 PM PDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40986"
+  },
+  {
+   "tourn_id": "40536",
+   "name": "NSDA Springboard Scrimmage 8",
+   "startDate": "2026-11-17",
+   "endDate": "2026-11-17",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 11/17 11:00 AM CDT",
+   "ws_events": [
+    "Open World Schools",
+    "Rising Stars World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "nsda-springboard-scrimmage"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40536"
+  },
+  {
+   "tourn_id": "40831",
+   "name": "Elsik Blue Gratitude Swing",
+   "startDate": "2026-11-19",
+   "endDate": "2026-11-21",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Open 9/21 4:10 PM CDT",
+   "ws_events": [
+    "Columbia World Schools Debate ONLINE",
+    "Navy World Schools Debate (Sat only)"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40831"
+  },
+  {
+   "tourn_id": "40537",
+   "name": "NSDA Springboard Scrimmage 9",
+   "startDate": "2026-11-19",
+   "endDate": "2026-11-19",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 11/19 11:00 AM CDT",
+   "ws_events": [
+    "Open World Schools",
+    "Rising Stars World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "nsda-springboard-scrimmage"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40537"
+  },
+  {
+   "tourn_id": "39924",
+   "name": "John Lewis SVUDL",
+   "startDate": "2026-11-20",
+   "endDate": "2026-11-22",
+   "city": "On NSDA Campus",
+   "state": "PDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 11/18 10:00 PM PDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "finals",
+   "toc_name": "John Lewis SVUDL Invitational",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39924"
+  },
+  {
+   "tourn_id": "40650",
+   "name": "TCFL Winter Open Debate",
+   "startDate": "2026-11-21",
+   "endDate": "2026-11-21",
+   "city": "Valencia",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "reg_status": "Open 10/5 8:00 AM PDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40650"
+  },
+  {
+   "tourn_id": "39824",
+   "name": "Charger Challenge",
+   "startDate": "2026-12-03",
+   "endDate": "2026-12-06",
+   "city": "Draper",
+   "state": "UT",
+   "stateLabel": "UT",
+   "mode": "in-person",
+   "reg_status": "Due 12/1 10:00 PM MDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": true,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39824"
+  },
+  {
+   "tourn_id": "40178",
+   "name": "Alief Taylor NCFL TFA IQT",
+   "startDate": "2026-12-04",
+   "endDate": "2026-12-07",
+   "city": "Houston",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Open 10/1 12:05 AM CDT",
+   "ws_events": [
+    "D: Novice WSD",
+    "D: Varsity WSD"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40178"
+  },
+  {
+   "tourn_id": "40881",
+   "name": "Holiday Havoc",
+   "startDate": "2026-12-04",
+   "endDate": "2026-12-05",
+   "city": "Nampa",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "reg_status": "Due 12/2 6:00 PM MDT",
+   "ws_events": [
+    "Novice Worlds Schools Debate",
+    "Varsity World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40881"
+  },
+  {
+   "tourn_id": "40906",
+   "name": "La Costa Canyon Winter Classic",
+   "startDate": "2026-12-04",
+   "endDate": "2026-12-06",
+   "city": "Carlsbad",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "reg_status": "Open 10/5 2:00 PM PDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40906"
+  },
+  {
+   "tourn_id": "39977",
+   "name": "The Big GUMP Classic",
+   "startDate": "2026-12-04",
+   "endDate": "2026-12-05",
+   "city": "Montgomery",
+   "state": "AL",
+   "stateLabel": "AL",
+   "mode": "in-person",
+   "reg_status": "Due 11/30 6:00 PM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39977"
+  },
+  {
+   "tourn_id": "38583",
+   "name": "The Longhorn Classic",
+   "startDate": "2026-12-04",
+   "endDate": "2026-12-06",
+   "city": "Austin",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 11/24 11:55 PM CDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "quarters",
+   "toc_name": "The Longhorn Classic",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38583"
+  },
+  {
+   "tourn_id": "41288",
+   "name": "Weeknight Online Rounds of Debate 5",
+   "startDate": "2026-12-08",
+   "endDate": "2026-12-08",
+   "city": "Online",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Due 12/7 11:00 AM CDT",
+   "ws_events": [
+    "World Schools: Impromptu",
+    "World Schools: Prepared"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "weeknight-online-series"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41288"
+  },
+  {
+   "tourn_id": "40307",
+   "name": "Cypress Freeze TFA NIETOC at Jersey Village",
+   "startDate": "2026-12-09",
+   "endDate": "2026-12-12",
+   "city": "Jersey Village",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "hybrid",
+   "reg_status": "Open 9/30 3:00 PM CDT",
+   "ws_events": [
+    "Falcon World Schools Debate",
+    "Mustang World Schools Debate (Online)"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40307"
+  },
+  {
+   "tourn_id": "40452",
+   "name": "Dripping Springs Tiger Tussle",
+   "startDate": "2026-12-11",
+   "endDate": "2026-12-12",
+   "city": "Dripping Springs",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Open 9/22 8:00 AM CDT",
+   "ws_events": [
+    "Novice World Schools Debate",
+    "Varsity World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "finals",
+   "toc_name": "Dripping Springs Tiger Tussle",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40452"
+  },
+  {
+   "tourn_id": "40760",
+   "name": "Isidore Newman School Invitational",
+   "startDate": "2026-12-11",
+   "endDate": "2026-12-13",
+   "city": "New Orleans",
+   "state": "LA",
+   "stateLabel": "LA",
+   "mode": "in-person",
+   "reg_status": "Open 9/21 8:00 AM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "finals",
+   "toc_name": "Isidore Newman School Invitational",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40760"
+  },
+  {
+   "tourn_id": "41336",
+   "name": "Marlborough Middle School and Novice 2",
+   "startDate": "2026-12-12",
+   "endDate": "2026-12-12",
+   "city": "Los Angeles",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "reg_status": "Due 12/7 10:00 PM PDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "middle-school"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41336"
+  },
+  {
+   "tourn_id": "40798",
+   "name": "John Edie Holiday Debates Hosted by The Blake School",
+   "startDate": "2026-12-18",
+   "endDate": "2026-12-21",
+   "city": "Minneapolis",
+   "state": "MN",
+   "stateLabel": "MN",
+   "mode": "in-person",
+   "reg_status": "Open 10/7 12:00 PM CDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "semis",
+   "toc_name": "John Edie Holiday Debates",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40798"
+  },
+  {
+   "tourn_id": "41396",
+   "name": "Blacksnake 2027",
+   "startDate": "2027-01-08",
+   "endDate": "2027-01-09",
+   "city": "Pocatello",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "reg_status": "Open 11/30 7:30 AM MDT",
+   "ws_events": [
+    "Novice World Schools Debate",
+    "Open World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41396"
+  },
+  {
+   "tourn_id": "40949",
+   "name": "Kingwood Mustang New Years Classic TFA",
+   "startDate": "2027-01-08",
+   "endDate": "2027-01-09",
+   "city": "Kingwood",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Open 10/1 4:00 AM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40949"
+  },
+  {
+   "tourn_id": "41119",
+   "name": "The 52nd Churchill Classic TOC and NIETOC Qualifier",
+   "startDate": "2027-01-08",
+   "endDate": "2027-01-10",
+   "city": "San Antonio",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Open 10/1 7:00 AM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41119"
+  },
+  {
+   "tourn_id": "39720",
+   "name": "Cavalier Invitational at Durham Academy",
+   "startDate": "2027-01-15",
+   "endDate": "2027-01-18",
+   "city": "Durham",
+   "state": "NC",
+   "stateLabel": "NC",
+   "mode": "in-person",
+   "reg_status": "Open 9/30 8:00 AM EDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "finals",
+   "toc_name": "Cavalier Invitational at Durham Academy",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39720"
+  },
+  {
+   "tourn_id": "41173",
+   "name": "TCFL Spring Open Debate",
+   "startDate": "2027-01-16",
+   "endDate": "2027-01-16",
+   "city": "Newhall",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "reg_status": "Open 11/9 8:00 AM PDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41173"
+  },
+  {
+   "tourn_id": "39754",
+   "name": "Barkley Forum for High Schools",
+   "startDate": "2027-01-22",
+   "endDate": "2027-01-24",
+   "city": "Atlanta",
+   "state": "GA",
+   "stateLabel": "GA",
+   "mode": "in-person",
+   "reg_status": "Open 10/7 12:00 PM EDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39754"
+  },
+  {
+   "tourn_id": "41297",
+   "name": "Waco Midway TFA",
+   "startDate": "2027-01-23",
+   "endDate": "2027-01-23",
+   "city": "Midway High School (Waco",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "No open registration",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41297"
+  },
+  {
+   "tourn_id": "40382",
+   "name": "Olle Owl Middle School Invitational",
+   "startDate": "2027-01-29",
+   "endDate": "2027-01-30",
+   "city": "Houston",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Open 12/1 8:00 AM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "middle-school"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40382"
+  },
+  {
+   "tourn_id": "40599",
+   "name": "University of Pennsylvania Liberty Bell Classic",
+   "startDate": "2027-02-05",
+   "endDate": "2027-02-07",
+   "city": "Philadelphia",
+   "state": "PA",
+   "stateLabel": "PA",
+   "mode": "in-person",
+   "reg_status": "Open 12/14 9:00 AM EDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": true,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40599"
+  },
+  {
+   "tourn_id": "40749",
+   "name": "41st Annual Stanford Invitational",
+   "startDate": "2027-02-06",
+   "endDate": "2027-02-08",
+   "city": "On NSDA Campus",
+   "state": "PDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Open 10/1 12:00 PM PDT",
+   "ws_events": [
+    "World Schools - Novice",
+    "World Schools - TOC"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "quarters",
+   "toc_name": "Stanford Invitational",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40749"
+  },
+  {
+   "tourn_id": "40853",
+   "name": "Harvard National Speech and Debate Tournament",
+   "startDate": "2027-02-11",
+   "endDate": "2027-02-15",
+   "city": "Cambridge",
+   "state": "MA",
+   "stateLabel": "MA",
+   "mode": "hybrid",
+   "reg_status": "Open 11/30 12:00 AM EDT",
+   "ws_events": [
+    "WSD - Open ONLINE",
+    "WSD - Varsity"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "quarters",
+   "toc_name": "Harvard National Speech and Debate Tournament (In-Person Division)",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40853"
+  },
+  {
+   "tourn_id": "40430",
+   "name": "Cypress Springs TFA at Jersey Village",
+   "startDate": "2027-02-12",
+   "endDate": "2027-02-13",
+   "city": "Jersey Village",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Open 1/8 11:00 AM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40430"
+  },
+  {
+   "tourn_id": "39887",
+   "name": "53rd Cal Invitational UC Berkeley",
+   "startDate": "2027-02-13",
+   "endDate": "2027-02-15",
+   "city": "Berkeley",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "hybrid",
+   "reg_status": "Due 2/5 11:55 PM PDT",
+   "ws_events": [
+    "World Schools (Online)"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "finals",
+   "toc_name": "Cal Invitational UC Berkeley",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39887"
+  },
+  {
+   "tourn_id": "39940",
+   "name": "Ryan Mills SVUDL",
+   "startDate": "2027-02-20",
+   "endDate": "2027-02-21",
+   "city": "On NSDA Campus",
+   "state": "PDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "reg_status": "Open 1/4 7:00 AM PDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39940"
+  },
+  {
+   "tourn_id": "41181",
+   "name": "New Orleans Charter Science and Mathematics Speech and Debate I",
+   "startDate": "2027-02-26",
+   "endDate": "2027-02-27",
+   "city": "New Orleans",
+   "state": "LA",
+   "stateLabel": "LA",
+   "mode": "in-person",
+   "reg_status": "Open 11/30 8:00 AM CDT",
+   "ws_events": [
+    "World School Debate"
+   ],
+   "ws_circuit": true,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41181"
+  },
+  {
+   "tourn_id": "41337",
+   "name": "Marlborough Middle School and Novice 3",
+   "startDate": "2027-02-27",
+   "endDate": "2027-02-27",
+   "city": "Los Angeles",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "reg_status": "Due 2/22 10:00 PM PDT",
+   "ws_events": [
+    "World Schools"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "middle-school"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41337"
+  },
+  {
+   "tourn_id": "41279",
+   "name": "Texas Middle School State Tournament",
+   "startDate": "2027-04-16",
+   "endDate": "2027-04-17",
+   "city": "Houston",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Open 1/4 8:00 AM CDT",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "middle-school"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41279"
+  },
+  {
+   "tourn_id": "40857",
+   "name": "2027 Bluebonnet World Schools International Debate Tournament",
+   "startDate": "2027-04-22",
+   "endDate": "2027-04-24",
+   "city": "Spring",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "reg_status": "Due 4/2 8:00 PM CDT",
+   "ws_events": [
+    "Growing in WSD CLINIC",
+    "Intermediate/Advanced WSD Training",
+    "Novice World Schools Debate",
+    "World Schools Debate Championship"
+   ],
+   "ws_circuit": true,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40857"
+  },
+  {
+   "tourn_id": "41099",
+   "name": "NSDA Last Chance Qualifier 2027",
+   "startDate": "2027-04-29",
+   "endDate": "2027-05-01",
+   "city": "Des Moines",
+   "state": "IA",
+   "stateLabel": "IA",
+   "mode": "in-person",
+   "reg_status": "Open 1/7",
+   "ws_events": [
+    "World Schools Debate"
+   ],
+   "ws_circuit": false,
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41099"
+  }
+ ],
+ "expected": [
+  {
+   "tourn_id_prev": "35742",
+   "name": "Foster Summer Creek Back to School TFA Tournament",
+   "dates_short_prev": "8/20 - 8/26",
+   "projectedStart": "2026-08-20",
+   "projectedEnd": "2026-08-26",
+   "city": "Richmond",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "hybrid",
+   "ws_events_prev": [
+    "Bulldog World Schools (Online)",
+    "Falcon World Schools Debate (In-Person)"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=35742"
+  },
+  {
+   "tourn_id_prev": "36740",
+   "name": "Madison Central Mid State Invitational 2025",
+   "dates_short_prev": "9/12 - 9/13",
+   "projectedStart": "2026-09-12",
+   "projectedEnd": "2026-09-13",
+   "city": "Madison",
+   "state": "MS",
+   "stateLabel": "MS",
+   "mode": "in-person",
+   "ws_events_prev": [],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36740"
+  },
+  {
+   "tourn_id_prev": "36793",
+   "name": "Anderson Hendrickson Swing at Anderson",
+   "dates_short_prev": "9/26 - 9/27",
+   "projectedStart": "2026-09-26",
+   "projectedEnd": "2026-09-27",
+   "city": "Austin",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36793"
+  },
+  {
+   "tourn_id_prev": "36117",
+   "name": "Jesuit Dallas Debate and Speech Invitational",
+   "dates_short_prev": "9/26 - 9/27",
+   "projectedStart": "2026-09-26",
+   "projectedEnd": "2026-09-27",
+   "city": "Dallas",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36117"
+  },
+  {
+   "tourn_id_prev": "37140",
+   "name": "NUDL Tournament 1",
+   "dates_short_prev": "9/27",
+   "projectedStart": "2026-09-27",
+   "projectedEnd": "2026-09-27",
+   "city": "Nashville",
+   "state": "TN",
+   "stateLabel": "TN",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37140"
+  },
+  {
+   "tourn_id_prev": "37007",
+   "name": "Stratford Spartan Invitational",
+   "dates_short_prev": "10/10 - 10/11",
+   "projectedStart": "2026-10-10",
+   "projectedEnd": "2026-10-11",
+   "city": "Houston",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Varsity World Schools Debate (WSD)"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37007"
+  },
+  {
+   "tourn_id_prev": "37296",
+   "name": "City of Trees Varsity Opener",
+   "dates_short_prev": "10/11",
+   "projectedStart": "2026-10-11",
+   "projectedEnd": "2026-10-11",
+   "city": "Boise",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Worlds Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37296"
+  },
+  {
+   "tourn_id_prev": "36564",
+   "name": "Atascocita High School TFA NIETOC",
+   "dates_short_prev": "10/17 - 10/18",
+   "projectedStart": "2026-10-17",
+   "projectedEnd": "2026-10-18",
+   "city": "Humble",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36564"
+  },
+  {
+   "tourn_id_prev": "36789",
+   "name": "Wild Westlake Chap Classic",
+   "dates_short_prev": "10/17 - 10/18",
+   "projectedStart": "2026-10-17",
+   "projectedEnd": "2026-10-18",
+   "city": "Austin",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36789"
+  },
+  {
+   "tourn_id_prev": "37009",
+   "name": "DUDA High School Tournament 1",
+   "dates_short_prev": "10/18",
+   "projectedStart": "2026-10-18",
+   "projectedEnd": "2026-10-18",
+   "city": "Dallas",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Novice World Schools",
+    "Varsity World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37009"
+  },
+  {
+   "tourn_id_prev": "37162",
+   "name": "LD Worlds Debate Opener",
+   "dates_short_prev": "10/24 - 10/26",
+   "projectedStart": "2026-10-24",
+   "projectedEnd": "2026-10-26",
+   "city": "Pocatello",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Novice World Schools",
+    "Varsity World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37162"
+  },
+  {
+   "tourn_id_prev": "36894",
+   "name": "NewmanCaddo Online 1",
+   "dates_short_prev": "10/24 - 10/25",
+   "projectedStart": "2026-10-24",
+   "projectedEnd": "2026-10-25",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36894"
+  },
+  {
+   "tourn_id_prev": "36617",
+   "name": "2025 Austin HS Top Dawg MS Tournament",
+   "dates_short_prev": "10/25",
+   "projectedStart": "2026-10-25",
+   "projectedEnd": "2026-10-25",
+   "city": "Houston",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36617"
+  },
+  {
+   "tourn_id_prev": "36898",
+   "name": "Caprock Baldy Bonanza TFA NSDA NIETOC",
+   "dates_short_prev": "10/25",
+   "projectedStart": "2026-10-25",
+   "projectedEnd": "2026-10-25",
+   "city": "Amarillo",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36898"
+  },
+  {
+   "tourn_id_prev": "37745",
+   "name": "NUDL Tournament 2 Halloween Classic",
+   "dates_short_prev": "10/25",
+   "projectedStart": "2026-10-25",
+   "projectedEnd": "2026-10-25",
+   "city": "Nashville",
+   "state": "TN",
+   "stateLabel": "TN",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37745"
+  },
+  {
+   "tourn_id_prev": "37633",
+   "name": "OCSL Fall",
+   "dates_short_prev": "10/25",
+   "projectedStart": "2026-10-25",
+   "projectedEnd": "2026-10-25",
+   "city": "Cypress",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37633"
+  },
+  {
+   "tourn_id_prev": "36938",
+   "name": "Running with the Bulls",
+   "dates_short_prev": "10/25",
+   "projectedStart": "2026-10-25",
+   "projectedEnd": "2026-10-25",
+   "city": "Meridian",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36938"
+  },
+  {
+   "tourn_id_prev": "36960",
+   "name": "Wood River Round Robin",
+   "dates_short_prev": "10/25",
+   "projectedStart": "2026-10-25",
+   "projectedEnd": "2026-10-25",
+   "city": "Hailey",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Novice/JV World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "novice-only"
+   ],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36960"
+  },
+  {
+   "tourn_id_prev": "36213",
+   "name": "The Clear Falls Knight Invitational TFA IQT NIETOC Qualifying T",
+   "dates_short_prev": "10/31 - 11/1",
+   "projectedStart": "2026-10-31",
+   "projectedEnd": "2026-11-01",
+   "city": "League City",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36213"
+  },
+  {
+   "tourn_id_prev": "37800",
+   "name": "DUDA High School Tournament 2",
+   "dates_short_prev": "11/1",
+   "projectedStart": "2026-11-01",
+   "projectedEnd": "2026-11-01",
+   "city": "Dallas",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Novice World Schools",
+    "Varsity World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37800"
+  },
+  {
+   "tourn_id_prev": "37431",
+   "name": "Ephrata",
+   "dates_short_prev": "11/1",
+   "projectedStart": "2026-11-01",
+   "projectedEnd": "2026-11-01",
+   "city": "Ephrata",
+   "state": "WA",
+   "stateLabel": "WA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37431"
+  },
+  {
+   "tourn_id_prev": "37525",
+   "name": "Bowie Lampasas TFANIETOC Full Swing",
+   "dates_short_prev": "11/7 - 11/8",
+   "projectedStart": "2026-11-07",
+   "projectedEnd": "2026-11-08",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "ws_events_prev": [
+    "JBHS-World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37525"
+  },
+  {
+   "tourn_id_prev": "37183",
+   "name": "Clear Brook IQT",
+   "dates_short_prev": "11/7 - 11/8",
+   "projectedStart": "2026-11-07",
+   "projectedEnd": "2026-11-08",
+   "city": "Friendswood",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37183"
+  },
+  {
+   "tourn_id_prev": "37083",
+   "name": "Gig Harbor Invitational",
+   "dates_short_prev": "11/7 - 11/8",
+   "projectedStart": "2026-11-07",
+   "projectedEnd": "2026-11-08",
+   "city": "Gig Harbor",
+   "state": "WA",
+   "stateLabel": "WA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Novice World Schools Debate",
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37083"
+  },
+  {
+   "tourn_id_prev": "37757",
+   "name": "Timberwolf Invitational",
+   "dates_short_prev": "11/7 - 11/8",
+   "projectedStart": "2026-11-07",
+   "projectedEnd": "2026-11-08",
+   "city": "Coeur d'Alene",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37757"
+  },
+  {
+   "tourn_id_prev": "36622",
+   "name": "Klein Oak MS Fall Classic",
+   "dates_short_prev": "11/8",
+   "projectedStart": "2026-11-08",
+   "projectedEnd": "2026-11-08",
+   "city": "Klein",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "middle-school"
+   ],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36622"
+  },
+  {
+   "tourn_id_prev": "37678",
+   "name": "DUDA Irma Rangel YWLS School for the Talented and Gifted TFA",
+   "dates_short_prev": "11/13 - 11/19",
+   "projectedStart": "2026-11-13",
+   "projectedEnd": "2026-11-19",
+   "city": "Dallas",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "IR-World Schools",
+    "TAG-World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37678"
+  },
+  {
+   "tourn_id_prev": "36954",
+   "name": "The Jungle at Idaho Falls High School",
+   "dates_short_prev": "11/14 - 11/15",
+   "projectedStart": "2026-11-14",
+   "projectedEnd": "2026-11-15",
+   "city": "Idaho Falls",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Novice World Schools Debate",
+    "Varsity World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36954"
+  },
+  {
+   "tourn_id_prev": "35872",
+   "name": "Creekview Winter Extravaganza",
+   "dates_short_prev": "11/15",
+   "projectedStart": "2026-11-15",
+   "projectedEnd": "2026-11-15",
+   "city": "Carrollton",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=35872"
+  },
+  {
+   "tourn_id_prev": "38060",
+   "name": "NUDL Tournament 3 Thanksgiving Thowdown",
+   "dates_short_prev": "11/15",
+   "projectedStart": "2026-11-15",
+   "projectedEnd": "2026-11-15",
+   "city": "Nashville",
+   "state": "TN",
+   "stateLabel": "TN",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38060"
+  },
+  {
+   "tourn_id_prev": "37520",
+   "name": "Rowdy Rouse Raiders TFA",
+   "dates_short_prev": "11/15",
+   "projectedStart": "2026-11-15",
+   "projectedEnd": "2026-11-15",
+   "city": "Leander",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37520"
+  },
+  {
+   "tourn_id_prev": "38101",
+   "name": "Toppenish",
+   "dates_short_prev": "11/15",
+   "projectedStart": "2026-11-15",
+   "projectedEnd": "2026-11-15",
+   "city": "Toppenish",
+   "state": "WA",
+   "stateLabel": "WA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38101"
+  },
+  {
+   "tourn_id_prev": "37792",
+   "name": "Tahoma High School Golden Bear Classic",
+   "dates_short_prev": "11/21 - 11/22",
+   "projectedStart": "2026-11-21",
+   "projectedEnd": "2026-11-22",
+   "city": "Maple Valley",
+   "state": "WA",
+   "stateLabel": "WA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Worlds Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37792"
+  },
+  {
+   "tourn_id_prev": "38149",
+   "name": "BSD Invitational",
+   "dates_short_prev": "12/5 - 12/6",
+   "projectedStart": "2026-12-05",
+   "projectedEnd": "2026-12-06",
+   "city": "On NSDA Campus",
+   "state": "PDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "ws_events_prev": [
+    "Worlds Schools Debate - Open"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38149"
+  },
+  {
+   "tourn_id_prev": "38150",
+   "name": "Feline Frenzy",
+   "dates_short_prev": "12/5 - 12/6",
+   "projectedStart": "2026-12-05",
+   "projectedEnd": "2026-12-06",
+   "city": "Mead",
+   "state": "WA",
+   "stateLabel": "WA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38150"
+  },
+  {
+   "tourn_id_prev": "37784",
+   "name": "Spring High Charlie Brown Classic",
+   "dates_short_prev": "12/5 - 12/6",
+   "projectedStart": "2026-12-05",
+   "projectedEnd": "2026-12-06",
+   "city": "Spring High School",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37784"
+  },
+  {
+   "tourn_id_prev": "38048",
+   "name": "DUDA High School Tournament 3",
+   "dates_short_prev": "12/6 - 12/10",
+   "projectedStart": "2026-12-06",
+   "projectedEnd": "2026-12-10",
+   "city": "Dallas",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Novice World Schools",
+    "Varsity World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38048"
+  },
+  {
+   "tourn_id_prev": "38433",
+   "name": "NUDL Tournament 4 Holiday Classic",
+   "dates_short_prev": "12/6",
+   "projectedStart": "2026-12-06",
+   "projectedEnd": "2026-12-06",
+   "city": "Nashville",
+   "state": "TN",
+   "stateLabel": "TN",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38433"
+  },
+  {
+   "tourn_id_prev": "38084",
+   "name": "Othello",
+   "dates_short_prev": "12/6",
+   "projectedStart": "2026-12-06",
+   "projectedEnd": "2026-12-06",
+   "city": "Othello",
+   "state": "WA",
+   "stateLabel": "WA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38084"
+  },
+  {
+   "tourn_id_prev": "37679",
+   "name": "2025 JBS Law Magnet DUDATFA Qualifier",
+   "dates_short_prev": "12/12 - 12/13",
+   "projectedStart": "2026-12-12",
+   "projectedEnd": "2026-12-13",
+   "city": "Dallas",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37679"
+  },
+  {
+   "tourn_id_prev": "38376",
+   "name": "Highlander Invitational",
+   "dates_short_prev": "12/12 - 12/13",
+   "projectedStart": "2026-12-12",
+   "projectedEnd": "2026-12-13",
+   "city": "Spokane",
+   "state": "WA",
+   "stateLabel": "WA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38376"
+  },
+  {
+   "tourn_id_prev": "37874",
+   "name": "Rim to Rim",
+   "dates_short_prev": "12/12 - 12/13",
+   "projectedStart": "2026-12-12",
+   "projectedEnd": "2026-12-13",
+   "city": "Twin Falls",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37874"
+  },
+  {
+   "tourn_id_prev": "38054",
+   "name": "SVUDL Dolores Huerta",
+   "dates_short_prev": "12/12 - 12/13",
+   "projectedStart": "2026-12-12",
+   "projectedEnd": "2026-12-13",
+   "city": "San Jose",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38054"
+  },
+  {
+   "tourn_id_prev": "37058",
+   "name": "Centennial Titan TFA Tournament",
+   "dates_short_prev": "12/13",
+   "projectedStart": "2026-12-13",
+   "projectedEnd": "2026-12-13",
+   "city": "Frisco",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37058"
+  },
+  {
+   "tourn_id_prev": "38187",
+   "name": "Chiawana",
+   "dates_short_prev": "12/13",
+   "projectedStart": "2026-12-13",
+   "projectedEnd": "2026-12-13",
+   "city": "Pasco",
+   "state": "WA",
+   "stateLabel": "WA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38187"
+  },
+  {
+   "tourn_id_prev": "37649",
+   "name": "The Tradition",
+   "dates_short_prev": "12/13 - 12/14",
+   "projectedStart": "2026-12-13",
+   "projectedEnd": "2026-12-14",
+   "city": "Weston",
+   "state": "FL",
+   "stateLabel": "FL",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37649"
+  },
+  {
+   "tourn_id_prev": "36375",
+   "name": "Clements Holiday Classic TFA",
+   "dates_short_prev": "12/16 - 12/18",
+   "projectedStart": "2026-12-16",
+   "projectedEnd": "2026-12-18",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "ws_events_prev": [
+    "World School Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36375"
+  },
+  {
+   "tourn_id_prev": "38228",
+   "name": "North Katy Tiger Maverick Swing",
+   "dates_short_prev": "1/2 - 1/3",
+   "projectedStart": "2027-01-02",
+   "projectedEnd": "2027-01-03",
+   "city": "Katy",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Maverick World Schools Debate (IN-PERSON)"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38228"
+  },
+  {
+   "tourn_id_prev": "37491",
+   "name": "Cypress Falls Tournament TFAIQT",
+   "dates_short_prev": "1/9 - 1/10",
+   "projectedStart": "2027-01-09",
+   "projectedEnd": "2027-01-10",
+   "city": "Cypress",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37491"
+  },
+  {
+   "tourn_id_prev": "37799",
+   "name": "New Tech Coppell",
+   "dates_short_prev": "1/9 - 1/10",
+   "projectedStart": "2027-01-09",
+   "projectedEnd": "2027-01-10",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "ws_events_prev": [
+    "Novice World Schools",
+    "Varsity World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37799"
+  },
+  {
+   "tourn_id_prev": "35615",
+   "name": "Sunvite",
+   "dates_short_prev": "1/9 - 1/11",
+   "projectedStart": "2027-01-09",
+   "projectedEnd": "2027-01-11",
+   "city": "Davie",
+   "state": "FL",
+   "stateLabel": "FL",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=35615"
+  },
+  {
+   "tourn_id_prev": "38514",
+   "name": "WinterCat VHS Virtual HS and in person MS Meet",
+   "dates_short_prev": "1/9 - 1/10",
+   "projectedStart": "2027-01-09",
+   "projectedEnd": "2027-01-10",
+   "city": "On NSDA Campus",
+   "state": "EDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38514"
+  },
+  {
+   "tourn_id_prev": "38817",
+   "name": "Cascade",
+   "dates_short_prev": "1/10",
+   "projectedStart": "2027-01-10",
+   "projectedEnd": "2027-01-10",
+   "city": "Leavenworth",
+   "state": "WA",
+   "stateLabel": "WA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38817"
+  },
+  {
+   "tourn_id_prev": "38284",
+   "name": "Harvard Westlake",
+   "dates_short_prev": "1/15 - 1/19",
+   "projectedStart": "2027-01-15",
+   "projectedEnd": "2027-01-19",
+   "city": "Studio City",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World School"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38284"
+  },
+  {
+   "tourn_id_prev": "38609",
+   "name": "Bulldog Bash NIETOC BID",
+   "dates_short_prev": "1/16 - 1/17",
+   "projectedStart": "2027-01-16",
+   "projectedEnd": "2027-01-17",
+   "city": "Greeley",
+   "state": "CO",
+   "stateLabel": "CO",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38609"
+  },
+  {
+   "tourn_id_prev": "38565",
+   "name": "Meridian Madness",
+   "dates_short_prev": "1/16 - 1/17",
+   "projectedStart": "2027-01-16",
+   "projectedEnd": "2027-01-17",
+   "city": "Meridian",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38565"
+  },
+  {
+   "tourn_id_prev": "38543",
+   "name": "Riverton 2026",
+   "dates_short_prev": "1/16 - 1/17",
+   "projectedStart": "2027-01-16",
+   "projectedEnd": "2027-01-17",
+   "city": "Riverton",
+   "state": "WY",
+   "stateLabel": "WY",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38543"
+  },
+  {
+   "tourn_id_prev": "38012",
+   "name": "Southlake Carroll TOC TFA Dragon Faire",
+   "dates_short_prev": "1/16 - 1/17",
+   "projectedStart": "2027-01-16",
+   "projectedEnd": "2027-01-17",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "semis",
+   "toc_name": "Southlake Carroll Dragon Faire",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38012"
+  },
+  {
+   "tourn_id_prev": "38494",
+   "name": "Thunderville Joust",
+   "dates_short_prev": "1/16 - 1/17",
+   "projectedStart": "2027-01-16",
+   "projectedEnd": "2027-01-17",
+   "city": "Idaho Falls",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Novice World Schools",
+    "Open World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38494"
+  },
+  {
+   "tourn_id_prev": "37194",
+   "name": "2026 Plano East TFA",
+   "dates_short_prev": "1/17",
+   "projectedStart": "2027-01-17",
+   "projectedEnd": "2027-01-17",
+   "city": "Plano",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37194"
+  },
+  {
+   "tourn_id_prev": "38059",
+   "name": "Lexington Winter Invitational",
+   "dates_short_prev": "1/17 - 1/19",
+   "projectedStart": "2027-01-17",
+   "projectedEnd": "2027-01-19",
+   "city": "Lexington",
+   "state": "MA",
+   "stateLabel": "MA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38059"
+  },
+  {
+   "tourn_id_prev": "36682",
+   "name": "McNeil HS TFA",
+   "dates_short_prev": "1/17 - 1/18",
+   "projectedStart": "2027-01-17",
+   "projectedEnd": "2027-01-18",
+   "city": "Round Rock",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36682"
+  },
+  {
+   "tourn_id_prev": "38263",
+   "name": "Tomball Memorial Speech and Debate Tournament",
+   "dates_short_prev": "1/17",
+   "projectedStart": "2027-01-17",
+   "projectedEnd": "2027-01-17",
+   "city": "Tomball",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38263"
+  },
+  {
+   "tourn_id_prev": "37976",
+   "name": "Bluebonnet Classic at Johnson High School",
+   "dates_short_prev": "1/23 - 1/24",
+   "projectedStart": "2027-01-23",
+   "projectedEnd": "2027-01-24",
+   "city": "San Antonio",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37976"
+  },
+  {
+   "tourn_id_prev": "37769",
+   "name": "Clear Creek Classic",
+   "dates_short_prev": "1/23 - 1/24",
+   "projectedStart": "2027-01-23",
+   "projectedEnd": "2027-01-24",
+   "city": "League City",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37769"
+  },
+  {
+   "tourn_id_prev": "38242",
+   "name": "Madison Meltdown",
+   "dates_short_prev": "1/23 - 1/24",
+   "projectedStart": "2027-01-23",
+   "projectedEnd": "2027-01-24",
+   "city": "Rexburg",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Novice World Schools Debate",
+    "Varsity World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38242"
+  },
+  {
+   "tourn_id_prev": "38492",
+   "name": "SVUDL Larry Itliong Tournament",
+   "dates_short_prev": "1/23 - 1/25",
+   "projectedStart": "2027-01-23",
+   "projectedEnd": "2027-01-25",
+   "city": "San Jose",
+   "state": "CA",
+   "stateLabel": "CA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38492"
+  },
+  {
+   "tourn_id_prev": "38679",
+   "name": "Viking Clash at Middleton",
+   "dates_short_prev": "1/24",
+   "projectedStart": "2027-01-24",
+   "projectedEnd": "2027-01-24",
+   "city": "Middleton",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38679"
+  },
+  {
+   "tourn_id_prev": "38952",
+   "name": "Clear Falls Online Knight Invitational TFA IQT",
+   "dates_short_prev": "1/26 - 1/27",
+   "projectedStart": "2027-01-26",
+   "projectedEnd": "2027-01-27",
+   "city": "On NSDA Campus",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38952"
+  },
+  {
+   "tourn_id_prev": "37321",
+   "name": "2026 Mustang Classic Natrona County",
+   "dates_short_prev": "1/30 - 1/31",
+   "projectedStart": "2027-01-30",
+   "projectedEnd": "2027-01-31",
+   "city": "Casper",
+   "state": "WY",
+   "stateLabel": "WY",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37321"
+  },
+  {
+   "tourn_id_prev": "38538",
+   "name": "Flower Mound TFA NIETOC Swing",
+   "dates_short_prev": "1/30 - 1/31",
+   "projectedStart": "2027-01-30",
+   "projectedEnd": "2027-01-31",
+   "city": "Flower Mound",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38538"
+  },
+  {
+   "tourn_id_prev": "38542",
+   "name": "The OConnor Brandeis Red Carpet Classic TFA NIETOC",
+   "dates_short_prev": "1/30 - 1/31",
+   "projectedStart": "2027-01-30",
+   "projectedEnd": "2027-01-31",
+   "city": "San Antonio",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38542"
+  },
+  {
+   "tourn_id_prev": "38776",
+   "name": "The Trojan War",
+   "dates_short_prev": "1/30 - 1/31",
+   "projectedStart": "2027-01-30",
+   "projectedEnd": "2027-01-31",
+   "city": "Rigby",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Open World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38776"
+  },
+  {
+   "tourn_id_prev": "38566",
+   "name": "Viking Raider Extravaganza PuyallupThomas Jeff SpeechDebat",
+   "dates_short_prev": "1/30 - 1/31",
+   "projectedStart": "2027-01-30",
+   "projectedEnd": "2027-01-31",
+   "city": "On NSDA Campus",
+   "state": "PDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38566"
+  },
+  {
+   "tourn_id_prev": "37782",
+   "name": "Federal Way Invitational",
+   "dates_short_prev": "2/6 - 2/7",
+   "projectedStart": "2027-02-06",
+   "projectedEnd": "2027-02-07",
+   "city": "Federal Way and NSDA Cam",
+   "state": "WA",
+   "stateLabel": "WA",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=37782"
+  },
+  {
+   "tourn_id_prev": "38181",
+   "name": "Jasper Howl Classic",
+   "dates_short_prev": "2/6 - 2/8",
+   "projectedStart": "2027-02-06",
+   "projectedEnd": "2027-02-08",
+   "city": "Plano",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Field in World Schools - Sponsored by World of Words Institute"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38181"
+  },
+  {
+   "tourn_id_prev": "36619",
+   "name": "Langham Creek TFA NIETOC TOC at Jersey Village",
+   "dates_short_prev": "2/6 - 2/7",
+   "projectedStart": "2027-02-06",
+   "projectedEnd": "2027-02-07",
+   "city": "Houston",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36619"
+  },
+  {
+   "tourn_id_prev": "39046",
+   "name": "NUDL Tournament 5 Winter Showcase",
+   "dates_short_prev": "2/7",
+   "projectedStart": "2027-02-07",
+   "projectedEnd": "2027-02-07",
+   "city": "Nashville",
+   "state": "TN",
+   "stateLabel": "TN",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39046"
+  },
+  {
+   "tourn_id_prev": "36152",
+   "name": "TOC Digital Speech and Debate Series 2 4th Annual",
+   "dates_short_prev": "2/20 - 2/22",
+   "projectedStart": "2027-02-20",
+   "projectedEnd": "2027-02-22",
+   "city": "On NSDA Campus",
+   "state": "EDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "ws_events_prev": [
+    "World Schools",
+    "World Schools - Junior"
+   ],
+   "toc_tier": "semis",
+   "toc_name": "TOC Digital Speech and Debate Series 1",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36152"
+  },
+  {
+   "tourn_id_prev": "39418",
+   "name": "NUDL City Championship Tournament 6",
+   "dates_short_prev": "2/21",
+   "projectedStart": "2027-02-21",
+   "projectedEnd": "2027-02-21",
+   "city": "Nashville",
+   "state": "TN",
+   "stateLabel": "TN",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39418"
+  },
+  {
+   "tourn_id_prev": "36971",
+   "name": "University of Mississippi HS Speech and Debate Tournament",
+   "dates_short_prev": "2/27 - 2/28",
+   "projectedStart": "2027-02-27",
+   "projectedEnd": "2027-02-28",
+   "city": "University",
+   "state": "MS",
+   "stateLabel": "MS",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "Worlds Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36971"
+  },
+  {
+   "tourn_id_prev": "36153",
+   "name": "TOC Digital Speech and Debate Series 3 4th Annual",
+   "dates_short_prev": "3/6 - 3/8",
+   "projectedStart": "2027-03-06",
+   "projectedEnd": "2027-03-08",
+   "city": "On NSDA Campus",
+   "state": "EDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "ws_events_prev": [
+    "World Schools",
+    "Worlds Schools - Junior"
+   ],
+   "toc_tier": "semis",
+   "toc_name": "TOC Digital Speech and Debate Series 1",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36153"
+  },
+  {
+   "tourn_id_prev": "39597",
+   "name": "Idaho State Debate Tournament",
+   "dates_short_prev": "3/13 - 3/14",
+   "projectedStart": "2027-03-13",
+   "projectedEnd": "2027-03-14",
+   "city": "Nampa",
+   "state": "ID",
+   "stateLabel": "ID",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=39597"
+  },
+  {
+   "tourn_id_prev": "36156",
+   "name": "54th Annual Tournament of Champions",
+   "dates_short_prev": "4/11 - 4/13",
+   "projectedStart": "2027-04-11",
+   "projectedEnd": "2027-04-13",
+   "city": "Lexington",
+   "state": "KY",
+   "stateLabel": "KY",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36156"
+  },
+  {
+   "tourn_id_prev": "36157",
+   "name": "10th Annual Middle School TOC hosted by UK",
+   "dates_short_prev": "5/1 - 5/4",
+   "projectedStart": "2027-05-01",
+   "projectedEnd": "2027-05-04",
+   "city": "On NSDA Campus",
+   "state": "EDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "ws_events_prev": [
+    "World Schools - Jr"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [
+    "middle-school"
+   ],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=36157"
+  },
+  {
+   "tourn_id_prev": "38164",
+   "name": "WISDAA State Debate Festival 2026",
+   "dates_short_prev": "5/4",
+   "projectedStart": "2027-05-04",
+   "projectedEnd": "2027-05-04",
+   "city": "Madison",
+   "state": "WI",
+   "stateLabel": "WI",
+   "mode": "hybrid",
+   "ws_events_prev": [
+    "World Schools Debate (In-Person)",
+    "World Schools Debate (Online)"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=38164"
+  },
+  {
+   "tourn_id_prev": "40259",
+   "name": "NSDA Nationals Warmup Tournament Debate and IEs Welcome",
+   "dates_short_prev": "6/8 - 6/11",
+   "projectedStart": "2027-06-08",
+   "projectedEnd": "2027-06-11",
+   "city": "Online",
+   "state": "CDT",
+   "stateLabel": "Online",
+   "mode": "online",
+   "ws_events_prev": [
+    "WSD"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40259"
+  },
+  {
+   "tourn_id_prev": "40555",
+   "name": "5th Annual Poorna Foundation Speech and Debate Showcase",
+   "dates_short_prev": "7/9 - 7/10",
+   "projectedStart": "2027-07-09",
+   "projectedEnd": "2027-07-10",
+   "city": "Sugar Land",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40555"
+  },
+  {
+   "tourn_id_prev": "40553",
+   "name": "Jester Fest",
+   "dates_short_prev": "7/9",
+   "projectedStart": "2027-07-09",
+   "projectedEnd": "2027-07-09",
+   "city": "Austin",
+   "state": "TX",
+   "stateLabel": "TX",
+   "mode": "in-person",
+   "ws_events_prev": [
+    "World Schools Debate"
+   ],
+   "toc_tier": "",
+   "toc_name": "",
+   "tags": [],
+   "url_prev": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40553"
+  }
+ ],
+ "events_pending": [
+  {
+   "tourn_id": "40919",
+   "name": "Hoover Ria Shah Tournament 2026",
+   "dates_short": "11/6 - 11/7",
+   "city": "Hoover",
+   "state": "AL",
+   "prev_ws_events": [
+    "World Schools Debate"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=40919"
+  },
+  {
+   "tourn_id": "41432",
+   "name": "Hamilton Novice Tournament",
+   "dates_short": "9/19",
+   "city": "Chandler",
+   "state": "AZ",
+   "prev_ws_events": [
+    "Novice World Schools Debate"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41432"
+  },
+  {
+   "tourn_id": "41053",
+   "name": "Eagle Invitational",
+   "dates_short": "10/17",
+   "city": "Summit",
+   "state": "SD",
+   "prev_ws_events": [
+    "World Schools Debate"
+   ],
+   "url": "https://www.tabroom.com/index/tourn/index.mhtml?tourn_id=41053"
+  }
+ ],
+ "toc_bids": [
+  {
+   "tier": "finals",
+   "dates": "Sept. 11-13, 2026",
+   "name": "Grapevine Classic",
+   "host": "Grapevine HS",
+   "location": "Texas"
+  },
+  {
+   "tier": "finals",
+   "dates": "Sept. 25-26, 2026",
+   "name": "Asia Worlds Championship Series I",
+   "host": "TOC Asia",
+   "location": "Shanghai"
+  },
+  {
+   "tier": "finals",
+   "dates": "Sept. 25-27, 2026",
+   "name": "Stephen Stewart Memorial Middle and High School Invitational",
+   "host": "Milpitas HS",
+   "location": "California"
+  },
+  {
+   "tier": "finals",
+   "dates": "Oct. 3-5, 2026",
+   "name": "Jack Howe Memorial Tournament",
+   "host": "CSU, Long Beach",
+   "location": "California"
+  },
+  {
+   "tier": "finals",
+   "dates": "Oct. 9-11, 2026",
+   "name": "Westminster",
+   "host": "Westminster",
+   "location": "Hybrid"
+  },
+  {
+   "tier": "finals",
+   "dates": "Oct. 16-18, 2026",
+   "name": "Heart of Texas Invitational",
+   "host": "St. Mark's School",
+   "location": "Online"
+  },
+  {
+   "tier": "finals",
+   "dates": "Oct. 30-Nov. 1, 2026",
+   "name": "Asia Worlds Championship Series II",
+   "host": "TOC Asia",
+   "location": "Shenzhen"
+  },
+  {
+   "tier": "finals",
+   "dates": "Oct. 30-Nov. 1, 2026",
+   "name": "Florida Blue Key Speech and Debate Tournament",
+   "host": "University of Florida",
+   "location": "Florida"
+  },
+  {
+   "tier": "finals",
+   "dates": "Nov. 20-22, 2026",
+   "name": "John Lewis SVUDL Invitational",
+   "host": "Notre Dame San Jose HS",
+   "location": "Online"
+  },
+  {
+   "tier": "finals",
+   "dates": "Nov. 21-22, 2026",
+   "name": "I Punta Cana Debate and Speech International Cup",
+   "host": "DIAR (Dial\u00e9ctica Argumentativa)",
+   "location": "Punta Cana, Dominican Republic"
+  },
+  {
+   "tier": "finals",
+   "dates": "Dec. 1-3, 2026",
+   "name": "Isidore Newman School Invitational",
+   "host": "Isidore Newman School",
+   "location": "Louisiana"
+  },
+  {
+   "tier": "finals",
+   "dates": "Dec. 11-12, 2026",
+   "name": "Dripping Springs Tiger Tussle",
+   "host": "Dripping Springs HS",
+   "location": "Texas"
+  },
+  {
+   "tier": "finals",
+   "dates": "Jan. 15-18, 2027",
+   "name": "Cavalier Invitational at Durham Academy",
+   "host": "Durham Academy",
+   "location": "North Carolina"
+  },
+  {
+   "tier": "finals",
+   "dates": "February",
+   "name": "AWCS Winter Invitational Online",
+   "host": "TOC Asia",
+   "location": "Online"
+  },
+  {
+   "tier": "finals",
+   "dates": "Feb. 13-15, 2027",
+   "name": "Cal Invitational UC Berkeley",
+   "host": "UC, Berkeley",
+   "location": "California"
+  },
+  {
+   "tier": "finals",
+   "dates": "",
+   "name": "Vocalize - UAE",
+   "host": "",
+   "location": "Sharjah, United Arab Emirates"
+  },
+  {
+   "tier": "semis",
+   "dates": "Sept. 11-13, 2026",
+   "name": "National Speech and Debate Season Opener",
+   "host": "University of Kentucky",
+   "location": "Online"
+  },
+  {
+   "tier": "semis",
+   "dates": "Oct. 2-4, 2026",
+   "name": "Yale Invitational",
+   "host": "Yale University",
+   "location": "Connecticut"
+  },
+  {
+   "tier": "semis",
+   "dates": "Oct. 8-11, 2026",
+   "name": "Taiwan Speech and Debate Invitational",
+   "host": "Taipei American School",
+   "location": "Taipei, Taiwan"
+  },
+  {
+   "tier": "semis",
+   "dates": "Oct.16-17. 2026",
+   "name": "Coppell Classic",
+   "host": "Coppell HS",
+   "location": "Texas"
+  },
+  {
+   "tier": "semis",
+   "dates": "Oct. 23-25, 2026",
+   "name": "Harvard Debate UKTOC International Qualifier ISDI 1",
+   "host": "Harvard University and University of Kentucky",
+   "location": "Online"
+  },
+  {
+   "tier": "semis",
+   "dates": "Oct. 24-25, 2026",
+   "name": "The Olympia International Debate and Speech Championship",
+   "host": "The Olympia School",
+   "location": "Ha Noi, Vietnam"
+  },
+  {
+   "tier": "semis",
+   "dates": "Nov. 6-7, 2026",
+   "name": "Ed Long Invitational at The Hockaday School",
+   "host": "The Hockaday School",
+   "location": "Texas"
+  },
+  {
+   "tier": "semis",
+   "dates": "Nov. 20-22, 2026",
+   "name": "Harvard Debate UKTOC International Qualifier ISDI 2",
+   "host": "Harvard University and University of Kentucky",
+   "location": "Online"
+  },
+  {
+   "tier": "semis",
+   "dates": "Dec. 4-6, 2026",
+   "name": "TOC Digital Speech and Debate Series 1",
+   "host": "University of Kentucky",
+   "location": "Online"
+  },
+  {
+   "tier": "semis",
+   "dates": "Dec. 18-21, 2026",
+   "name": "John Edie Holiday Debates",
+   "host": "The Blake School",
+   "location": "Minnesota"
+  },
+  {
+   "tier": "semis",
+   "dates": "Jan. 15-16, 2027",
+   "name": "Mount Vernon Invitational",
+   "host": "Mount Vernon HS",
+   "location": "Hybrid"
+  },
+  {
+   "tier": "semis",
+   "dates": "Jan. 16-17, 2026",
+   "name": "Southlake Carroll Dragon Faire",
+   "host": "Southlake Carroll HS",
+   "location": "Texas"
+  },
+  {
+   "tier": "semis",
+   "dates": "Jan. 22-24, 2027",
+   "name": "Harvard Debate UKTOC International Qualifier ISDI 3",
+   "host": "Harvard University and University of Kentucky",
+   "location": "Online"
+  },
+  {
+   "tier": "semis",
+   "dates": "Feb. 19-21, 2027",
+   "name": "TOC Digital Speech and Debate Series 2",
+   "host": "University of Kentucky",
+   "location": "Online"
+  },
+  {
+   "tier": "semis",
+   "dates": "Mar. 5-7, 2027",
+   "name": "TOC Digital Speech and Debate Series 3",
+   "host": "University of Kentucky",
+   "location": "Online"
+  },
+  {
+   "tier": "quarters",
+   "dates": "Sept. 19-21, 2026",
+   "name": "Greenhill Fall Classic (Gold Division Only)",
+   "host": "Greenhill School",
+   "location": "Texas"
+  },
+  {
+   "tier": "quarters",
+   "dates": "Dec. 4-6, 2026",
+   "name": "The Longhorn Classic",
+   "host": "University of Texas - Austin",
+   "location": "Texas"
+  },
+  {
+   "tier": "quarters",
+   "dates": "Feb. 6-8, 2027",
+   "name": "Stanford Invitational",
+   "host": "Stanford University",
+   "location": "Online"
+  },
+  {
+   "tier": "quarters",
+   "dates": "Feb. 13-15, 2027",
+   "name": "Harvard National Speech and Debate Tournament (In-Person Division)",
+   "host": "Harvard University",
+   "location": "Massachusetts"
+  },
+  {
+   "tier": "quarters",
+   "dates": "Feb. 13-15, 2027",
+   "name": "Harvard National Speech and Debate Tournament (Online Division)",
+   "host": "Harvard University",
+   "location": "Massachusetts"
+  }
+ ],
+ "toc_unmatched": [
+  {
+   "tier": "finals",
+   "dates": "Sept. 25-26, 2026",
+   "name": "Asia Worlds Championship Series I",
+   "host": "TOC Asia",
+   "location": "Shanghai"
+  },
+  {
+   "tier": "finals",
+   "dates": "Oct. 30-Nov. 1, 2026",
+   "name": "Asia Worlds Championship Series II",
+   "host": "TOC Asia",
+   "location": "Shenzhen"
+  },
+  {
+   "tier": "finals",
+   "dates": "Nov. 21-22, 2026",
+   "name": "I Punta Cana Debate and Speech International Cup",
+   "host": "DIAR (Dial\u00e9ctica Argumentativa)",
+   "location": "Punta Cana, Dominican Republic"
+  },
+  {
+   "tier": "finals",
+   "dates": "February",
+   "name": "AWCS Winter Invitational Online",
+   "host": "TOC Asia",
+   "location": "Online"
+  },
+  {
+   "tier": "finals",
+   "dates": "",
+   "name": "Vocalize - UAE",
+   "host": "",
+   "location": "Sharjah, United Arab Emirates"
+  },
+  {
+   "tier": "semis",
+   "dates": "Oct. 8-11, 2026",
+   "name": "Taiwan Speech and Debate Invitational",
+   "host": "Taipei American School",
+   "location": "Taipei, Taiwan"
+  },
+  {
+   "tier": "semis",
+   "dates": "Oct. 23-25, 2026",
+   "name": "Harvard Debate UKTOC International Qualifier ISDI 1",
+   "host": "Harvard University and University of Kentucky",
+   "location": "Online"
+  },
+  {
+   "tier": "semis",
+   "dates": "Oct. 24-25, 2026",
+   "name": "The Olympia International Debate and Speech Championship",
+   "host": "The Olympia School",
+   "location": "Ha Noi, Vietnam"
+  },
+  {
+   "tier": "semis",
+   "dates": "Nov. 20-22, 2026",
+   "name": "Harvard Debate UKTOC International Qualifier ISDI 2",
+   "host": "Harvard University and University of Kentucky",
+   "location": "Online"
+  },
+  {
+   "tier": "semis",
+   "dates": "Dec. 4-6, 2026",
+   "name": "TOC Digital Speech and Debate Series 1",
+   "host": "University of Kentucky",
+   "location": "Online"
+  },
+  {
+   "tier": "semis",
+   "dates": "Jan. 15-16, 2027",
+   "name": "Mount Vernon Invitational",
+   "host": "Mount Vernon HS",
+   "location": "Hybrid"
+  },
+  {
+   "tier": "semis",
+   "dates": "Jan. 16-17, 2026",
+   "name": "Southlake Carroll Dragon Faire",
+   "host": "Southlake Carroll HS",
+   "location": "Texas"
+  },
+  {
+   "tier": "semis",
+   "dates": "Jan. 22-24, 2027",
+   "name": "Harvard Debate UKTOC International Qualifier ISDI 3",
+   "host": "Harvard University and University of Kentucky",
+   "location": "Online"
+  },
+  {
+   "tier": "semis",
+   "dates": "Feb. 19-21, 2027",
+   "name": "TOC Digital Speech and Debate Series 2",
+   "host": "University of Kentucky",
+   "location": "Online"
+  },
+  {
+   "tier": "semis",
+   "dates": "Mar. 5-7, 2027",
+   "name": "TOC Digital Speech and Debate Series 3",
+   "host": "University of Kentucky",
+   "location": "Online"
+  },
+  {
+   "tier": "quarters",
+   "dates": "Feb. 13-15, 2027",
+   "name": "Harvard National Speech and Debate Tournament (Online Division)",
+   "host": "Harvard University",
+   "location": "Massachusetts"
+  }
+ ]
+}
