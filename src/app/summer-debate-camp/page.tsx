@@ -6,6 +6,7 @@ import { ProgramsCoachStrip } from '@/components/ProgramsCoachStrip';
 // Commercial page for "debate camp" / "summer debate camp" queries
 // (2026-08-31 keyword research). The 2026 bootcamps ran Aug 18–27 and have
 // wrapped; this page holds next-summer framing until 2027 enrollment opens.
+// The closing band points at /winter-debate-camp while the Winter Academy enrolls.
 // When it does: update the status copy below and the FAQ pricing line, and
 // point the CTA at the bootcamp program pages.
 
@@ -200,16 +201,25 @@ export default function SummerDebateCampPage() {
         <div className="mt-14 bg-navy-900 p-8 text-center text-white">
           <h2 className="text-2xl font-bold">Don&apos;t want to wait for summer?</h2>
           <p className="mx-auto mt-3 max-w-xl text-navy-100">
-            The fall Foundation class starts from zero, runs weekly, and uses
-            the same curriculum the bootcamp is cut from. A short free call
-            will tell you which fits.
+            The same 12-hour course runs over the winter break, December 21
+            to 30, as the Winter Academy. The weekly Foundation class also
+            starts from zero and uses the curriculum the bootcamp is cut
+            from. A short free call will tell you which fits.
           </p>
-          <Link
-            href="/consultation"
-            className="mt-6 inline-block rounded-sm bg-signal-500 px-7 py-3 font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
-          >
-            Book a Free Consultation
-          </Link>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/winter-debate-camp"
+              className="inline-block rounded-sm bg-signal-500 px-7 py-3 font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
+            >
+              See the winter debate camp
+            </Link>
+            <Link
+              href="/consultation"
+              className="font-semibold text-navy-100 underline underline-offset-4 hover:text-white"
+            >
+              Book a free consultation
+            </Link>
+          </div>
         </div>
       </section>
     </>

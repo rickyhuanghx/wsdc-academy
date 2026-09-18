@@ -192,7 +192,15 @@ export default function DebateCoachingPage() {
           >
             online debate camp
           </Link>{' '}
-          compresses the beginner curriculum into six sessions.
+          compresses the beginner curriculum into six sessions. The same
+          course runs over the winter break as the{' '}
+          <Link
+            href="/winter-debate-camp"
+            className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+          >
+            winter debate camp
+          </Link>
+          .
         </p>
       </section>
 

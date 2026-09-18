@@ -47,7 +47,7 @@ export default function RefundPage() {
         ))}
       </div>
 
-      <LegalSection title="Group programs (Foundation, Competition Team, Summer Bootcamp)">
+      <LegalSection title="Group programs (Foundation, Competition Team, Summer Bootcamp, Winter Academy)">
         <h3>Full refund</h3>
         <p>You are eligible for a full refund if all of the following are true:</p>
         <ul>

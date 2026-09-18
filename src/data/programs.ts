@@ -94,6 +94,25 @@ export interface Program {
   pathwayStep?: number;
   /** Seasonal one-off (e.g. summer bootcamp): kept out of the year-round pathway ladders. */
   seasonal?: boolean;
+  /** Badge on the /programs card for seasonal programs, e.g. "Winter intensive". */
+  seasonLabel?: string;
+  /**
+   * Out-of-season state for a seasonal program. The URL stays live and indexed
+   * (it keeps its search equity for next year) but nothing is purchasable: the
+   * page swaps price + enroll controls for this status and CTA, the Course
+   * schema drops its Offer, and the payment-intent route rejects the program.
+   * Remove this field (and refresh dates/prices) when the next season opens.
+   */
+  closed?: {
+    status: string; // "Summer 2026 has wrapped"
+    note: string; // one or two sentences under the status
+    priceLabel: string; // shown where a price would be, e.g. "Returns summer 2027"
+    ctaLabel: string;
+    ctaHref: string;
+    /** Optional pointer to whatever is enrolling right now. */
+    altLabel?: string;
+    altHref?: string;
+  };
 
   // --- Optional depth (rendered only when present) ---
   /**
@@ -118,22 +137,30 @@ export interface Program {
     earlyBird?: string; // "Enroll before August 15 for the early-bird rate"
   };
   /**
-   * Fixed-cohort intensive (e.g. the summer bootcamp): a set number of sessions over a
-   * date range. The buyer picks ONE time `option` at checkout; each option meets twice a
-   * week (its two `meetings`) at the same ET anchor as tracks; rendered timezone-aware
+   * Fixed-cohort intensive (the summer bootcamp, the Winter Academy): a set number of
+   * sessions over a date range. The buyer picks ONE time `option` at checkout; each option
+   * meets on its `meetings` days at the same ET anchor as tracks; rendered timezone-aware
    * by BootcampSchedule.
    */
   bootcamp?: {
     dateRange: string; // "August 3–21, 2026"
     sessionCount: number;
     totalHours: number;
+    /** Paragraph above the schedule block on the detail page. */
+    intro: string;
+    cohortsLabel: string; // "Summer cohorts"
+    cadence: string; // "meets twice a week"
     /** Either/or time options; the buyer selects one at checkout. */
     options: {
       id: string;
       label: string; // "Option A · Mondays & Thursdays, 1–3 PM"
-      meetings: { day: string; dayOfWeek: number; start: string; end: string }[];
+      /**
+       * ET anchors. December intensives set `date` on each meeting so the
+       * conversion runs on the class dates (EST), not today's offset. See schedule.ts.
+       */
+      meetings: ScheduleSlot[];
     }[];
-    /** Monthly summer cohorts; only the 'enrolling' one is purchasable (checkout sells that cohort). */
+    /** Cohorts in the season; only an 'enrolling' one is purchasable (checkout sells that cohort). */
     cohorts: { label: string; status: 'closed' | 'enrolling' }[];
   };
   /** Invitation-only programs are not purchasable: no price, no cart, an inquiry CTA instead. */
@@ -168,6 +195,39 @@ const TERM_1: Program['term'] = {
 };
 
 const TERM_1_DATES: Program['termDates'] = { start: '2026-09-01', end: '2026-12-18' };
+
+// Winter Academy time options, shared by the beginner and advanced tracks. Six sessions:
+// Mon/Tue/Wed of Dec 21–23 and Dec 28–30, 2026 (Dec 24/25/31 and Jan 1 stay free).
+// Times are ET anchors like everything else; `date` pins the conversion to December
+// so it runs on EST (converting on today's date would put Dubai and Singapore an hour out).
+//   A · 13:00 ET = 10 AM Pacific            (US West + East Coast)
+//   B · 09:00 ET = 6 PM Dubai, 2 PM London  (East Coast + Gulf)
+//   C · 04:00 ET = 1 PM Dubai, 5 PM Singapore / Hong Kong (Gulf + Asia)
+function winterMeetings(start: string, end: string): ScheduleSlot[] {
+  return [
+    { day: 'Mondays', dayOfWeek: 1, start, end, date: '2026-12-21' },
+    { day: 'Tuesdays', dayOfWeek: 2, start, end, date: '2026-12-22' },
+    { day: 'Wednesdays', dayOfWeek: 3, start, end, date: '2026-12-23' },
+  ];
+}
+
+const WINTER_OPTIONS: NonNullable<Program['bootcamp']>['options'] = [
+  {
+    id: 'a',
+    label: 'Option A · Mon/Tue/Wed, 1–3 PM ET (10 AM–12 PM PT)',
+    meetings: winterMeetings('13:00', '15:00'),
+  },
+  {
+    id: 'b',
+    label: 'Option B · Mon/Tue/Wed, 9–11 AM ET (6–8 PM Dubai)',
+    meetings: winterMeetings('09:00', '11:00'),
+  },
+  {
+    id: 'c',
+    label: 'Option C · Mon/Tue/Wed, 1–3 PM Dubai (5–7 PM Singapore), 4–6 AM ET',
+    meetings: winterMeetings('04:00', '06:00'),
+  },
+];
 
 export const programs: Program[] = [
   {
@@ -706,51 +766,367 @@ export const programs: Program[] = [
     ],
   },
   {
+    id: 'winter-academy',
+    slug: 'winter-academy',
+    name: 'World Schools Winter Academy',
+    shortName: 'Winter Academy',
+    tagline: 'A two-week winter break intro to World Schools debate, built for total beginners',
+    description:
+      'A 12-hour winter break intensive for students brand new to World Schools debate: the format, your first real arguments, rebuttal, points of information, and a judged practice debate. Six sessions, December 21–30, with time options for the US, the Gulf, and Asia.',
+    metaDescription:
+      'A 12-hour online World Schools debate winter camp for beginners, ages 9–16. Six live small-group sessions, December 21–30, in three time zones.',
+    metaTitle: 'World Schools Debate Winter Camp (2 Weeks)',
+    seoH1: 'World Schools Debate Winter Academy',
+    longDescription:
+      'The Winter Academy puts the winter break to work. It is the same 12-hour beginner course as our summer bootcamp, fitted into two weeks: six two-hour classes on the Monday, Tuesday, and Wednesday of December 21–23 and December 28–30. Christmas Eve, Christmas Day, New Year’s Eve, and New Year’s Day are all left free. Students go from never having debated to giving a real speech in a judged practice round. There are three time options: one for families on the US West and East Coasts, one that works for both the East Coast and the Gulf, and one for the Gulf and Singapore. It is built for complete beginners, and it finishes a week before Term 2 of the Foundation class begins on January 8.',
+    level: 'Beginner',
+    ageRange: { min: 9, max: 16 },
+    format: 'Small-group online',
+    schedule: 'Three time options · Mon/Tue/Wed · 6 sessions · December 21–30',
+    image: '/images/student-speech-competition.jpg',
+    imageAlt: 'A student delivering a speech to a full room',
+    pricing: { amount: 384, compareAt: 480, currency: 'USD', model: 'for the 12-hour academy ($32 an hour)' },
+    enrollment: { unitLabel: 'Winter Academy, December 21–30 (6 sessions, 12 hours)', amount: 384 },
+    earlyBird: { deadlineLabel: 'November 15' },
+    classSize: '6–8 students',
+    sessionLength: '2 hours',
+    instruction: { totalHours: 12, sessions: 6 },
+    hourlyRate: 32,
+    ageGroups: [
+      { id: '9-12', label: 'Ages 9–12', min: 9, max: 12 },
+      { id: '13-16', label: 'Ages 13–16', min: 13, max: 16 },
+    ],
+    seasonal: true,
+    seasonLabel: 'Winter intensive',
+    termDates: { start: '2026-12-21', end: '2026-12-30' },
+    term: {
+      label: 'Winter 2026 · December 21–30',
+      start: 'Six sessions across the winter break: December 21–23 and 28–30, 2026',
+      earlyBird: 'Enroll before November 15 for the early-bird rate',
+    },
+    bootcamp: {
+      dateRange: 'December 21–23 and 28–30, 2026',
+      sessionCount: 6,
+      totalHours: 12,
+      intro:
+        'The academy meets on Monday, Tuesday, and Wednesday for two weeks, which keeps Christmas Eve, Christmas Day, New Year’s Eve, and New Year’s Day free. Pick the time option that suits where you will be over the break. Times show in your timezone by default, and you can switch it below.',
+      cohortsLabel: 'Winter 2026',
+      cadence: 'pick one option, meets Monday to Wednesday for two weeks',
+      cohorts: [{ label: 'Winter cohort · December 21–30', status: 'enrolling' }],
+      options: WINTER_OPTIONS,
+    },
+    outcomes: [
+      'Understand how a World Schools round is structured and what each speaker does',
+      'Build and deliver a simple, complete argument (claim, warrant, impact)',
+      'Offer and answer points of information without freezing',
+      'Debate in a judged practice round by the final session',
+      'Leave ready to join the Foundation class when Term 2 begins on January 8',
+    ],
+    curriculum: [
+      { title: 'Session 1 · The format', detail: 'How a World Schools round runs, the speaker roles, and how Style / Content / Strategy judging works' },
+      { title: 'Session 2 · Building arguments', detail: 'Turning an opinion into a real argument: claim, warrant, and impact, with your first practice speech' },
+      { title: 'Session 3 · Rebuttal', detail: 'Listening to the other side, finding the weak point in an argument, and answering it out loud' },
+      { title: 'Session 4 · Points of information', detail: 'Offering and answering POIs without freezing, plus keeping your speech on track under interruption' },
+      { title: 'Session 5 · Teamwork and case building', detail: 'Working as a three-speaker bench and building a full case together for the final debate' },
+      { title: 'Session 6 · Your first debate', detail: 'A full judged practice round with individual written feedback and a Term 2 placement note' },
+    ],
+    idealFor: [
+      'Students who have never tried World Schools (or debate at all)',
+      'Families who want to try it before committing to a full term',
+      'Students with a free winter break who like a short, focused challenge',
+    ],
+    coachSlugs: ['biser-angelov', 'netra-easwaran', 'matt-mauriello', 'tin-puljic', 'cailyn-min'],
+    prerequisites:
+      'None at all. The academy is built for students who have never debated; a first speech is exactly what they will leave with.',
+    nextStepSlug: 'foundations',
+    sessionFlow: [
+      { time: '0:00', title: 'Warm-up', detail: 'A short speaking or thinking game to get students talking before the pressure is on.' },
+      { time: '0:15', title: 'Skill of the day', detail: 'One idea taught directly (a speaker role, an argument, or POIs) with clear examples.' },
+      { time: '0:40', title: 'Guided practice', detail: 'Students try the skill in pairs or small groups while the coach circulates and corrects.' },
+      { time: '1:15', title: 'Mini-debate', detail: 'A short round applying the day’s skill, so every session ends in real speaking.' },
+      { time: '1:45', title: 'Feedback', detail: 'The coach debriefs and each student leaves with one thing to work on next time.' },
+    ],
+    included: [
+      'Six live 2-hour classes over two weeks (12 hours in total, $32 an hour)',
+      'A judged practice debate in the final session with written feedback',
+      'The printable beginner resource pack: speaker cheat sheets and a first-motion set',
+      'A placement note recommending the right Term 2 class',
+      'A small-group setting capped so every student speaks in every session',
+    ],
+    faqs: [
+      {
+        question: 'Does my child need any experience?',
+        answer:
+          'No. The Winter Academy is for complete beginners, including students who have never done any debate. Everything starts from what a round looks like and what a first argument is.',
+      },
+      {
+        question: 'When does it meet?',
+        answer:
+          'Six two-hour sessions: Monday, Tuesday, and Wednesday, December 21–23 and December 28–30, 2026. There are no classes on Christmas Eve, Christmas Day, New Year’s Eve, or New Year’s Day. You choose one of three time options at checkout: Option A is 1 to 3 PM Eastern (10 AM to 12 PM Pacific), Option B is 9 to 11 AM Eastern (6 to 8 PM in Dubai), and Option C is 1 to 3 PM in Dubai (5 to 7 PM in Singapore). Times show in your timezone on this page.',
+      },
+      {
+        question: 'We are travelling over the break. Can my child still join?',
+        answer:
+          'Yes, as long as there is a quiet room and a steady connection. Classes are live and online, so students join from wherever they are. Choose the time option that fits the place you will be in, and use the timezone selector on this page to check the local time there.',
+      },
+      {
+        question: 'What happens after the Winter Academy?',
+        answer:
+          'Students finish ready for the Foundation class, and Term 2 begins January 8, a little over a week after the last session. We send a short placement note with each student’s recommended starting point.',
+      },
+      {
+        question: 'What does my child need to take part?',
+        answer:
+          'A computer or tablet with a camera and microphone, and a quiet space to speak. We provide all the materials, including the printable resource pack.',
+      },
+      {
+        question: 'What if we miss a session?',
+        answer:
+          'It is a short program, so reach out and we will share notes and help the student catch up before the next class. Our full withdrawal and refund terms are on the Refund Policy page.',
+      },
+    ],
+    furtherReading: [
+      {
+        href: '/what-is-world-schools-debate',
+        label: 'What is World Schools Debate?',
+        note: 'Worth reading before the first session if the format is new.',
+      },
+      {
+        href: '/winter-debate-camp',
+        label: 'The winter debate camp, explained',
+        note: 'What the academy covers, both tracks, the three time options, and what it costs.',
+      },
+      {
+        href: '/resources/wsdc-format-quick-reference',
+        label: 'Format quick reference',
+        note: 'Speech order and timings on one page, printable for the first week.',
+      },
+      {
+        href: '/resources/glossary',
+        label: 'The World Schools glossary',
+        note: 'The vocabulary the academy moves quickly through.',
+      },
+      {
+        href: '/world-schools-vs-public-forum',
+        label: 'World Schools vs Public Forum',
+        note: 'For students arriving from PF, every difference to adjust to.',
+      },
+      {
+        href: '/resources/practice-motions',
+        label: '40 practice motions',
+        note: 'Sorted by motion type, for practice between sessions.',
+      },
+    ],
+  },
+  {
+    id: 'advanced-winter-academy',
+    slug: 'advanced-winter-academy',
+    name: 'Advanced World Schools Winter Academy',
+    shortName: 'Advanced Winter Academy',
+    tagline: 'A two-week winter break intensive for students who already debate',
+    description:
+      'A 12-hour winter break intensive for students with a season behind them: impromptu prep under the one-hour clock, second- and third-speaker craft, reply speeches, and judged rounds at tournament standard. Six sessions, December 21–30, with time options for the US, the Gulf, and Asia.',
+    metaDescription:
+      'An advanced online World Schools debate winter camp for experienced debaters, ages 11–18. Six judged sessions, December 21–30, in three time zones.',
+    metaTitle: 'Advanced World Schools Debate Winter Camp',
+    seoH1: 'Advanced World Schools Debate Winter Academy',
+    longDescription:
+      'The Advanced Winter Academy is for students who already know what a World Schools round looks like and want the break to make them harder to beat in the second half of the season. It is six two-hour classes on the Monday, Tuesday, and Wednesday of December 21–23 and December 28–30, twelve hours in all, with Christmas Eve, Christmas Day, New Year’s Eve, and New Year’s Day left free. The work starts where the beginner academy ends. Students run full impromptu prep inside the one-hour window, build second-line arguments and the comparative that separates a third speech from a first, and debate judged rounds adjudicated to the standard used at real tournaments. Every student leaves with written feedback against the Style / Content / Strategy criteria and a placement note for Term 2, which begins January 8.',
+    level: 'Intermediate',
+    ageRange: { min: 11, max: 18 },
+    format: 'Small-group online',
+    schedule: 'Three time options · Mon/Tue/Wed · 6 sessions · December 21–30',
+    image: '/images/impromptu-prep.jpg',
+    imageAlt: 'Student debaters preparing a case against the clock',
+    pricing: { amount: 384, compareAt: 480, currency: 'USD', model: 'for the 12-hour academy ($32 an hour)' },
+    enrollment: { unitLabel: 'Advanced Winter Academy, December 21–30 (6 sessions, 12 hours)', amount: 384 },
+    earlyBird: { deadlineLabel: 'November 15' },
+    classSize: '6–8 students',
+    sessionLength: '2 hours',
+    instruction: { totalHours: 12, sessions: 6 },
+    hourlyRate: 32,
+    ageGroups: [
+      { id: '11-14', label: 'Ages 11–14', min: 11, max: 14 },
+      { id: '15-18', label: 'Ages 15–18', min: 15, max: 18 },
+    ],
+    seasonal: true,
+    seasonLabel: 'Winter intensive',
+    termDates: { start: '2026-12-21', end: '2026-12-30' },
+    term: {
+      label: 'Winter 2026 · December 21–30',
+      start: 'Six sessions across the winter break: December 21–23 and 28–30, 2026',
+      earlyBird: 'Enroll before November 15 for the early-bird rate',
+    },
+    bootcamp: {
+      dateRange: 'December 21–23 and 28–30, 2026',
+      sessionCount: 6,
+      totalHours: 12,
+      intro:
+        'The academy meets on Monday, Tuesday, and Wednesday for two weeks, which keeps Christmas Eve, Christmas Day, New Year’s Eve, and New Year’s Day free. Pick the time option that suits where you will be over the break. Times show in your timezone by default, and you can switch it below.',
+      cohortsLabel: 'Winter 2026',
+      cadence: 'pick one option, meets Monday to Wednesday for two weeks',
+      cohorts: [{ label: 'Advanced winter cohort · December 21–30', status: 'enrolling' }],
+      options: WINTER_OPTIONS,
+    },
+    outcomes: [
+      'Run a full impromptu prep cycle inside the one-hour window using a repeatable method',
+      'Build second-line arguments and the comparative that wins close rounds',
+      'Handle second-, third-, and reply-speaker responsibilities as distinct jobs',
+      'Take and answer points of information under real pressure',
+      'Debate judged rounds adjudicated to tournament standard, with written feedback',
+    ],
+    curriculum: [
+      { title: 'Session 1 · Diagnostic round', detail: 'A judged round on day one so the coach can map each debater against the Style / Content / Strategy criteria and set the focus for the two weeks' },
+      { title: 'Session 2 · Casebuilding depth', detail: 'Second-line arguments, burdens, and the comparative work that separates a strong case from a list of points' },
+      { title: 'Session 3 · Impromptu systems', detail: 'A repeatable one-hour prep method: framing the motion, splitting the bench, and assembling a case against the clock' },
+      { title: 'Session 4 · Refutation and clash', detail: 'Finding the load-bearing part of an argument, responding to it directly, and holding your own case up while you do' },
+      { title: 'Session 5 · Speaker specialization', detail: 'Role-specific work for second, third, and reply, including extension, crystallization, and what a reply speech is actually for' },
+      { title: 'Session 6 · Full judged round', detail: 'A complete round with oral adjudication, written feedback, and a placement note for Term 2' },
+    ],
+    idealFor: [
+      'Students who finished a bootcamp or a term of Foundation',
+      'Debaters who competed this fall and want a block of real reps before the spring tournaments',
+      'Students converting from Public Forum, Lincoln-Douglas, or MUN who already speak well',
+    ],
+    coachSlugs: ['biser-angelov', 'tin-puljic', 'matt-mauriello', 'cailyn-min', 'perry-beckett'],
+    prerequisites:
+      'A term of Foundation, a beginner bootcamp, or equivalent experience. The student should already know the speaker roles and be able to give a structured speech. Not sure? A free consultation ends with a placement recommendation.',
+    nextStepSlug: 'competition-team',
+    sessionFlow: [
+      { time: '0:00', title: 'Round debrief', detail: 'The coach walks back through the last session’s round: what the adjudication rewarded and the one habit to fix today.' },
+      { time: '0:15', title: 'Skill block', detail: 'One piece of craft taught directly, with clips or worked examples from real rounds rather than theory.' },
+      { time: '0:40', title: 'Drilling under pressure', detail: 'Timed reps of the skill, whether that is a prep cycle, a rebuttal, or taking points of information mid-speech.' },
+      { time: '1:15', title: 'Judged round', detail: 'A full or partial round adjudicated to tournament standard, so every session ends in real competitive speaking.' },
+      { time: '1:45', title: 'Individual feedback', detail: 'Each debater leaves with specific notes on their own speech, not a general debrief of the room.' },
+    ],
+    included: [
+      'Six live 2-hour classes over two weeks (12 hours in total, $32 an hour)',
+      'A judged round in every session with oral adjudication, not just the final one',
+      'Written feedback mapped to the Style / Content / Strategy criteria after each round',
+      'The full printable resource library: speaker cheat sheets, the prep-hour planner, and the motion bank',
+      'A placement note recommending the right Term 2 class or squad',
+    ],
+    faqs: [
+      {
+        question: 'How is this different from the beginner Winter Academy?',
+        answer:
+          'The beginner academy teaches the format from zero: what a round is, what each speaker does, and how to build a first argument. The advanced academy assumes all of that. It starts with a diagnostic round and spends the two weeks on impromptu prep, second-line casebuilding, speaker specialization, and judged rounds at tournament standard.',
+      },
+      {
+        question: 'What experience does my child need?',
+        answer:
+          'A term of Foundation, a beginner bootcamp, or equivalent experience in another format. The student should know the speaker roles and be able to give a structured speech. If you are unsure which academy fits, a free consultation ends with a placement recommendation.',
+      },
+      {
+        question: 'When does it meet?',
+        answer:
+          'Six two-hour sessions: Monday, Tuesday, and Wednesday, December 21–23 and December 28–30, 2026. There are no classes on Christmas Eve, Christmas Day, New Year’s Eve, or New Year’s Day. You choose one of three time options at checkout: Option A is 1 to 3 PM Eastern (10 AM to 12 PM Pacific), Option B is 9 to 11 AM Eastern (6 to 8 PM in Dubai), and Option C is 1 to 3 PM in Dubai (5 to 7 PM in Singapore). Times show in your timezone on this page.',
+      },
+      {
+        question: 'Is it in the same room as the beginner academy?',
+        answer:
+          'No. The two academies run on the same dates and share the same time options, but they are separate classes with separate rosters. An experienced debater will not be placed in a beginner room.',
+      },
+      {
+        question: 'What comes after the advanced academy?',
+        answer:
+          'Most students move into the Competition Team, our year-round squad with a weekly class, a weekly judged practice debate, and tournament support. Term 2 begins January 8, and each student gets a placement note in the final session.',
+      },
+      {
+        question: 'What if we miss a session?',
+        answer:
+          'It is a short program, so reach out and we will share notes and help the student catch up before the next class. Our full withdrawal and refund terms are on the Refund Policy page.',
+      },
+    ],
+    furtherReading: [
+      {
+        href: '/winter-debate-camp',
+        label: 'The winter debate camp, explained',
+        note: 'Both tracks, the three time options, and what the two weeks cost.',
+      },
+      {
+        href: '/blog/weighing-in-debate',
+        label: 'Weighing: how close rounds get decided',
+        note: 'Internal versus external weighing, and why it belongs in every speech.',
+      },
+      {
+        href: '/blog/third-speaker-world-schools-debate',
+        label: 'The whip speech',
+        note: 'Reorganizing a messy round into clashes, which the intensive drills hardest.',
+      },
+      {
+        href: '/blog/world-schools-case-files',
+        label: 'Building a case file',
+        note: 'Printed material is legal in the prep room; this is what to bring.',
+      },
+      {
+        href: '/motions',
+        label: 'The motion bank',
+        note: '12,400+ real motions, filterable by topic and type for scrimmages.',
+      },
+      {
+        href: '/blog/world-schools-debate-tournaments',
+        label: 'Where to compete next',
+        note: 'The US circuit and the international opens, for the months after the academy.',
+      },
+    ],
+  },
+  {
     id: 'summer-bootcamp',
     slug: 'summer-bootcamp',
     name: 'World Schools Summer Bootcamp',
     shortName: 'Summer Bootcamp',
     tagline: 'A three-week intro to World Schools debate, built for total beginners',
     description:
-      'A 12-hour intensive for students brand new to World Schools debate: the format, your first real arguments, rebuttal, points of information, and a friendly practice debate. Cohorts run June, July, and August; only the August cohort still has open enrollment.',
+      'A 12-hour intensive for students brand new to World Schools debate: the format, your first real arguments, rebuttal, points of information, and a friendly practice debate. The 2026 cohorts have wrapped, and summer 2027 enrollment opens in the spring.',
     metaDescription:
-      'A 12-hour online World Schools debate summer camp for complete beginners. The August cohort (Aug 3–21) is the last of the summer and is enrolling now.',
+      'A 12-hour online World Schools debate summer camp for complete beginners, ages 9–16. The 2026 cohorts have wrapped; summer 2027 opens in the spring.',
     metaTitle: 'World Schools Debate Summer Camp (3 Weeks)',
     seoH1: 'World Schools Debate Summer Bootcamp',
     longDescription:
-      'The Summer Bootcamp is the easiest way to try World Schools debate before the fall season starts. It runs as monthly cohorts in June, July, and August. Enrollment for the June and July cohorts has closed, so the August cohort (August 3–21) is the last of the summer. Students meet twice a week for a two-hour class over three weeks (twelve hours in all) and go from never having debated to giving a real speech in a judged practice round. It is built for complete beginners, and it sets up a running start for the fall Foundation class.',
+      'The Summer Bootcamp is the easiest way to try World Schools debate before the fall season starts. It runs as monthly cohorts in June, July, and August. Students meet twice a week for a two-hour class over three weeks (twelve hours in all) and go from never having debated to giving a real speech in a judged practice round. It is built for complete beginners, and it sets up a running start for the fall Foundation class. The 2026 cohorts have finished, and enrollment for summer 2027 opens in the spring. Students who want to start sooner can take the same course over the winter break in the Winter Academy.',
     level: 'Beginner',
     ageRange: { min: 9, max: 16 },
     format: 'Small-group online',
-    schedule: 'Two time options · twice weekly · 6 sessions · August 3–21',
+    schedule: 'Two time options · twice weekly · 6 sessions over three weeks',
     image: '/images/student-speech-competition.jpg',
     imageAlt: 'A student delivering a speech to a full room',
     pricing: { amount: 328, compareAt: 410, currency: 'USD', model: 'for the 12-hour bootcamp ($27 an hour)' },
-    enrollment: { unitLabel: 'August bootcamp (6 sessions, 12 hours)', amount: 328 },
-    earlyBird: { deadlineLabel: 'August 1' },
+    enrollment: { unitLabel: 'Summer bootcamp (6 sessions, 12 hours)', amount: 328 },
     classSize: '6–8 students',
     sessionLength: '2 hours',
     instruction: { totalHours: 12, sessions: 6 },
-    hourlyRate: 27,
     ageGroups: [
       { id: '9-12', label: 'Ages 9–12', min: 9, max: 12 },
       { id: '13-16', label: 'Ages 13–16', min: 13, max: 16 },
     ],
     seasonal: true,
-    termDates: { start: '2026-08-03', end: '2026-08-21' },
+    seasonLabel: 'Summer intensive',
+    closed: {
+      status: 'Summer 2026 has wrapped',
+      note: 'The bootcamp runs again in summer 2027, and enrollment opens in the spring. Dates and pricing are published then.',
+      priceLabel: 'Returns summer 2027',
+      ctaLabel: 'Join the 2027 interest list',
+      ctaHref: '/consultation',
+      altLabel: 'Enrolling now: the Winter Academy',
+      altHref: '/programs/winter-academy',
+    },
     term: {
-      label: 'Summer 2026 · Final cohort',
-      start: 'August 3–21, 2026 · the last bootcamp of the summer (June and July have closed)',
-      earlyBird: 'Enroll before August 1 for the early-bird rate',
+      label: 'Summer 2026 · Wrapped',
+      start: 'The 2026 cohorts have finished. Summer 2027 opens for enrollment in the spring',
     },
     bootcamp: {
-      dateRange: 'August 3–21, 2026',
+      dateRange: 'The 2026 schedule, shown for reference',
       sessionCount: 6,
       totalHours: 12,
+      intro:
+        'The bootcamp runs as monthly summer cohorts, and each cohort meets twice a week for three weeks. The 2026 cohorts have finished. The times below are the ones 2026 ran on; the 2027 schedule is confirmed when enrollment opens in the spring.',
+      cohortsLabel: 'Summer 2026 cohorts',
+      cadence: 'one option per student, meets twice a week',
       cohorts: [
         { label: 'June cohort', status: 'closed' },
         { label: 'July cohort', status: 'closed' },
-        { label: 'August cohort · Aug 3–21', status: 'enrolling' },
+        { label: 'August cohort', status: 'closed' },
       ],
       options: [
         {
@@ -803,7 +1179,7 @@ export const programs: Program[] = [
       { time: '1:45', title: 'Feedback', detail: 'The coach debriefs and each student leaves with one thing to work on next time.' },
     ],
     included: [
-      'Six live 2-hour classes over three weeks (12 hours in total, $27 an hour)',
+      'Six live 2-hour classes over three weeks (12 hours in total)',
       'A judged practice debate in the final session with written feedback',
       'The printable beginner resource pack: speaker cheat sheets and a first-motion set',
       'A placement note recommending the right fall-term class',
@@ -818,12 +1194,12 @@ export const programs: Program[] = [
       {
         question: 'When and how often does it meet?',
         answer:
-          'Twice a week for three weeks in August, two hours per session, twelve hours in total. You choose one of two time options at checkout: Option A meets Mondays and Thursdays from 1 to 3 PM Eastern, and Option B meets Tuesdays and Fridays from 10 AM to 12 PM Eastern. Times show in your timezone on this page.',
+          'Twice a week for three weeks, two hours per session, twelve hours in total, in monthly cohorts across June, July, and August. In 2026 there were two time options: Mondays and Thursdays from 1 to 3 PM Eastern, or Tuesdays and Fridays from 10 AM to 12 PM Eastern. The 2027 times are confirmed when enrollment opens in the spring.',
       },
       {
         question: 'What happens after the bootcamp?',
         answer:
-          'Students finish ready for the fall Foundation class, which begins September 1. We send a short placement note with each student’s recommended starting point, so the bootcamp flows straight into the season.',
+          'Students finish ready for the fall Foundation class, which begins in early September. We send a short placement note with each student’s recommended starting point, so the bootcamp flows straight into the season.',
       },
       {
         question: 'What does my child need to take part?',
@@ -876,45 +1252,55 @@ export const programs: Program[] = [
     shortName: 'Advanced Bootcamp',
     tagline: 'A three-week summer intensive for students who already debate',
     description:
-      'A 12-hour intensive for students with a season behind them: impromptu prep under the one-hour clock, second- and third-speaker craft, reply speeches, and judged rounds at tournament standard. Cohorts run June, July, and August; only the August cohort still has open enrollment.',
+      'A 12-hour intensive for students with a season behind them: impromptu prep under the one-hour clock, second- and third-speaker craft, reply speeches, and judged rounds at tournament standard. The 2026 cohorts have wrapped, and summer 2027 enrollment opens in the spring.',
     metaDescription:
-      'An advanced online World Schools debate summer camp for experienced debaters. The August cohort (Aug 3–21) is the last of the summer and is enrolling now.',
+      'An advanced online World Schools debate summer camp for experienced debaters, ages 11–18. The 2026 cohorts have wrapped; summer 2027 opens in the spring.',
     metaTitle: 'Advanced World Schools Debate Summer Camp',
     seoH1: 'Advanced World Schools Debate Summer Bootcamp',
     longDescription:
-      'The Advanced Summer Bootcamp is for students who already know what a World Schools round looks like and want the summer to make them harder to beat in the fall. It runs as monthly cohorts in June, July, and August. Enrollment for the June and July cohorts has closed, so the August cohort (August 3–21) is the last of the summer: six two-hour classes over three weeks, twelve hours in all. The work starts where the beginner bootcamp ends. Students run full impromptu prep inside the one-hour window, build second-line arguments and the comparative that separates a third speech from a first, and debate judged rounds adjudicated to the standard used at real tournaments. Every student leaves with written feedback against the Style / Content / Strategy criteria and a placement note for the fall season.',
+      'The Advanced Summer Bootcamp is for students who already know what a World Schools round looks like and want the summer to make them harder to beat in the fall. It runs as monthly cohorts in June, July, and August: six two-hour classes over three weeks, twelve hours in all. The work starts where the beginner bootcamp ends. Students run full impromptu prep inside the one-hour window, build second-line arguments and the comparative that separates a third speech from a first, and debate judged rounds adjudicated to the standard used at real tournaments. Every student leaves with written feedback against the Style / Content / Strategy criteria and a placement note for the fall season. The 2026 cohorts have finished, and enrollment for summer 2027 opens in the spring. The same course runs over the winter break as the Advanced Winter Academy.',
     level: 'Intermediate',
     ageRange: { min: 11, max: 18 },
     format: 'Small-group online',
-    schedule: 'Two time options · twice weekly · 6 sessions · August 3–21',
+    schedule: 'Two time options · twice weekly · 6 sessions over three weeks',
     image: '/images/impromptu-prep.jpg',
     imageAlt: 'Student debaters preparing a case against the clock',
     pricing: { amount: 328, compareAt: 410, currency: 'USD', model: 'for the 12-hour bootcamp ($27 an hour)' },
-    enrollment: { unitLabel: 'August advanced bootcamp (6 sessions, 12 hours)', amount: 328 },
-    earlyBird: { deadlineLabel: 'August 1' },
+    enrollment: { unitLabel: 'Advanced summer bootcamp (6 sessions, 12 hours)', amount: 328 },
     classSize: '6–8 students',
     sessionLength: '2 hours',
     instruction: { totalHours: 12, sessions: 6 },
-    hourlyRate: 27,
     ageGroups: [
       { id: '11-14', label: 'Ages 11–14', min: 11, max: 14 },
       { id: '15-18', label: 'Ages 15–18', min: 15, max: 18 },
     ],
     seasonal: true,
-    termDates: { start: '2026-08-03', end: '2026-08-21' },
+    seasonLabel: 'Summer intensive',
+    closed: {
+      status: 'Summer 2026 has wrapped',
+      note: 'The bootcamp runs again in summer 2027, and enrollment opens in the spring. Dates and pricing are published then.',
+      priceLabel: 'Returns summer 2027',
+      ctaLabel: 'Join the 2027 interest list',
+      ctaHref: '/consultation',
+      altLabel: 'Enrolling now: the Winter Academy',
+      altHref: '/programs/advanced-winter-academy',
+    },
     term: {
-      label: 'Summer 2026 · Final advanced cohort',
-      start: 'August 3–21, 2026 · the last advanced bootcamp of the summer (June and July have closed)',
-      earlyBird: 'Enroll before August 1 for the early-bird rate',
+      label: 'Summer 2026 · Wrapped',
+      start: 'The 2026 cohorts have finished. Summer 2027 opens for enrollment in the spring',
     },
     bootcamp: {
-      dateRange: 'August 3–21, 2026',
+      dateRange: 'The 2026 schedule, shown for reference',
       sessionCount: 6,
       totalHours: 12,
+      intro:
+        'The bootcamp runs as monthly summer cohorts, and each cohort meets twice a week for three weeks. The 2026 cohorts have finished. The times below are the ones 2026 ran on; the 2027 schedule is confirmed when enrollment opens in the spring.',
+      cohortsLabel: 'Summer 2026 cohorts',
+      cadence: 'one option per student, meets twice a week',
       cohorts: [
         { label: 'June cohort', status: 'closed' },
         { label: 'July cohort', status: 'closed' },
-        { label: 'August cohort · Aug 3–21', status: 'enrolling' },
+        { label: 'August cohort', status: 'closed' },
       ],
       options: [
         {
@@ -967,7 +1353,7 @@ export const programs: Program[] = [
       { time: '1:45', title: 'Individual feedback', detail: 'Each debater leaves with specific notes on their own speech, not a general debrief of the room.' },
     ],
     included: [
-      'Six live 2-hour classes over three weeks (12 hours in total, $27 an hour)',
+      'Six live 2-hour classes over three weeks (12 hours in total)',
       'A judged round in every session with oral adjudication, not just the final one',
       'Written feedback mapped to the Style / Content / Strategy criteria after each round',
       'The full printable resource library: speaker cheat sheets, the prep-hour planner, and the motion bank',
@@ -987,7 +1373,7 @@ export const programs: Program[] = [
       {
         question: 'When and how often does it meet?',
         answer:
-          'Twice a week for three weeks in August, two hours per session, twelve hours in total. You choose one of two time options at checkout: Option A meets Mondays and Thursdays from 1 to 3 PM Eastern, and Option B meets Tuesdays and Fridays from 10 AM to 12 PM Eastern. Times show in your timezone on this page.',
+          'Twice a week for three weeks, two hours per session, twelve hours in total, in monthly cohorts across June, July, and August. In 2026 there were two time options: Mondays and Thursdays from 1 to 3 PM Eastern, or Tuesdays and Fridays from 10 AM to 12 PM Eastern. The 2027 times are confirmed when enrollment opens in the spring.',
       },
       {
         question: 'Is it in the same room as the beginner bootcamp?',
@@ -1063,6 +1449,7 @@ export function getFeaturedPrograms(): Program[] {
 
 export function formatPrice(program: Program): string {
   if (program.invitationOnly) return 'By invitation';
+  if (program.closed) return program.closed.priceLabel;
   return `$${program.pricing.amount.toLocaleString('en-US')} ${program.pricing.model}`;
 }
 

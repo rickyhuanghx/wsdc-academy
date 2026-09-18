@@ -1,7 +1,8 @@
 'use client';
 
-// Schedule block for the fixed-cohort summer bootcamp. The buyer picks ONE of
-// two time options; each option meets twice a week for three weeks (6 sessions).
+// Schedule block for the fixed-cohort intensives (summer bootcamp, Winter Academy).
+// The buyer picks ONE time option; every option covers the same sessions. Season
+// wording (cohort heading, cadence) comes from the `bootcamp` data, not from here.
 // Reuses the shared ET-anchor conversion and timezone selector so times localize
 // the same way as the rest of the site.
 
@@ -17,7 +18,7 @@ export function BootcampSchedule({ bootcamp }: { bootcamp: Bootcamp }) {
   return (
     <>
       <div className="mt-5 rounded-xl border border-navy-100 bg-white p-6">
-        <p className="text-sm font-semibold text-navy-900">Summer cohorts</p>
+        <p className="text-sm font-semibold text-navy-900">{bootcamp.cohortsLabel}</p>
         <ul className="mt-3 divide-y divide-navy-100">
           {bootcamp.cohorts.map((cohort) => (
             <li key={cohort.label} className="flex items-center justify-between gap-4 py-2.5 text-sm">
@@ -51,10 +52,14 @@ export function BootcampSchedule({ bootcamp }: { bootcamp: Bootcamp }) {
           {bootcamp.sessionCount} sessions · {bootcamp.totalHours} hours total
         </p>
         <p className="mt-1 text-sm text-navy-600">
-          {bootcamp.dateRange} · pick one option, meets twice a week
+          {bootcamp.dateRange} · {bootcamp.cadence}
         </p>
 
-        <div className="mt-4 grid gap-4 border-t border-navy-100 pt-4 sm:grid-cols-2">
+        <div
+          className={`mt-4 grid gap-4 border-t border-navy-100 pt-4 sm:grid-cols-2 ${
+            bootcamp.options.length > 2 ? 'xl:grid-cols-3' : ''
+          }`}
+        >
           {bootcamp.options.map((option) => (
             <div key={option.id} className="rounded-lg border border-navy-100 bg-cream p-4">
               <p className="text-sm font-semibold text-navy-900">{option.label}</p>
@@ -76,7 +81,8 @@ export function BootcampSchedule({ bootcamp }: { bootcamp: Bootcamp }) {
         </div>
 
         <p className="mt-4 text-xs text-navy-500">
-          You choose your option at checkout. Both cover the same six sessions.
+          You choose your option at checkout. Every option covers the same {bootcamp.sessionCount}{' '}
+          sessions.
         </p>
       </div>
     </>

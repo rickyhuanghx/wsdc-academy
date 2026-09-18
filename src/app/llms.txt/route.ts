@@ -43,6 +43,8 @@ export function GET() {
       '\n' +
       item('Online debate classes', u('/online-debate-classes'), 'Live small-group online debate classes for ages 9 to 18: structured curriculum, judged practice debates, written feedback.') +
       '\n' +
+      item('Winter debate camp', u('/winter-debate-camp'), 'The Winter Academy: a two-week live online debate camp over the winter break, December 21 to 30. 12 hours of small-group World Schools training, beginner and advanced tracks, three time options for the US, the Gulf, and Asia.') +
+      '\n' +
       item('Summer debate camp', u('/summer-debate-camp'), 'A two-week live online debate bootcamp: 12 hours of small-group World Schools training with judged practice debates.') +
       '\n' +
       programs.map((p) => item(p.name, u(`/programs/${p.slug}`), p.tagline)).join('\n'),

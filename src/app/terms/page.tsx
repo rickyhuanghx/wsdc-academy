@@ -50,7 +50,7 @@ export default function TermsPage() {
         <h3>What a purchase covers</h3>
         <p>
           Each enrollment is a one-time purchase of a defined unit: a Foundation term, a
-          Competition Team term, a summer bootcamp, or a five-session 1-on-1 coaching pack.
+          Competition Team term, a summer bootcamp or Winter Academy, or a five-session 1-on-1 coaching pack.
           Nothing renews automatically, and we never charge your card again without a new
           checkout.
         </p>

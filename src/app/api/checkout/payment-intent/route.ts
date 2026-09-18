@@ -297,6 +297,9 @@ export async function POST(req: Request) {
     if (program.invitationOnly) {
       return jsonError(400, `${program.name} is invitation only and not available for online checkout`);
     }
+    if (program.closed) {
+      return jsonError(400, `${program.name} is not enrolling right now. Please remove it from your cart.`);
+    }
 
     if (!isNonEmptyString(si.name, 200)) {
       return jsonError(400, `Student name is required for ${program.name}`);

@@ -46,13 +46,23 @@ export function OrganizationJsonLd() {
       // OfferCatalog inside itemListElement is invalid schema.org structure.
       itemListElement: [
         {
+          name: 'World Schools Winter Academy',
+          description: 'A 12-hour winter break intensive introducing beginners to the World Schools format',
+          url: `${baseUrl}/programs/winter-academy`,
+        },
+        {
+          name: 'Advanced World Schools Winter Academy',
+          description: 'A 12-hour winter break intensive for students who already compete in World Schools',
+          url: `${baseUrl}/programs/advanced-winter-academy`,
+        },
+        {
           name: 'World Schools Summer Bootcamp',
-          description: 'A 12-hour August intensive introducing beginners to the World Schools format',
+          description: 'A 12-hour summer intensive introducing beginners to the World Schools format',
           url: `${baseUrl}/programs/summer-bootcamp`,
         },
         {
           name: 'Advanced World Schools Summer Bootcamp',
-          description: 'A 12-hour August intensive for students who already compete in World Schools',
+          description: 'A 12-hour summer intensive for students who already compete in World Schools',
           url: `${baseUrl}/programs/advanced-summer-bootcamp`,
         },
         {
@@ -211,9 +221,10 @@ export function CourseJsonLd({ program, coaches = [] }: { program: Program; coac
               })),
             }
           : {}),
-        // Invitation-only programs are not purchasable, so they carry no public Offer.
+        // Invitation-only programs and out-of-season (closed) seasonal programs are not
+        // purchasable, so they carry no public Offer.
         // Only the real charged price goes in — never the struck compareAt / early-bird framing.
-        ...(program.invitationOnly
+        ...(program.invitationOnly || program.closed
           ? {}
           : {
               offers: {

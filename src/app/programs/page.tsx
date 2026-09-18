@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   // coaching" (2026-08-17 audit), so the title now says the term outright.
   title: 'World Schools Debate Coaching, Classes & Teams',
   description:
-    'World Schools Debate coaching for US students: a beginner bootcamp, a Foundation class, a year-round Competition Team, and private 1-on-1 tutoring.',
+    'World Schools Debate coaching for US students: a winter break academy, a Foundation class, a year-round Competition Team, and private 1-on-1 tutoring.',
   alternates: { canonical: '/programs' },
   openGraph: {
     title: 'World Schools Debate Coaching & Programs | WSDC Prep',
@@ -49,7 +49,7 @@ export default function ProgramsPage() {
           see the same Q&A markup on three URLs. The visible accordion stays. */}
       <ItemListJsonLd
         name="World Schools Debate Programs"
-        description="Live online World Schools Debate programs for US students: summer bootcamps, a beginner Foundation class, a year-round Competition Team, and 1-on-1 coaching."
+        description="Live online World Schools Debate programs for US students: winter and summer intensives, a beginner Foundation class, a year-round Competition Team, and 1-on-1 coaching."
         url="/programs"
         items={programs.map((p) => ({
           name: p.name,
@@ -118,9 +118,10 @@ export default function ProgramsPage() {
         <div id="programs-list" className="mt-16 scroll-mt-24 space-y-8">
           {[...programs]
             .sort((a, b) => {
-              // Seasonal offers (summer bootcamp) lead; then the year-round ladder by step.
-              const sa = a.seasonal ? 0 : 1;
-              const sb = b.seasonal ? 0 : 1;
+              // Enrolling seasonal offers lead, then the year-round ladder by step, then
+              // seasonal programs that are closed until next year.
+              const sa = a.closed ? 2 : a.seasonal ? 0 : 1;
+              const sb = b.closed ? 2 : b.seasonal ? 0 : 1;
               if (sa !== sb) return sa - sb;
               return (a.pathwayStep ?? 99) - (b.pathwayStep ?? 99);
             })
@@ -132,8 +133,15 @@ export default function ProgramsPage() {
                 <div className="lg:col-span-2">
                   <div className="flex flex-wrap items-center gap-3">
                     <span className="rounded-full bg-navy-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-navy-700">
-                      {program.seasonal ? 'Summer intensive' : `Step ${program.pathwayStep}`}
+                      {program.seasonal
+                        ? (program.seasonLabel ?? 'Seasonal intensive')
+                        : `Step ${program.pathwayStep}`}
                     </span>
+                    {program.closed && (
+                      <span className="rounded-full bg-navy-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-navy-400">
+                        {program.closed.priceLabel}
+                      </span>
+                    )}
                     {program.featured && (
                       <span className="rounded-full bg-signal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-signal-600">
                         Most popular
@@ -151,7 +159,14 @@ export default function ProgramsPage() {
                     >
                       Program details
                     </Link>
-                    {program.invitationOnly ? (
+                    {program.closed ? (
+                      <Link
+                        href={program.closed.ctaHref}
+                        className="inline-block rounded-md border border-navy-200 px-6 py-3 text-sm font-semibold text-navy-700 transition-colors hover:border-navy-400"
+                      >
+                        {program.closed.ctaLabel}
+                      </Link>
+                    ) : program.invitationOnly ? (
                       <Link
                         href="/contact"
                         className="inline-block rounded-md border border-navy-200 px-6 py-3 text-sm font-semibold text-navy-700 transition-colors hover:border-navy-400"
@@ -206,14 +221,14 @@ export default function ProgramsPage() {
                     <div>
                       <dt className="font-semibold text-navy-400">Tuition</dt>
                       <dd className="font-bold text-navy-900">
-                        {!program.invitationOnly && program.pricing.compareAt && (
+                        {!program.invitationOnly && !program.closed && program.pricing.compareAt && (
                           <span className="mr-1.5 font-normal text-navy-400 line-through">
                             ${program.pricing.compareAt.toLocaleString('en-US')}
                           </span>
                         )}
                         {formatPrice(program)}
                       </dd>
-                      {!program.invitationOnly && program.pricing.compareAt && (
+                      {!program.invitationOnly && !program.closed && program.pricing.compareAt && (
                         <dd className="mt-1 text-xs font-semibold text-signal-600">
                           {EARLY_BIRD_PERCENT}% off early-bird
                         </dd>

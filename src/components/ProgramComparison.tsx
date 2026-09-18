@@ -3,14 +3,16 @@ import { getAgeGroupsDisplay, type Program } from '@/data/programs';
 import { LevelMeter } from './LevelMeter';
 
 // At-a-glance comparison strip for the /programs index: lets a visitor self-select before
-// scrolling the full cards. Reuses the same sort order as the cards (seasonal first, then the
-// year-round ladder by step) so the rows and the cards below read in the same sequence.
+// scrolling the full cards. Reuses the same sort order as the cards (enrolling seasonal first, the
+// year-round ladder by step, closed seasonal last) so the rows and the cards below read in the same sequence.
 
 // One-line "best for" per program. Kept here (not in programs.ts) because these are short
 // marketing summaries of the longer `idealFor` copy; owner can tune wording freely.
 const BEST_FOR: Record<string, string> = {
-  'summer-bootcamp': 'A first taste (last cohort: August)',
-  'advanced-summer-bootcamp': 'Debaters who compete (last cohort: August)',
+  'winter-academy': 'A first taste over winter break',
+  'advanced-winter-academy': 'Debaters who compete, over winter break',
+  'summer-bootcamp': 'A first taste (returns summer 2027)',
+  'advanced-summer-bootcamp': 'Debaters who compete (returns summer 2027)',
   foundations: 'Brand-new debaters',
   'competition-team': 'Tournament-bound students',
   'national-team-sprint': 'USA-team hopefuls (by invite)',
@@ -19,17 +21,18 @@ const BEST_FOR: Record<string, string> = {
 
 function compactPrice(program: Program): string {
   if (program.invitationOnly) return 'By invitation';
+  if (program.closed) return program.closed.priceLabel;
   const model = program.pricing.model
     .replace('per term', '/ term')
     .replace('per hour', '/ hour')
-    .replace('for the 12-hour bootcamp ($27 an hour)', 'one-time');
+    .replace(/^for the 12-hour .*$/, 'one-time');
   return `$${program.pricing.amount.toLocaleString('en-US')} ${model}`;
 }
 
 function sortForLadder(list: Program[]): Program[] {
   return [...list].sort((a, b) => {
-    const sa = a.seasonal ? 0 : 1;
-    const sb = b.seasonal ? 0 : 1;
+    const sa = a.closed ? 2 : a.seasonal ? 0 : 1;
+    const sb = b.closed ? 2 : b.seasonal ? 0 : 1;
     if (sa !== sb) return sa - sb;
     return (a.pathwayStep ?? 99) - (b.pathwayStep ?? 99);
   });

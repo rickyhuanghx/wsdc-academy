@@ -22,6 +22,13 @@ export interface ScheduleSlot {
   dayOfWeek: number; // 0=Sun..6=Sat
   start: string; // "HH:MM" ET
   end: string; // "HH:MM" ET
+  /**
+   * Optional ISO date (must fall on `dayOfWeek`) to evaluate the conversion on.
+   * Weekly term classes omit it and convert on their next occurrence. Fixed-date
+   * intensives (the December Winter Academy) set it, so the conversion uses the
+   * offsets in force on the class dates (EST, not today's EDT).
+   */
+  date?: string;
 }
 
 // Intl's en-US short zone name renders many non-US zones as "GMT+8", which reads
@@ -76,12 +83,19 @@ function tzOffsetMs(timeZone: string, utcMs: number): number {
   return asIfUtc - utcMs;
 }
 
-// A concrete date in the first term week (Fri Sep 4 2026) matching the weekday, so DST
-// offsets are evaluated in-season. Fixed base string keeps this deterministic.
-function anchorDateFor(dayOfWeek: number): string {
-  const base = Date.UTC(2026, 8, 4); // Fri, Sep 4 2026
-  const offsetDays = ((dayOfWeek - 5) + 7) % 7; // Friday is weekday 5
-  const d = new Date(base + offsetDays * 86_400_000);
+// The date a slot's conversion is evaluated on. Fixed-date slots carry their own
+// `date`. Weekly term slots use the NEXT occurrence of their weekday (today
+// included), so the offsets are the ones in force for the class the viewer would
+// actually attend. This used to be pinned to Sep 4 2026, which left every
+// non-US viewer an hour out once US clocks changed on Nov 1 (and would again in
+// March). Static HTML renders in ET, where only the EDT/EST abbreviation can
+// differ between build time and view time.
+function anchorDateFor(slot: Pick<ScheduleSlot, 'dayOfWeek' | 'date'>): string {
+  if (slot.date) return slot.date;
+  const now = new Date();
+  const today = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  const offsetDays = ((slot.dayOfWeek - new Date(today).getUTCDay()) + 7) % 7;
+  const d = new Date(today + offsetDays * 86_400_000);
   return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
 }
 
@@ -95,13 +109,13 @@ function anchorToUtc(dateISO: string, hour: number, minute: number): number {
 // The slot's start instant (UTC ms) — used to order slots chronologically across a week.
 export function slotStartUtc(slot: ScheduleSlot): number {
   const [sh, sm] = slot.start.split(':').map(Number);
-  return anchorToUtc(anchorDateFor(slot.dayOfWeek), sh, sm);
+  return anchorToUtc(anchorDateFor(slot), sh, sm);
 }
 
 // Render a slot in the given timezone: local weekday (pluralized), time range, and abbr.
 export function formatSlot(slot: ScheduleSlot, zone: string): { day: string; time: string; abbr: string } {
   try {
-    const date = anchorDateFor(slot.dayOfWeek);
+    const date = anchorDateFor(slot);
     const [sh, sm] = slot.start.split(':').map(Number);
     const [eh, em] = slot.end.split(':').map(Number);
     const startUtc = anchorToUtc(date, sh, sm);

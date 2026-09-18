@@ -58,7 +58,9 @@ export default async function ProgramPage({ params }: Props) {
   const nextStep = program.nextStepSlug ? getProgramBySlug(program.nextStepSlug) : undefined;
   const isInvite = Boolean(program.invitationOnly);
   const isOneOnOne = Boolean(program.oneOnOne);
-  const hasEnrollOptions = Boolean(getEnrollmentOptions(program));
+  // Out-of-season seasonal program: page stays live, nothing is purchasable.
+  const closed = program.closed;
+  const hasEnrollOptions = !closed && Boolean(getEnrollmentOptions(program));
   const agesDisplay = getAgeGroupsDisplay(program);
   const earlyBirdDeadline = program.earlyBird?.deadlineLabel;
 
@@ -133,6 +135,23 @@ export default async function ProgramPage({ params }: Props) {
                     Request consideration
                   </Link>
                   <span className="text-sm font-medium text-navy-200">Invitation only</span>
+                </>
+              ) : closed ? (
+                <>
+                  <Link
+                    href={closed.ctaHref}
+                    className="rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
+                  >
+                    {closed.ctaLabel}
+                  </Link>
+                  {closed.altHref && closed.altLabel && (
+                    <Link
+                      href={closed.altHref}
+                      className="px-2 py-3.5 text-center font-semibold text-white underline decoration-navy-300 underline-offset-4 transition-colors hover:decoration-white"
+                    >
+                      {closed.altLabel}
+                    </Link>
+                  )}
                 </>
               ) : isOneOnOne ? (
                 <>
@@ -324,11 +343,7 @@ export default async function ProgramPage({ params }: Props) {
             {program.bootcamp && (
               <>
                 <h2 className="mt-12 text-2xl font-bold text-navy-900">When it meets</h2>
-                <p className="mt-3 text-navy-600">
-                  The bootcamp runs as monthly summer cohorts, and each cohort meets twice a week for
-                  three weeks. Only the August cohort is still open. Times show in your timezone by
-                  default, and you can switch it below.
-                </p>
+                <p className="mt-3 text-navy-600">{program.bootcamp.intro}</p>
                 <BootcampSchedule bootcamp={program.bootcamp} />
               </>
             )}
@@ -452,7 +467,9 @@ export default async function ProgramPage({ params }: Props) {
               </div>
             </div>
 
-            {/* How enrollment works */}
+            {/* How enrollment works (skipped while a seasonal program is closed) */}
+            {!closed && (
+            <>
             <h2 className="mt-12 text-2xl font-bold text-navy-900">
               {isInvite ? 'How to join' : 'How enrollment works'}
             </h2>
@@ -503,6 +520,8 @@ export default async function ProgramPage({ params }: Props) {
                 .
               </p>
             )}
+            </>
+            )}
 
             {/* Further reading — the contextual internal links this page used to lack. */}
             {program.furtherReading && program.furtherReading.length > 0 && (
@@ -552,10 +571,15 @@ export default async function ProgramPage({ params }: Props) {
             <div className="sticky top-24 space-y-6">
               <div className="rounded-xl border border-navy-100 bg-white p-6">
                 <p className="text-sm font-semibold text-navy-400">
-                  {isInvite ? 'Enrollment' : 'Tuition'}
+                  {isInvite || closed ? 'Enrollment' : 'Tuition'}
                 </p>
                 {isInvite ? (
                   <p className="mt-1 text-2xl font-bold text-navy-900">By invitation</p>
+                ) : closed ? (
+                  <div className="mt-1">
+                    <p className="text-2xl font-bold text-navy-900">{closed.status}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-navy-600">{closed.note}</p>
+                  </div>
                 ) : isOneOnOne ? (
                   <div className="mt-1">
                     <p className="text-2xl font-bold text-navy-900">
@@ -605,6 +629,23 @@ export default async function ProgramPage({ params }: Props) {
                       Places are offered by coach invitation.
                     </p>
                   </>
+                ) : closed ? (
+                  <>
+                    <Link
+                      href={closed.ctaHref}
+                      className="mt-6 block rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
+                    >
+                      {closed.ctaLabel}
+                    </Link>
+                    {closed.altHref && closed.altLabel && (
+                      <Link
+                        href={closed.altHref}
+                        className="mt-3 block text-center text-sm font-medium text-navy-600 underline underline-offset-2 hover:text-signal-500"
+                      >
+                        {closed.altLabel}
+                      </Link>
+                    )}
+                  </>
                 ) : isOneOnOne ? (
                   <>
                     <Link
@@ -646,6 +687,7 @@ export default async function ProgramPage({ params }: Props) {
                     </Link>
                   </>
                 )}
+                {!closed && (
                 <p className="mt-4 border-t border-navy-100 pt-4 text-xs leading-relaxed text-navy-500">
                   Full refund within 7 days of enrollment, before the second session — the first
                   class is effectively risk-free (
@@ -654,6 +696,7 @@ export default async function ProgramPage({ params }: Props) {
                   </Link>
                   ). Transparent all-in pricing: no placement or assessment fees.
                 </p>
+                )}
               </div>
 
               <div className="rounded-xl bg-navy-50 p-6">
@@ -676,19 +719,25 @@ export default async function ProgramPage({ params }: Props) {
       <section className="bg-navy-900">
         <div className="mx-auto max-w-4xl px-4 py-14 text-center sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-white sm:text-3xl">
-            {isInvite ? `Think you belong in ${program.shortName}?` : `Ready to start ${program.shortName}?`}
+            {isInvite
+              ? `Think you belong in ${program.shortName}?`
+              : closed
+                ? closed.status
+                : `Ready to start ${program.shortName}?`}
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-navy-200">
             {isInvite
               ? 'Places are offered by coach invitation — tell us about your competitive record and we will take a look.'
+              : closed
+                ? closed.note
               : `Classes are capped at ${program.classSize ?? '8 students'}, and the first class is covered by our 7-day full-refund policy.`}
           </p>
           <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
-              href={isInvite ? '/contact' : isOneOnOne ? '#pricing' : hasEnrollOptions ? '#enroll' : '/consultation'}
+              href={isInvite ? '/contact' : closed ? closed.ctaHref : isOneOnOne ? '#pricing' : hasEnrollOptions ? '#enroll' : '/consultation'}
               className="rounded-md bg-signal-500 px-7 py-3.5 font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
             >
-              {isInvite ? 'Request consideration' : 'Enroll now'}
+              {isInvite ? 'Request consideration' : closed ? closed.ctaLabel : 'Enroll now'}
             </Link>
             <Link
               href="/consultation"

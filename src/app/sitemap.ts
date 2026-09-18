@@ -68,6 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/resources', file: 'src/app/resources/page.tsx', changeFrequency: 'weekly', priority: 0.9 },
     { path: '/motions', file: 'src/app/motions/page.tsx', changeFrequency: 'weekly', priority: 0.9 },
     { path: '/debate-topics', file: 'src/app/debate-topics/page.tsx', changeFrequency: 'weekly', priority: 0.9 },
+    { path: '/winter-debate-camp', file: 'src/app/winter-debate-camp/page.tsx', changeFrequency: 'monthly', priority: 0.85 },
     { path: '/summer-debate-camp', file: 'src/app/summer-debate-camp/page.tsx', changeFrequency: 'monthly', priority: 0.85 },
     { path: '/online-debate-classes', file: 'src/app/online-debate-classes/page.tsx', changeFrequency: 'monthly', priority: 0.85 },
     { path: '/motions/wsdc', file: 'src/app/motions/wsdc/page.tsx', changeFrequency: 'monthly', priority: 0.85 },

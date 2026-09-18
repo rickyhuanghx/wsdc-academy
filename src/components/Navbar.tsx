@@ -17,15 +17,18 @@ const nav: NavItem[] = [
     href: '/programs',
     label: 'Programs',
     children: [
+      // Seasonal slot: holds whichever intensive is enrolling. The summer bootcamps
+      // moved to the footer when they wrapped (2026-09); swap them back in when
+      // summer 2027 enrollment opens.
       {
-        href: '/programs/summer-bootcamp',
-        label: 'World Schools Summer Bootcamp',
-        desc: '12-hour August intensive for beginners',
+        href: '/programs/winter-academy',
+        label: 'World Schools Winter Academy',
+        desc: '12-hour winter break intensive for beginners',
       },
       {
-        href: '/programs/advanced-summer-bootcamp',
-        label: 'Advanced Summer Bootcamp',
-        desc: '12-hour August intensive for experienced debaters',
+        href: '/programs/advanced-winter-academy',
+        label: 'Advanced Winter Academy',
+        desc: '12-hour winter break intensive for experienced debaters',
       },
       {
         href: '/programs/foundations',
