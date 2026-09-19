@@ -35,7 +35,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   if (!t) return {};
   const description = tournamentDescription(t);
   return {
-    title: t.name.length > 46 ? t.name : `${t.name}: Debate Tournament`,
+    title: t.name.length > 46 ? t.name : `${t.name}: ${t.format === 'speech' ? 'Public Speaking Competition' : 'Debate Tournament'}`,
     description,
     alternates: { canonical: `/tournaments/${t.slug}` },
     openGraph: {
@@ -184,29 +184,45 @@ export default async function TournamentPage({ params, searchParams }: Props) {
               </p>
             )}
 
-            <div className="mt-12 border-t border-navy-100 pt-8">
-              <h2 className="font-display text-2xl font-semibold text-navy-900">Preparing for the tournament</h2>
-              <p className="mt-3 leading-relaxed text-navy-700">
-                Students entering their first judged rounds usually get the most out of a short run of
-                coached practice first. The{' '}
-                <Link href="/programs/foundations" className="underline underline-offset-2 hover:text-signal-500">
-                  Foundation class
-                </Link>{' '}
-                covers the format from scratch, the{' '}
-                <Link href="/programs/competition-team" className="underline underline-offset-2 hover:text-signal-500">
-                  Competition Team
-                </Link>{' '}
-                trains year-round, and the{' '}
-                <Link href="/motions" className="underline underline-offset-2 hover:text-signal-500">
-                  motion bank
-                </Link>{' '}
-                has thousands of real motions to practise on. How rounds are scored is explained in{' '}
-                <Link href="/world-schools-debate-judging" className="underline underline-offset-2 hover:text-signal-500">
-                  how World Schools judging works
-                </Link>
-                .
-              </p>
-            </div>
+            {t.format === 'speech' ? (
+              <div className="mt-12 border-t border-navy-100 pt-8">
+                <h2 className="font-display text-2xl font-semibold text-navy-900">Preparing for the competition</h2>
+                <p className="mt-3 leading-relaxed text-navy-700">
+                  A short speech rewards a clear structure, a strong opening and a delivery that has been
+                  rehearsed out loud. The coaching hours included with this entry cover all three: planning
+                  and writing the speech, practising it to camera, and a final check of the recording before
+                  it goes in. Students who want a longer run-up can look at our{' '}
+                  <Link href="/programs" className="underline underline-offset-2 hover:text-signal-500">
+                    training programs
+                  </Link>
+                  , which build the same speaking skills week by week.
+                </p>
+              </div>
+            ) : (
+              <div className="mt-12 border-t border-navy-100 pt-8">
+                <h2 className="font-display text-2xl font-semibold text-navy-900">Preparing for the tournament</h2>
+                <p className="mt-3 leading-relaxed text-navy-700">
+                  Students entering their first judged rounds usually get the most out of a short run of
+                  coached practice first. The{' '}
+                  <Link href="/programs/foundations" className="underline underline-offset-2 hover:text-signal-500">
+                    Foundation class
+                  </Link>{' '}
+                  covers the format from scratch, the{' '}
+                  <Link href="/programs/competition-team" className="underline underline-offset-2 hover:text-signal-500">
+                    Competition Team
+                  </Link>{' '}
+                  trains year-round, and the{' '}
+                  <Link href="/motions" className="underline underline-offset-2 hover:text-signal-500">
+                    motion bank
+                  </Link>{' '}
+                  has thousands of real motions to practise on. How rounds are scored is explained in{' '}
+                  <Link href="/world-schools-debate-judging" className="underline underline-offset-2 hover:text-signal-500">
+                    how World Schools judging works
+                  </Link>
+                  .
+                </p>
+              </div>
+            )}
           </div>
 
           <aside>

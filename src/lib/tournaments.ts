@@ -18,7 +18,7 @@ const API_BASE = (process.env.CLASSDESK_API_URL || 'https://www.classroomdesk.co
 // How long the listing / detail pages may serve a cached API response.
 export const TOURNAMENT_REVALIDATE_SECONDS = 300;
 
-export type TournamentFormat = 'wsdc' | 'bp' | 'pf' | 'other';
+export type TournamentFormat = 'wsdc' | 'bp' | 'pf' | 'speech' | 'other';
 export type TournamentMode = 'online' | 'in_person';
 export type TournamentStatus =
   | 'draft'
@@ -315,6 +315,7 @@ export const FORMAT_LABELS: Record<TournamentFormat, string> = {
   wsdc: 'World Schools',
   bp: 'British Parliamentary',
   pf: 'Public Forum',
+  speech: 'Public Speaking',
   other: 'Debate',
 };
 
@@ -371,7 +372,7 @@ export function tournamentDescription(t: PublicTournament): string {
   const raw =
     t.blurb?.trim() ||
     (t.content.find((b) => b.type === 'paragraph') as { text: string } | undefined)?.text?.trim() ||
-    `${t.name}: ${FORMAT_LABELS[t.format]} debate tournament, ${t.mode === 'online' ? 'online' : t.venue || 'in person'}. Register through WSDC Prep.`;
+    `${t.name}: ${FORMAT_LABELS[t.format]} ${t.format === 'speech' ? 'competition' : 'debate tournament'}, ${t.mode === 'online' ? 'online' : t.venue || 'in person'}. Register through WSDC Prep.`;
   return raw.length > 160 ? `${raw.slice(0, 157).trimEnd()}...` : raw;
 }
 
