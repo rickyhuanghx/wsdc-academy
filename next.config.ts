@@ -44,12 +44,21 @@ const nextConfig: NextConfig = {
         source: '/for/:path*',
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet, noimageindex' }],
       },
+      // Unlisted 1-on-1 request form: same treatment, shared by direct link only.
+      // Belt and braces with the noindex metadata in src/app/coaching-1on1/page.tsx.
+      {
+        source: '/coaching-1on1',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet, noimageindex' }],
+      },
     ];
   },
   async redirects() {
     return [
       // The free trial class is retired; consultations replace it.
       { source: '/trial', destination: '/consultation', permanent: true },
+      // Short alias for the unlisted 1-on-1 request form, so staff can paste it
+      // into WhatsApp. Permanent: the destination is not expected to move.
+      { source: '/1on1', destination: '/coaching-1on1', permanent: true },
       // Vanity link for Tabroom placements; UTM tags let GA4 attribute the
       // session (and any conversion events in it) to Tabroom. Temporary
       // redirect on purpose so the destination/params can change later.

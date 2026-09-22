@@ -84,6 +84,11 @@ export async function sendAdminNotification(subject: string, fields: Record<stri
  * Sends an arbitrary email via the Resend HTTP API (no SDK dependency).
  * Failures are logged but never thrown — used by the Stripe webhook, where the
  * order row is the source of truth and email is best-effort.
+ *
+ * Returns whether Resend actually accepted the message. Callers that have no
+ * other durable sink must check it: a refusal (suppressed address, unverified
+ * domain) comes back as a non-2xx, and treating that as "sent" silently loses
+ * the lead.
  */
 export async function sendEmail(opts: {
   to: string;
@@ -91,13 +96,13 @@ export async function sendEmail(opts: {
   subject: string;
   html: string;
   text?: string;
-}) {
+}): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM_EMAIL;
 
   if (!apiKey || !from) {
     console.warn(`[leads] Resend not configured — email skipped: ${opts.subject} → ${opts.to}`);
-    return;
+    return false;
   }
 
   try {
@@ -118,9 +123,12 @@ export async function sendEmail(opts: {
     });
     if (!res.ok) {
       console.error(`[leads] Resend error ${res.status}: ${await res.text()}`);
+      return false;
     }
+    return true;
   } catch (err) {
     console.error('[leads] Resend request failed', err);
+    return false;
   }
 }
 

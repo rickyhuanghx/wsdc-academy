@@ -69,3 +69,48 @@ create index if not exists ad_clicks_slug_idx
   on public.ad_clicks (slug, created_at desc);
 
 alter table public.ad_clicks enable row level security;
+
+-- ============================================================
+-- coaching_1on1_requests: the unlisted 1-on-1 request form (/coaching-1on1).
+-- Written by src/app/api/coaching-1on1/route.ts with the service-role key.
+--
+-- Nothing reads this from the browser, so RLS stays on with no policy at all.
+-- The form works without this table (the staff email is the primary sink and
+-- a failed insert is logged, never fatal), but this is the durable record.
+-- ============================================================
+create table if not exists public.coaching_1on1_requests (
+  id                 uuid primary key default gen_random_uuid(),
+  created_at         timestamptz not null default now(),
+
+  student_name       text not null,
+  student_age        int,
+  student_grade      text,
+  level              text,              -- new to debate / some experience / competitive
+  format_focus       text,              -- World Schools, BP, LD, PF, public speaking
+  goal               text,              -- tournament or aim they are working towards
+
+  parent_name        text not null,
+  parent_email       text not null,
+  parent_phone       text not null,
+
+  -- Ordered preference as one readable string: "1. Tin Puljić · 2. Biser Angelov",
+  -- or "No preference". Kept as text so reordering the roster needs no migration.
+  preferred_coach    text,
+  preferred_days     text[] not null default '{}',
+  preferred_windows  text[] not null default '{}',
+  timezone           text,               -- the parent's own zone, as they saw it
+
+  video_url          text,               -- optional speech recording or ballot
+  notes              text,
+  page_url           text,
+
+  -- Follow-up state, maintained by hand: new -> contacted -> booked / lost.
+  status             text not null default 'new'
+);
+
+create index if not exists coaching_1on1_requests_created_at_idx
+  on public.coaching_1on1_requests (created_at desc);
+create index if not exists coaching_1on1_requests_status_idx
+  on public.coaching_1on1_requests (status);
+
+alter table public.coaching_1on1_requests enable row level security;
