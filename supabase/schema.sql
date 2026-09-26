@@ -114,3 +114,60 @@ create index if not exists coaching_1on1_requests_status_idx
   on public.coaching_1on1_requests (status);
 
 alter table public.coaching_1on1_requests enable row level security;
+
+-- ============================================================
+-- diagnostic_intakes: the private pre-diagnostic intake form
+-- (/for/diagnostic/[token]). Written by src/app/api/diagnostic-intake/route.ts
+-- with the service-role key. One row per submission; the invite token ties it
+-- to the paid diagnostic (see DIAGNOSTIC_INVITES in src/lib/diagnostic-intake.ts).
+--
+-- Nothing reads this from the browser, so RLS stays on with no policy at all.
+-- The form works without this table (the staff email is the primary sink and
+-- a failed insert is logged, never fatal), but this is the durable record.
+-- ============================================================
+create table if not exists public.diagnostic_intakes (
+  id                 uuid primary key default gen_random_uuid(),
+  created_at         timestamptz not null default now(),
+
+  invite_token       text not null,
+  payment_ref        text,               -- Stripe payment intent the diagnostic was bought on
+
+  student_name       text not null,
+  student_age        int,
+  student_grade      text,
+  school             text,
+  experience         text,               -- never / school only / a few tournaments / regular
+  formats_tried      text[] not null default '{}',
+  goals              text[] not null default '{}',
+  competitions       text,               -- competitions or deadlines on the horizon, free text
+  notes              text,
+
+  -- The written tasks, verbatim, with the prompts the student actually saw.
+  motion             text,
+  side               text,
+  case_text          text,
+  rebuttal_prompt    text,
+  rebuttal_text      text,
+  speech_url         text,               -- optional recording link
+  time_spent         text,
+
+  parent_name        text not null,
+  parent_email       text not null,
+  parent_phone       text not null,
+  student_email      text,
+
+  preferred_days     text[] not null default '{}',
+  preferred_windows  text[] not null default '{}',
+  timezone           text,               -- the family's own zone, as they saw it
+  page_url           text,
+
+  -- Follow-up state, maintained by hand: new -> scheduled -> done.
+  status             text not null default 'new'
+);
+
+create index if not exists diagnostic_intakes_created_at_idx
+  on public.diagnostic_intakes (created_at desc);
+create index if not exists diagnostic_intakes_token_idx
+  on public.diagnostic_intakes (invite_token);
+
+alter table public.diagnostic_intakes enable row level security;
