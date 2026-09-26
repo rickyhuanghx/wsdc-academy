@@ -79,7 +79,10 @@ function offsetLabel(zone: string): string {
   }
 }
 
-export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvite }) {
+/** What the browser sees: the prefill only. The payment reference stays server-side. */
+export type DiagnosticInvitePublic = Omit<DiagnosticInvite, 'paymentRef'>;
+
+export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePublic }) {
   const [fields, setFields] = useState<Fields>({
     studentName: invite.studentName,
     age: '',

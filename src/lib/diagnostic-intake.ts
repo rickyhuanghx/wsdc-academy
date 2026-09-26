@@ -30,7 +30,7 @@ export interface DiagnosticInvite {
   parentName: string;
   parentEmail: string;
   parentPhone: string;
-  /** For staff only: what this invite is tied to. Never rendered. */
+  /** For staff only: what this invite is tied to. Stripped before the page passes the invite to the client. */
   paymentRef: string;
 }
 

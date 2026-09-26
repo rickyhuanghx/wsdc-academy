@@ -26,6 +26,9 @@ export async function generateMetadata({ params }: { params: Promise<{ token: st
 export default async function DiagnosticIntakePage({ params }: { params: Promise<{ token: string }> }) {
   const invite = getDiagnosticInvite((await params).token);
   if (!invite) notFound();
+  // Only the prefill crosses to the client; the Stripe reference is staff-only.
+  const { paymentRef: _paymentRef, ...publicInvite } = invite;
+  void _paymentRef;
 
   return (
     <section className="bg-cream py-12 sm:py-16">
@@ -49,7 +52,7 @@ export default async function DiagnosticIntakePage({ params }: { params: Promise
           </p>
         </header>
 
-        <DiagnosticIntakeForm invite={invite} />
+        <DiagnosticIntakeForm invite={publicInvite} />
       </div>
     </section>
   );
