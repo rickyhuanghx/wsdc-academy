@@ -99,6 +99,20 @@ export const SIDES = ['Proposition (for the motion)', 'Opposition (against the m
 export const REBUTTAL_PROMPT =
   'Zoos should be banned. Keeping animals in captivity is cruel, and no amount of education or conservation work justifies confining an animal for people to look at.';
 
+/**
+ * World Schools national teams. WSDC is contested between national teams, so
+ * the coach needs to know which country or countries a student could speak
+ * for. Eligibility is set by each nation; most ask for citizenship or a period
+ * of residency plus enrolment at a secondary school.
+ */
+export const NATIONAL_TEAM_INTEREST: { value: string; help: string }[] = [
+  { value: 'Yes, a goal of mine', help: 'I want to work towards trials' },
+  { value: 'Curious, tell me more', help: 'I would like to understand the route' },
+  { value: 'Not for now', help: 'Other goals come first' },
+];
+
+export const NATIONAL_TEAM_INTEREST_VALUES = NATIONAL_TEAM_INTEREST.map((n) => n.value);
+
 export const TIME_SPENT = ['Under 15 minutes', '15 to 30 minutes', '30 to 60 minutes', 'Over an hour'];
 
 export const CASE_MIN_WORDS = 60;

@@ -5,7 +5,7 @@
 // The family has already paid for the diagnostic session. Before it, the
 // student confirms the basics we took at checkout, says what they want from
 // coaching, does two short written argument tasks, and tells us when they are
-// free. Four short sections, nothing scored on the page: the coach reads the
+// free. Five short sections. Nothing is scored on the page; the coach reads the
 // answers before the session. See src/app/api/diagnostic-intake/route.ts.
 
 import { useMemo, useState } from 'react';
@@ -18,6 +18,7 @@ import {
   FORMATS_TRIED,
   GOALS,
   MOTIONS,
+  NATIONAL_TEAM_INTEREST,
   REBUTTAL_MAX_CHARS,
   REBUTTAL_PROMPT,
   SIDES,
@@ -49,6 +50,9 @@ interface Fields {
   experience: string;
   competitions: string;
   notes: string;
+  nationality: string;
+  residence: string;
+  nationalTeamInterest: string;
   motion: string;
   side: string;
   caseText: string;
@@ -91,6 +95,9 @@ export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePubli
     experience: '',
     competitions: '',
     notes: '',
+    nationality: '',
+    residence: '',
+    nationalTeamInterest: '',
     motion: '',
     side: '',
     caseText: '',
@@ -131,6 +138,9 @@ export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePubli
     if (!fields.grade) er.grade = 'Please choose a grade.';
     if (!fields.experience) er.experience = 'Please pick one.';
     if (goals.length === 0) er.goals = 'Pick at least one.';
+    if (!fields.nationality.trim()) er.nationality = 'Please tell us your nationality.';
+    if (!fields.residence.trim()) er.residence = 'Please tell us where you live.';
+    if (!fields.nationalTeamInterest) er.nationalTeamInterest = 'Please pick one.';
     if (!fields.motion) er.motion = 'Please choose a motion.';
     if (!fields.side) er.side = 'Please choose a side.';
     if (caseWords < CASE_MIN_WORDS)
@@ -198,8 +208,8 @@ export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePubli
           Thank you, {invite.studentFirst}
         </h1>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-navy-600">
-          Your answers and both written tasks are with us. Your coach will read them before the
-          session, and we will email within one working day to confirm a time.
+          We have your answers and both written tasks. Your coach will read them before the session.
+          We will email within one working day to confirm a time.
         </p>
         <p className="mt-5 text-xs text-navy-500">
           Need to change something? Email{' '}
@@ -228,10 +238,10 @@ export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePubli
 
       {/* ---------- 1. About you ---------- */}
       <section className="rounded-sm border border-navy-200 bg-white p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">1 of 4</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">1 of 5</p>
         <h2 className="mt-1 font-display text-xl font-semibold text-navy-900">About you</h2>
         <p className="mt-1 text-sm leading-relaxed text-navy-600">
-          We took most of this at checkout. Check it and fix anything that is wrong.
+          Most of this came from checkout. Have a look and correct anything that is wrong.
         </p>
         <div className="mt-5 grid gap-5 sm:grid-cols-2">
           <div className="sm:col-span-2">
@@ -353,7 +363,7 @@ export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePubli
 
       {/* ---------- 2. What you want ---------- */}
       <section className="rounded-sm border border-navy-200 bg-white p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">2 of 4</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">2 of 5</p>
         <h2 className="mt-1 font-display text-xl font-semibold text-navy-900">What you want from coaching</h2>
 
         <div className="mt-5" data-error={Boolean(errors.goals)}>
@@ -412,20 +422,105 @@ export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePubli
         </div>
       </section>
 
-      {/* ---------- 3. Two short tasks ---------- */}
+      {/* ---------- 3. National teams ---------- */}
       <section className="rounded-sm border border-navy-200 bg-white p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">3 of 4</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">3 of 5</p>
+        <h2 className="mt-1 font-display text-xl font-semibold text-navy-900">World Schools national teams</h2>
+        <p className="mt-1 text-sm leading-relaxed text-navy-600">
+          The World Schools Debating Championships is a contest between countries. Each nation sends
+          one team of three to five speakers, chosen by its own debating body, usually through
+          trials. Who can try out is decided country by country: most ask for citizenship or a few
+          years of residence, plus a place at a secondary school. Some students qualify for more
+          than one country. Your coach uses this to point you at the right trials and calendar,
+          so answer even if a national team is not on your mind yet.
+        </p>
+
+        <div className="mt-5 grid gap-5 sm:grid-cols-2">
+          <div>
+            <label htmlFor="nationality" className={labelClass}>
+              Nationality <span className="text-signal-500">*</span>
+            </label>
+            <input
+              id="nationality"
+              type="text"
+              maxLength={200}
+              placeholder="Swiss and Russian"
+              value={fields.nationality}
+              onChange={set('nationality')}
+              aria-invalid={Boolean(errors.nationality)}
+              className={inputClass}
+            />
+            {errors.nationality ? (
+              <p className={errClass}>{errors.nationality}</p>
+            ) : (
+              <p className={helpClass}>List every citizenship you hold.</p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="residence" className={labelClass}>
+              Country you live in <span className="text-signal-500">*</span>
+            </label>
+            <input
+              id="residence"
+              type="text"
+              maxLength={200}
+              placeholder="Switzerland, since 2023"
+              value={fields.residence}
+              onChange={set('residence')}
+              aria-invalid={Boolean(errors.residence)}
+              className={inputClass}
+            />
+            {errors.residence ? (
+              <p className={errClass}>{errors.residence}</p>
+            ) : (
+              <p className={helpClass}>Add roughly how long, if you moved there recently.</p>
+            )}
+          </div>
+
+          <div className="sm:col-span-2" data-error={Boolean(errors.nationalTeamInterest)}>
+            <p className={labelClass}>
+              Is a national team something you want to aim for?{' '}
+              <span className="text-signal-500">*</span>
+            </p>
+            <div className="mt-2 grid gap-2 sm:grid-cols-3">
+              {NATIONAL_TEAM_INTEREST.map((n) => (
+                <button
+                  key={n.value}
+                  type="button"
+                  onClick={() => {
+                    setFields((f) => ({ ...f, nationalTeamInterest: n.value }));
+                    setErrors((er) => ({ ...er, nationalTeamInterest: undefined }));
+                  }}
+                  className={`${chipBase} ${fields.nationalTeamInterest === n.value ? chipOn : chipOff}`}
+                  aria-pressed={fields.nationalTeamInterest === n.value}
+                >
+                  <span className="block font-semibold">{n.value}</span>
+                  <span className="mt-0.5 block text-xs text-navy-500">{n.help}</span>
+                </button>
+              ))}
+            </div>
+            {errors.nationalTeamInterest && <p className={errClass}>{errors.nationalTeamInterest}</p>}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------- 4. Two short tasks ---------- */}
+      <section className="rounded-sm border border-navy-200 bg-white p-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">4 of 5</p>
         <h2 className="mt-1 font-display text-xl font-semibold text-navy-900">Two short written tasks</h2>
         <p className="mt-1 text-sm leading-relaxed text-navy-600">
-          No research, no right answer. The coach wants to see how you think before you meet, so
-          write it the way you would say it. Twenty to thirty minutes is plenty.
+          You do not need to look anything up, and there is no right answer. The coach wants to
+          see how you think before you meet, so write it the way you would say it. Twenty to
+          thirty minutes is plenty.
         </p>
 
         <div className="mt-6 border-t border-navy-100 pt-5">
           <h3 className="font-semibold text-navy-900">Task 1: build one argument</h3>
           <p className="mt-1 text-sm leading-relaxed text-navy-600">
-            Choose a motion and a side. Then write your single strongest argument: what you are
-            claiming, why it is true, and why it matters. Aim for 100 to 200 words.
+            Choose a motion and a side, then write the one argument you would lead with. Say what
+            you are claiming, why it is true, and why it should change the judge&rsquo;s mind. Aim for
+            100 to 200 words.
           </p>
 
           <div className="mt-4" data-error={Boolean(errors.motion)}>
@@ -500,8 +595,8 @@ export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePubli
         <div className="mt-6 border-t border-navy-100 pt-5">
           <h3 className="font-semibold text-navy-900">Task 2: respond to an argument</h3>
           <p className="mt-1 text-sm leading-relaxed text-navy-600">
-            Someone on the other side has just said this. Reply in three to five sentences, as if
-            you disagreed. Find the weakest point and go after it.
+            Someone on the other side has just said this. Reply in three to five sentences as if
+            you disagreed with them. Pick the weakest part of what they said and go after that.
           </p>
           <blockquote className="mt-3 border-l-2 border-signal-500 pl-4 text-sm italic leading-relaxed text-navy-800">
             “{REBUTTAL_PROMPT}”
@@ -541,7 +636,7 @@ export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePubli
             />
             <p className={helpClass}>
               A two-minute phone video of you delivering the argument from Task 1, shared as a link
-              (Google Drive, unlisted YouTube, Loom). It helps the coach hear you as well as read you.
+              (Google Drive, unlisted YouTube, Loom). Then the coach can hear you as well as read you.
             </p>
           </div>
 
@@ -562,13 +657,13 @@ export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePubli
         </div>
       </section>
 
-      {/* ---------- 4. When and how to reach you ---------- */}
+      {/* ---------- 5. When and how to reach you ---------- */}
       <section className="rounded-sm border border-navy-200 bg-white p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">4 of 4</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">5 of 5</p>
         <h2 className="mt-1 font-display text-xl font-semibold text-navy-900">When are you free?</h2>
         <p className="mt-1 text-sm leading-relaxed text-navy-600">
-          The session is 60 minutes on Zoom. Pick everything that could work; more options means a
-          faster match.
+          The session is 60 minutes on Zoom. Tick everything that could work. The more options you
+          give us, the sooner we can find a slot.
         </p>
 
         <div className="mt-5">

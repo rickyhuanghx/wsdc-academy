@@ -41,10 +41,10 @@ export default async function DiagnosticIntakePage({ params }: { params: Promise
             Before we meet, {invite.studentFirst}
           </h1>
           <p className="mt-3 leading-relaxed text-navy-600">
-            Your diagnostic session is booked in. This page takes about twenty to thirty minutes:
-            a few questions about you and what you want, two short written tasks, and when you are
-            free. Your coach reads all of it before the session, so the hour is spent on you rather
-            than on introductions.
+            Your diagnostic session is paid for. This page takes about twenty to thirty minutes.
+            It asks a few questions about you and what you want, whether a national team could be
+            an option, two short written tasks, and when you are free. Your coach reads all of it
+            before the session, so the hour goes on your debating and not on introductions.
           </p>
           <p className="mt-3 text-sm leading-relaxed text-navy-500">
             Best filled in by {invite.studentFirst} in one sitting. Parents are welcome to check the

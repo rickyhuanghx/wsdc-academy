@@ -141,6 +141,9 @@ create table if not exists public.diagnostic_intakes (
   goals              text[] not null default '{}',
   competitions       text,               -- competitions or deadlines on the horizon, free text
   notes              text,
+  nationality        text,               -- citizenship(s), free text
+  residence          text,               -- country they live in
+  national_team_interest text,           -- yes / curious / not for now
 
   -- The written tasks, verbatim, with the prompts the student actually saw.
   motion             text,

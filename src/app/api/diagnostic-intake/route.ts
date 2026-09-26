@@ -28,6 +28,7 @@ import {
   FORMATS_TRIED,
   GOALS,
   MOTIONS,
+  NATIONAL_TEAM_INTEREST_VALUES,
   REBUTTAL_MAX_CHARS,
   REBUTTAL_PROMPT,
   SIDES,
@@ -137,6 +138,9 @@ export async function POST(req: Request) {
   const goals = pickMany(body.goals, GOALS);
   const competitions = str(body.competitions, 1500);
   const notes = str(body.notes, 2000);
+  const nationality = str(body.nationality, 200);
+  const residence = str(body.residence, 200);
+  const nationalTeamInterest = pickFrom(body.nationalTeamInterest, NATIONAL_TEAM_INTEREST_VALUES);
 
   const motion = pickFrom(body.motion, MOTIONS);
   const side = pickFrom(body.side, SIDES);
@@ -164,6 +168,9 @@ export async function POST(req: Request) {
     !VALID_GRADES.has(grade) ||
     !experience ||
     goals.length === 0 ||
+    !nationality ||
+    !residence ||
+    !nationalTeamInterest ||
     !motion ||
     !side ||
     wordCount(caseText) < CASE_MIN_WORDS ||
@@ -191,6 +198,9 @@ export async function POST(req: Request) {
     goals,
     competitions: competitions || null,
     notes: notes || null,
+    nationality,
+    residence,
+    national_team_interest: nationalTeamInterest,
     motion,
     side,
     case_text: caseText,
@@ -236,6 +246,9 @@ export async function POST(req: Request) {
     ['Goals', goals.join(', ')],
     ['Competitions / deadlines', competitions || '—'],
     ['Anything else', notes || '—'],
+    ['Nationality', nationality],
+    ['Lives in', residence],
+    ['National team', nationalTeamInterest],
     ['Speech recording', speechUrl || '—'],
     ['Time spent on tasks', timeSpent || '—'],
     ['Days', days.join(', ')],
@@ -259,7 +272,7 @@ export async function POST(req: Request) {
        ${block('Task 2: the response', `Responding to: “${REBUTTAL_PROMPT}”`, rebuttalText)}
        <p style="color:#4c6787;font-size:12px;margin-top:24px;">
          Submitted on the private pre-diagnostic page. Availability is in the family's own
-         timezone. Forward the two tasks to the coach before the session.
+         timezone. Send the two tasks to the coach before the session.
        </p>`,
     ),
   });

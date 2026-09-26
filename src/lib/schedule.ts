@@ -13,6 +13,8 @@ export const ZONES: { id: string; label: string }[] = [
   { id: 'America/Chicago', label: 'US Central' },
   { id: 'America/New_York', label: 'US Eastern' },
   { id: 'Europe/London', label: 'UK / London' },
+  { id: 'Europe/Berlin', label: 'Central Europe (Berlin, Paris, Zurich)' },
+  { id: 'Europe/Athens', label: 'Eastern Europe (Athens, Helsinki)' },
   { id: 'Asia/Dubai', label: 'Gulf / Dubai' },
   { id: 'Asia/Shanghai', label: 'China' },
 ];
@@ -37,6 +39,16 @@ export interface ScheduleSlot {
 const ABBR_LOCALE: Record<string, string> = {
   'Europe/London': 'en-GB',
   'Europe/Dublin': 'en-IE',
+  // en-GB renders the Central and Eastern European zones as CET/CEST and EET/EEST.
+  'Europe/Berlin': 'en-GB',
+  'Europe/Paris': 'en-GB',
+  'Europe/Zurich': 'en-GB',
+  'Europe/Madrid': 'en-GB',
+  'Europe/Rome': 'en-GB',
+  'Europe/Amsterdam': 'en-GB',
+  'Europe/Vienna': 'en-GB',
+  'Europe/Athens': 'en-GB',
+  'Europe/Helsinki': 'en-GB',
   'Asia/Dubai': 'en-AE',
   'Asia/Singapore': 'en-SG',
   'Asia/Hong_Kong': 'en-HK',
