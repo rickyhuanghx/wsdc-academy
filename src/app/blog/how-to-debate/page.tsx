@@ -158,7 +158,13 @@ export default function HowToDebatePost() {
           <InLink href="/blog/how-to-get-better-at-debate">how to get
           better at debate</InLink> is about breaking the plateau. If you
           want the loop built for you, that is what a{' '}
-          <InLink href="/debate-coaching">coached program</InLink> is.
+          <InLink href="/debate-coaching">coached program</InLink> is, and
+          our{' '}
+          <InLink href="/online-debate-classes">online debate classes for
+          kids and teens</InLink> run it every week in small groups. If you
+          are comparing providers, the{' '}
+          <InLink href="/blog/best-online-debate-classes">guide to choosing
+          an online debate class</InLink> lists the questions worth asking.
         </p>
       </section>
     </BlogPostShell>

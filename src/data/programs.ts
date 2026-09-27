@@ -353,6 +353,11 @@ export const programs: Program[] = [
     ],
     furtherReading: [
       {
+        href: '/online-debate-classes',
+        label: 'Online debate classes for kids and teens',
+        note: 'Every group class side by side: which one fits each age, what a week looks like, and what it costs.',
+      },
+      {
         href: '/what-is-world-schools-debate',
         label: 'What is World Schools Debate?',
         note: 'The format explained from scratch: the 3-on-3 structure, the eight-minute speeches, and how a round actually runs.',
@@ -502,6 +507,11 @@ export const programs: Program[] = [
       },
     ],
     furtherReading: [
+      {
+        href: '/blog/best-online-debate-classes',
+        label: 'How to choose an online debate class',
+        note: 'The four things that separate real training from a weekly lecture, and how to check any provider for them, us included.',
+      },
       {
         href: '/blog/world-schools-debate-pathway-us',
         label: 'The World Schools pathway in the US',

@@ -277,7 +277,15 @@ export default function ProgramsPage() {
         </div>
 
         <p className="mt-20 text-center text-navy-600">
-          Not sure where to start?{' '}
+          Comparing providers? Our overview of{' '}
+          <Link href="/online-debate-classes" className="font-semibold text-signal-500 hover:text-signal-600">
+            online debate classes
+          </Link>{' '}
+          sets out ages, prices, and a typical week, and our{' '}
+          <Link href="/blog/best-online-debate-classes" className="font-semibold text-signal-500 hover:text-signal-600">
+            guide to choosing an online debate class
+          </Link>{' '}
+          covers the alternatives. Not sure where to start?{' '}
           <Link href="/consultation" className="font-semibold text-signal-500 hover:text-signal-600">
             Book a consultation
           </Link>{' '}

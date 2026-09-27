@@ -129,7 +129,11 @@ export default function HomePage() {
               Whether your student is brand new to debate, converting from PF or
               LD, or already competing in the format, one of these four is the
               right entry point. The same training system runs through all of
-              them.
+              them. All four are live{' '}
+              <Link href="/online-debate-classes" className="font-semibold text-navy-900 underline decoration-signal-400 underline-offset-4 hover:text-signal-600">
+                online debate classes for kids and teens
+              </Link>
+              , taught in small groups on US time zones.
             </p>
           </div>
 
