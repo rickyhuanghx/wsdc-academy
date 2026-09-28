@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { BlogPostShell } from '@/components/BlogPostShell';
-import { WSDC_REVIEWER } from '@/data/author';
 import { getPostBySlug, postMetadata } from '@/data/blog';
 
 export const metadata = postMetadata('usa-debate-team-application-guide');
@@ -28,7 +27,6 @@ const faqs = [
 export default function UsaDebateApplicationPost() {
   return (
     <BlogPostShell
-      reviewer={WSDC_REVIEWER}
       post={post}
       faqs={faqs}
       ctaHref="/programs/private-coaching"

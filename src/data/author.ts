@@ -35,8 +35,6 @@ function reviewerFromRoster(slug: string): ArticleReviewer {
   };
 }
 
-/** WSDC-format content (guides, speaker-role posts): the roster's top WSDC competitor. */
-export const WSDC_REVIEWER = reviewerFromRoster('cailyn-min');
 /** Judging/adjudication content: the roster's national-team coach and adjudicator. */
 export const JUDGING_REVIEWER = reviewerFromRoster('biser-angelov');
 

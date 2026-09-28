@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { ArticleByline } from '@/components/ArticleByline';
-import { WSDC_REVIEWER } from '@/data/author';
 
 export const metadata: Metadata = {
   title: 'WSDC Champions by Year: Full Results 1988–2026',
@@ -127,7 +126,6 @@ export default function WsdcChampionsPage() {
   return (
     <>
       <ArticleJsonLd
-        reviewedBy={WSDC_REVIEWER}
         title="WSDC Champions by Year: Full Results 1988–2026"
         description="Every World Schools Debating Championships result: champion, runner-up, host, and final score for all 38 championships, cross-checked against the official record."
         url="/wsdc-champions"
@@ -147,7 +145,7 @@ export default function WsdcChampionsPage() {
           <h1 className="mt-3 text-4xl font-bold tracking-tight text-navy-900 sm:text-5xl">
             WSDC champions: every result since 1988
           </h1>
-          <ArticleByline date="2026-09-01" reviewer={WSDC_REVIEWER} />
+          <ArticleByline date="2026-09-01" />
           <p className="mt-6 text-lg leading-relaxed text-navy-700">
             The World Schools Debating Championships (WSDC) is the world
             championship of high-school debate: one team per nation, eight
