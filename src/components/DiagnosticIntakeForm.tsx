@@ -26,6 +26,7 @@ import {
   WINDOWS,
   wordCount,
   type DiagnosticInvite,
+  inviteCopy,
 } from '@/lib/diagnostic-intake';
 import { GRADE_LEVELS } from '@/data/programs';
 import { DIAL_CODES, needsDialCode, normalizePhone, phoneProblem, withDialCode } from '@/lib/phone';
@@ -87,6 +88,7 @@ function offsetLabel(zone: string): string {
 export type DiagnosticInvitePublic = Omit<DiagnosticInvite, 'paymentRef'>;
 
 export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePublic }) {
+  const copy = inviteCopy(invite);
   const [fields, setFields] = useState<Fields>({
     studentName: invite.studentName,
     age: '',
@@ -208,8 +210,7 @@ export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePubli
           Thank you, {invite.studentFirst}
         </h1>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-navy-600">
-          We have your answers and both written tasks. Your coach will read them before the session.
-          We will email within one working day to confirm a time.
+          We have your answers and both written tasks. {copy.doneLine}
         </p>
         <p className="mt-5 text-xs text-navy-500">
           Need to change something? Email{' '}
@@ -662,8 +663,7 @@ export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePubli
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">5 of 5</p>
         <h2 className="mt-1 font-display text-xl font-semibold text-navy-900">When are you free?</h2>
         <p className="mt-1 text-sm leading-relaxed text-navy-600">
-          The session is 60 minutes on Zoom. Tick everything that could work. The more options you
-          give us, the sooner we can find a slot.
+          {copy.availability}
         </p>
 
         <div className="mt-5">
@@ -842,7 +842,7 @@ export function DiagnosticIntakeForm({ invite }: { invite: DiagnosticInvitePubli
         >
           {submitting ? 'Sending…' : 'Send to my coach'}
         </button>
-        <p className="mt-2 text-xs text-navy-500">We confirm a session time within one working day.</p>
+        <p className="mt-2 text-xs text-navy-500">{copy.confirmLine}</p>
       </div>
     </form>
   );

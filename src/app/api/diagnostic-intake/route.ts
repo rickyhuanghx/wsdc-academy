@@ -35,6 +35,7 @@ import {
   TIME_SPENT,
   WINDOW_VALUES,
   getDiagnosticInvite,
+  inviteCopy,
   wordCount,
 } from '@/lib/diagnostic-intake';
 import { GRADE_LEVELS } from '@/data/programs';
@@ -128,6 +129,7 @@ export async function POST(req: Request) {
   // diagnostic, and an unknown one means the URL was guessed.
   const invite = getDiagnosticInvite(str(body.token, 80));
   if (!invite) return fail(404, 'This link is not valid.');
+  const copy = inviteCopy(invite);
 
   const studentName = str(body.studentName, 200);
   const age = str(body.age, 4);
@@ -264,15 +266,14 @@ export async function POST(req: Request) {
   const staffSent = await sendEmail({
     to: process.env.ADMIN_NOTIFICATION_EMAIL || CONTACT_EMAIL,
     replyTo: parentEmail,
-    subject: `Diagnostic intake: ${studentName} (${experience})`,
+    subject: `${copy.staffLabel}: ${studentName} (${experience})`,
     html: emailShell(
-      'Diagnostic Intake Received',
+      `${copy.staffLabel} received`,
       `${table(staffRows)}
        ${block('Task 1: the case', `${motion} — ${side}`, caseText)}
        ${block('Task 2: the response', `Responding to: “${REBUTTAL_PROMPT}”`, rebuttalText)}
        <p style="color:#4c6787;font-size:12px;margin-top:24px;">
-         Submitted on the private pre-diagnostic page. Availability is in the family's own
-         timezone. Send the two tasks to the coach before the session.
+         ${escapeHtml(copy.staffNote)}
        </p>`,
     ),
   });
@@ -281,16 +282,15 @@ export async function POST(req: Request) {
   const parentSent = await sendEmail({
     to: parentEmail,
     replyTo: CONTACT_EMAIL,
-    subject: `${SITE_NAME}: ${studentName}'s diagnostic form is in`,
+    subject: `${SITE_NAME}: ${studentName}'s ${copy.parentSubjectNoun} is in`,
     html: emailShell(
       'Thank you',
       `<p style="color:#0d2240;font-size:15px;line-height:1.6;margin:0 0 16px;">
          Dear ${escapeHtml(parentName)},
        </p>
        <p style="color:#35506e;font-size:15px;line-height:1.6;margin:0 0 16px;">
-         We have ${escapeHtml(studentName)}'s answers and the two written tasks. The coach will
-         read them before the diagnostic session. We will be in touch within one working day to
-         confirm a time.
+         We have ${escapeHtml(studentName)}'s answers and the two written tasks.
+         ${escapeHtml(copy.parentLine)}
        </p>
        <p style="color:#4c6787;font-size:13px;line-height:1.6;margin:24px 0 0;">
          Questions in the meantime? Just reply to this email.<br />

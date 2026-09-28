@@ -13,6 +13,7 @@
 // else is a 404.
 
 import { DAYS, WINDOWS, WINDOW_VALUES } from '@/lib/coaching-request';
+import { SITE_NAME } from '@/lib/site';
 
 export { DAYS, WINDOWS, WINDOW_VALUES };
 
@@ -32,6 +33,14 @@ export interface DiagnosticInvite {
   parentPhone: string;
   /** For staff only: what this invite is tied to. Stripped before the page passes the invite to the client. */
   paymentRef: string;
+  /**
+   * What the family paid for. 'diagnostic' (the default) is the $80 1-on-1
+   * session; 'class' is a group-class enrolment, where the same form is used
+   * to place the student in the right group before their first class.
+   */
+  kind?: 'diagnostic' | 'class';
+  /** For kind 'class': the programme name shown on the page and in emails. */
+  programName?: string;
 }
 
 export const DIAGNOSTIC_INVITES: readonly DiagnosticInvite[] = [
@@ -49,10 +58,62 @@ export const DIAGNOSTIC_INVITES: readonly DiagnosticInvite[] = [
     parentPhone: '+41 79 860 04 66',
     paymentRef: 'pi_3UJXI6L1Pf2G27AU1WlM78DK',
   },
+  {
+    // Paid 2026-09-27 on the site checkout for World Schools Foundation Term 1
+    // ($756, HK Stripe pi_3UKQo7L1Pf2G27AU1fHVR0cg). Senior group; picked the
+    // Saturday 12-2 PM ET slot at checkout. Family is in Spain.
+    token: 'luke-keller-10d8',
+    studentName: 'Luke Keller',
+    studentFirst: 'Luke',
+    grade: 'Grade 10',
+    school: 'Palacio de Granda',
+    parentName: 'Kate Sweeney',
+    parentEmail: 'kateksweeney@gmail.com',
+    parentPhone: '+34 658 288 050',
+    paymentRef: 'pi_3UKQo7L1Pf2G27AU1fHVR0cg',
+    kind: 'class',
+    programName: 'World Schools Foundation',
+  },
 ];
 
 export function getDiagnosticInvite(token: string): DiagnosticInvite | undefined {
   return DIAGNOSTIC_INVITES.find((i) => i.token === token);
+}
+
+/**
+ * The words that change between a diagnostic invite and a class-placement
+ * invite. The page, the form and both emails read from here.
+ */
+export function inviteCopy(invite: Pick<DiagnosticInvite, 'kind' | 'programName' | 'studentFirst'>) {
+  if (invite.kind === 'class') {
+    const program = invite.programName ?? 'your class';
+    return {
+      eyebrow: `${program} · Term 1`,
+      title: `Before your first class, ${invite.studentFirst}`,
+      metaDescription: `A short form to complete before joining ${program} with ${SITE_NAME}.`,
+      intro: `Your place in ${program} is paid for. This page takes about twenty to thirty minutes. It asks a few questions about you and what you want, whether a national team could be an option, two short written tasks, and when you are free. Your coach reads all of it before your first class, so we can put you in the right group and start from where you are.`,
+      availability: `${program} meets once a week for two hours on Zoom. Tick every time that could work, so we can place you in a group that fits your week.`,
+      confirmLine: 'We confirm your class time within one working day.',
+      doneLine: 'Your coach will read them before your first class. We will email within one working day to confirm your class time.',
+      staffLabel: `Class intake (${program})`,
+      staffNote: 'Use the availability to place the student in a section, and send the two tasks to their coach before the first class.',
+      parentSubjectNoun: 'intake form',
+      parentLine: 'The coach will read them before the first class. We will be in touch within one working day to confirm the class time.',
+    };
+  }
+  return {
+    eyebrow: '1-on-1 diagnostic session',
+    title: `Before your diagnostic session, ${invite.studentFirst}`,
+    metaDescription: `A short form to complete before a 1-on-1 diagnostic session with ${SITE_NAME}.`,
+    intro: 'Your diagnostic session is paid for. This page takes about twenty to thirty minutes. It asks a few questions about you and what you want, whether a national team could be an option, two short written tasks, and when you are free. Your coach reads all of it before the session, so the hour goes on your debating and not on introductions.',
+    availability: 'The session is 60 minutes on Zoom. Tick everything that could work. The more options you give us, the sooner we can find a slot.',
+    confirmLine: 'We confirm a session time within one working day.',
+    doneLine: 'Your coach will read them before the session. We will email within one working day to confirm a time.',
+    staffLabel: 'Diagnostic intake',
+    staffNote: "Submitted on the private pre-diagnostic page. Availability is in the family's own timezone. Send the two tasks to the coach before the session.",
+    parentSubjectNoun: 'diagnostic form',
+    parentLine: 'The coach will read them before the diagnostic session. We will be in touch within one working day to confirm a time.',
+  };
 }
 
 export const AGES = ['11', '12', '13', '14', '15', '16', '17', '18', '19'];
