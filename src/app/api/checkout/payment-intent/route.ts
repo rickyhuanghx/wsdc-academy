@@ -11,6 +11,7 @@ import {
   getEnrollmentOptions,
   labelForEnrollmentIds,
   resolveOneOnOne,
+  resolveStartOption,
   GRADE_LEVELS,
 } from '@/data/programs';
 import { isRateLimited, getClientIp, isValidEmail, HONEYPOT_FIELD } from '@/lib/leads';
@@ -333,6 +334,14 @@ export async function POST(req: Request) {
     } else {
       amount = program.enrollment.amount;
       unitLabel = program.enrollment.unitLabel;
+      // Term programs already under way may sell a pro-rated late start.
+      if (program.startOptions && typeof item.variantId === 'string') {
+        const start = resolveStartOption(program, item.variantId);
+        if (!start) return jsonError(400, `Invalid start date for ${program.name}`);
+        amount = start.amount;
+        unitLabel = start.unitLabel;
+        variantId = start.id;
+      }
       // Group / bootcamp programs require an age band + time slot choice.
       const opts = getEnrollmentOptions(program);
       if (opts) {

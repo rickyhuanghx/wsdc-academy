@@ -70,6 +70,13 @@ export interface Program {
     amount: number; // USD
   };
   /**
+   * Optional start dates for a term already under way. The buyer picks one in
+   * GroupEnrollPicker; the first entry is the full term (same as `enrollment`),
+   * later entries are pro-rated late starts. The choice rides on the cart
+   * line's `variantId` and is re-resolved server-side by resolveStartOption().
+   */
+  startOptions?: StartOption[];
+  /**
    * Age bands + time slots the buyer must choose at checkout. Group programs
    * derive these from `tracks`; the bootcamp supplies its own `ageGroups`
    * (times come from `bootcamp.options`). Resolved by getEnrollmentOptions().
@@ -196,6 +203,38 @@ const TERM_1: Program['term'] = {
 
 const TERM_1_DATES: Program['termDates'] = { start: '2026-09-01', end: '2026-12-18' };
 
+export interface StartOption {
+  id: string;
+  label: string; // shown in the picker
+  unitLabel: string; // what the cart line / receipt says was bought
+  amount: number; // USD
+  compareAt?: number; // struck "original" at checkout
+}
+
+// Term 1 is 14 weekly classes: Saturdays Sep 5 – Dec 5, Sundays Sep 6 – Dec 6.
+// The week of October 10 is session 6, so a late start from then buys the
+// remaining 9 sessions at 9/14 of the term price.
+const OCT10_SESSIONS = 9;
+function term1StartOptions(amount: number, compareAt: number): StartOption[] {
+  const prorate = (n: number) => Math.round((n * OCT10_SESSIONS) / 14);
+  return [
+    {
+      id: 'full',
+      label: `Full term · 14 sessions · $${amount}`,
+      unitLabel: 'One term (Term 1, 2026/27)',
+      amount,
+      compareAt,
+    },
+    {
+      id: 'oct10',
+      label: `Join from October 10 · ${OCT10_SESSIONS} sessions · $${prorate(amount)} (pro-rated)`,
+      unitLabel: `Term 1, 2026/27 from the week of October 10 (${OCT10_SESSIONS} of 14 sessions, pro-rated)`,
+      amount: prorate(amount),
+      compareAt: prorate(compareAt),
+    },
+  ];
+}
+
 // Winter Academy time options, shared by the beginner and advanced tracks. Six sessions:
 // Mon/Tue/Wed of Dec 21–23 and Dec 28–30, 2026 (Dec 24/25/31 and Jan 1 stay free).
 // Times are ET anchors like everything else; `date` pins the conversion to December
@@ -251,6 +290,7 @@ export const programs: Program[] = [
     imageAlt: 'A student delivering a practice speech in class',
     pricing: { amount: 756, compareAt: 945, currency: 'USD', model: 'per term' },
     enrollment: { unitLabel: 'One term (Term 1, 2026/27)', amount: 756 },
+    startOptions: term1StartOptions(756, 945),
     classSize: '6–8 students',
     sessionLength: '2 hours',
     instruction: { totalHours: 28, sessions: 14 },
@@ -406,6 +446,7 @@ export const programs: Program[] = [
     imageAlt: 'A debate team preparing cases together before rounds',
     pricing: { amount: 980, compareAt: 1225, currency: 'USD', model: 'per term' },
     enrollment: { unitLabel: 'One term (Term 1, 2026/27)', amount: 980 },
+    startOptions: term1StartOptions(980, 1225),
     classSize: '6–8 students',
     sessionLength: '2 hours',
     instruction: { totalHours: 28, sessions: 14 },
@@ -1556,6 +1597,11 @@ export function labelForEnrollmentIds(
   // For track programs, the chosen slot must belong to the chosen age band.
   if (time.ageId && time.ageId !== ageId) return null;
   return { ageLabel: age.label, timeLabel: time.label };
+}
+
+/** Resolve a term start option id to its price + label, or null if the program has no such option. */
+export function resolveStartOption(program: Program, id: string): StartOption | null {
+  return program.startOptions?.find((o) => o.id === id) ?? null;
 }
 
 export interface ResolvedOneOnOne { amount: number; unitLabel: string; hours: number }

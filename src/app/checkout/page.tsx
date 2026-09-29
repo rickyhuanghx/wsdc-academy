@@ -80,6 +80,9 @@ function formatUsd(amount: number): string {
 function compareAtForLine(item: CartItem): number | null {
   const program = getProgramById(item.programId);
   if (!program) return null;
+  if (item.variantId && program.startOptions) {
+    return program.startOptions.find((o) => o.id === item.variantId)?.compareAt ?? null;
+  }
   if (item.variantId) return Math.round(item.amount / (1 - EARLY_BIRD_PERCENT / 100));
   return program.pricing.compareAt ?? null;
 }

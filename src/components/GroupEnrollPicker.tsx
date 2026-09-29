@@ -36,6 +36,8 @@ export function GroupEnrollPicker({ program }: { program: Program }) {
   const { zone, setZone, options: zoneOptions } = useViewerTimezone();
   const [ageGroup, setAgeGroup] = useState('');
   const [timeSlot, setTimeSlot] = useState('');
+  const [startId, setStartId] = useState(program.startOptions?.[0]?.id ?? '');
+  const startOption = program.startOptions?.find((o) => o.id === startId);
 
   if (!opts) return null;
 
@@ -52,7 +54,7 @@ export function GroupEnrollPicker({ program }: { program: Program }) {
 
   const enroll = () => {
     if (!ready) return;
-    addItem(program, { ageGroup, timeSlot });
+    addItem(program, { ageGroup, timeSlot, startOption });
     router.push('/checkout');
   };
 
@@ -116,6 +118,32 @@ export function GroupEnrollPicker({ program }: { program: Program }) {
         </div>
       </div>
 
+      {program.startOptions && program.startOptions.length > 1 && (
+        <fieldset>
+          <legend className={labelClass}>Start date</legend>
+          <div className="mt-1.5 space-y-2">
+            {program.startOptions.map((o) => (
+              <label
+                key={o.id}
+                className={`flex cursor-pointer items-start gap-2.5 rounded-md border px-3.5 py-2.5 text-sm text-navy-900 ${
+                  startId === o.id ? 'border-signal-500 bg-cream' : 'border-navy-200 bg-cream'
+                }`}
+              >
+                <input
+                  type="radio"
+                  name={`start-${program.id}`}
+                  value={o.id}
+                  checked={startId === o.id}
+                  onChange={() => setStartId(o.id)}
+                  className="mt-0.5 accent-signal-500"
+                />
+                <span>{o.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      )}
+
       <button
         type="button"
         onClick={enroll}
@@ -124,7 +152,7 @@ export function GroupEnrollPicker({ program }: { program: Program }) {
       >
         {alreadyInCart
           ? 'Enroll another student'
-          : `Enroll now · $${program.enrollment.amount.toLocaleString('en-US')}`}
+          : `Enroll now · $${(startOption?.amount ?? program.enrollment.amount).toLocaleString('en-US')}`}
       </button>
       <p className="text-center text-xs text-navy-500">
         Times shown in {zoneLabel}. A coach confirms your slot after you book.

@@ -6,7 +6,7 @@
 // unique lineId instead of being keyed by program.
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
-import { type Program } from '@/data/programs';
+import { type Program, type StartOption } from '@/data/programs';
 
 export interface StudentInfo {
   name: string;
@@ -84,7 +84,10 @@ interface CartContextType {
   // True once localStorage has been read; effects that add lines on mount
   // (checkout ?tournament= prefill) must wait for it or hydration overwrites them.
   isHydrated: boolean;
-  addItem: (program: Program, selection?: { ageGroup?: string; timeSlot?: string }) => void;
+  addItem: (
+    program: Program,
+    selection?: { ageGroup?: string; timeSlot?: string; startOption?: StartOption },
+  ) => void;
   addVariantItem: (program: Program, variant: VariantLine) => void;
   addTournamentItem: (line: TournamentLine) => void;
   addWritingItem: (line: WritingLine) => void;
@@ -153,15 +156,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items, isHydrated]);
 
   const addItem = useCallback(
-    (program: Program, selection?: { ageGroup?: string; timeSlot?: string }) => {
+    (program: Program, selection?: { ageGroup?: string; timeSlot?: string; startOption?: StartOption }) => {
+      const start = selection?.startOption;
       setItems((prev) => [
         ...prev,
         {
           lineId: `${program.id}-${crypto.randomUUID()}`,
           programId: program.id,
           programName: program.name,
-          unitLabel: program.enrollment.unitLabel,
-          amount: program.enrollment.amount,
+          unitLabel: start?.unitLabel ?? program.enrollment.unitLabel,
+          amount: start?.amount ?? program.enrollment.amount,
+          variantId: start?.id,
           studentInfo: emptyStudentInfo(),
           ageGroup: selection?.ageGroup,
           timeSlot: selection?.timeSlot,
