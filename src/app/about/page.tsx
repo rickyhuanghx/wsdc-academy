@@ -86,6 +86,13 @@ export default function AboutPage() {
           </Link>
           .
         </p>
+        <p className="mt-4 leading-relaxed text-navy-700">
+          Our sister school,{' '}
+          <a href="https://redwoodacademy.ai" className="font-medium underline underline-offset-2 hover:text-signal-500">
+            Redwood Academy
+          </a>
+          , teaches AI coding to students aged 10–18.
+        </p>
 
         <h2 className="mt-12 text-2xl font-bold text-navy-900">
           About the &quot;500+ students&quot; number
