@@ -7,7 +7,7 @@
 export const RETURNER_CODE = 'RETURNER27';
 export const RETURNER_PERCENT = 20;
 export const RETURNER_NOTICE =
-  'As a thank you for your continued support, returning families receive 20% off all online classes (excluding 1-on-1 classes) with the code RETURNER27.';
+  'As a thank you for your continued support, returning families receive 20% off all online classes (excluding 1-on-1 classes and pro-rated late starts) with the code RETURNER27.';
 
 export type PromoLine = { amount: number; eligible: boolean };
 

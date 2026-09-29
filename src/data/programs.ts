@@ -206,31 +206,36 @@ const TERM_1_DATES: Program['termDates'] = { start: '2026-09-01', end: '2026-12-
 export interface StartOption {
   id: string;
   label: string; // shown in the picker
+  note?: string; // one-line detail under the label
   unitLabel: string; // what the cart line / receipt says was bought
   amount: number; // USD
   compareAt?: number; // struck "original" at checkout
+  /** True when RETURNER27 does not apply (pro-rated late starts). */
+  noPromo?: boolean;
 }
 
-// Term 1 is 14 weekly classes: Saturdays Sep 5 – Dec 5, Sundays Sep 6 – Dec 6.
-// The week of October 10 is session 6, so a late start from then buys the
-// remaining 9 sessions at 9/14 of the term price.
-const OCT10_SESSIONS = 9;
+// Term 1 is 14 weekly classes that began Saturday Sep 5 / Sunday Sep 6. A late
+// start from the week of October 10 buys 10 sessions at 10/14 of the term price.
+const OCT10_SESSIONS = 10;
 function term1StartOptions(amount: number, compareAt: number): StartOption[] {
   const prorate = (n: number) => Math.round((n * OCT10_SESSIONS) / 14);
   return [
     {
       id: 'full',
       label: `Full term · 14 sessions · $${amount}`,
+      note: '14 weekly 2-hour classes from the week of September 5.',
       unitLabel: 'One term (Term 1, 2026/27)',
       amount,
       compareAt,
     },
     {
       id: 'oct10',
-      label: `Join from October 10 · ${OCT10_SESSIONS} sessions · $${prorate(amount)} (pro-rated)`,
-      unitLabel: `Term 1, 2026/27 from the week of October 10 (${OCT10_SESSIONS} of 14 sessions, pro-rated)`,
+      label: `Start October 10 · ${OCT10_SESSIONS} sessions · $${prorate(amount)}`,
+      note: `${OCT10_SESSIONS} weekly 2-hour classes starting Saturday October 10 (or Sunday October 11 for Sunday groups). Pro-rated: you pay for ${OCT10_SESSIONS} of 14 sessions. Returning-family codes do not apply.`,
+      unitLabel: `Term 1, 2026/27 starting October 10: ${OCT10_SESSIONS} sessions (pro-rated, ${OCT10_SESSIONS} of 14)`,
       amount: prorate(amount),
       compareAt: prorate(compareAt),
+      noPromo: true,
     },
   ];
 }

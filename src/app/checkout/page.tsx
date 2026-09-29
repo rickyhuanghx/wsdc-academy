@@ -180,13 +180,15 @@ function CheckoutInner() {
     setExistingStudentState(getExistingStudentChoice() === true);
   }, []);
   const [promoError, setPromoError] = useState('');
-  // Everything here is online; only 1-on-1 lines are excluded. Writing lines
+  // Everything here is online; 1-on-1 lines and pro-rated late starts are
+  // excluded (the server re-derives this). Writing lines
   // carry their own flag (journals + the Ivy Scholar 1-on-1 package are out).
   const promoLines = (list: CartItem[]): PromoLine[] =>
     list.map((i) => {
       if (isWritingItem(i)) return { amount: i.amount, eligible: i.promoEligible === true };
       const program = getProgramById(i.programId);
-      return { amount: i.amount, eligible: !!program && !program.oneOnOne };
+      const lateStart = program?.startOptions?.find((o) => o.id === i.variantId)?.noPromo;
+      return { amount: i.amount, eligible: !!program && !program.oneOnOne && !lateStart };
     });
   const promoOff = promoCode ? promoDiscount(promoCode, promoLines(items)) : 0;
   // A code that no longer discounts anything (eligible lines removed) is not sent.
@@ -203,7 +205,7 @@ function CheckoutInner() {
       return;
     }
     if (promoDiscount(code, promoLines(items)) === 0) {
-      setPromoError('This code does not apply to anything in your cart (1-on-1 coaching and journal packages are excluded).');
+      setPromoError('This code does not apply to anything in your cart (1-on-1 coaching, journal packages, and pro-rated late starts are excluded).');
       return;
     }
     setPromoCode(code);

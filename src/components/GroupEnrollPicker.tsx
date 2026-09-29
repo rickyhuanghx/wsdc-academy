@@ -137,7 +137,10 @@ export function GroupEnrollPicker({ program }: { program: Program }) {
                   onChange={() => setStartId(o.id)}
                   className="mt-0.5 accent-signal-500"
                 />
-                <span>{o.label}</span>
+                <span>
+                  <span className="block font-semibold">{o.label}</span>
+                  {o.note && <span className="mt-0.5 block text-xs text-navy-500">{o.note}</span>}
+                </span>
               </label>
             ))}
           </div>

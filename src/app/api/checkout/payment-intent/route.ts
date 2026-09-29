@@ -317,6 +317,7 @@ export async function POST(req: Request) {
     let amount: number;
     let unitLabel: string;
     let variantId: string | undefined;
+    let promoEligible = !program.oneOnOne;
     let ageGroupLabel: string | undefined;
     let timeSlotLabel: string | undefined;
 
@@ -341,6 +342,7 @@ export async function POST(req: Request) {
         amount = start.amount;
         unitLabel = start.unitLabel;
         variantId = start.id;
+        if (start.noPromo) promoEligible = false;
       }
       // Group / bootcamp programs require an age band + time slot choice.
       const opts = getEnrollmentOptions(program);
@@ -366,8 +368,8 @@ export async function POST(req: Request) {
       variantId,
       ageGroupLabel,
       timeSlotLabel,
-      // RETURNER27 excludes 1-on-1 coaching; every other line is an online class.
-      promoEligible: !program.oneOnOne,
+      // RETURNER27 excludes 1-on-1 coaching and pro-rated late starts.
+      promoEligible,
     });
   }
 
