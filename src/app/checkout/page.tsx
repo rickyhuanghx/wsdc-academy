@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Elements, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import type { Stripe } from '@stripe/stripe-js';
+import { metaTrack } from '@/lib/meta-pixel';
 import { useCart, isTournamentItem, isWritingItem, type StudentInfo, type CartItem } from '@/context/CartContext';
 import { getExistingStudentChoice, setExistingStudentChoice } from '@/lib/existing-student';
 import {
@@ -159,6 +160,19 @@ function CheckoutInner() {
   const { items, isHydrated, removeItem, updateStudentInfo, updateLineSelection, addTournamentItem, getSubtotal } =
     useCart();
   const searchParams = useSearchParams();
+  // Meta InitiateCheckout: once per checkout visit, after the saved cart has
+  // loaded, and only when there is something in it. The ads optimise on this.
+  const checkoutTracked = useRef(false);
+  useEffect(() => {
+    if (!isHydrated || checkoutTracked.current || items.length === 0) return;
+    checkoutTracked.current = true;
+    metaTrack('InitiateCheckout', {
+      content_ids: items.map((it) => it.programId),
+      num_items: items.length,
+      value: items.reduce((total, it) => total + it.amount, 0),
+      currency: 'USD',
+    });
+  }, [isHydrated, items]);
   // All-tournament carts skip the class-only chrome (promo box, early-bird badge).
   const allTournament = items.length > 0 && items.every(isTournamentItem);
   // The early-bird badge belongs to programs.ts lines only: writing-competition

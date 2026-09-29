@@ -3,17 +3,17 @@ import type { NextConfig } from "next";
 // Security headers must live HERE, not netlify.toml: the Netlify Next runtime
 // serves app routes through its own handler and silently ignores [[headers]]
 // blocks for them (verified across the sibling sites — see repo memory).
-// CSP ships REPORT-ONLY first: GTM/GA4, Stripe, and Calendly all inject
+// CSP ships REPORT-ONLY first: GTM/GA4, Meta Pixel, Stripe, and Calendly all inject
 // scripts/frames, so enforce only after the console shows no violations.
 const CSP_REPORT_ONLY = [
   "default-src 'self'",
   // 'unsafe-inline' is required: Next inlines bootstrap scripts and we emit
   // JSON-LD via dangerouslySetInnerHTML without nonces.
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://js.stripe.com https://assets.calendly.com",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://js.stripe.com https://assets.calendly.com https://connect.facebook.net",
   "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://api.stripe.com https://m.stripe.network https://calendly.com https://script.google.com https://script.googleusercontent.com",
+  "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://api.stripe.com https://m.stripe.network https://calendly.com https://script.google.com https://script.googleusercontent.com https://www.facebook.com https://connect.facebook.net",
   "frame-src https://js.stripe.com https://hooks.stripe.com https://m.stripe.network https://calendly.com https://www.googletagmanager.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",

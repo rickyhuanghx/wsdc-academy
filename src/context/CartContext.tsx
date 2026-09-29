@@ -7,6 +7,10 @@
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { type Program, type StartOption } from '@/data/programs';
+import { metaTrack } from '@/lib/meta-pixel';
+
+const trackAddToCart = (id: string, name: string, value: number) =>
+  metaTrack('AddToCart', { content_ids: [id], content_name: name, content_type: 'product', value, currency: 'USD' });
 
 export interface StudentInfo {
   name: string;
@@ -158,6 +162,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const addItem = useCallback(
     (program: Program, selection?: { ageGroup?: string; timeSlot?: string; startOption?: StartOption }) => {
       const start = selection?.startOption;
+      trackAddToCart(program.id, program.name, start?.amount ?? program.enrollment.amount);
       setItems((prev) => [
         ...prev,
         {
@@ -177,6 +182,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 
   const addVariantItem = useCallback((program: Program, variant: VariantLine) => {
+    trackAddToCart(program.id, program.name, variant.amount);
     setItems((prev) => [
       ...prev,
       {
@@ -193,6 +199,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const addTournamentItem = useCallback((line: TournamentLine) => {
+    trackAddToCart(`${TOURNAMENT_ID_PREFIX}${line.slug}`, line.name, line.amountUsd);
     setItems((prev) => [
       ...prev,
       {
@@ -210,6 +217,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const addWritingItem = useCallback((line: WritingLine) => {
+    trackAddToCart(`${WRITING_ID_PREFIX}${line.sku}`, line.competitionName, line.amountUsd);
     setItems((prev) => [
       ...prev,
       {

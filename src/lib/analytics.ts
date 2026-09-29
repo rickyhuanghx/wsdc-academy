@@ -1,9 +1,30 @@
-// Thin event helper for Google tags. Safe to call anywhere: no-ops on the
-// server. Prefers gtag() (direct GA4 tag, which ignores plain object pushes);
-// falls back to a GTM-style dataLayer push so a future GTM container still
-// sees the same events.
+import { metaTrack } from '@/lib/meta-pixel';
+
+// Site events that also count as Meta conversions. Only lead forms that start
+// a sales conversation map to Lead; the post-purchase diagnostic intake and the
+// tournament waitlist don't.
+const META_LEAD_FORMS = new Set(['/api/trial', '/api/contact', '/api/coaching-1on1', '/api/writing-interest']);
+
+function mirrorToMeta(event: string, params: Record<string, unknown>) {
+  if (event === 'purchase_completed') {
+    const id = typeof params.transaction_id === 'string' ? params.transaction_id : undefined;
+    metaTrack('Purchase', { value: params.value, currency: params.currency ?? 'USD' }, id && `purchase-${id}`);
+  } else if (event === 'consultation_booked') {
+    metaTrack('Lead', { content_name: 'Consultation booked' });
+  } else if (event === 'callback_requested') {
+    metaTrack('Lead', { content_name: 'Callback requested' });
+  } else if (event === 'lead_form_submitted' && META_LEAD_FORMS.has(String(params.form_endpoint))) {
+    metaTrack('Lead', { content_name: String(params.form_endpoint) });
+  }
+}
+
+// Thin event helper for Google tags (and the matching Meta Pixel event). Safe
+// to call anywhere: no-ops on the server. Prefers gtag() (direct GA4 tag,
+// which ignores plain object pushes); falls back to a GTM-style dataLayer push
+// so a future GTM container still sees the same events.
 export function trackEvent(event: string, params: Record<string, unknown> = {}) {
   if (typeof window === 'undefined') return;
+  mirrorToMeta(event, params);
   const w = window as typeof window & {
     dataLayer?: Record<string, unknown>[];
     gtag?: (...args: unknown[]) => void;

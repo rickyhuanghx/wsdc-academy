@@ -6,6 +6,7 @@ import { CartProvider } from "@/context/CartContext";
 import { Footer } from "@/components/Footer";
 import { WebSiteJsonLd, OrganizationJsonLd, ServiceJsonLd } from "@/components/JsonLd";
 import { GoogleTagManager, GoogleTagManagerNoScript, GoogleAnalytics } from "@/components/GoogleTagManager";
+import { MetaPixel } from "@/components/MetaPixel";
 import { AdClickCapture } from "@/components/AdClickCapture";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -129,6 +130,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <GoogleTagManagerNoScript />
+        <MetaPixel />
         <CartProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

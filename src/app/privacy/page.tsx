@@ -43,8 +43,8 @@ export default function PrivacyPage() {
         <p>
           Our hosting provider records standard server logs (IP address, browser type, pages
           requested). Our forms record the submitting IP address for spam prevention. We also
-          use Google Analytics and Google Ads measurement tags to understand how visitors
-          use the site and whether our advertising works.
+          use Google Analytics, Google Ads, and the Meta Pixel (Facebook and Instagram) to
+          understand how visitors use the site and whether our advertising works.
           These tools collect usage data such as pages viewed, approximate location, and
           device type, and record when a consultation is booked, a form is sent, or an
           enrollment is completed.
@@ -74,6 +74,7 @@ export default function PrivacyPage() {
           <li>Resend (transactional email delivery)</li>
           <li>Netlify (website hosting)</li>
           <li>Google (analytics and advertising measurement)</li>
+          <li>Meta Platforms (advertising measurement for Facebook and Instagram ads)</li>
         </ul>
         <p>
           We may also disclose information when required by law, or in connection with a
@@ -116,8 +117,9 @@ export default function PrivacyPage() {
 
       <LegalSection title="8. Cookies">
         <p>
-          This site uses cookies set by Google Analytics and Google Ads to measure visits
-          and ad performance. During checkout, Stripe may set cookies needed for payment
+          This site uses cookies set by Google Analytics, Google Ads, and the Meta Pixel to
+          measure visits and ad performance. You can control how Meta uses this data for ads
+          in your Facebook or Instagram ad preferences. During checkout, Stripe may set cookies needed for payment
           security and fraud prevention. You can block cookies in your browser (checkout may
           not work without Stripe&apos;s), and you can opt out of Google&apos;s analytics
           cookies with the browser add-on at tools.google.com/dlpage/gaoptout.

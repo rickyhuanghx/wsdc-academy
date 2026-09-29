@@ -14,6 +14,7 @@ import { CourseJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { EnrollButton } from '@/components/EnrollButton';
 import { OneOnOnePicker } from '@/components/OneOnOnePicker';
 import { GroupEnrollPicker } from '@/components/GroupEnrollPicker';
+import { MetaViewContent } from '@/components/MetaPixel';
 import { ScheduleTimezones } from '@/components/ScheduleTimezones';
 import { BootcampSchedule } from '@/components/BootcampSchedule';
 
@@ -85,6 +86,7 @@ export default async function ProgramPage({ params }: Props) {
   return (
     <>
       <CourseJsonLd program={program} coaches={coaches} />
+      <MetaViewContent id={program.id} name={program.name} value={closed ? undefined : program.enrollment.amount} />
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', href: '/' },
