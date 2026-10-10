@@ -351,6 +351,70 @@ export function ItemListJsonLd({
   );
 }
 
+/**
+ * Course list (carousel) markup for the all-programs summary page (/programs).
+ * Google's Course list rich result wants an ItemList whose ListItems each hold a
+ * full Course (name, description, provider, url); min 3 items. The ItemList is
+ * the CollectionPage's mainEntity so the page keeps saying what it is a list of.
+ * https://developers.google.com/search/docs/appearance/structured-data/course
+ */
+export function CourseListJsonLd({
+  name,
+  description,
+  url,
+  courses,
+}: {
+  name: string;
+  description: string;
+  url: string;
+  courses: { name: string; href: string; description: string }[];
+}) {
+  const listId = `${baseUrl}${url}#course-list`;
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${baseUrl}${url}`,
+        name,
+        description,
+        url: `${baseUrl}${url}`,
+        isPartOf: { '@id': `${baseUrl}/#website` },
+        mainEntity: { '@id': listId },
+      },
+      {
+        '@type': 'ItemList',
+        '@id': listId,
+        name,
+        numberOfItems: courses.length,
+        itemListElement: courses.map((course, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          item: {
+            '@type': 'Course',
+            url: `${baseUrl}${course.href}`,
+            name: course.name,
+            description: course.description,
+            provider: {
+              '@type': 'Organization',
+              '@id': `${baseUrl}/#organization`,
+              name: SITE_NAME,
+              sameAs: baseUrl,
+            },
+          },
+        })),
+      },
+    ],
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
 // Article Schema for guide pages
 export function ArticleJsonLd({
   title,

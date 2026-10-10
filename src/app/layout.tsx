@@ -84,11 +84,11 @@ export const metadata: Metadata = {
       },
     ],
   },
+  // Card type + image only. Per-page twitter:title/description come from
+  // socialMeta() in src/lib/pageMeta.ts (or Next's openGraph fallback), so
+  // inner pages never ship the homepage's twitter text.
   twitter: {
     card: "summary_large_image",
-    title: "WSDC Prep | World Schools Debate Coaching & Training",
-    description:
-      "A real training system for World Schools Debate: structured curriculum, judged rounds, written feedback every session. Free consultation.",
     images: ['/images/og-home.jpg'],
   },
   robots: {

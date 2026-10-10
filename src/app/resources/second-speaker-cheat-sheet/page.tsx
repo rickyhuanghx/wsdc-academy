@@ -3,18 +3,19 @@ import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
 import { PrintButton } from '@/components/PrintButton';
 import { Sheet, SheetSection, Field, SubBlock } from '@/components/CheatSheet';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'World Schools Second Speaker Cheat Sheet',
   description:
     'A free printable deputy speech template: rebuttal in "they say / however" form, rebuilding your first speaker\'s case, and the extension.',
   alternates: { canonical: '/resources/second-speaker-cheat-sheet' },
-  openGraph: {
+  ...socialMeta({
     title: 'Second Speaker Cheat Sheet (World Schools Debate)',
     description: 'Rebut, rebuild, extend: the deputy speech on one printable sheet.',
     url: '/resources/second-speaker-cheat-sheet',
     type: 'article',
-  },
+  }),
 };
 
 function ResponseBlock({ label, conclusion }: { label: string; conclusion: string }) {

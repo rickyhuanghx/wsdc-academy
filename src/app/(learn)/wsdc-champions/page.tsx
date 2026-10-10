@@ -2,19 +2,20 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { ArticleByline } from '@/components/ArticleByline';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'WSDC Champions by Year: Full Results 1988–2026',
   description:
     'Every World Schools Debating Championships result: champion, runner-up, host city, and final score for all 38 championships, plus titles by country.',
   alternates: { canonical: '/wsdc-champions' },
-  openGraph: {
+  ...socialMeta({
     title: 'WSDC Champions by Year: Full Results 1988–2026',
     description:
       'Every World Schools Debating Championships result since 1988: champions, runners-up, hosts, and final scores, cross-checked against the official record.',
     url: '/wsdc-champions',
     type: 'article',
-  },
+  }),
 };
 
 interface ChampionshipRow {

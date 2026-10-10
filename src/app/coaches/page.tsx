@@ -4,18 +4,19 @@ import Link from 'next/link';
 import { coaches } from '@/data/coaches';
 import { CoachListJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
 import { FurtherReading } from '@/components/FurtherReading';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'Our Coaches: World Schools Debate Specialists',
   description:
     'Meet the coaching team: international adjudicators and competitors from Oxford, Harvard, Yale, Columbia, and LSE, up to national-squad level.',
   alternates: { canonical: '/coaches' },
-  openGraph: {
+  ...socialMeta({
     title: 'Our Coaches | WSDC Prep',
     description:
       'International adjudicators and competitors from Oxford, Harvard, Yale, Brown, Columbia, and LSE, with coaching experience up to national-squad level.',
     url: '/coaches',
-  },
+  }),
 };
 
 export default function CoachesPage() {

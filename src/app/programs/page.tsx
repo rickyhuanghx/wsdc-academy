@@ -3,12 +3,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { programs, formatPrice, getAgeGroupsDisplay, EARLY_BIRD_PERCENT } from '@/data/programs';
 import { faqs } from '@/data/faqs';
-import { BreadcrumbJsonLd, ItemListJsonLd } from '@/components/JsonLd';
+import { BreadcrumbJsonLd, CourseListJsonLd } from '@/components/JsonLd';
 import { TermSchedule } from '@/components/TermSchedule';
 import { ProgramComparison } from '@/components/ProgramComparison';
 import { ProgramsCoachStrip } from '@/components/ProgramsCoachStrip';
 import { LevelMeter } from '@/components/LevelMeter';
 import { OnThisPage } from '@/components/OnThisPage';
+import { socialMeta } from '@/lib/pageMeta';
 
 const tocItems = [
   { id: 'at-a-glance', label: 'At a glance' },
@@ -28,12 +29,12 @@ export const metadata: Metadata = {
   description:
     'World Schools Debate coaching for US students: a winter break academy, a Foundation class, a year-round Competition Team, and private 1-on-1 tutoring.',
   alternates: { canonical: '/programs' },
-  openGraph: {
+  ...socialMeta({
     title: 'World Schools Debate Coaching & Programs | WSDC Prep',
     description:
       'Beginner Foundation, year-round Competition Team, the invitation-only National Team Sprint, and 1-on-1 coaching: America’s World Schools Debate pathway.',
     url: '/programs',
-  },
+  }),
 };
 
 export default function ProgramsPage() {
@@ -47,11 +48,12 @@ export default function ProgramsPage() {
       />
       {/* FAQPage schema lives on /faq only; rendering it here too made Google
           see the same Q&A markup on three URLs. The visible accordion stays. */}
-      <ItemListJsonLd
+      {/* Course list (carousel) markup: ItemList -> ListItem -> Course. */}
+      <CourseListJsonLd
         name="World Schools Debate Programs"
         description="Live online World Schools Debate programs for US students: winter and summer intensives, a beginner Foundation class, a year-round Competition Team, and 1-on-1 coaching."
         url="/programs"
-        items={programs.map((p) => ({
+        courses={programs.map((p) => ({
           name: p.name,
           href: `/programs/${p.slug}`,
           description: p.description,

@@ -1,17 +1,18 @@
 import type { Metadata } from 'next';
 import { LegalPage, LegalSection } from '@/components/LegalPage';
 import { CONTACT_EMAIL, SITE_NAME } from '@/lib/site';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description:
     'How WSDC Prep collects, uses, and protects personal information from consultation bookings, contact forms, and enrollment checkout.',
   alternates: { canonical: '/privacy' },
-  openGraph: {
+  ...socialMeta({
     title: 'Privacy Policy | WSDC Prep',
     description: 'How WSDC Prep collects, uses, and protects personal information.',
     url: '/privacy',
-  },
+  }),
 };
 
 export default function PrivacyPage() {

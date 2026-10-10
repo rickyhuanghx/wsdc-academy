@@ -5,6 +5,7 @@ import { BreadcrumbJsonLd, EventJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { TournamentDates, TournamentScheduleRows } from '@/components/TournamentDates';
 import { TournamentEnrollButton } from '@/components/TournamentEnrollButton';
 import { SITE_NAME } from '@/lib/site';
+import { socialMeta } from '@/lib/pageMeta';
 import {
   FORMAT_LABELS,
   STATUS_LABELS,
@@ -38,12 +39,12 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     title: t.name.length > 46 ? t.name : `${t.name}: ${t.format === 'speech' ? 'Public Speaking Competition' : 'Debate Tournament'}`,
     description,
     alternates: { canonical: `/tournaments/${t.slug}` },
-    openGraph: {
+    ...socialMeta({
       title: `${t.name} | ${SITE_NAME}`,
       description,
       url: `/tournaments/${t.slug}`,
       ...(t.heroImageUrl ? { images: [{ url: t.heroImageUrl, alt: t.name }] } : {}),
-    },
+    }),
     ...(preview || t.preview ? { robots: { index: false, follow: false } } : {}),
   };
 }

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { BreadcrumbJsonLd, CollectionPageJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { wsdcChampionshipMotions, Motion } from '@/lib/motion-bank';
 import { FurtherReading } from '@/components/FurtherReading';
+import { socialMeta } from '@/lib/pageMeta';
 
 // Host cities are stable historical record (official WSDC archive + championship
 // records). 1988-1993 motions are not preserved in any public archive we found.
@@ -47,12 +48,12 @@ export const metadata: Metadata = {
   title: `WSDC Motions: Every Worlds Motion Since 1994`,
   description: `The complete Worlds archive: ${count} WSDC motions from 32 championships (1994–2025), prelims to Grand Finals, prepared and impromptu labeled.`,
   alternates: { canonical: '/motions/wsdc' },
-  openGraph: {
+  ...socialMeta({
     title: 'Every WSDC Motion Since 1994: The Worlds Motion Archive',
     description: `${count} motions from 32 World Schools Debating Championships, prepared and impromptu rounds labeled.`,
     url: '/motions/wsdc',
     type: 'website',
-  },
+  }),
 };
 
 const faqs = [

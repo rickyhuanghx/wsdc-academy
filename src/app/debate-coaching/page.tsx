@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { ProgramsCoachStrip } from '@/components/ProgramsCoachStrip';
+import { socialMeta } from '@/lib/pageMeta';
 
 // The commercial hub for generic "debate coaching" queries (2026-08-17 audit).
 // /programs stays the pillar for "world schools debate coaching", which it
@@ -15,12 +16,12 @@ export const metadata: Metadata = {
   description:
     'Live online debate coaching: structured curriculum, judged practice rounds, and written feedback. Group classes and private 1-on-1 tutoring for ages 9 to 18.',
   alternates: { canonical: '/debate-coaching' },
-  openGraph: {
+  ...socialMeta({
     title: 'Online Debate Coaching | WSDC Prep',
     description:
       'Debate coaching built as a training system: structured curriculum, judged practice rounds, and written feedback after every session.',
     url: '/debate-coaching',
-  },
+  }),
 };
 
 const pageFaqs = [

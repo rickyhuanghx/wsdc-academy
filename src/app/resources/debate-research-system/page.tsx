@@ -2,19 +2,20 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { PrintButton } from '@/components/PrintButton';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'The Debate Research System: How to Research for Debate',
   description:
     'A research system for debaters: the weekly reading mix, a four-tier source ladder, a three-step fact-check for every statistic, and a routine that turns reading into case-file material.',
   alternates: { canonical: '/resources/debate-research-system' },
-  openGraph: {
+  ...socialMeta({
     title: 'The Debate Research System',
     description:
       'How debaters build the knowledge that wins content points: reading mix, source ladder, fact-checking, and a case-file routine.',
     url: '/resources/debate-research-system',
     type: 'article',
-  },
+  }),
 };
 
 const weeklyMix = [

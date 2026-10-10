@@ -2,19 +2,20 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { PrintButton } from '@/components/PrintButton';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'World Schools Debate Judging Ballot (Printable)',
   description:
     'A printable World Schools debate ballot with the official 40/40/20 score split, the 60–80 speaker scale, reply-speech scoring, and a calibration guide for new and parent judges.',
   alternates: { canonical: '/resources/judging-ballot' },
-  openGraph: {
+  ...socialMeta({
     title: 'Printable World Schools Debate Judging Ballot',
     description:
       'Score a World Schools round properly: per-speaker 40/40/20 boxes, reply scoring out of 50, and a speaker-scale calibration guide for lay judges.',
     url: '/resources/judging-ballot',
     type: 'article',
-  },
+  }),
 };
 
 const speakerRows = [

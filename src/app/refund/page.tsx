@@ -1,18 +1,19 @@
 import type { Metadata } from 'next';
 import { LegalPage, LegalSection } from '@/components/LegalPage';
 import { CONTACT_EMAIL, SITE_NAME } from '@/lib/site';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'Refund Policy',
   description:
     'WSDC Prep refund and withdrawal policy: full refunds within 7 days of enrollment, pro-rated refunds to the program midpoint, and how to request one.',
   alternates: { canonical: '/refund' },
-  openGraph: {
+  ...socialMeta({
     title: 'Refund Policy | WSDC Prep',
     description:
       'Full refunds within 7 days of enrollment, pro-rated refunds to the program midpoint, and how to request one.',
     url: '/refund',
-  },
+  }),
 };
 
 const summary = [

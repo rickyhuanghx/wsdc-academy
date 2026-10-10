@@ -3,19 +3,20 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { ArticleByline } from '@/components/ArticleByline';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'World Schools vs Public Forum: Every Difference',
   description:
     'World Schools vs Public Forum compared: team size, speech structure, evidence culture, judging, and what PF debaters must adjust to convert.',
   alternates: { canonical: '/world-schools-vs-public-forum' },
-  openGraph: {
+  ...socialMeta({
     title: 'World Schools vs Public Forum: Every Difference Explained',
     description:
       'Format, speeches, evidence culture, and judging compared, plus what actually transfers when a PF debater converts.',
     url: '/world-schools-vs-public-forum',
     type: 'article',
-  },
+  }),
 };
 
 const pageFaqs = [

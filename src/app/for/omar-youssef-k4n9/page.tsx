@@ -5,6 +5,7 @@ import { getProgramBySlug } from '@/data/programs';
 import { getCoachBySlug } from '@/data/coaches';
 import { ScheduleTimezones } from '@/components/ScheduleTimezones';
 import { CONSULTATION_CALENDLY_URL, CONTACT_EMAIL, CONTACT_PHONE, SITE_NAME, WHATSAPP_URL } from '@/lib/site';
+import { socialMeta } from '@/lib/pageMeta';
 
 // Private proposal page for one family. Shared by direct link only: the /for
 // layout sets noindex/nofollow, next.config adds an X-Robots-Tag header, and
@@ -13,7 +14,10 @@ import { CONSULTATION_CALENDLY_URL, CONTACT_EMAIL, CONTACT_PHONE, SITE_NAME, WHA
 export const metadata: Metadata = {
   title: 'A 10-week public speaking plan for Omar',
   description: 'Private coaching proposal prepared for the Youssef family.',
-  openGraph: { title: `A 10-week public speaking plan for Omar | ${SITE_NAME}` },
+  ...socialMeta({
+    title: `A 10-week public speaking plan for Omar | ${SITE_NAME}`,
+    description: 'Private coaching proposal prepared for the Youssef family.',
+  }),
 };
 
 const STUDENT = { name: 'Omar Youssef', first: 'Omar', age: 9 };

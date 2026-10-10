@@ -4,18 +4,19 @@ import { coaches, founders } from '@/data/coaches';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { CONTACT_EMAIL } from '@/lib/site';
 import { FurtherReading } from '@/components/FurtherReading';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'About Our World Schools Debate Coaching',
   description:
     'A year-round online World Schools Debate program founded by a former head coach of the Columbia Debate Society. Who we are and how we train.',
   alternates: { canonical: '/about' },
-  openGraph: {
+  ...socialMeta({
     title: 'About WSDC Prep',
     description:
       'A year-round training system for World Schools Debate, founded in 2026 by a former head coach of the Columbia Debate Society.',
     url: '/about',
-  },
+  }),
 };
 
 export default function AboutPage() {

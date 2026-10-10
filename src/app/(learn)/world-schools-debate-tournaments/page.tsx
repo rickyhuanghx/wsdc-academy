@@ -14,6 +14,7 @@ import {
   type TocTier,
 } from '@/lib/ws-circuit';
 import { Badge, Ext, PostedByMonth, SideLists, ExpectedTable, abroadBids, competitive } from '@/components/WsCircuitDirectory';
+import { socialMeta } from '@/lib/pageMeta';
 
 const PATH = '/world-schools-debate-tournaments';
 
@@ -36,12 +37,12 @@ export const metadata: Metadata = {
     'world schools debate tournaments 2026-27',
   ],
   alternates: { canonical: PATH },
-  openGraph: {
+  ...socialMeta({
     title: `North American World Schools Debate Tournaments 2026–27 | ${SITE_NAME}`,
     description: `${circuitStats.posted} US tournaments with a World Schools division, month by month: TOC bid tiers, NSDA events, online divisions and Tabroom links. Updated from a full Tabroom scan.`,
     url: PATH,
     type: 'article',
-  },
+  }),
 };
 
 const pageFaqs = [

@@ -2,19 +2,20 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BreadcrumbJsonLd, ItemListJsonLd } from '@/components/JsonLd';
 import { resources, resourceCategories } from '@/data/resources';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'Debate Cheat Sheets, Printables & Resources',
   description:
     'Free debate resources: printable speaker cheat sheets, a 1-hour prep planner, a practice motion bank, and a full World Schools glossary.',
   alternates: { canonical: '/resources' },
-  openGraph: {
+  ...socialMeta({
     title: 'The WSDC Prep Resource Library',
     description:
       'Printable speaker cheat sheets, prep templates, practice motions, and quick references for World Schools Debate.',
     url: '/resources',
     type: 'website',
-  },
+  }),
 };
 
 const categoryIntro: Record<string, string> = {

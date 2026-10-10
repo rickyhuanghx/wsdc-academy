@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MotionTopicView } from '@/components/MotionTopicView';
 import { getTopicMeta, motionTopics, topicPageCount } from '@/lib/motion-bank';
+import { socialMeta } from '@/lib/pageMeta';
 
 interface Props {
   params: Promise<{ topic: string; n: string }>;
@@ -38,12 +39,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // (Google dropped rel=next/prev as an indexing signal in 2019; the rel
     // attributes on the pager below are for other crawlers that still read them.)
     alternates: { canonical: `/motions/${topic}/page/${page}` },
-    openGraph: {
+    ...socialMeta({
       title: `${meta.label} Debate Motions (page ${page})`,
       description: meta.blurb,
       url: `/motions/${topic}/page/${page}`,
       type: 'website',
-    },
+    }),
   };
 }
 

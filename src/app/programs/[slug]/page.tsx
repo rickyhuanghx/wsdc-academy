@@ -17,6 +17,7 @@ import { GroupEnrollPicker } from '@/components/GroupEnrollPicker';
 import { MetaViewContent } from '@/components/MetaPixel';
 import { ScheduleTimezones } from '@/components/ScheduleTimezones';
 import { BootcampSchedule } from '@/components/BootcampSchedule';
+import { socialMeta } from '@/lib/pageMeta';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -39,12 +40,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `${program.name}: World Schools Debate ${program.level === 'Beginner' ? 'for Beginners' : 'Training'}`,
     description: metaDescription,
     alternates: { canonical: `/programs/${program.slug}` },
-    openGraph: {
+    ...socialMeta({
       title: `${program.name} | WSDC Prep`,
       description: metaDescription,
       url: `/programs/${program.slug}`,
       images: [{ url: program.image, alt: program.imageAlt }],
-    },
+    }),
   };
 }
 

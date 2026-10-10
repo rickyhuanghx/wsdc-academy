@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MotionTopicView } from '@/components/MotionTopicView';
 import { getTopicMeta, motionTopics, motionsForTopic } from '@/lib/motion-bank';
+import { socialMeta } from '@/lib/pageMeta';
 
 interface Props {
   params: Promise<{ topic: string }>;
@@ -27,12 +28,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${meta.label} Debate Motions`,
     description: `${count.toLocaleString('en-US')} real ${meta.label.toLowerCase()} debate motions from tournament records, grouped by year, with info slides and coaching notes. Free, no signup.`,
     alternates: { canonical: `/motions/${topic}` },
-    openGraph: {
+    ...socialMeta({
       title: `${meta.label} Debate Motions`,
       description: meta.blurb,
       url: `/motions/${topic}`,
       type: 'website',
-    },
+    }),
   };
 }
 

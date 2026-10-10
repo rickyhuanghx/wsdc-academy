@@ -3,18 +3,19 @@ import Link from 'next/link';
 import { faqs } from '@/data/faqs';
 import { FAQJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
 import { FurtherReading } from '@/components/FurtherReading';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'World Schools Debate Coaching FAQ',
   description:
     'Answers to common questions about World Schools Debate, the USA Debate team, NSDA Nationals, state divisions, and our online coaching programs.',
   alternates: { canonical: '/faq' },
-  openGraph: {
+  ...socialMeta({
     title: 'Frequently Asked Questions | WSDC Prep',
     description:
       'Answers on the World Schools Debate format, the USA Debate pathway, and our programs.',
     url: '/faq',
-  },
+  }),
 };
 
 const categories: { key: string; label: string }[] = [

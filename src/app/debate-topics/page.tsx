@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { topicLists, curatedTopicCount } from '@/lib/debate-topics';
 import { bankStats, roundedCount } from '@/lib/motion-bank';
+import { socialMeta } from '@/lib/pageMeta';
 
 // The "topics" vocabulary bridge (2026-08-31 keyword research): Americans
 // search "debate topics", not "motions", so this page carries the curated,
@@ -14,13 +15,13 @@ export const metadata: Metadata = {
   description:
     '60+ debate topics for middle school, high school, and beginners, every one set at a real tournament. With coaching notes on picking and using them.',
   alternates: { canonical: '/debate-topics' },
-  openGraph: {
+  ...socialMeta({
     title: 'Debate Topics for Students: 60+ Real Examples',
     description:
       'Curated debate topics for middle school, high school, beginners, and impromptu practice, drawn from a bank of 12,000+ real tournament motions.',
     url: '/debate-topics',
     type: 'website',
-  },
+  }),
 };
 
 const pageFaqs = [

@@ -1,18 +1,19 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: '40 World Schools Debate Practice Motions',
   description:
     'A free bank of 40 practice motions by type (10 policy, 10 value, 10 actor, 10 regret) for scrimmages, prep-time drills, and casebuilding.',
   alternates: { canonical: '/resources/practice-motions' },
-  openGraph: {
+  ...socialMeta({
     title: '40 World Schools Debate Practice Motions',
     description: 'Ten motions each: policy, value, actor, and regret. Enough for a season of scrimmages.',
     url: '/resources/practice-motions',
     type: 'article',
-  },
+  }),
 };
 
 const motionBank: { type: string; note: string; motions: string[] }[] = [

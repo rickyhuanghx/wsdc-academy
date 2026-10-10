@@ -1,18 +1,19 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'World Schools Debate Glossary',
   description:
     'Every World Schools term defined: burden, caseline, clash, countermodel, extension, mechanism, metric, POI, split, weighing, whip, and more.',
   alternates: { canonical: '/resources/glossary' },
-  openGraph: {
+  ...socialMeta({
     title: 'World Schools Debate Glossary',
     description: 'Every World Schools term defined, from burden and caseline to weighing and whip.',
     url: '/resources/glossary',
     type: 'article',
-  },
+  }),
 };
 
 const terms: { term: string; def: string }[] = [

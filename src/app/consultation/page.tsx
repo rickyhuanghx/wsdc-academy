@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { FurtherReading } from '@/components/FurtherReading';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { BookingChoice } from '@/components/BookingChoice';
+import { socialMeta } from '@/lib/pageMeta';
 import {
   CONTACT_EMAIL,
   CONTACT_PHONE,
@@ -15,12 +16,12 @@ export const metadata: Metadata = {
   description:
     'Book a free call: we learn about your student, answer your questions about the World Schools format, and recommend where to start. No obligation.',
   alternates: { canonical: '/consultation' },
-  openGraph: {
+  ...socialMeta({
     title: 'Book a Free Consultation | WSDC Prep',
     description:
       'A short, no-pressure call to find the right World Schools Debate program for your student. Pick a time that works.',
     url: '/consultation',
-  },
+  }),
 };
 
 const steps = [

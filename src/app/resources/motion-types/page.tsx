@@ -1,18 +1,19 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'The 4 World Schools Debate Motion Types',
   description:
     'Policy, value, actor, and regret motions: what each asks you to prove, where each debate is won or lost, and example motions for every type.',
   alternates: { canonical: '/resources/motion-types' },
-  openGraph: {
+  ...socialMeta({
     title: 'The 4 Types of World Schools Debate Motions',
     description: 'Policy, value, actor, and regret motions: burdens, strategy, and examples for each.',
     url: '/resources/motion-types',
     type: 'article',
-  },
+  }),
 };
 
 const motionTypes = [

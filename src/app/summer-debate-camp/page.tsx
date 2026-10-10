@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { ProgramsCoachStrip } from '@/components/ProgramsCoachStrip';
+import { socialMeta } from '@/lib/pageMeta';
 
 // Commercial page for "debate camp" / "summer debate camp" queries
 // (2026-08-31 keyword research). The 2026 bootcamps ran Aug 18–27 and have
@@ -15,12 +16,12 @@ export const metadata: Metadata = {
   description:
     'A live online summer debate camp: 12 hours of small-group World Schools training over two weeks, with judged practice debates and written feedback.',
   alternates: { canonical: '/summer-debate-camp' },
-  openGraph: {
+  ...socialMeta({
     title: 'Online Summer Debate Camp | WSDC Prep',
     description:
       'A two-week live online debate bootcamp: small groups, judged practice debates, written feedback. Beginner and advanced tracks for ages 9 to 16.',
     url: '/summer-debate-camp',
-  },
+  }),
 };
 
 const pageFaqs = [

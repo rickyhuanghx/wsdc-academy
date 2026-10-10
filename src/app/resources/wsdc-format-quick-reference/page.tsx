@@ -2,18 +2,19 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
 import { PrintButton } from '@/components/PrintButton';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'World Schools Debate Format: Quick Reference',
   description:
     'The format on one page: speech order and times, reply speech rules, prep-time rules, points of information, and the 40/40/20 judging criteria.',
   alternates: { canonical: '/resources/wsdc-format-quick-reference' },
-  openGraph: {
+  ...socialMeta({
     title: 'World Schools Debate Format Quick Reference',
     description: 'Speech order, timings, prep rules, POIs, and judging criteria on one printable page.',
     url: '/resources/wsdc-format-quick-reference',
     type: 'article',
-  },
+  }),
 };
 
 const speeches = [

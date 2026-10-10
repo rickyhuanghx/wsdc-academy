@@ -2,17 +2,18 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { LegalPage, LegalSection } from '@/components/LegalPage';
 import { CONTACT_EMAIL, SITE_NAME } from '@/lib/site';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
   description:
     'The terms that govern WSDC Prep enrollment, payment, class conduct, and use of wsdcacademy.com.',
   alternates: { canonical: '/terms' },
-  openGraph: {
+  ...socialMeta({
     title: 'Terms of Service | WSDC Prep',
     description: 'The terms that govern WSDC Prep enrollment, payment, and use of the site.',
     url: '/terms',
-  },
+  }),
 };
 
 export default function TermsPage() {

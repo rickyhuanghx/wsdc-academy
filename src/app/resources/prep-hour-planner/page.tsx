@@ -2,18 +2,19 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { PrintButton } from '@/components/PrintButton';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'The 1-Hour Prep Planner: World Schools Debate',
   description:
     'A minute-by-minute team plan for the impromptu prep hour: motion analysis, casebuilding, and the final sync check, with a printable checklist.',
   alternates: { canonical: '/resources/prep-hour-planner' },
-  openGraph: {
+  ...socialMeta({
     title: 'The 1-Hour Prep Planner (World Schools Debate)',
     description: 'What your team should be doing at 0:10, 0:25, 0:45, and 0:55 of the impromptu prep hour.',
     url: '/resources/prep-hour-planner',
     type: 'article',
-  },
+  }),
 };
 
 const phases = [

@@ -8,6 +8,7 @@ import {
 } from '@/components/JsonLd';
 import { MotionExplorer } from '@/components/MotionExplorer';
 import { DrawMotion } from '@/components/DrawMotion';
+import { socialMeta } from '@/lib/pageMeta';
 import {
   bankStats,
   coachShelves,
@@ -25,13 +26,13 @@ export const metadata: Metadata = {
   description:
     'A free, searchable bank of 12,000+ real debate topics and motions from 1,200+ tournaments (1994–2026). Filter by subject, motion type, and year.',
   alternates: { canonical: '/motions' },
-  openGraph: {
+  ...socialMeta({
     title: 'The Debate Motion Bank: 12,000+ Real Tournament Motions',
     description:
       'Search 12,000+ real debate motions by topic, type, and year, including the complete Worlds (WSDC) motion archive since 1994. Free, no signup.',
     url: '/motions',
     type: 'website',
-  },
+  }),
 };
 
 const faqs = [

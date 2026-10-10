@@ -3,17 +3,18 @@ import Link from 'next/link';
 import { LeadForm } from '@/components/LeadForm';
 import { BreadcrumbJsonLd } from '@/components/JsonLd';
 import { CONTACT_EMAIL, CONTACT_PHONE, CONTACT_PHONE_TEL, WHATSAPP_URL } from '@/lib/site';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'Contact Us',
   description:
     'Questions about our debate programs, school team coaching, or placement? Contact WSDC Prep. We reply within one business day.',
   alternates: { canonical: '/contact' },
-  openGraph: {
+  ...socialMeta({
     title: 'Contact Us | WSDC Prep',
     description: 'Questions about programs, school teams, or placement? We reply within one business day.',
     url: '/contact',
-  },
+  }),
 };
 
 export default function ContactPage() {

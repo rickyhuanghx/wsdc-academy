@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BreadcrumbJsonLd, CollectionPageJsonLd } from '@/components/JsonLd';
+import { socialMeta } from '@/lib/pageMeta';
 import {
   motionYears,
   motionsForYear,
@@ -35,12 +36,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // unique body content. Keep them crawlable and useful as a browsing filter,
     // but out of the index so they don't dilute the topic pages. (SEO audit 2026-07-27)
     robots: { index: false, follow: true },
-    openGraph: {
+    ...socialMeta({
       title: `Debate Motions ${year}`,
       description: `${count.toLocaleString('en-US')} real tournament motions from the ${year} season.`,
       url: `/motions/year/${year}`,
       type: 'website',
-    },
+    }),
   };
 }
 

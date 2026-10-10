@@ -5,6 +5,7 @@ import { TournamentCalendar } from '@/components/TournamentCalendar';
 import { WaitlistForm } from '@/components/WaitlistForm';
 import { CONSULTATION_CALENDLY_URL, CONTACT_EMAIL, SITE_NAME } from '@/lib/site';
 import { cleanPreviewToken, getTournaments, isListedAsOpen } from '@/lib/tournaments';
+import { socialMeta } from '@/lib/pageMeta';
 
 // Listing is served from the ClassDesk API with a 5-minute cache. Reading
 // searchParams (preview) makes the route dynamic; the fetch itself stays cached.
@@ -21,11 +22,11 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     title: 'Debate Tournaments: Dates & Registration',
     description: DESCRIPTION,
     alternates: { canonical: '/tournaments' },
-    openGraph: {
+    ...socialMeta({
       title: `Debate Tournaments | ${SITE_NAME}`,
       description: DESCRIPTION,
       url: '/tournaments',
-    },
+    }),
     ...(preview ? { robots: { index: false, follow: false } } : {}),
   };
 }

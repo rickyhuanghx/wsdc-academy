@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check:supabase": "node scripts/check-supabase.mjs"
+    "check:supabase": "node scripts/check-supabase.mjs",
+    "seo-lint": "node scripts/seo-lint.mjs"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^6.7.0",

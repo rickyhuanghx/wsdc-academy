@@ -4,19 +4,20 @@ import Image from 'next/image';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { ArticleByline } from '@/components/ArticleByline';
 import { JUDGING_REVIEWER } from '@/data/author';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'World Schools Debate Judging: 40/40/20',
   description:
     'How the 40% Style, 40% Content, 20% Strategy criteria actually work, what judges reward in each, and how to train for all three.',
   alternates: { canonical: '/world-schools-debate-judging' },
-  openGraph: {
+  ...socialMeta({
     title: 'How World Schools Debate Judging Works: 40/40/20 Explained',
     description:
       'What Style, Content, and Strategy actually mean to a World Schools judge, and how to win each of them.',
     url: '/world-schools-debate-judging',
     type: 'article',
-  },
+  }),
 };
 
 const pageFaqs = [

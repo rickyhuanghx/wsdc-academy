@@ -3,18 +3,19 @@ import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
 import { PrintButton } from '@/components/PrintButton';
 import { Sheet, SheetSection, Field, FieldRow, SubBlock } from '@/components/CheatSheet';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'World Schools First Speaker Cheat Sheet',
   description:
     'A free printable first speaker template: set-up, definitions, team stance, the speaker split, winning metric, and two structured arguments.',
   alternates: { canonical: '/resources/first-speaker-cheat-sheet' },
-  openGraph: {
+  ...socialMeta({
     title: 'First Speaker Cheat Sheet (World Schools Debate)',
     description: 'Fill this in during prep and your first speech is already organized. Free and printable.',
     url: '/resources/first-speaker-cheat-sheet',
     type: 'article',
-  },
+  }),
 };
 
 function ArgumentBlock({ n }: { n: number }) {

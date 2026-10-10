@@ -3,19 +3,20 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArticleJsonLd, BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { ArticleByline } from '@/components/ArticleByline';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'How to Make the USA Debate Team (2026 Guide)',
   description:
     'How to make USA Debate, the national World Schools team: eligibility, the application timeline, the motion-response videos, and how to prepare.',
   alternates: { canonical: '/usa-debate-team' },
-  openGraph: {
+  ...socialMeta({
     title: 'How to Make the USA Debate Team (2026 Guide)',
     description:
       'Eligibility, application timeline, motion-response videos, and how to prepare for the USA Debate national team selection.',
     url: '/usa-debate-team',
     type: 'article',
-  },
+  }),
 };
 
 const pageFaqs = [

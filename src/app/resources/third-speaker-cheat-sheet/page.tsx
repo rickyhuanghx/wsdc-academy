@@ -3,18 +3,19 @@ import Link from 'next/link';
 import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/JsonLd';
 import { PrintButton } from '@/components/PrintButton';
 import { Sheet, SheetSection, Field, SubBlock } from '@/components/CheatSheet';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'World Schools Third Speaker (Whip) Cheat Sheet',
   description:
     'A free printable whip template: choosing 2–3 clashes, answering the opposition\'s strongest material, and internal vs external weighing.',
   alternates: { canonical: '/resources/third-speaker-cheat-sheet' },
-  openGraph: {
+  ...socialMeta({
     title: 'Third Speaker Cheat Sheet (World Schools Debate)',
     description: 'The whip speech as a clash sheet: their best material, why it falls, and why your case wins the round.',
     url: '/resources/third-speaker-cheat-sheet',
     type: 'article',
-  },
+  }),
 };
 
 function ClashBlock({ n }: { n: number }) {

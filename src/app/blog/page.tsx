@@ -2,18 +2,19 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BreadcrumbJsonLd, ItemListJsonLd } from '@/components/JsonLd';
 import { blogPosts } from '@/data/blog';
+import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
   title: 'Debate Technique Blog: Roles & Skills',
   description:
     'Coaching essays on competitive debate: all three speaker roles, argument and rebuttal technique, weighing, and the American World Schools pathway.',
   alternates: { canonical: '/blog' },
-  openGraph: {
+  ...socialMeta({
     title: 'The WSDC Prep Blog',
     description: 'Speaker roles, technique, and the US World Schools circuit. Written by coaches, not content farms.',
     url: '/blog',
     type: 'website',
-  },
+  }),
 };
 
 const categories = ['Why it matters', 'Speaker roles', 'Technique', 'The US circuit', 'International'] as const;

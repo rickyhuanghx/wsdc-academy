@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { ProgramsCoachStrip } from '@/components/ProgramsCoachStrip';
+import { socialMeta } from '@/lib/pageMeta';
 
 // Commercial page for "winter debate camp" / "winter break debate camp" queries,
 // the winter sibling of /summer-debate-camp. The URL carries no year on purpose:
@@ -15,12 +16,12 @@ export const metadata: Metadata = {
   description:
     'A live online winter debate camp, December 21–30: 12 hours of small-group World Schools training over the winter break, with judged practice debates.',
   alternates: { canonical: '/winter-debate-camp' },
-  openGraph: {
+  ...socialMeta({
     title: 'Online Winter Debate Camp | WSDC Prep',
     description:
       'A two-week live online debate camp over the winter break: small groups, judged practice debates, written feedback. Beginner and advanced tracks, three time zones.',
     url: '/winter-debate-camp',
-  },
+  }),
 };
 
 const pageFaqs = [

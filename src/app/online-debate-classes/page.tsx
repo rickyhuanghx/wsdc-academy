@@ -4,6 +4,7 @@ import { BreadcrumbJsonLd, FAQJsonLd, ItemListJsonLd } from '@/components/JsonLd
 import { ProgramsCoachStrip } from '@/components/ProgramsCoachStrip';
 import { TermSchedule } from '@/components/TermSchedule';
 import { getProgramBySlug, programs } from '@/data/programs';
+import { socialMeta } from '@/lib/pageMeta';
 
 // Commercial page for "online debate class(es)" queries (2026-08-31 keyword
 // research). /debate-coaching keeps the methodology framing for "debate
@@ -32,12 +33,12 @@ export const metadata: Metadata = {
   description:
     'Live online debate classes for ages 9 to 18: small groups of 6 to 8, a structured curriculum, judged practice debates, and written feedback every week.',
   alternates: { canonical: '/online-debate-classes' },
-  openGraph: {
+  ...socialMeta({
     title: 'Online Debate Classes | WSDC Prep',
     description:
       'Live online debate classes in small groups: structured curriculum, judged practice debates, and written feedback, scheduled for US time zones.',
     url: '/online-debate-classes',
-  },
+  }),
 };
 
 const pageFaqs = [

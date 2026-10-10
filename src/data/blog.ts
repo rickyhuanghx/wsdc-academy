@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { socialMeta } from '@/lib/pageMeta';
 
 export interface BlogPost {
   slug: string;
@@ -327,11 +328,11 @@ export function postMetadata(slug: string): Metadata {
     title: post.metaTitle,
     description: post.metaDescription,
     alternates: { canonical: `/blog/${post.slug}` },
-    openGraph: {
+    ...socialMeta({
       title: post.metaTitle,
       description: post.metaDescription,
       url: `/blog/${post.slug}`,
       type: 'article',
-    },
+    }),
   };
 }
