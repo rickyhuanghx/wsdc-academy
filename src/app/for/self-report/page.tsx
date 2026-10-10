@@ -1,29 +1,21 @@
 import type { Metadata } from 'next';
-import { SelfReportGate } from '@/components/SelfReportGate';
 import { SelfReportPaper } from '@/components/SelfReportPaper';
-import { hasSelfReportAccess } from '@/lib/self-report-auth';
 import { PAPER_TITLE } from '@/lib/self-report';
 import { SITE_NAME } from '@/lib/site';
 
-// Private midterm check-in paper, reached by direct link (plus a password
-// when SELF_REPORT_PASSWORD is set; without it the URL alone is the gate).
-// Sits under /for so it inherits the layout's noindex/nofollow metadata and
-// the X-Robots-Tag header from next.config.ts; absent from sitemap.ts,
-// llms.txt and every menu. The cookie read makes this route dynamic, so the
-// quiz is never in any static HTML a crawler could fetch without the password.
-// force-dynamic keeps the route request-time whether or not a password is set,
-// so flipping the env var changes behaviour on the next request, not the next build.
-
-export const dynamic = 'force-dynamic';
+// Private midterm check-in paper, reached by direct link only. No password:
+// the owner wants a URL that just works. Sits under /for so it inherits the
+// layout's noindex/nofollow metadata and the X-Robots-Tag header from
+// next.config.ts; absent from sitemap.ts, llms.txt and every menu, and
+// nothing on the site links here. The paper itself is client-only (see
+// SelfReportPaper.tsx), so the questions are not in the static HTML either.
 
 export const metadata: Metadata = {
   title: { absolute: `${PAPER_TITLE} | ${SITE_NAME}` },
   description: 'A private check-in paper for current students.',
 };
 
-export default async function SelfReportPage() {
-  const unlocked = await hasSelfReportAccess();
-
+export default function SelfReportPage() {
   return (
     <section className="bg-cream py-12 sm:py-16">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
@@ -47,7 +39,7 @@ export default async function SelfReportPage() {
           <p className="mt-3 text-sm leading-relaxed text-navy-500">Best done by the student, in one sitting, without looking anything up.</p>
         </header>
 
-        {unlocked ? <SelfReportPaper /> : <SelfReportGate />}
+        <SelfReportPaper />
       </div>
     </section>
   );

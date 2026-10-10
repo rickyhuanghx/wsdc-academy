@@ -1,7 +1,7 @@
 'use client';
 
-// Midterm check-in paper (/for/self-report). Rendered only after the password
-// cookie is set, and only in the browser (see SelfReportPaper.tsx). Three parts from src/lib/self-report.ts: skills self-report,
+// Midterm check-in paper (/for/self-report). Rendered only in the browser
+// (see SelfReportPaper.tsx). Three parts from src/lib/self-report.ts: skills self-report,
 // quiz, motion analysis, then an optional reflection. Nothing is marked on the
 // page: the quiz key lives server-side only, and the student sees a plain
 // "received" screen. A draft is kept in localStorage while they write, so a

@@ -4,7 +4,7 @@
 // draft from localStorage in its initial state, which only works if the
 // component never renders on the server (otherwise the server's empty form
 // and the browser's draft would disagree at hydration). The page is
-// password-gated and noindex, so there is nothing to prerender anyway.
+// unlisted and noindex, so there is nothing to prerender anyway.
 
 import dynamic from 'next/dynamic';
 

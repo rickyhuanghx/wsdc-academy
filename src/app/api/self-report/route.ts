@@ -1,7 +1,7 @@
 // Midterm check-in submissions (src/components/SelfReportQuiz.tsx).
 //
-// Only a browser holding the password cookie may submit. The quiz is graded
-// HERE against src/lib/self-report-key.ts; the student never receives the
+// No password: the unlisted URL is the only gate, so the honeypot and the
+// per-IP rate limit are what keep junk out. The quiz is graded HERE against src/lib/self-report-key.ts; the student never receives the
 // key, the score, or per-question correctness. Two sinks, both attempted:
 //   1. Supabase table `self_reports` (see supabase/schema.sql): the durable
 //      record, with the raw answers and the computed quiz result.
@@ -34,7 +34,6 @@ import {
   type OptionKey,
 } from '@/lib/self-report';
 import { EXPLAIN_GUIDE, MOTION_RUBRIC, QUIZ_KEY, gradeQuiz } from '@/lib/self-report-key';
-import { hasSelfReportAccess } from '@/lib/self-report-auth';
 import { getSupabaseAdmin } from '@/lib/supabase';
 import { CONTACT_EMAIL } from '@/lib/site';
 
@@ -111,8 +110,6 @@ function answerBlock(title: string, prompt: string, answer: string, guide?: stri
 }
 
 export async function POST(req: Request) {
-  if (!(await hasSelfReportAccess())) return fail(401, 'Please enter the password first.');
-
   let body: Record<string, unknown>;
   try {
     body = await req.json();

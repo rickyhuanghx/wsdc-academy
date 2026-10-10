@@ -15,16 +15,12 @@
 //
 // Access: the URL is unlisted (noindex via the /for layout and the X-Robots-Tag
 // header in next.config.ts, absent from sitemap.ts, llms.txt and every menu)
-// AND the page asks for a password before it renders the paper. The password
-// lives in the SELF_REPORT_PASSWORD env var; see src/lib/self-report-auth.ts.
+// and that is the whole gate: no password, by the owner's decision (2026-10-10).
 //
 // Ids (a1..a18, q1..q16, c1..c6) are the keys stored in Supabase: reword
 // freely, never rename.
 
 export const SELF_REPORT_PATH = '/for/self-report';
-
-/** Name of the httpOnly cookie that marks a browser as having entered the password. */
-export const SELF_REPORT_COOKIE = 'wsdc_self_report';
 
 export const PAPER_TITLE = 'Midterm Check-in';
 
