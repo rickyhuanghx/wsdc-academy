@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { saveMarks } from '@/app/admin/actions';
-import { AdminShell, AdminUnlock } from '@/components/AdminShell';
-import { hasAdminAccess } from '@/lib/admin-auth';
+import { AdminShell } from '@/components/AdminShell';
 import {
   CORE_SKILLS,
   MOTION_PROMPTS,
@@ -54,7 +53,6 @@ export default async function SelfReportDetail({
   params: Promise<{ id: string }>;
   searchParams: Promise<{ saved?: string }>;
 }) {
-  if (!(await hasAdminAccess())) return <AdminUnlock />;
   const { id } = await params;
   if (!isUuid(id)) notFound();
   const row = await getSelfReport(id);

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 // /admin/* is the coach desk: private tooling over Supabase, never indexed.
 // Belt and braces with the X-Robots-Tag header in next.config.ts and the
-// robots.ts disallow. Each page checks the ADMIN_KEY cookie itself.
+// robots.ts disallow. No login, by the owner's decision: the URL is the gate.
 export const metadata: Metadata = {
   robots: {
     index: false,

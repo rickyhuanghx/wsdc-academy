@@ -1,37 +1,15 @@
 'use server';
 
-// Server Functions for the coach desk (/admin/*): unlock with the shared key,
-// lock again, and save a coach's marks on a midterm check-in.
+// Server Function for the coach desk (/admin/*): save a coach's marks on a
+// midterm check-in. The desk has no login by the owner's decision; the
+// unlisted URL is the gate.
 
-import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
-import { ADMIN_COOKIE, adminCookie, checkAdminKey, hasAdminAccess, isAdminConfigured } from '@/lib/admin-auth';
-import { isRateLimited } from '@/lib/leads';
 import { CORE_SKILLS, MOTION_PROMPTS } from '@/lib/self-report';
 import { SELF_REPORT_STATUSES, isUuid, updateSelfReportMarks, type SelfReportStatus } from '@/lib/self-reports-admin';
 
 const DESK = '/admin/self-reports';
-
-export async function unlockAdmin(formData: FormData): Promise<void> {
-  if (!isAdminConfigured()) redirect(`${DESK}?error=closed`);
-
-  const h = await headers();
-  const ip = h.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-  if (isRateLimited(ip, 'admin-unlock')) redirect(`${DESK}?error=slow`);
-
-  const attempt = String(formData.get('key') ?? '').trim().slice(0, 200);
-  if (!attempt || !checkAdminKey(attempt)) redirect(`${DESK}?error=key`);
-
-  const c = adminCookie();
-  (await cookies()).set(c.name, c.value, c.options);
-  redirect(DESK);
-}
-
-export async function lockAdmin(): Promise<void> {
-  (await cookies()).delete(ADMIN_COOKIE);
-  redirect(DESK);
-}
 
 function mark(v: FormDataEntryValue | null): number | undefined {
   const s = String(v ?? '');
@@ -41,8 +19,6 @@ function mark(v: FormDataEntryValue | null): number | undefined {
 }
 
 export async function saveMarks(formData: FormData): Promise<void> {
-  if (!(await hasAdminAccess())) redirect(DESK);
-
   const id = String(formData.get('id') ?? '');
   if (!isUuid(id)) redirect(DESK);
 

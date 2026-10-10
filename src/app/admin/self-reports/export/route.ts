@@ -1,8 +1,7 @@
-// CSV export of every midterm check-in, for a spreadsheet. Cookie-gated
-// like the rest of the coach desk. One row per submission; jsonb columns
+// CSV export of every midterm check-in, for a spreadsheet. Open like the
+// rest of the coach desk (unlisted URL, no login). One row per submission; jsonb columns
 // are flattened to one column per id so the sheet is usable as is.
 
-import { hasAdminAccess } from '@/lib/admin-auth';
 import { ALL_SKILLS, CORE_SKILLS, MOTION_PROMPTS, QUIZ_QUESTIONS, REFLECTIONS } from '@/lib/self-report';
 import { QUIZ_KEY } from '@/lib/self-report-key';
 import { listSelfReportsFull, sumMarks } from '@/lib/self-reports-admin';
@@ -16,8 +15,6 @@ function cell(v: unknown): string {
 }
 
 export async function GET() {
-  if (!(await hasAdminAccess())) return new Response('Locked', { status: 401 });
-
   let rows;
   try {
     rows = await listSelfReportsFull();

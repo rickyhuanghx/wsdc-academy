@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { AdminShell, AdminUnlock } from '@/components/AdminShell';
-import { hasAdminAccess } from '@/lib/admin-auth';
+import { AdminShell } from '@/components/AdminShell';
 import { QUIZ_TOTAL } from '@/lib/self-report-key';
 import { listSelfReports, sumMarks, type SelfReportSummary } from '@/lib/self-reports-admin';
 
@@ -25,9 +24,8 @@ const statusClass: Record<string, string> = {
   discussed: 'bg-white text-navy-500 border-navy-200',
 };
 
-export default async function SelfReportsDesk({ searchParams }: { searchParams: Promise<{ error?: string; class?: string }> }) {
+export default async function SelfReportsDesk({ searchParams }: { searchParams: Promise<{ class?: string }> }) {
   const sp = await searchParams;
-  if (!(await hasAdminAccess())) return <AdminUnlock error={sp.error} />;
 
   let rows: SelfReportSummary[] = [];
   let loadError = '';
