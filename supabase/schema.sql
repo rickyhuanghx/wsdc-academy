@@ -176,14 +176,16 @@ create index if not exists diagnostic_intakes_token_idx
 alter table public.diagnostic_intakes enable row level security;
 
 -- ============================================================
--- Student self-report quiz submissions (/for/self-report). Written by
+-- Midterm check-in submissions (/for/self-report). Written by
 -- src/app/api/self-report/route.ts with the service-role key. One row per
--- submission; a student who takes the quiz each term accrues several rows,
--- which is the point (compare the answers over time).
+-- paper: the raw answers to all three parts, the server-graded quiz, and
+-- room for the coach's hand marks. A student who sits the paper each term
+-- accrues several rows, which is the point (compare over time).
 --
 -- Nothing reads this from the browser, so RLS stays on with no policy at all.
--- The quiz works without this table (the staff email is the primary sink and
--- a failed insert is logged, never fatal), but this is the durable record.
+-- The paper is also emailed to staff; the route refuses the submission only
+-- when BOTH the insert and the email fail, so a missing table loses nothing
+-- as long as Resend is configured, but this is the durable record.
 -- ============================================================
 create table if not exists public.self_reports (
   id              uuid primary key default gen_random_uuid(),
@@ -192,24 +194,36 @@ create table if not exists public.self_reports (
   student_name    text not null,
   student_grade   text,
   class_name      text,               -- which class they said they are in
-  experience      text,               -- how long they have been debating
   email           text,
 
-  -- Question id -> 1..5, ids from SELF_REPORT_QUESTIONS in src/lib/self-report.ts.
-  answers         jsonb not null default '{}'::jsonb,
-  went_well       text,
-  improve         text,
-  for_coach       text,
+  -- Part A. Skill id (a1..a18) -> 1..4; Explain lines keyed a1..a9.
+  -- Ids are from src/lib/self-report.ts; never renamed.
+  ratings         jsonb not null default '{}'::jsonb,
+  explains        jsonb not null default '{}'::jsonb,
 
-  -- Self-rated 0..100 per ballot area, and the 40/40/20 weighted overall.
-  score_content   int,
-  score_style     int,
-  score_strategy  int,
-  score_overall   int,
+  -- Part B. q1..q16 -> 'A'..'D', graded on the server against
+  -- src/lib/self-report-key.ts at submit time.
+  quiz_answers    jsonb not null default '{}'::jsonb,
+  quiz_correct    jsonb not null default '{}'::jsonb,   -- q id -> boolean
+  quiz_score      int,
+  quiz_total      int,
+
+  -- Part C. The motion chosen (verbatim) and c1..c6 -> text.
+  motion          text,
+  motion_answers  jsonb not null default '{}'::jsonb,
+
+  -- Optional reflection: improve / competition / forCoach -> text.
+  reflections     jsonb not null default '{}'::jsonb,
 
   page_url        text,
 
-  -- Follow-up state, maintained by hand: new -> read -> discussed.
+  -- Hand marking, filled in by the coach in the dashboard:
+  -- explain_marks a1..a9 -> 0..2 (/18), motion_marks c1..c6 -> 0..2 (/12).
+  explain_marks   jsonb,
+  motion_marks    jsonb,
+  coach_notes     text,
+
+  -- Follow-up state, maintained by hand: new -> marked -> discussed.
   status          text not null default 'new'
 );
 

@@ -1,29 +1,39 @@
-// Self-report quiz submissions (src/components/SelfReportQuiz.tsx).
+// Midterm check-in submissions (src/components/SelfReportQuiz.tsx).
 //
-// Only a browser holding the password cookie may submit. Two sinks, both
-// attempted, neither required:
-//   1. Supabase table `self_reports` (see supabase/schema.sql). Until the
-//      table exists the insert fails and is logged; the email is the sink
-//      that matters.
-//   2. A staff email to ADMIN_NOTIFICATION_EMAIL with the scores, every
-//      answer, and the reflections in full.
-// The student sees their scores on the page; no email goes to them.
+// Only a browser holding the password cookie may submit. The quiz is graded
+// HERE against src/lib/self-report-key.ts; the student never receives the
+// key, the score, or per-question correctness. Two sinks, both attempted:
+//   1. Supabase table `self_reports` (see supabase/schema.sql): the durable
+//      record, with the raw answers and the computed quiz result.
+//   2. A staff email to ADMIN_NOTIFICATION_EMAIL with everything laid out for
+//      marking: ratings, Explain lines beside the 2-mark guide, the quiz with
+//      the key, and the Part C answers beside the rubric.
+// If NEITHER sink accepts the paper the route returns 500, so the student is
+// told to try again instead of being thanked for answers that went nowhere
+// (their draft stays in the browser until a submit succeeds).
 
 import { NextResponse } from 'next/server';
 import { GRADE_LEVELS } from '@/data/programs';
 import { HONEYPOT_FIELD, getClientIp, isRateLimited, isValidEmail, sendEmail } from '@/lib/leads';
 import {
+  ALL_SKILLS,
+  CORE_SKILLS,
+  EXPLAIN_MAX_CHARS,
+  MOTIONS,
+  MOTION_ANSWER_MAX_CHARS,
+  MOTION_PROMPTS,
+  OPTION_KEYS,
+  QUIZ_QUESTIONS,
+  RATING_MAX,
+  RATING_MIN,
+  RATING_SCALE,
+  REFLECTIONS,
   REFLECTION_MAX_CHARS,
-  SCALE_MAX,
-  SCALE_MIN,
   SELF_REPORT_CLASSES,
-  SELF_REPORT_EXPERIENCE,
-  SELF_REPORT_QUESTIONS,
-  SELF_REPORT_REFLECTIONS,
-  SELF_REPORT_SCALE,
-  describeBand,
-  scoreSelfReport,
+  SUPPORTING_SKILLS,
+  type OptionKey,
 } from '@/lib/self-report';
+import { EXPLAIN_GUIDE, MOTION_RUBRIC, QUIZ_KEY, gradeQuiz } from '@/lib/self-report-key';
 import { hasSelfReportAccess } from '@/lib/self-report-auth';
 import { getSupabaseAdmin } from '@/lib/supabase';
 import { CONTACT_EMAIL } from '@/lib/site';
@@ -37,8 +47,12 @@ function str(v: unknown, max: number): string {
 }
 
 function pickFrom(v: unknown, allowed: readonly string[]): string {
-  const value = str(v, 200);
+  const value = str(v, 300);
   return allowed.includes(value) ? value : '';
+}
+
+function obj(v: unknown): Record<string, unknown> {
+  return v && typeof v === 'object' && !Array.isArray(v) ? (v as Record<string, unknown>) : {};
 }
 
 function fail(status: number, error: string) {
@@ -60,7 +74,7 @@ function paragraphs(text: string): string {
 function emailShell(heading: string, inner: string): string {
   return `
     <div style="margin:0;padding:24px;background-color:#faf9f6;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;">
-      <div style="max-width:640px;margin:0 auto;background:#ffffff;border:1px solid #e7ebf1;">
+      <div style="max-width:680px;margin:0 auto;background:#ffffff;border:1px solid #e7ebf1;">
         <div style="background:#0d2240;padding:28px;text-align:center;">
           <h1 style="color:#ffffff;font-size:20px;margin:0;">${escapeHtml(heading)}</h1>
         </div>
@@ -74,20 +88,26 @@ function table(rows: Array<[string, string]>): string {
     .map(
       ([label, value]) => `
         <tr>
-          <td style="padding:10px 12px;border-bottom:1px solid #e7ebf1;color:#4c6787;font-size:13px;white-space:nowrap;vertical-align:top;">${escapeHtml(label)}</td>
-          <td style="padding:10px 12px;border-bottom:1px solid #e7ebf1;color:#0d2240;font-size:14px;">${escapeHtml(value)}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid #e7ebf1;color:#4c6787;font-size:13px;white-space:nowrap;vertical-align:top;">${escapeHtml(label)}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid #e7ebf1;color:#0d2240;font-size:14px;">${escapeHtml(value)}</td>
         </tr>`,
     )
     .join('');
   return `<table style="width:100%;border-collapse:collapse;">${body}</table>`;
 }
 
-function block(title: string, answer: string): string {
+function h2(text: string): string {
+  return `<h2 style="color:#0d2240;font-size:17px;margin:32px 0 10px;border-top:2px solid #0d2240;padding-top:14px;">${escapeHtml(text)}</h2>`;
+}
+
+function answerBlock(title: string, prompt: string, answer: string, guide?: string): string {
   return `
-    <h2 style="color:#0d2240;font-size:16px;margin:28px 0 10px;">${escapeHtml(title)}</h2>
+    <h3 style="color:#0d2240;font-size:14px;margin:20px 0 4px;">${escapeHtml(title)}</h3>
+    <p style="color:#4c6787;font-size:12px;line-height:1.5;margin:0 0 8px;">${escapeHtml(prompt)}</p>
     <div style="border-left:3px solid #c8102e;padding:4px 14px;color:#0d2240;font-size:14px;line-height:1.65;">
-      <p style="margin:0;">${paragraphs(answer)}</p>
-    </div>`;
+      <p style="margin:0;">${answer ? paragraphs(answer) : '<em style="color:#4c6787;">(blank)</em>'}</p>
+    </div>
+    ${guide ? `<p style="color:#4c6787;font-size:12px;line-height:1.5;margin:8px 0 0;"><strong>2 marks:</strong> ${escapeHtml(guide)}</p>` : ''}`;
 }
 
 export async function POST(req: Request) {
@@ -112,103 +132,138 @@ export async function POST(req: Request) {
   const studentName = str(body.studentName, 200);
   const grade = str(body.grade, 40);
   const className = pickFrom(body.className, SELF_REPORT_CLASSES);
-  const experience = pickFrom(body.experience, SELF_REPORT_EXPERIENCE);
   const email = str(body.email, 254);
   const pageUrl = str(body.pageUrl, 300);
+  if (!studentName || !VALID_GRADES.has(grade) || !className || (email && !isValidEmail(email))) {
+    return fail(400, 'Please fill in your name, grade and class.');
+  }
 
-  // Every statement must carry an integer on the scale; anything else is rejected.
-  const rawAnswers = body.answers && typeof body.answers === 'object' ? (body.answers as Record<string, unknown>) : {};
-  const answers: Record<string, number> = {};
-  for (const q of SELF_REPORT_QUESTIONS) {
-    const v = rawAnswers[q.id];
-    if (typeof v !== 'number' || !Number.isInteger(v) || v < SCALE_MIN || v > SCALE_MAX) {
-      return fail(400, 'Please answer every statement.');
+  // Part A: every skill rated 1..4; every core skill explained.
+  const rawRatings = obj(body.ratings);
+  const ratings: Record<string, number> = {};
+  for (const s of ALL_SKILLS) {
+    const v = rawRatings[s.id];
+    if (typeof v !== 'number' || !Number.isInteger(v) || v < RATING_MIN || v > RATING_MAX) {
+      return fail(400, 'Please rate every skill in Part A.');
     }
-    answers[q.id] = v;
+    ratings[s.id] = v;
+  }
+  const rawExplains = obj(body.explains);
+  const explains: Record<string, string> = {};
+  for (const s of CORE_SKILLS) {
+    explains[s.id] = str(rawExplains[s.id], EXPLAIN_MAX_CHARS);
+    if (!explains[s.id]) return fail(400, 'Please write an Explain line for each core skill in Part A.');
   }
 
+  // Part B: one option per question.
+  const rawQuiz = obj(body.quiz);
+  const quiz: Record<string, OptionKey> = {};
+  for (const q of QUIZ_QUESTIONS) {
+    const v = pickFrom(rawQuiz[q.id], OPTION_KEYS) as OptionKey | '';
+    if (!v) return fail(400, 'Please answer every quiz question in Part B.');
+    quiz[q.id] = v;
+  }
+  const result = gradeQuiz(quiz);
+
+  // Part C: one motion, every prompt answered.
+  const motion = pickFrom(body.motion, MOTIONS);
+  if (!motion) return fail(400, 'Please choose a motion in Part C.');
+  const rawMotionAnswers = obj(body.motionAnswers);
+  const motionAnswers: Record<string, string> = {};
+  for (const p of MOTION_PROMPTS) {
+    motionAnswers[p.id] = str(rawMotionAnswers[p.id], MOTION_ANSWER_MAX_CHARS);
+    if (!motionAnswers[p.id]) return fail(400, 'Please answer every prompt in Part C.');
+  }
+
+  // Reflection: optional.
+  const rawReflections = obj(body.reflections);
   const reflections: Record<string, string> = {};
-  for (const r of SELF_REPORT_REFLECTIONS) {
-    reflections[r.id] = str(body[r.id], REFLECTION_MAX_CHARS);
-    if (r.required && !reflections[r.id]) return fail(400, 'Please fill in all required fields.');
+  for (const r of REFLECTIONS) {
+    const v = str(rawReflections[r.id], REFLECTION_MAX_CHARS);
+    if (v) reflections[r.id] = v;
   }
 
-  if (!studentName || !VALID_GRADES.has(grade) || !className || !experience || (email && !isValidEmail(email))) {
-    return fail(400, 'Please fill in all required fields.');
-  }
-
-  const score = scoreSelfReport(answers);
   const submittedAt = new Date().toISOString();
   const record = {
     student_name: studentName,
     student_grade: grade,
     class_name: className,
-    experience,
     email: email || null,
-    answers,
-    went_well: reflections.wentWell,
-    improve: reflections.improve,
-    for_coach: reflections.forCoach || null,
-    score_content: score.areas.find((a) => a.id === 'content')?.percent ?? 0,
-    score_style: score.areas.find((a) => a.id === 'style')?.percent ?? 0,
-    score_strategy: score.areas.find((a) => a.id === 'strategy')?.percent ?? 0,
-    score_overall: score.overall,
+    ratings,
+    explains,
+    quiz_answers: quiz,
+    quiz_correct: result.correct,
+    quiz_score: result.score,
+    quiz_total: result.total,
+    motion,
+    motion_answers: motionAnswers,
+    reflections,
     page_url: pageUrl || null,
     status: 'new',
   };
 
-  // Sink 1: Supabase. Best-effort: a missing table or missing env must not
-  // lose the submission, so getSupabaseAdmin's throw is caught here too.
-  let insertFailed = true;
+  // Sink 1: Supabase, the durable record.
+  let stored = false;
   try {
     const { error } = await getSupabaseAdmin().from('self_reports').insert(record);
     if (error) {
-      console.error('[SELF_REPORT_INSERT_FAILED] Supabase insert failed, submission lives in the email only:', error.message, JSON.stringify(record));
+      console.error('[SELF_REPORT_INSERT_FAILED] Supabase insert failed:', error.message, JSON.stringify(record));
     } else {
-      insertFailed = false;
+      stored = true;
     }
   } catch (err) {
     console.error('[SELF_REPORT_INSERT_FAILED] Supabase unavailable:', err, JSON.stringify(record));
   }
 
-  // Sink 2: staff email with everything the coach needs to read it.
-  const scaleLabel = (v: number) => SELF_REPORT_SCALE.find((s) => s.value === v)?.label ?? String(v);
-  const scoreRows: Array<[string, string]> = score.areas.map((a) => [
-    `${a.name} (${a.weight}%)`,
-    `${a.average.toFixed(1)} / 5 · ${a.percent}% · ${describeBand(a.percent)}`,
-  ]);
-  const answerRows: Array<[string, string]> = SELF_REPORT_QUESTIONS.map((q) => [
-    `${answers[q.id]} · ${scaleLabel(answers[q.id])}`,
-    q.text,
-  ]);
+  // Sink 2: staff email, laid out for marking.
+  const ratingLabel = (v: number) => RATING_SCALE.find((s) => s.value === v)?.label ?? String(v);
+  const coreRows: Array<[string, string]> = CORE_SKILLS.map((s, i) => [`A${i + 1} ${s.name}`, `${ratings[s.id]} · ${ratingLabel(ratings[s.id])}`]);
+  const supportRows: Array<[string, string]> = SUPPORTING_SKILLS.map((s, i) => [`A${CORE_SKILLS.length + i + 1}`, `${ratings[s.id]} · ${s.text}`]);
+  const quizRows: Array<[string, string]> = QUIZ_QUESTIONS.map((q, i) => {
+    const given = quiz[q.id];
+    const key = QUIZ_KEY[q.id];
+    const mark = result.correct[q.id] ? '✓' : `✗ (key ${key.answer})`;
+    return [`Q${i + 1} ${mark}`, `${given}: ${q.options.find((o) => o.key === given)?.text ?? ''} · ${key.skill}`];
+  });
+
   const staffSent = await sendEmail({
     to: process.env.ADMIN_NOTIFICATION_EMAIL || CONTACT_EMAIL,
     replyTo: email || undefined,
-    subject: `Self-report: ${studentName} (${className}) · ${score.overall}/100`,
+    subject: `Midterm check-in: ${studentName} (${className}) · quiz ${result.score}/${result.total}`,
     html: emailShell(
-      'Student self-report received',
+      'Midterm check-in received',
       `${table([
         ['Student', studentName],
         ['Grade', grade],
         ['Class', className],
-        ['Debating for', experience],
         ['Email', email || '—'],
-        ['Overall (40/40/20)', `${score.overall} / 100`],
-        ...scoreRows,
+        ['Quiz (auto-marked)', `${result.score} / ${result.total}`],
+        ['Explain lines (/18) and Part C (/12)', 'To mark by hand, guides below'],
         ['Submitted', submittedAt],
       ])}
-       <h2 style="color:#0d2240;font-size:16px;margin:28px 0 10px;">Every statement</h2>
-       ${table(answerRows)}
-       ${SELF_REPORT_REFLECTIONS.map((r) => (reflections[r.id] ? block(r.label, reflections[r.id]) : '')).join('')}
+       ${h2('Part A · Core skills: rating and Explain line')}
+       ${table(coreRows)}
+       ${CORE_SKILLS.map((s, i) => answerBlock(`A${i + 1} ${s.name} (rated ${ratings[s.id]})`, s.explain ?? '', explains[s.id], EXPLAIN_GUIDE[s.id])).join('')}
+       ${h2('Part A · Supporting skills: rating only')}
+       ${table(supportRows)}
+       ${h2(`Part B · Quiz: ${result.score} / ${result.total}`)}
+       ${table(quizRows)}
+       ${h2('Part C · Motion analysis')}
+       <p style="color:#0d2240;font-size:14px;margin:0 0 6px;"><strong>Motion:</strong> ${escapeHtml(motion)}</p>
+       ${MOTION_PROMPTS.map((p) => answerBlock(`${p.id.toUpperCase()} ${p.name}`, p.text, motionAnswers[p.id], `${MOTION_RUBRIC[p.id].two} (1 mark: ${MOTION_RUBRIC[p.id].one})`)).join('')}
+       <p style="color:#4c6787;font-size:12px;margin-top:12px;">Part C bands: 0–4 building foundations, 5–8 developing, 9–12 secure.</p>
+       ${h2('Open reflection')}
+       ${REFLECTIONS.map((r) => answerBlock(r.label, '', reflections[r.id] ?? '')).join('')}
        <p style="color:#4c6787;font-size:12px;margin-top:24px;">
-         Submitted on the private self-report page. Scores are the student's own ratings, weighted content 40 / style 40 / strategy 20.
+         Submitted on the private midterm check-in page. The student saw no scores and no key. Compare each rating with its Explain line and the quiz questions that check it: rated 3–4 but wrong = coach first; rated 1–2 but right = give speaking reps.
        </p>`,
     ),
   });
 
-  if (!staffSent && insertFailed) {
+  if (!stored && !staffSent) {
     console.error('[SELF_REPORT_NO_SINK] Submission had no working sink:', JSON.stringify(record));
+    return fail(500, 'We could not save your answers just now. Nothing is lost: wait a minute and press Send again.');
   }
 
-  return NextResponse.json({ ok: true, score });
+  return NextResponse.json({ ok: true });
 }

@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import { SelfReportGate } from '@/components/SelfReportGate';
-import { SelfReportQuiz } from '@/components/SelfReportQuiz';
+import { SelfReportPaper } from '@/components/SelfReportPaper';
 import { hasSelfReportAccess, isSelfReportConfigured } from '@/lib/self-report-auth';
+import { PAPER_TITLE } from '@/lib/self-report';
 import { CONTACT_EMAIL, SITE_NAME } from '@/lib/site';
 
-// Private student self-report quiz, reached by direct link plus a password.
+// Private midterm check-in paper, reached by direct link plus a password.
 // Sits under /for so it inherits the layout's noindex/nofollow metadata and
 // the X-Robots-Tag header from next.config.ts; absent from sitemap.ts,
 // llms.txt and every menu. The cookie read makes this route dynamic, so the
@@ -15,8 +16,8 @@ import { CONTACT_EMAIL, SITE_NAME } from '@/lib/site';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: { absolute: `Self-report quiz | ${SITE_NAME}` },
-  description: 'A private self-assessment for current students.',
+  title: { absolute: `${PAPER_TITLE} | ${SITE_NAME}` },
+  description: 'A private check-in paper for current students.',
 };
 
 export default async function SelfReportPage() {
@@ -31,14 +32,19 @@ export default async function SelfReportPage() {
             For current students
           </p>
           <h1 className="mt-3 font-display text-3xl font-bold tracking-tight text-navy-900 sm:text-4xl">
-            How is your debating going?
+            {PAPER_TITLE}
           </h1>
           <p className="mt-3 leading-relaxed text-navy-600">
-            Fifteen quick statements and three short questions. Rate yourself honestly: there are no right
-            answers, and nobody is marked on this. Your coach uses it to compare how you see your own
-            debating with what they see in class, and to plan what to work on with you next.
+            Everyone in the class sits the same 30-minute paper: you rate each core skill and prove it in
+            a line, then a short quiz and a motion task test the same skills. Nobody is ranked on this. It
+            shows your coach exactly where to coach you next.
           </p>
-          <p className="mt-3 text-sm leading-relaxed text-navy-500">About ten minutes. Best done by the student, not a parent.</p>
+          <ol className="mt-4 space-y-1 text-sm text-navy-600">
+            <li><span className="mr-2 font-mono font-semibold text-signal-500">A</span>Skills self-report, about 10 minutes</li>
+            <li><span className="mr-2 font-mono font-semibold text-signal-500">B</span>Quiz, 16 questions, about 10 minutes</li>
+            <li><span className="mr-2 font-mono font-semibold text-signal-500">C</span>Motion analysis, one motion, six prompts, about 10 minutes</li>
+          </ol>
+          <p className="mt-3 text-sm leading-relaxed text-navy-500">Best done by the student, in one sitting, without looking anything up.</p>
         </header>
 
         {!configured ? (
@@ -53,7 +59,7 @@ export default async function SelfReportPage() {
             </p>
           </div>
         ) : unlocked ? (
-          <SelfReportQuiz />
+          <SelfReportPaper />
         ) : (
           <SelfReportGate />
         )}

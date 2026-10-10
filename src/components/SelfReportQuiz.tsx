@@ -1,64 +1,90 @@
 'use client';
 
-// Student self-report quiz (/for/self-report). Rendered only after the
-// password cookie is set. Three parts: who you are, fifteen 1-to-5 statements
-// grouped by the WSDC ballot areas, three reflections. Scored on the client
-// for the instant result and again on the server for the stored record; both
-// use scoreSelfReport() from src/lib/self-report.ts.
+// Midterm check-in paper (/for/self-report). Rendered only after the password
+// cookie is set, and only in the browser (see SelfReportPaper.tsx). Three parts from src/lib/self-report.ts: skills self-report,
+// quiz, motion analysis, then an optional reflection. Nothing is marked on the
+// page: the quiz key lives server-side only, and the student sees a plain
+// "received" screen. A draft is kept in localStorage while they write, so a
+// refresh mid-paper loses nothing, and is cleared once the server has it.
 
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GRADE_LEVELS } from '@/data/programs';
 import {
+  ALL_SKILLS,
+  CORE_SKILLS,
+  EXPLAIN_MAX_CHARS,
+  MOTIONS,
+  MOTION_ANSWER_MAX_CHARS,
+  MOTION_PROMPTS,
+  PART_A_NOTE,
+  PART_C_NOTE,
+  QUIZ_QUESTIONS,
+  RATING_SCALE,
+  REFLECTIONS,
   REFLECTION_MAX_CHARS,
-  SELF_REPORT_AREAS,
   SELF_REPORT_CLASSES,
-  SELF_REPORT_EXPERIENCE,
-  SELF_REPORT_QUESTIONS,
-  SELF_REPORT_REFLECTIONS,
-  SELF_REPORT_SCALE,
-  describeBand,
-  scoreSelfReport,
-  type SelfReportScore,
+  SUPPORTING_SKILLS,
+  type OptionKey,
+  type SelfReportSubmission,
 } from '@/lib/self-report';
 import { CONTACT_EMAIL } from '@/lib/site';
+
+const DRAFT_KEY = 'wsdc-self-report-draft-v1';
 
 const inputClass =
   'mt-1.5 w-full rounded-sm border border-navy-200 bg-white px-3.5 py-2.5 text-sm text-navy-900 focus:border-signal-500 focus:outline-none';
 const labelClass = 'block text-sm font-semibold text-navy-900';
 const helpClass = 'mt-1.5 text-xs text-navy-500';
 const errClass = 'mt-1.5 text-sm text-signal-600';
-const scaleBase =
-  'flex flex-1 flex-col items-center gap-1 rounded-sm border px-1 py-2 text-center text-xs transition sm:px-2';
-const scaleOn = 'border-signal-500 bg-signal-50 text-navy-900';
-const scaleOff = 'border-navy-200 text-navy-600 hover:border-navy-400';
+const choiceBase = 'rounded-sm border text-left text-sm transition';
+const choiceOn = 'border-signal-500 bg-signal-50 text-navy-900';
+const choiceOff = 'border-navy-200 text-navy-700 hover:border-navy-400';
+const cardClass = 'rounded-sm border border-navy-200 bg-white p-6 sm:p-8';
 
-interface Identity {
-  studentName: string;
-  grade: string;
-  className: string;
-  experience: string;
-  email: string;
+const EMPTY: SelfReportSubmission = {
+  studentName: '',
+  grade: '',
+  className: '',
+  email: '',
+  ratings: {},
+  explains: {},
+  quiz: {},
+  motion: '',
+  motionAnswers: {},
+  reflections: {},
+};
+
+function loadDraft(): SelfReportSubmission | null {
+  try {
+    const raw = window.localStorage.getItem(DRAFT_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as Partial<SelfReportSubmission>;
+    return { ...EMPTY, ...parsed };
+  } catch {
+    return null;
+  }
 }
 
-type Reflections = Record<(typeof SELF_REPORT_REFLECTIONS)[number]['id'], string>;
-
-const EMPTY_IDENTITY: Identity = { studentName: '', grade: '', className: '', experience: '', email: '' };
-const EMPTY_REFLECTIONS: Reflections = { wentWell: '', improve: '', forCoach: '' };
-
 export function SelfReportQuiz() {
-  const [identity, setIdentity] = useState<Identity>(EMPTY_IDENTITY);
-  const [answers, setAnswers] = useState<Record<string, number>>({});
-  const [reflections, setReflections] = useState<Reflections>(EMPTY_REFLECTIONS);
+  // Client-only component, so the draft can be read in the initializer.
+  const [form, setForm] = useState<SelfReportSubmission>(() => loadDraft() ?? EMPTY);
   const [honeypot, setHoneypot] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [failed, setFailed] = useState('');
-  const [result, setResult] = useState<SelfReportScore | null>(null);
+  const [done, setDone] = useState(false);
 
-  const answered = useMemo(() => Object.keys(answers).length, [answers]);
+  // Autosave the draft on every change until the server has the paper.
+  useEffect(() => {
+    if (done) return;
+    try {
+      window.localStorage.setItem(DRAFT_KEY, JSON.stringify(form));
+    } catch {
+      // Private mode or storage blocked: the paper still works, just without the safety net.
+    }
+  }, [form, done]);
 
-  function setField<K extends keyof Identity>(key: K, value: Identity[K]) {
-    setIdentity((prev) => ({ ...prev, [key]: value }));
+  function clearError(key: string) {
     setErrors((prev) => {
       if (!prev[key]) return prev;
       const next = { ...prev };
@@ -66,28 +92,38 @@ export function SelfReportQuiz() {
       return next;
     });
   }
-
-  function answer(id: string, value: number) {
-    setAnswers((prev) => ({ ...prev, [id]: value }));
-    setErrors((prev) => {
-      if (!prev.answers) return prev;
-      const next = { ...prev };
-      delete next.answers;
-      return next;
-    });
+  function setTop<K extends 'studentName' | 'grade' | 'className' | 'email' | 'motion'>(key: K, value: string) {
+    setForm((prev) => ({ ...prev, [key]: value }));
+    clearError(key);
+  }
+  function setIn<K extends 'ratings' | 'explains' | 'quiz' | 'motionAnswers' | 'reflections'>(
+    group: K,
+    id: string,
+    value: SelfReportSubmission[K][string],
+  ) {
+    setForm((prev) => ({ ...prev, [group]: { ...prev[group], [id]: value } }));
+    clearError(`${group}.${id}`);
+    clearError(group);
   }
 
   function validate(): Record<string, string> {
     const er: Record<string, string> = {};
-    if (!identity.studentName.trim()) er.studentName = 'Your name, please.';
-    if (!identity.grade) er.grade = 'Pick your grade.';
-    if (!identity.className) er.className = 'Pick your class.';
-    if (!identity.experience) er.experience = 'Pick one.';
-    if (identity.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identity.email)) er.email = 'That email does not look right.';
-    const missing = SELF_REPORT_QUESTIONS.filter((q) => !answers[q.id]).length;
-    if (missing > 0) er.answers = `${missing} statement${missing === 1 ? '' : 's'} still need an answer.`;
-    for (const r of SELF_REPORT_REFLECTIONS) {
-      if (r.required && !reflections[r.id].trim()) er[r.id] = 'A sentence or two is enough.';
+    if (!form.studentName.trim()) er.studentName = 'Your name, please.';
+    if (!form.grade) er.grade = 'Pick your grade.';
+    if (!form.className) er.className = 'Pick your class.';
+    if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) er.email = 'That email does not look right.';
+
+    const unrated = ALL_SKILLS.filter((s) => !form.ratings[s.id]).length;
+    if (unrated) er.ratings = `${unrated} skill${unrated === 1 ? '' : 's'} still need a rating.`;
+    for (const s of CORE_SKILLS) {
+      if (!form.explains[s.id]?.trim()) er[`explains.${s.id}`] = 'One or two sentences, please.';
+    }
+    const unanswered = QUIZ_QUESTIONS.filter((q) => !form.quiz[q.id]).length;
+    if (unanswered) er.quiz = `${unanswered} question${unanswered === 1 ? '' : 's'} still need an answer.`;
+
+    if (!form.motion) er.motion = 'Choose one motion.';
+    for (const p of MOTION_PROMPTS) {
+      if (!form.motionAnswers[p.id]?.trim()) er[`motionAnswers.${p.id}`] = 'A line or two, please.';
     }
     return er;
   }
@@ -109,9 +145,7 @@ export function SelfReportQuiz() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...identity,
-          answers,
-          ...reflections,
+          ...form,
           pageUrl: typeof window !== 'undefined' ? window.location.href : '',
           website_url: honeypot,
         }),
@@ -120,7 +154,12 @@ export function SelfReportQuiz() {
       if (!res.ok || body.ok === false) {
         throw new Error(body.error || 'Something went wrong. Please try again.');
       }
-      setResult(scoreSelfReport(answers));
+      setDone(true);
+      try {
+        window.localStorage.removeItem(DRAFT_KEY);
+      } catch {
+        // ignore
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
       setFailed(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
@@ -129,41 +168,17 @@ export function SelfReportQuiz() {
     }
   }
 
-  if (result) {
-    const first = identity.studentName.trim().split(/\s+/)[0] || 'there';
+  if (done) {
+    const first = form.studentName.trim().split(/\s+/)[0] || 'there';
     return (
-      <div className="rounded-sm border border-navy-200 bg-white p-6 sm:p-8" role="status">
+      <div className={cardClass} role="status">
         <h2 className="font-display text-2xl font-semibold text-navy-900">Thank you, {first}</h2>
-        <p className="mt-2 text-sm leading-relaxed text-navy-600">
-          Your coach has your answers. Here is how you rated yourself, weighted the way a World Schools
-          ballot is (content 40, style 40, strategy 20).
+        <p className="mt-3 text-sm leading-relaxed text-navy-600">
+          Your check-in is saved. Your coach will read and mark it, then go through it with you in class,
+          so you can close this page now.
         </p>
-
-        <div className="mt-6 flex items-baseline gap-3">
-          <span className="font-display text-5xl font-bold text-signal-500">{result.overall}</span>
-          <span className="text-sm text-navy-500">out of 100, by your own account</span>
-        </div>
-
-        <ul className="mt-6 space-y-5">
-          {result.areas.map((a) => (
-            <li key={a.id}>
-              <div className="flex items-baseline justify-between text-sm">
-                <span className="font-semibold text-navy-900">
-                  {a.name} <span className="font-normal text-navy-500">({a.weight}%)</span>
-                </span>
-                <span className="font-mono text-navy-700">{a.average.toFixed(1)} / 5</span>
-              </div>
-              <div className="mt-1.5 h-2 w-full rounded-sm bg-navy-100">
-                <div className="h-2 rounded-sm bg-signal-500" style={{ width: `${a.percent}%` }} />
-              </div>
-              <p className="mt-1.5 text-xs text-navy-500">{describeBand(a.percent)}</p>
-            </li>
-          ))}
-        </ul>
-
-        <p className="mt-8 text-xs leading-relaxed text-navy-500">
-          A self-rating is a starting point, not a verdict. Your coach will set it next to what they see
-          in your rounds and talk it through with you in class. Questions? Email{' '}
+        <p className="mt-5 text-xs leading-relaxed text-navy-500">
+          Questions? Email{' '}
           <a href={`mailto:${CONTACT_EMAIL}`} className="font-semibold text-signal-500 underline underline-offset-4">
             {CONTACT_EMAIL}
           </a>
@@ -173,11 +188,33 @@ export function SelfReportQuiz() {
     );
   }
 
+  const ratingButtons = (id: string) => (
+    <div className="mt-2.5 grid grid-cols-4 gap-1.5 sm:gap-2" role="radiogroup">
+      {RATING_SCALE.map((s) => {
+        const on = form.ratings[id] === s.value;
+        return (
+          <button
+            key={s.value}
+            type="button"
+            role="radio"
+            aria-checked={on}
+            title={s.label}
+            onClick={() => setIn('ratings', id, s.value)}
+            className={`${choiceBase} flex flex-col items-center gap-1 px-1 py-2 text-center text-xs sm:px-2 ${on ? choiceOn : choiceOff}`}
+          >
+            <span className="font-mono text-sm font-semibold">{s.value}</span>
+            <span className="hidden leading-tight sm:block">{s.label}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+
   return (
     <form onSubmit={onSubmit} className="space-y-10" noValidate>
-      {/* Part 1: who */}
-      <section className="rounded-sm border border-navy-200 bg-white p-6 sm:p-8">
-        <h2 className="font-display text-xl font-semibold text-navy-900">1. About you</h2>
+      {/* Who */}
+      <section className={cardClass}>
+        <h2 className="font-display text-xl font-semibold text-navy-900">Before you start</h2>
         <div className="mt-5 grid gap-5 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <label htmlFor="sr-name" className={labelClass}>
@@ -187,8 +224,8 @@ export function SelfReportQuiz() {
               id="sr-name"
               type="text"
               autoComplete="name"
-              value={identity.studentName}
-              onChange={(e) => setField('studentName', e.target.value)}
+              value={form.studentName}
+              onChange={(e) => setTop('studentName', e.target.value)}
               aria-invalid={errors.studentName ? 'true' : undefined}
               className={inputClass}
             />
@@ -200,8 +237,8 @@ export function SelfReportQuiz() {
             </label>
             <select
               id="sr-grade"
-              value={identity.grade}
-              onChange={(e) => setField('grade', e.target.value)}
+              value={form.grade}
+              onChange={(e) => setTop('grade', e.target.value)}
               aria-invalid={errors.grade ? 'true' : undefined}
               className={inputClass}
             >
@@ -220,8 +257,8 @@ export function SelfReportQuiz() {
             </label>
             <select
               id="sr-class"
-              value={identity.className}
-              onChange={(e) => setField('className', e.target.value)}
+              value={form.className}
+              onChange={(e) => setTop('className', e.target.value)}
               aria-invalid={errors.className ? 'true' : undefined}
               className={inputClass}
             >
@@ -235,26 +272,6 @@ export function SelfReportQuiz() {
             {errors.className && <p className={errClass}>{errors.className}</p>}
           </div>
           <div className="sm:col-span-2">
-            <span className={labelClass}>How long have you been debating?</span>
-            <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4" data-error={errors.experience ? 'true' : undefined}>
-              {SELF_REPORT_EXPERIENCE.map((opt) => {
-                const on = identity.experience === opt;
-                return (
-                  <button
-                    key={opt}
-                    type="button"
-                    aria-pressed={on}
-                    onClick={() => setField('experience', opt)}
-                    className={`rounded-sm border px-3 py-2.5 text-sm transition ${on ? scaleOn : scaleOff}`}
-                  >
-                    {opt}
-                  </button>
-                );
-              })}
-            </div>
-            {errors.experience && <p className={errClass}>{errors.experience}</p>}
-          </div>
-          <div className="sm:col-span-2">
             <label htmlFor="sr-email" className={labelClass}>
               Email <span className="font-normal text-navy-500">(optional)</span>
             </label>
@@ -262,8 +279,8 @@ export function SelfReportQuiz() {
               id="sr-email"
               type="email"
               autoComplete="email"
-              value={identity.email}
-              onChange={(e) => setField('email', e.target.value)}
+              value={form.email}
+              onChange={(e) => setTop('email', e.target.value)}
               aria-invalid={errors.email ? 'true' : undefined}
               className={inputClass}
             />
@@ -271,94 +288,182 @@ export function SelfReportQuiz() {
             {errors.email && <p className={errClass}>{errors.email}</p>}
           </div>
         </div>
+        <p className="mt-5 text-xs leading-relaxed text-navy-500">
+          Your answers are saved in this browser as you type, so a refresh will not lose them. Nothing is
+          sent until you press the button at the end.
+        </p>
       </section>
 
-      {/* Part 2: statements */}
-      <section className="rounded-sm border border-navy-200 bg-white p-6 sm:p-8" data-error={errors.answers ? 'true' : undefined}>
-        <h2 className="font-display text-xl font-semibold text-navy-900">2. Rate yourself</h2>
+      {/* Part A */}
+      <section className={cardClass} data-error={errors.ratings ? 'true' : undefined}>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">Part A · 10 minutes</p>
+        <h2 className="mt-2 font-display text-xl font-semibold text-navy-900">Skills self-report</h2>
         <p className="mt-2 text-sm leading-relaxed text-navy-600">
-          For each statement, pick how often it is true of you in a real round. Think about your last few
-          debates, not your best one.
+          Rate every statement from 1 to 4. For the nine core skills, also write one or two sentences to
+          explain.
         </p>
-        <p className="mt-2 font-mono text-xs text-navy-500">
-          {answered} of {SELF_REPORT_QUESTIONS.length} answered
-        </p>
+        <p className="mt-3 border-l-2 border-signal-500 pl-3 text-sm italic text-navy-700">{PART_A_NOTE}</p>
+        <ol className="mt-4 space-y-1 text-xs text-navy-600">
+          {RATING_SCALE.map((s) => (
+            <li key={s.value}>
+              <span className="mr-2 font-mono font-semibold text-navy-900">{s.value}</span>
+              {s.label}
+            </li>
+          ))}
+        </ol>
 
-        {SELF_REPORT_AREAS.map((area, areaIndex) => (
-          <fieldset key={area.id} className="mt-8 border-t border-navy-100 pt-6">
-            <legend className="font-display text-lg font-semibold text-navy-900">
-              {area.name} <span className="text-sm font-normal text-navy-500">({area.weight}% of the ballot)</span>
-            </legend>
-            <p className="mt-1 text-sm text-navy-600">{area.intro}</p>
-            <ol className="mt-5 space-y-6">
-              {SELF_REPORT_QUESTIONS.filter((q) => q.area === area.id).map((q, i) => {
-                const n = areaIndex * 5 + i + 1;
-                return (
-                  <li key={q.id}>
-                    <p className="text-sm font-semibold text-navy-900">
-                      <span className="mr-2 font-mono text-signal-500">{String(n).padStart(2, '0')}</span>
-                      {q.text}
-                    </p>
-                    <div className="mt-2.5 flex gap-1.5 sm:gap-2" role="radiogroup" aria-label={q.text}>
-                      {SELF_REPORT_SCALE.map((s) => {
-                        const on = answers[q.id] === s.value;
-                        return (
-                          <button
-                            key={s.value}
-                            type="button"
-                            role="radio"
-                            aria-checked={on}
-                            onClick={() => answer(q.id, s.value)}
-                            className={`${scaleBase} ${on ? scaleOn : scaleOff}`}
-                          >
-                            <span className="font-mono text-sm font-semibold">{s.value}</span>
-                            <span className="hidden leading-tight sm:block">{s.label}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
-          </fieldset>
-        ))}
-        <p className="mt-6 text-xs text-navy-500 sm:hidden">
-          1 = not yet · 2 = sometimes · 3 = about half the time · 4 = most rounds · 5 = every round
-        </p>
-        {errors.answers && <p className={errClass}>{errors.answers}</p>}
+        <h3 className="mt-8 border-t border-navy-100 pt-6 font-display text-lg font-semibold text-navy-900">
+          Core skills: rate, then explain
+        </h3>
+        <ol className="mt-5 space-y-8">
+          {CORE_SKILLS.map((s, i) => (
+            <li key={s.id}>
+              <p className="text-sm font-semibold text-navy-900">
+                <span className="mr-2 font-mono text-signal-500">A{i + 1}</span>
+                <span className="font-bold">{s.name}:</span> {s.text}
+              </p>
+              {ratingButtons(s.id)}
+              <label htmlFor={`sr-explain-${s.id}`} className="mt-3 block text-sm text-navy-700">
+                <span className="font-semibold text-navy-900">Explain:</span> {s.explain}
+              </label>
+              <textarea
+                id={`sr-explain-${s.id}`}
+                rows={3}
+                maxLength={EXPLAIN_MAX_CHARS}
+                value={form.explains[s.id] ?? ''}
+                onChange={(e) => setIn('explains', s.id, e.target.value)}
+                aria-invalid={errors[`explains.${s.id}`] ? 'true' : undefined}
+                className={inputClass}
+              />
+              {errors[`explains.${s.id}`] && <p className={errClass}>{errors[`explains.${s.id}`]}</p>}
+            </li>
+          ))}
+        </ol>
+
+        <h3 className="mt-10 border-t border-navy-100 pt-6 font-display text-lg font-semibold text-navy-900">
+          Supporting skills: rate only
+        </h3>
+        <ol className="mt-5 space-y-6">
+          {SUPPORTING_SKILLS.map((s, i) => (
+            <li key={s.id}>
+              <p className="text-sm font-semibold text-navy-900">
+                <span className="mr-2 font-mono text-signal-500">A{CORE_SKILLS.length + i + 1}</span>
+                {s.text}
+              </p>
+              {ratingButtons(s.id)}
+            </li>
+          ))}
+        </ol>
+        {errors.ratings && <p className={`${errClass} mt-6`}>{errors.ratings}</p>}
       </section>
 
-      {/* Part 3: reflections */}
-      <section className="rounded-sm border border-navy-200 bg-white p-6 sm:p-8">
-        <h2 className="font-display text-xl font-semibold text-navy-900">3. In your own words</h2>
-        <div className="mt-5 space-y-6">
-          {SELF_REPORT_REFLECTIONS.map((r) => (
+      {/* Part B */}
+      <section className={cardClass} data-error={errors.quiz ? 'true' : undefined}>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">Part B · 10 minutes</p>
+        <h2 className="mt-2 font-display text-xl font-semibold text-navy-900">Quiz</h2>
+        <p className="mt-2 text-sm leading-relaxed text-navy-600">
+          Sixteen questions, easy to hard. Pick one answer for each.
+        </p>
+        <ol className="mt-6 space-y-8">
+          {QUIZ_QUESTIONS.map((q, i) => (
+            <li key={q.id}>
+              <p className="text-sm font-semibold text-navy-900">
+                <span className="mr-2 font-mono text-signal-500">{i + 1}</span>
+                {q.text}
+              </p>
+              {q.quote && <p className="mt-2 border-l-2 border-navy-200 pl-3 text-sm italic text-navy-700">&ldquo;{q.quote}&rdquo;</p>}
+              <div className="mt-3 grid gap-2" role="radiogroup" aria-label={q.text}>
+                {q.options.map((o) => {
+                  const on = form.quiz[q.id] === o.key;
+                  return (
+                    <button
+                      key={o.key}
+                      type="button"
+                      role="radio"
+                      aria-checked={on}
+                      onClick={() => setIn('quiz', q.id, o.key as OptionKey)}
+                      className={`${choiceBase} flex gap-3 px-3.5 py-2.5 ${on ? choiceOn : choiceOff}`}
+                    >
+                      <span className="font-mono font-semibold">{o.key}</span>
+                      <span>{o.text}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </li>
+          ))}
+        </ol>
+        {errors.quiz && <p className={`${errClass} mt-6`}>{errors.quiz}</p>}
+      </section>
+
+      {/* Part C */}
+      <section className={cardClass} data-error={errors.motion ? 'true' : undefined}>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">Part C · 10 minutes</p>
+        <h2 className="mt-2 font-display text-xl font-semibold text-navy-900">Motion analysis</h2>
+        <p className="mt-2 text-sm leading-relaxed text-navy-600">{PART_C_NOTE}</p>
+
+        <h3 className="mt-6 text-sm font-semibold text-navy-900">Choose one motion</h3>
+        <div className="mt-2.5 grid gap-2" role="radiogroup" aria-label="Choose one motion">
+          {MOTIONS.map((m, i) => {
+            const on = form.motion === m;
+            return (
+              <button
+                key={m}
+                type="button"
+                role="radio"
+                aria-checked={on}
+                onClick={() => setTop('motion', m)}
+                className={`${choiceBase} flex gap-3 px-3.5 py-2.5 ${on ? choiceOn : choiceOff}`}
+              >
+                <span className="font-mono font-semibold">{i + 1}</span>
+                <span>{m}</span>
+              </button>
+            );
+          })}
+        </div>
+        {errors.motion && <p className={errClass}>{errors.motion}</p>}
+
+        <h3 className="mt-8 text-sm font-semibold text-navy-900">Answer every prompt</h3>
+        <ol className="mt-4 space-y-6">
+          {MOTION_PROMPTS.map((p) => (
+            <li key={p.id}>
+              <label htmlFor={`sr-${p.id}`} className="block text-sm text-navy-700">
+                <span className="mr-2 font-mono text-signal-500">{p.id.toUpperCase()}</span>
+                <span className="font-semibold text-navy-900">{p.name}:</span> {p.text}
+              </label>
+              <textarea
+                id={`sr-${p.id}`}
+                rows={3}
+                maxLength={MOTION_ANSWER_MAX_CHARS}
+                value={form.motionAnswers[p.id] ?? ''}
+                onChange={(e) => setIn('motionAnswers', p.id, e.target.value)}
+                aria-invalid={errors[`motionAnswers.${p.id}`] ? 'true' : undefined}
+                className={inputClass}
+              />
+              {errors[`motionAnswers.${p.id}`] && <p className={errClass}>{errors[`motionAnswers.${p.id}`]}</p>}
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* Reflection */}
+      <section className={cardClass}>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-signal-500">Optional · 1 minute</p>
+        <h2 className="mt-2 font-display text-xl font-semibold text-navy-900">Open reflection</h2>
+        <div className="mt-5 space-y-5">
+          {REFLECTIONS.map((r) => (
             <div key={r.id}>
               <label htmlFor={`sr-${r.id}`} className={labelClass}>
                 {r.label}
-                {!r.required && <span className="font-normal text-navy-500"> (optional)</span>}
               </label>
               <textarea
                 id={`sr-${r.id}`}
-                rows={4}
+                rows={2}
                 maxLength={REFLECTION_MAX_CHARS}
-                value={reflections[r.id]}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  setReflections((prev) => ({ ...prev, [r.id]: value }));
-                  setErrors((prev) => {
-                    if (!prev[r.id]) return prev;
-                    const next = { ...prev };
-                    delete next[r.id];
-                    return next;
-                  });
-                }}
-                aria-invalid={errors[r.id] ? 'true' : undefined}
+                value={form.reflections[r.id] ?? ''}
+                onChange={(e) => setIn('reflections', r.id, e.target.value)}
                 className={inputClass}
               />
-              <p className={helpClass}>{r.help}</p>
-              {errors[r.id] && <p className={errClass}>{errors[r.id]}</p>}
             </div>
           ))}
         </div>
@@ -384,7 +489,7 @@ export function SelfReportQuiz() {
         >
           {submitting ? 'Sending…' : 'Send to my coach'}
         </button>
-        <p className="mt-2 text-xs text-navy-500">You will see your own scores straight away.</p>
+        <p className="mt-2 text-xs text-navy-500">Check your answers first: you can only send once.</p>
       </div>
     </form>
   );
