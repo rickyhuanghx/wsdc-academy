@@ -44,6 +44,11 @@ const nextConfig: NextConfig = {
         source: '/for/:path*',
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet, noimageindex' }],
       },
+      // Coach desk (/admin/*): private tooling, key-gated; never indexed.
+      {
+        source: '/admin/:path*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet, noimageindex' }],
+      },
       // Unlisted 1-on-1 request form: same treatment, shared by direct link only.
       // Belt and braces with the noindex metadata in src/app/coaching-1on1/page.tsx.
       {
