@@ -28,6 +28,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5 text-sm">
               <li><Link href="/debate-coaching" className="text-navy-100 hover:text-white">Debate Coaching Overview</Link></li>
               <li><Link href="/online-debate-classes" className="text-navy-100 hover:text-white">Online Debate Classes</Link></li>
+              <li><Link href="/online-debate-classes-uk" className="text-navy-100 hover:text-white">Online Debate Classes: UK &amp; Europe</Link></li>
               <li><Link href="/winter-debate-camp" className="text-navy-100 hover:text-white">Winter Debate Camp</Link></li>
               <li><Link href="/programs/winter-academy" className="text-navy-100 hover:text-white">Winter Academy</Link></li>
               <li><Link href="/programs/advanced-winter-academy" className="text-navy-100 hover:text-white">Advanced Winter Academy</Link></li>

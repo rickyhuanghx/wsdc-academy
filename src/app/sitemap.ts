@@ -71,6 +71,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/winter-debate-camp', file: 'src/app/winter-debate-camp/page.tsx', changeFrequency: 'monthly', priority: 0.85 },
     { path: '/summer-debate-camp', file: 'src/app/summer-debate-camp/page.tsx', changeFrequency: 'monthly', priority: 0.85 },
     { path: '/online-debate-classes', file: 'src/app/online-debate-classes/page.tsx', changeFrequency: 'monthly', priority: 0.85 },
+    { path: '/online-debate-classes-uk', file: 'src/app/online-debate-classes-uk/page.tsx', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/motions/wsdc', file: 'src/app/motions/wsdc/page.tsx', changeFrequency: 'monthly', priority: 0.85 },
     { path: '/blog', file: 'src/app/blog/page.tsx', changeFrequency: 'weekly', priority: 0.85 },
     { path: '/programs', file: 'src/app/programs/page.tsx', changeFrequency: 'weekly', priority: 0.9 },

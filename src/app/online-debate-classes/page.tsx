@@ -55,7 +55,7 @@ const pageFaqs = [
   {
     question: 'How do time zones work for a live online class?',
     answer:
-      'Classes are anchored to US Eastern time with slots chosen for American school schedules, and every schedule on the site converts automatically to your local time zone. Students join from across the country; the roster is not tied to one city.',
+      'Classes are anchored to US Eastern time with slots chosen for American school schedules, and every schedule on the site converts automatically to your local time zone. Students join from across the country; the roster is not tied to one city. Families in the UK and Europe can see the same classes in their own clock on the UK and Europe page.',
   },
   {
     question: 'What does a typical class session look like?',
@@ -306,6 +306,14 @@ export default function OnlineDebateClassesPage() {
             </p>
           </div>
         </div>
+        <p className="mt-6 leading-relaxed text-navy-700">
+          Joining from the UK or Europe? The{' '}
+          <Link href="/online-debate-classes-uk" className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600">
+            UK and Europe page
+          </Link>{' '}
+          shows the same classes in UK and Central European time, with prices
+          in pounds and euros.
+        </p>
         <p className="mt-6 leading-relaxed text-navy-700">
           Unsure which group fits? A coach confirms placement by grade and
           experience at enrollment, or a{' '}

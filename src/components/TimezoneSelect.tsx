@@ -7,8 +7,8 @@
 import { useEffect, useState } from 'react';
 import { ANCHOR_ZONE, ZONES, detectZone, friendlyZoneName } from '@/lib/schedule';
 
-export function useViewerTimezone() {
-  const [zone, setZone] = useState(ANCHOR_ZONE);
+export function useViewerTimezone(initialZone: string = ANCHOR_ZONE) {
+  const [zone, setZone] = useState(initialZone);
   const [options, setOptions] = useState(ZONES);
 
   useEffect(() => {

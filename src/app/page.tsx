@@ -133,7 +133,12 @@ export default function HomePage() {
               <Link href="/online-debate-classes" className="font-semibold text-navy-900 underline decoration-signal-400 underline-offset-4 hover:text-signal-600">
                 online debate classes for kids and teens
               </Link>
-              , taught in small groups on US time zones.
+              , taught in small groups at weekend times that work for the US,
+              the UK, Europe and the Gulf (
+              <Link href="/online-debate-classes-uk" className="font-semibold text-navy-900 underline decoration-signal-400 underline-offset-4 hover:text-signal-600">
+                UK and Europe times here
+              </Link>
+              ).
             </p>
           </div>
 

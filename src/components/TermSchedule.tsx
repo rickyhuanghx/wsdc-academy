@@ -20,8 +20,18 @@ interface Row {
   slot: ScheduleSlot;
 }
 
-export function TermSchedule({ programs }: { programs: ProgramSchedule[] }) {
-  const { zone, setZone, options } = useViewerTimezone();
+export function TermSchedule({
+  programs,
+  initialZone,
+  intro,
+}: {
+  programs: ProgramSchedule[];
+  /** Zone for the server-rendered HTML (defaults to US Eastern). Viewer detection still overrides on mount. */
+  initialZone?: string;
+  /** Optional replacement for the default description line. */
+  intro?: string;
+}) {
+  const { zone, setZone, options } = useViewerTimezone(initialZone);
 
   const rows: Row[] = [];
   for (const p of programs) {
@@ -51,8 +61,8 @@ export function TermSchedule({ programs }: { programs: ProgramSchedule[] }) {
         <div>
           <h2 className="font-display text-2xl font-semibold text-navy-900">Full class schedule</h2>
           <p className="mt-2 max-w-xl text-sm text-navy-600">
-            Every group class in Term 1, in your timezone. Each program runs Junior and Senior groups
-            with two time-slot options; a coach confirms the slot when you enroll.
+            {intro ??
+              'Every group class in Term 1, in your timezone. Each program runs Junior and Senior groups with two time-slot options; a coach confirms the slot when you enroll.'}
           </p>
         </div>
         <TimezoneSelect zone={zone} options={options} onChange={setZone} id="term-schedule-tz" />

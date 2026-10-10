@@ -6,6 +6,25 @@ import { type PublicTournament, tournamentDescription } from '@/lib/tournaments'
 
 const baseUrl = SITE_URL;
 
+// Where students join from (Stripe + roster, Oct 2026) plus the English-
+// speaking markets we sell into. Descriptive only: structured data is not a
+// ranking input, so listing the UK and Europe here does not move US positions.
+// Online classes, so no physical address.
+const SERVED_COUNTRIES = [
+  'United States',
+  'Canada',
+  'United Kingdom',
+  'Ireland',
+  'France',
+  'Spain',
+  'Germany',
+  'Netherlands',
+  'Switzerland',
+  'United Arab Emirates',
+  'Hong Kong',
+  'India',
+];
+
 // NOTE: never add aggregateRating to any schema here unless it comes from a
 // verifiable third-party source (e.g. Google Business Profile). Self-declared
 // ratings violate Google's structured-data policy. (Lesson learned on wscprep.com.)
@@ -36,7 +55,7 @@ export function OrganizationJsonLd() {
       contactType: 'customer service',
       email: CONTACT_EMAIL,
       telephone: CONTACT_PHONE,
-      areaServed: 'US',
+      areaServed: SERVED_COUNTRIES,
       availableLanguage: ['English'],
     },
     hasOfferCatalog: {
@@ -143,10 +162,7 @@ export function ServiceJsonLd() {
       '@id': `${baseUrl}/#organization`,
     },
     serviceType: 'Educational Coaching',
-    areaServed: {
-      '@type': 'Country',
-      name: 'United States',
-    },
+    areaServed: SERVED_COUNTRIES.map((name) => ({ '@type': 'Country', name })),
     audience: {
       '@type': 'EducationalAudience',
       educationalRole: 'student',
