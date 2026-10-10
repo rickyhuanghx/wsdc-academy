@@ -174,3 +174,48 @@ create index if not exists diagnostic_intakes_token_idx
   on public.diagnostic_intakes (invite_token);
 
 alter table public.diagnostic_intakes enable row level security;
+
+-- ============================================================
+-- Student self-report quiz submissions (/for/self-report). Written by
+-- src/app/api/self-report/route.ts with the service-role key. One row per
+-- submission; a student who takes the quiz each term accrues several rows,
+-- which is the point (compare the answers over time).
+--
+-- Nothing reads this from the browser, so RLS stays on with no policy at all.
+-- The quiz works without this table (the staff email is the primary sink and
+-- a failed insert is logged, never fatal), but this is the durable record.
+-- ============================================================
+create table if not exists public.self_reports (
+  id              uuid primary key default gen_random_uuid(),
+  created_at      timestamptz not null default now(),
+
+  student_name    text not null,
+  student_grade   text,
+  class_name      text,               -- which class they said they are in
+  experience      text,               -- how long they have been debating
+  email           text,
+
+  -- Question id -> 1..5, ids from SELF_REPORT_QUESTIONS in src/lib/self-report.ts.
+  answers         jsonb not null default '{}'::jsonb,
+  went_well       text,
+  improve         text,
+  for_coach       text,
+
+  -- Self-rated 0..100 per ballot area, and the 40/40/20 weighted overall.
+  score_content   int,
+  score_style     int,
+  score_strategy  int,
+  score_overall   int,
+
+  page_url        text,
+
+  -- Follow-up state, maintained by hand: new -> read -> discussed.
+  status          text not null default 'new'
+);
+
+create index if not exists self_reports_created_at_idx
+  on public.self_reports (created_at desc);
+create index if not exists self_reports_student_idx
+  on public.self_reports (student_name);
+
+alter table public.self_reports enable row level security;

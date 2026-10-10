@@ -64,6 +64,8 @@ Next.js 16 App Router · React 19 · Tailwind 4 (`@theme` in `src/app/globals.cs
 
 `/trial` and `/contact` use the shared `LeadForm` client component posting JSON to `src/app/api/{trial,contact}/route.ts`. Server pattern (from wsc-academy): honeypot field `website_url` (silent 200), per-IP rate limit (5/min, in-memory), validation, then admin notification via **Resend HTTP API** (plain fetch in `src/lib/leads.ts`, no SDK — `sendEmail()` there is the generic sender). Email failure never fails the request.
 
+**Private self-report quiz (2026-10-10):** `/for/self-report` is a password-gated student self-assessment (15 statements on a 1–5 scale grouped by the 40/40/20 ballot areas + 3 reflections). Unlisted like the rest of `/for/*` (noindex layout, X-Robots-Tag header, no sitemap/llms.txt/menu entry) AND gated: the page reads an httpOnly cookie (`src/lib/self-report-auth.ts`, HMAC derived from `SELF_REPORT_PASSWORD`) and renders `SelfReportGate` until `/api/self-report/unlock` (rate-limited, constant-time compare) sets it. Changing the env var logs every browser out; unset = page says "Not open yet". Submissions go to `/api/self-report` (re-checks the cookie, validates against `src/lib/self-report.ts`, scores with `scoreSelfReport()`), then best-effort Supabase `self_reports` + staff email; the student sees their own scores on the page. Question ids (`c1…t5`) are the stored keys: reword freely, never rename. Share the URL + password with students directly; do not link the page from anywhere on the site.
+
 **Not yet wired:** Supabase lead persistence for the two lead forms (only `orders` has a table so far), user auto-reply emails on lead forms.
 
 ### Store: cart → checkout → Stripe → Supabase (built 2026-07-10, pattern ported from wsc-academy)
@@ -142,4 +144,4 @@ USA Debate application dates (April 1 – June 25 for 2026–27) are season-spec
 
 ## Environment variables
 
-See `.env.example`. `NEXT_PUBLIC_SITE_URL` (domain swap), `RESEND_API_KEY` / `RESEND_FROM_EMAIL` / `ADMIN_NOTIFICATION_EMAIL` (lead + order emails; degrade to console logging without them), `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` / `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` (checkout + webhook), `NEXT_PUBLIC_SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` (order persistence).
+See `.env.example`. `NEXT_PUBLIC_SITE_URL` (domain swap), `RESEND_API_KEY` / `RESEND_FROM_EMAIL` / `ADMIN_NOTIFICATION_EMAIL` (lead + order emails; degrade to console logging without them), `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` / `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` (checkout + webhook), `NEXT_PUBLIC_SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` (order persistence), `SELF_REPORT_PASSWORD` (shared password for the private `/for/self-report` quiz; unset = page closed).
