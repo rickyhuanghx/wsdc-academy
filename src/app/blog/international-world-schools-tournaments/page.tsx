@@ -236,7 +236,7 @@ export default function InternationalTournamentsPost() {
           Parliamentary; Hanoi&apos;s Asian Schools Debating Championship uses
           Asian Parliamentary. All excellent; none of them World Schools. If
           your season goal is WS development (or a{' '}
-          <Link href="/blog/world-schools-debate-tournaments" className="font-semibold text-signal-500 hover:text-signal-600">
+          <Link href="/world-schools-debate-tournaments" className="font-semibold text-signal-500 hover:text-signal-600">
             TOC bid back home
           </Link>
           ), check the format line in the invite before anything else.
@@ -261,7 +261,7 @@ export default function InternationalTournamentsPost() {
         <p className="mt-5 leading-relaxed text-navy-700">
           For the domestic half of the calendar (the bid circuit, state
           championships, and NSDA Nationals), see{' '}
-          <Link href="/blog/world-schools-debate-tournaments" className="font-semibold text-signal-500 hover:text-signal-600">
+          <Link href="/world-schools-debate-tournaments" className="font-semibold text-signal-500 hover:text-signal-600">
             the full tournament map
           </Link>
           .

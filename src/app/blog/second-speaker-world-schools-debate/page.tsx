@@ -137,8 +137,8 @@ export default function SecondSpeakerPost() {
             second speaker cheat sheet
           </Link>{' '}
           and run it against motions from the{' '}
-          <Link href="/resources/practice-motions" className="font-semibold text-signal-500 hover:text-signal-600">
-            practice bank
+          <Link href="/resources/motion-types" className="font-semibold text-signal-500 hover:text-signal-600">
+            practice motions by type
           </Link>
           . The structure becomes automatic faster than you&apos;d think.
         </p>

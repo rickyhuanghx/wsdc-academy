@@ -23,9 +23,19 @@ const motionTypes = [
     what: 'The proposition must defend a specific policy, with a model that defines how the motion would actually be implemented. The opposition can defend the status quo or propose a countermodel: a different policy that solves the same problem their way.',
     burden: 'Prove your policy works better in the real world than the alternative.',
     hinge: 'Real-world knowledge, feasibility, and the consequences of each side’s policy. Vague models lose; the team with the more concrete picture of implementation usually controls the debate.',
+    slug: 'policy',
+    drill: 'Proposition must model the policy; opposition may countermodel. Drill implementation detail and real-world consequences.',
     examples: [
       'This House would ban private education.',
       'This House believes that the United States should implement a universal basic income.',
+      'This House would make voting compulsory.',
+      'This House would ban targeted political advertising on social media.',
+      'This House would require social media platforms to verify the age of all users.',
+      'This House would abolish standardized testing in university admissions.',
+      'This House would impose a carbon tax on imported goods.',
+      'This House would pay college athletes a salary.',
+      'This House believes that developing countries should nationalize their natural-resource industries.',
+      'This House would grant legal personhood to rivers and forests.',
     ],
   },
   {
@@ -34,9 +44,19 @@ const motionTypes = [
     what: 'There is no policy to defend. Instead, each team argues that its side of a principle, trend, or moral claim is preferable. These are debates about how the world should be understood, not what should be done.',
     burden: 'Prove your side of the value claim is more true or more desirable, on balance.',
     hinge: 'Analytical depth and moral persuasion. The winning team usually controls the framework: whose measure of “harm” or “good” the judge ends up using.',
+    slug: 'value',
+    drill: 'No model to defend: win the framework. Drill metrics, moral weighing, and framing.',
     examples: [
       'This House believes that nationalism does more harm than good.',
+      'This House believes that social media has done more harm than good for democracy.',
       'This House believes that developing countries should prioritise environmental protection over economic growth.',
+      'This House believes that influencer culture has harmed young people.',
+      'This House believes that charity is a poor substitute for justice.',
+      'This House believes that the pursuit of prestige does more harm than good in education.',
+      'This House believes that artificial intelligence will do more good than harm for workers.',
+      'This House believes that celebrity activism does more good than harm.',
+      'This House believes that competitive sports do more good than harm for children.',
+      'This House believes that globalization has done more good than harm for cultural diversity.',
     ],
   },
   {
@@ -45,9 +65,19 @@ const motionTypes = [
     what: 'Both teams argue from the perspective of a named actor (a country, a movement, an institution). The question is not what is best for the world in general, but what this actor should do given its own interests and values.',
     burden: 'Prove your side is preferable from the actor’s perspective, not from everyone’s.',
     hinge: 'Characterization. The team that builds the more credible picture of the actor’s incentives, constraints, and priorities gets to decide what “winning” means for that actor.',
+    slug: 'actor',
+    drill: 'Argue from the named actor’s perspective. Drill characterization: incentives, constraints, and what “winning” means for the actor.',
     examples: [
       'This House, as Ukraine, would pursue a ceasefire with Russia.',
       'This House, as the feminist movement, believes that embracing traditional femininity undermines gender equality.',
+      'This House, as the environmental movement, would embrace nuclear power.',
+      'This House, as a small island nation, would sell citizenship to fund climate adaptation.',
+      'This House, as the labor movement, would oppose fully remote work.',
+      'This House, as the African Union, would adopt a single continental currency.',
+      'This House, as a parent, would prohibit their child from social media until age 16.',
+      'This House, as the international art community, would return all colonial-era artifacts to their countries of origin.',
+      'This House, as a developing country, would prioritize STEM education over the humanities.',
+      'This House, as the scientific community, would refuse to collaborate with militaries.',
     ],
   },
   {
@@ -56,7 +86,20 @@ const motionTypes = [
     what: 'A counterfactual: would the world have been better off if the thing named in the motion had never happened? The proposition regrets it; the opposition defends it. Neither side gets to propose fixing it. The debate is about the alternative history.',
     burden: 'Prove the world without X would have been better (or worse) than the world with it.',
     hinge: 'Imaginative but disciplined counterfactual analysis. The critical move is defining the most plausible alternative world. Teams that regret something without saying what would have filled the gap lose to teams that do.',
-    examples: ['This House regrets the professionalisation of sports.'],
+    slug: 'regret',
+    drill: 'Debate the counterfactual world. Drill defining the most plausible alternative history, and holding both teams to it.',
+    examples: [
+      'This House regrets the professionalisation of sports.',
+      'This House regrets the rise of the gig economy.',
+      'This House regrets the dominance of the college degree as a hiring signal.',
+      'This House regrets the commercialization of space exploration.',
+      'This House regrets the rise of true-crime entertainment.',
+      'This House regrets the invention of the “like” button.',
+      'This House regrets the narrative that hard work guarantees success.',
+      'This House regrets the decline of local newspapers.',
+      'This House regrets the gamification of education.',
+      'This House regrets the rise of fast fashion.',
+    ],
   },
 ];
 
@@ -113,6 +156,21 @@ export default function MotionTypesPage() {
             </Link>: a team that misreads the motion type spends eight minutes a
             speech proving the wrong thing.
           </p>
+          <p className="mt-4 leading-relaxed text-navy-700">
+            Each type below comes with ten World Schools practice motions, all
+            debatable on both sides: forty in total, enough for a season of
+            scrimmages, timed prep-hour drills, or solo casebuilding. A good
+            session is one motion, one hour of prep, one judged round. For more
+            World Schools motions, the full{' '}
+            <Link href="/motions" className="font-semibold text-signal-500 hover:text-signal-600">
+              motion bank
+            </Link>{' '}
+            has 12,000+ real tournament motions, including{' '}
+            <Link href="/motions/wsdc" className="font-semibold text-signal-500 hover:text-signal-600">
+              every Worlds motion since 1994
+            </Link>
+            .
+          </p>
         </header>
 
         {motionTypes.map((type, i) => (
@@ -136,17 +194,50 @@ export default function MotionTypesPage() {
               </div>
             </div>
             <div className="mt-5">
-              <p className="text-xs font-bold uppercase tracking-wider text-navy-500">Example motions</p>
-              <ul className="mt-2 space-y-2">
-                {type.examples.map((m) => (
-                  <li key={m} className="border-l-2 border-signal-500 pl-4 font-display italic text-navy-800">
-                    {m}
+              <h3 className="text-xs font-bold uppercase tracking-wider text-navy-500">
+                10 {type.name.replace(' motions', '').toLowerCase()} practice motions
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-navy-600">{type.drill}</p>
+              <ol className="mt-4 space-y-3">
+                {type.examples.map((m, n) => (
+                  <li key={m} className="flex gap-4 border-t border-navy-200 pt-3">
+                    <span className="stat font-display text-lg font-bold text-signal-500">
+                      {String(n + 1).padStart(2, '0')}
+                    </span>
+                    <span className="font-display italic leading-relaxed text-navy-800">{m}</span>
                   </li>
                 ))}
-              </ul>
+              </ol>
+              <p className="mt-4 text-sm">
+                <Link
+                  href={`/motions?type=${type.slug}#explorer`}
+                  className="font-semibold text-signal-500 hover:text-signal-600"
+                >
+                  Search every {type.name.toLowerCase().replace(' motions', '')} motion in the motion bank
+                </Link>
+              </p>
             </div>
           </section>
         ))}
+
+        <section className="mt-12 border-t-2 border-navy-900 pt-8">
+          <h2 className="text-2xl font-bold text-navy-900">How to get the most out of a practice motion</h2>
+          <ol className="mt-6 space-y-4">
+            {[
+              ['Prep both sides before you pick one.', 'Ten minutes sketching proposition and opposition cases teaches you more about a motion than an hour on one side. It is also what you must do at a tournament before sides are assigned.'],
+              ['Run real conditions.', 'One hour, no internet, printed materials only. Practicing with your phone open builds habits that fail on tournament day.'],
+              ['Finish with adjudication.', 'A round without feedback is just talking. Have someone judge on the 40/40/20 criteria and give one action item per speaker.'],
+              ['Rotate the families.', 'If your team only ever debates policy motions, your first regret motion at a tournament will feel like a different sport. Cycle through all four types.'],
+            ].map(([title, body], i) => (
+              <li key={title} className="flex gap-4 border-t border-navy-200 pt-4">
+                <span className="font-display text-2xl font-bold text-signal-500">{i + 1}</span>
+                <p className="leading-relaxed text-navy-700">
+                  <strong>{title}</strong> {body}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </section>
 
         <section className="mt-12 border-t-2 border-navy-900 pt-8">
           <h2 className="text-2xl font-bold text-navy-900">Common questions</h2>
@@ -164,11 +255,7 @@ export default function MotionTypesPage() {
             ))}
           </div>
           <p className="mt-8 leading-relaxed text-navy-700">
-            Ready to drill? The{' '}
-            <Link href="/resources/practice-motions" className="font-semibold text-signal-500 hover:text-signal-600">
-              practice motion bank
-            </Link>{' '}
-            has ten motions of each type, and the{' '}
+            Ready to drill? Pick a motion from any list above, and the{' '}
             <Link href="/resources/prep-hour-planner" className="font-semibold text-signal-500 hover:text-signal-600">
               prep planner
             </Link>{' '}

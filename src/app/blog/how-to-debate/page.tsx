@@ -162,9 +162,8 @@ export default function HowToDebatePost() {
           our{' '}
           <InLink href="/online-debate-classes">online debate classes for
           kids and teens</InLink> run it every week in small groups. If you
-          are comparing providers, the{' '}
-          <InLink href="/blog/best-online-debate-classes">guide to choosing
-          an online debate class</InLink> lists the questions worth asking.
+          are comparing providers, the checklist on that page lists the
+          questions worth asking.
         </p>
       </section>
     </BlogPostShell>

@@ -183,8 +183,8 @@ export default function PrepHourPlannerPage() {
               third speaker
             </Link>{' '}
             cheat sheets, and drill the schedule on motions from the{' '}
-            <Link href="/resources/practice-motions" className="font-semibold text-signal-500 hover:text-signal-600">
-              practice motion bank
+            <Link href="/resources/motion-types" className="font-semibold text-signal-500 hover:text-signal-600">
+              World Schools practice motions by type
             </Link>
             .
           </p>

@@ -111,7 +111,7 @@ export default function UsaDebateApplicationPost() {
               that scrimmages weekly. Rotate roles deliberately, one chair per
               tournament or practice block, and keep the written feedback from
               every judged round. The{' '}
-              <Link href="/blog/world-schools-debate-tournaments" className="font-semibold text-signal-500 hover:text-signal-600">
+              <Link href="/world-schools-debate-tournaments" className="font-semibold text-signal-500 hover:text-signal-600">
                 tournament map
               </Link>{' '}
               lists where the rounds are, including the online circuit if

@@ -283,11 +283,8 @@ export default function ProgramsPage() {
           <Link href="/online-debate-classes" className="font-semibold text-signal-500 hover:text-signal-600">
             online debate classes
           </Link>{' '}
-          sets out ages, prices, and a typical week, and our{' '}
-          <Link href="/blog/best-online-debate-classes" className="font-semibold text-signal-500 hover:text-signal-600">
-            guide to choosing an online debate class
-          </Link>{' '}
-          covers the alternatives. Not sure where to start?{' '}
+          sets out ages, prices, and a typical week, plus a checklist for
+          comparing any provider. Not sure where to start?{' '}
           <Link href="/consultation" className="font-semibold text-signal-500 hover:text-signal-600">
             Book a consultation
           </Link>{' '}

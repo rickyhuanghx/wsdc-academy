@@ -45,15 +45,6 @@ export const resources: Resource[] = [
     printable: true,
   },
   {
-    slug: 'practice-motions',
-    title: 'Practice Motion Bank',
-    shortTitle: 'Practice Motions',
-    description:
-      '40 World Schools practice motions organized by motion type (policy, value, actor, and regret) for scrimmages and prep drills.',
-    category: 'Practice & prep',
-    printable: false,
-  },
-  {
     slug: 'debate-research-system',
     title: 'The Debate Research System',
     shortTitle: 'Research System',

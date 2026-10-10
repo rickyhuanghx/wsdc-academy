@@ -242,8 +242,8 @@ export default function JudgingBallotPage() {
             Judging a practice round, incidentally, is one of the
             fastest ways for a debater to improve; hand teammates this
             ballot and rotate the job, with motions from the{' '}
-            <InLink href="/resources/practice-motions">practice
-            bank</InLink>.
+            <InLink href="/resources/motion-types">World Schools
+            practice motions by type</InLink>.
           </p>
         </section>
 

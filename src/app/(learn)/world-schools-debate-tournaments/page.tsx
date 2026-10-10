@@ -327,10 +327,36 @@ export default function WorldSchoolsTournamentsPage() {
             <Ext href="https://www.inspeechanddebate.org/tournaments/state-debate">Indiana</Ext>, Florida, Washington,{' '}
             <Ext href="https://www.wisdaa.org/docs/debate/debate-categories-rules/debate-categories/">Wisconsin</Ext> and{' '}
             <Ext href="https://actaa.org/World-Schools-Debate-(WS)">Arkansas</Ext>. If your state runs nothing, the NSDA district route to
-            Nationals, the online events above and the invitational circuit are all open regardless. The national picture, the internationals
-            American teams can enter, and how to build a season from this list are in{' '}
-            <Link href="/blog/world-schools-debate-tournaments" className="font-semibold text-signal-500 hover:text-signal-600">
-              the World Schools tournament map
+            Nationals, the online events above and the invitational circuit are all open regardless.
+          </p>
+        </section>
+
+        <section id="season" className="mt-14 scroll-mt-24 max-w-3xl">
+          <h2 className="text-2xl font-bold text-navy-900">How to build a World Schools season from this list</h2>
+          <ol className="mt-5 space-y-4">
+            {[
+              ['Anchor on one fall and one winter invitational', 'within travel range, ideally TOC bid events, so results compound into qualification.'],
+              ['Add your state championship or district tournament', 'the NSDA district route to Nationals needs only that you competed at districts; your district may enter up to two WS teams.'],
+              ['Pick one stretch goal', 'a TOC bid, the Harvard College WS Invitational, Bluebonnet, or, for the adventurous, an international open like Zagreb’s Winter Holidays Open in December.'],
+              ['Let every motion feed the file', 'a season on this circuit produces exactly the case-file material that makes the next tournament’s prep hour faster.'],
+            ].map(([title, body], i) => (
+              <li key={title} className="flex gap-4 border-t border-navy-200 pt-4">
+                <span className="font-display text-2xl font-bold text-signal-500">{i + 1}</span>
+                <p className="leading-relaxed text-navy-700"><strong>{title}</strong> {body}</p>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-5 leading-relaxed text-navy-700">
+            No travel budget? The NSDA Season Opener, Kentucky&apos;s three TOC Digital Series weekends, Harvard National&apos;s online
+            division, the Stanford Invitational and Penn&apos;s all-WS invitational all run online, and the free Springboard scrimmages
+            are the lowest-stakes first tournament there is. For the open internationals American school teams can enter (Istanbul,
+            Zagreb, Prague, Singapore and the online Doxbridge), see{' '}
+            <Link href="/blog/international-world-schools-tournaments" className="font-semibold text-signal-500 hover:text-signal-600">
+              the international World Schools tournament calendar
+            </Link>
+            ; for where each rung leads, read{' '}
+            <Link href="/blog/world-schools-debate-pathway-us" className="font-semibold text-signal-500 hover:text-signal-600">
+              the US World Schools pathway
             </Link>
             .
           </p>
@@ -361,7 +387,7 @@ export default function WorldSchoolsTournamentsPage() {
         <FurtherReading
           heading="Prepare for the season"
           links={[
-            { href: '/blog/world-schools-debate-tournaments', label: 'The World Schools tournament map', note: 'The highlights month by month, state championships, and the internationals American school teams can enter.' },
+            { href: '/blog/international-world-schools-tournaments', label: 'International World Schools tournaments', note: 'The open internationals American school teams can enter, plus the events that are not World Schools format.' },
             { href: '/motions/wsdc', label: 'The WSDC motion archive', note: 'Every World Schools Debating Championships motion since 1994, prepared and impromptu, free to search.' },
             { href: '/resources', label: 'Printable cheat sheets and the prep-hour planner', note: 'Speaker-role sheets and the one-hour impromptu prep system, ready to print for a tournament.' },
             { href: '/programs/competition-team', label: 'Competition Team', note: 'A coached season: which tournaments, which bids, and judged practice rounds every week.' },

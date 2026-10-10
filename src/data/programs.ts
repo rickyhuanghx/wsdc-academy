@@ -554,7 +554,7 @@ export const programs: Program[] = [
     ],
     furtherReading: [
       {
-        href: '/blog/best-online-debate-classes',
+        href: '/online-debate-classes#how-to-choose',
         label: 'How to choose an online debate class',
         note: 'The four things that separate real training from a weekly lecture, and how to check any provider for them, us included.',
       },
@@ -968,7 +968,7 @@ export const programs: Program[] = [
         note: 'For students arriving from PF, every difference to adjust to.',
       },
       {
-        href: '/resources/practice-motions',
+        href: '/resources/motion-types',
         label: '40 practice motions',
         note: 'Sorted by motion type, for practice between sessions.',
       },
@@ -1121,7 +1121,7 @@ export const programs: Program[] = [
         note: '12,400+ real motions, filterable by topic and type for scrimmages.',
       },
       {
-        href: '/blog/world-schools-debate-tournaments',
+        href: '/world-schools-debate-tournaments',
         label: 'Where to compete next',
         note: 'The US circuit and the international opens, for the months after the academy.',
       },
@@ -1295,7 +1295,7 @@ export const programs: Program[] = [
         note: 'For students arriving from PF, every difference to adjust to.',
       },
       {
-        href: '/resources/practice-motions',
+        href: '/resources/motion-types',
         label: '40 practice motions',
         note: 'Sorted by motion type, for practice between sessions.',
       },
@@ -1469,7 +1469,7 @@ export const programs: Program[] = [
         note: '12,400+ real motions, filterable by topic and type for scrimmages.',
       },
       {
-        href: '/blog/world-schools-debate-tournaments',
+        href: '/world-schools-debate-tournaments',
         label: 'Where to compete next',
         note: 'The US circuit and the international opens, for the season after the intensive.',
       },

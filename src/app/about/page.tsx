@@ -157,7 +157,7 @@ export default function AboutPage() {
               note: 'Printable speaker cheat sheets, a prep-hour planner, a format quick reference, and a full glossary.',
             },
             {
-              href: '/blog/world-schools-debate-tournaments',
+              href: '/world-schools-debate-tournaments',
               label: 'The US tournament map',
               note: 'Every place to compete, verified with links: the invitational circuit, TOC bid tiers, NSDA Nationals, and state championships.',
             },

@@ -211,15 +211,48 @@ export default function OnlineDebateClassesPage() {
           (judges score style at 40%), half its motions are impromptu, and
           every student speaks every round, which makes it the strongest
           teaching format we know for this age range. Shopping around first
-          is reasonable: our{' '}
-          <Link
-            href="/blog/best-online-debate-classes"
-            className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
-          >
-            guide to online debate classes
-          </Link>{' '}
-          covers the whole provider landscape, including alternatives to us,
-          and the checklist we would use on any of them.
+          is reasonable, and the checklist below is the one we would use on
+          any provider, including us.
+        </p>
+
+        <h2 id="how-to-choose" className="mt-14 scroll-mt-24 font-display text-2xl font-semibold text-navy-900 sm:text-3xl">
+          How to choose an online debate class
+        </h2>
+        <p className="mt-4 leading-relaxed text-navy-700">
+          Online debate classes range from $15 drop-in sessions to four-figure
+          competitive academies, described in nearly identical language. The
+          difference is not the Zoom link. It is whether the class is a
+          training system or a weekly lecture. Students do not improve from
+          being told about debate; they improve from debating, being judged,
+          and hearing what to fix. Look for four things:
+        </p>
+        <ol className="mt-6 list-decimal space-y-3 pl-6 leading-relaxed text-navy-700">
+          <li>
+            <strong className="text-navy-900">A curriculum with an order.</strong>{' '}
+            Skills stack week over week, not a topic of the week.
+          </li>
+          <li>
+            <strong className="text-navy-900">Real practice rounds.</strong>{' '}
+            Students debate other students, not just the teacher.
+          </li>
+          <li>
+            <strong className="text-navy-900">Qualified judging.</strong>{' '}
+            Someone who knows the format scores those rounds.
+          </li>
+          <li>
+            <strong className="text-navy-900">Written feedback.</strong>{' '}
+            Notes that survive past dinner, so the next session starts from
+            what needs fixing.
+          </li>
+        </ol>
+        <p className="mt-4 leading-relaxed text-navy-700">
+          A class missing two of the four is an enrichment activity. That can
+          be fine, as long as it is priced and chosen as one. Marketplace
+          classes are a good low-commitment way to find out whether a child
+          enjoys arguing a side at all; treat them as the taste test, not the
+          training plan. Before paying for a term anywhere, ask for the
+          curriculum in writing, ask how many judged practice debates a
+          student gets, and ask what feedback looks like after a session.
         </p>
 
         <h2 className="mt-14 font-display text-2xl font-semibold text-navy-900 sm:text-3xl">

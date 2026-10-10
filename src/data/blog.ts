@@ -149,18 +149,6 @@ export const blogPosts: BlogPost[] = [
     date: '2026-07-09',
   },
   {
-    slug: 'world-schools-debate-tournaments',
-    title: 'Where to compete: the World Schools tournament map',
-    metaTitle: 'Where to Compete: World Schools Tournament Map',
-    description:
-      'Where to compete in World Schools Debate, with links: the US season’s highlights month by month, TOC and NSDA Nationals, state championships, the international tournaments American school teams can actually enter, and how to build a season from the full 2026–27 directory.',
-    metaDescription:
-      'Where to compete in World Schools: the season’s highlights month by month, TOC and Nationals, state championships, international opens, and how to plan a season.',
-    category: 'The US circuit',
-    date: '2026-07-10',
-    updated: '2026-09-12',
-  },
-  {
     slug: 'international-world-schools-tournaments',
     title: 'Taking a bench abroad: the international World Schools calendar',
     metaTitle: 'International World Schools Tournaments',
@@ -224,17 +212,6 @@ export const blogPosts: BlogPost[] = [
     metaDescription:
       'The American debate camp landscape for 2027: university institutes, format-specific programs, league camps, and online intensives, and how to compare them.',
     category: 'The US circuit',
-    date: '2026-08-31',
-  },
-  {
-    slug: 'best-online-debate-classes',
-    title: 'How to pick an online debate class that works',
-    metaTitle: 'Best Online Debate Classes for Kids & Teens',
-    description:
-      'A parent’s guide to online debate classes: the four things that separate real training from a weekly lecture, the main kinds of providers (marketplaces, format specialists, local clubs online), and how to evaluate any of them.',
-    metaDescription:
-      'A parent’s guide to online debate classes: what separates real training from a weekly lecture, the main kinds of providers, and how to evaluate them.',
-    category: 'Why it matters',
     date: '2026-08-31',
   },
   {

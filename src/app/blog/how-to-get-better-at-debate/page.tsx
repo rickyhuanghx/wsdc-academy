@@ -160,8 +160,8 @@ export default function HowToGetBetterAtDebatePost() {
           structured team with weekly judged rounds and written feedback
           closes the loop at team price; that comparison is laid out
           honestly in our{' '}
-          <InLink href="/blog/best-online-debate-classes">guide to
-          online debate classes</InLink>.
+          <InLink href="/online-debate-classes#how-to-choose">checklist
+          for choosing an online debate class</InLink>.
         </p>
       </section>
     </BlogPostShell>

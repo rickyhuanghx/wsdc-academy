@@ -113,7 +113,7 @@ export default function BuildArgumentPost() {
           </Link>
           . Every argument block is tagline → mechanisms → impact → weighing.
           To practice, take a motion from the{' '}
-          <Link href="/resources/practice-motions" className="font-semibold text-signal-500 hover:text-signal-600">
+          <Link href="/motions" className="font-semibold text-signal-500 hover:text-signal-600">
             motion bank
           </Link>{' '}
           and build one argument through all four layers in fifteen minutes.

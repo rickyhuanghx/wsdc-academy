@@ -64,6 +64,11 @@ const nextConfig: NextConfig = {
       // Short alias for the unlisted 1-on-1 request form, so staff can paste it
       // into WhatsApp. Permanent: the destination is not expected to move.
       { source: '/1on1', destination: '/coaching-1on1', permanent: true },
+      // Cannibalisation merges (docs/CANNIBALISATION-PROPOSAL-2026-10.md): each page's
+      // unique content moved into the keeper first, then the old URL redirects.
+      { source: '/blog/best-online-debate-classes', destination: '/online-debate-classes', permanent: true },
+      { source: '/blog/world-schools-debate-tournaments', destination: '/world-schools-debate-tournaments', permanent: true },
+      { source: '/resources/practice-motions', destination: '/resources/motion-types', permanent: true },
       // Vanity link for Tabroom placements; UTM tags let GA4 attribute the
       // session (and any conversion events in it) to Tabroom. Temporary
       // redirect on purpose so the destination/params can change later.

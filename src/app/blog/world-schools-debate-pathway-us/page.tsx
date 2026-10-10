@@ -77,7 +77,7 @@ export default function PathwayPost() {
           dense Texas calendar from the Grapevine Classic through St.
           Mark&apos;s Heart of Texas and UT Austin&apos;s Longhorn Classic.
           (The full month-by-month list, with links, is in our{' '}
-          <Link href="/blog/world-schools-debate-tournaments" className="font-semibold text-signal-500 hover:text-signal-600">
+          <Link href="/world-schools-debate-tournaments" className="font-semibold text-signal-500 hover:text-signal-600">
             tournament guide
           </Link>
           .)
