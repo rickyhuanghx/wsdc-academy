@@ -286,7 +286,12 @@ export default function JudgingGuidePage() {
               our analysis of the published World Championship speaker tab
             </Link>{' '}
             found the world&apos;s best speaker averaging 73.7 and the whole
-            field inside six and a half points.
+            field inside six and a half points. Across 17 tournaments from
+            beginner to Worlds,{' '}
+            <Link href="/blog/debate-speaker-points-by-level" className="font-semibold text-signal-500 hover:text-signal-600">
+              speaker points by level
+            </Link>{' '}
+            show 84% of all speeches scoring between 68 and 72.
           </p>
         </section>
 

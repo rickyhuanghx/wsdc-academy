@@ -170,7 +170,11 @@ export default function WsdcSpeakerScoresPost() {
           69.97 to 71.83). Break data for 2024–26 comes from each
           championship&apos;s public break announcement pages. The 2025
           and 2024 speaker tabs were never made public, so no
-          speaker-score claims are made about them. For how these
+          speaker-score claims are made about them. For the same
+          statistics below the world championship, from beginner and
+          novice tournaments to national-team preparation events, see{' '}
+          <InLink href="/blog/debate-speaker-points-by-level">speaker
+          points by level across 17 public tabs</InLink>. For how these
           scores are actually earned, criterion by criterion, start
           with the{' '}
           <InLink href="/world-schools-debate-judging">judging

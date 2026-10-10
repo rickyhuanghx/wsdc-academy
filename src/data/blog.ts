@@ -26,6 +26,7 @@ export const blogPosts: BlogPost[] = [
       'Where the world’s best World Schools debaters actually go to university, how their base rate compares with the general applicant, and what debate can claim.',
     category: 'Why it matters',
     date: '2026-07-18',
+    updated: '2026-10-10',
   },
   {
     slug: 'first-speaker-world-schools-debate',
@@ -224,6 +225,17 @@ export const blogPosts: BlogPost[] = [
       'Real stats from the published WSDC 2026 tab: the true average score, what the best speakers in the world average, and the record it takes to break.',
     category: 'International',
     date: '2026-09-02',
+  },
+  {
+    slug: 'debate-speaker-points-by-level',
+    title: 'What a 70 means at every level: 12,233 World Schools speeches',
+    metaTitle: 'Debate Speaker Points by Level: 12,233 Speeches',
+    description:
+      'Speaker points from 17 public World Schools tabs (2024–26), from beginner tournaments to the world championship: what an average score is at each level, how far a single round can mislead, and why the whole sport fits inside about four points.',
+    metaDescription:
+      'Speaker points from 12,233 speeches at 17 World Schools tournaments: what a 70 means at beginner, novice, open and Worlds level, and what one round tells you.',
+    category: 'Why it matters',
+    date: '2026-10-10',
   },
   {
     slug: 'debate-motion-trends',

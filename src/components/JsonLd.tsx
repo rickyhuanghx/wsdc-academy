@@ -540,6 +540,52 @@ export function DatasetJsonLd({
 }
 
 // CollectionPage schema for motion topic / year archive pages
+// Dataset schema for a data study whose aggregate figures are published as a
+// downloadable CSV in /public/data. Only use it when the CSV really exists.
+export function StudyDatasetJsonLd({
+  name,
+  description,
+  url,
+  csvPath,
+  temporalCoverage,
+  variableMeasured,
+  keywords,
+}: {
+  name: string;
+  description: string;
+  url: string;
+  csvPath: string;
+  temporalCoverage: string;
+  variableMeasured: string[];
+  keywords: string[];
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    '@id': `${baseUrl}${url}#dataset`,
+    name,
+    description,
+    url: `${baseUrl}${url}`,
+    creator: { '@id': `${baseUrl}/#organization` },
+    isAccessibleForFree: true,
+    temporalCoverage,
+    variableMeasured,
+    keywords,
+    distribution: {
+      '@type': 'DataDownload',
+      encodingFormat: 'text/csv',
+      contentUrl: `${baseUrl}${csvPath}`,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
 export function CollectionPageJsonLd({
   name,
   description,

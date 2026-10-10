@@ -2,10 +2,24 @@ import Link from 'next/link';
 import { BlogPostShell } from '@/components/BlogPostShell';
 import { getPostBySlug, postMetadata } from '@/data/blog';
 import { ColumnChart, RankedBars, WaffleGrid } from '@/components/DebateCharts';
+import { StudyDatasetJsonLd } from '@/components/JsonLd';
 
 export const metadata = postMetadata('does-debate-help-college-admissions');
 
 const post = getPostBySlug('does-debate-help-college-admissions')!;
+
+const CSV_PATH = '/data/debate-university-destinations-2013-2020.csv';
+
+/* Citable summary: every row repeats a figure already shown below, with its
+   sample, so a reader can quote one line without the charts. */
+const keyFigures: [string, string, string][] = [
+  ['Team USA alumni (classes 2014–20) at an Ivy, US Top-30 or Oxbridge university', '71%', '30 of 42, complete cohort'],
+  ['Team USA alumni at an Ivy or Oxbridge only', '43%', '18 of 42'],
+  ['Harvard’s share of Team USA alumni', '8 of 42', 'the most common destination'],
+  ['WSDC top-10 speakers (2013–18) at an Ivy, US Top-30 or Oxbridge university', '62%', '8 of 13 traced'],
+  ['WSDC top-50 speakers (2013–18), same definition', '41%', '28 of 68 traced'],
+  ['General applicant benchmark (Ivy League acceptance rate)', '~5%', 'Class of 2028'],
+];
 
 const faqs = [
   {
@@ -80,6 +94,16 @@ const strict = [
 
 export default function DoesDebateHelpAdmissionsPost() {
   return (
+    <>
+    <StudyDatasetJsonLd
+      name="Where top World Schools debaters go to university, 2013–2020"
+      description="Aggregate university outcomes for Team USA World Schools debate alumni (classes 2014–2020, n = 42, complete cohort) and traced top-50 speakers at the World Schools Debating Championships 2013–2018 (n = 68), against the Ivy League acceptance-rate benchmark."
+      url={`/blog/${post.slug}`}
+      csvPath={CSV_PATH}
+      temporalCoverage="2013/2020"
+      variableMeasured={['Share attending an Ivy, US News Top-30 or Oxford/Cambridge university', 'Cohort size traced']}
+      keywords={['does debate help college admissions', 'World Schools debate', 'WSDC', 'Team USA debate', 'university admissions']}
+    />
     <BlogPostShell
       post={post}
       faqs={faqs}
@@ -99,6 +123,34 @@ export default function DoesDebateHelpAdmissionsPost() {
         </p>
       }
     >
+      <section className="mt-12">
+        <p className="text-sm font-semibold uppercase tracking-[0.12em] text-signal-500">Key figures</p>
+        <h2 className="mt-2 text-2xl font-bold text-navy-900">The numbers at a glance</h2>
+        <div className="mt-6 overflow-x-auto">
+          <table className="w-full min-w-[560px] border-collapse text-left text-sm">
+            <caption className="mb-3 text-left text-sm text-navy-500">
+              University outcomes of top World Schools debaters. Method and caveats are below.
+            </caption>
+            <thead>
+              <tr className="border-b-2 border-navy-200 text-navy-900">
+                <th className="py-2 pr-4 font-semibold">Figure</th>
+                <th className="py-2 pr-4 font-semibold">Value</th>
+                <th className="py-2 font-semibold">Sample</th>
+              </tr>
+            </thead>
+            <tbody>
+              {keyFigures.map(([figure, value, sample]) => (
+                <tr key={figure} className="border-b border-navy-100 text-navy-700">
+                  <td className="py-2 pr-4">{figure}</td>
+                  <td className="py-2 pr-4 font-semibold text-navy-900">{value}</td>
+                  <td className="py-2">{sample}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
       <section className="mt-12">
         <p className="text-sm font-semibold uppercase tracking-[0.12em] text-signal-500">The cleanest case</p>
         <h2 className="mt-2 text-2xl font-bold text-navy-900">
@@ -373,6 +425,24 @@ export default function DoesDebateHelpAdmissionsPost() {
       </section>
 
       <section className="mt-12">
+        <p className="text-sm font-semibold uppercase tracking-[0.12em] text-signal-500">Data</p>
+        <h2 className="mt-2 text-2xl font-bold text-navy-900">Download and citation</h2>
+        <p className="mt-4 leading-relaxed text-navy-700">
+          The aggregate figures, with sample sizes and sources, are in{' '}
+          <a
+            href={CSV_PATH}
+            download
+            className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+          >
+            debate-university-destinations-2013-2020.csv
+          </a>
+          . It holds no names. If you cite these numbers, please credit
+          &ldquo;WSDC Prep analysis of USA Debate alumni records and WSDC
+          speaker tabs&rdquo; and link to this page.
+        </p>
+      </section>
+
+      <section className="mt-12">
         <p className="text-sm font-semibold uppercase tracking-[0.12em] text-signal-500">How much can debate claim?</p>
         <h2 className="mt-2 text-2xl font-bold text-navy-900">A powerful amplifier, not a guarantee</h2>
         <p className="mt-4 leading-relaxed text-navy-700">
@@ -420,5 +490,6 @@ export default function DoesDebateHelpAdmissionsPost() {
         </p>
       </section>
     </BlogPostShell>
+    </>
   );
 }

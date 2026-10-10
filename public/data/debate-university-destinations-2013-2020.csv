@@ -1,0 +1,9 @@
+cohort,definition_of_elite,traced_n,elite_n,elite_pct,source,notes
+Team USA alumni classes 2014-2020,Ivy + US News Top-30 + Oxford/Cambridge,42,30,71,USA Debate public alumni archive (speechanddebate.org/usa-debate),Complete cohort: every alumnus with a listed college
+Team USA alumni classes 2014-2020,Ivy + Oxford/Cambridge only,42,18,43,USA Debate public alumni archive,Strict definition
+WSDC top-50 speakers 2013-2018,Ivy + US News Top-30 + Oxford/Cambridge,68,28,41,Official WSDC speaker tabs + public sources per speaker,Floor: only speakers with a corroborated university counted; 2016 is top-20 only; 2017-18 under-traced
+WSDC top-10 speakers 2013-2018,Ivy + US News Top-30 + Oxford/Cambridge,13,8,62,Official WSDC speaker tabs + public sources per speaker,Floor
+WSDC top-10 speakers 2013-2018,Ivy + Oxford/Cambridge only,13,7,54,Official WSDC speaker tabs + public sources per speaker,Strict definition
+WSDC ranks 11-25 2013-2018,Ivy + US News Top-30 + Oxford/Cambridge,30,11,37,Official WSDC speaker tabs + public sources per speaker,Floor
+WSDC ranks 26-50 2013-2018,Ivy + US News Top-30 + Oxford/Cambridge,25,9,36,Official WSDC speaker tabs + public sources per speaker,Floor
+General applicant benchmark,Ivy League acceptance rate (Class of 2028),,,5,Published Ivy admissions figures,Acceptance rate; debater figures are attendance
