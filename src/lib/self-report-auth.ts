@@ -1,7 +1,8 @@
 // Server-only password gate for the self-report quiz (/for/self-report).
 //
-// One shared password, set in the SELF_REPORT_PASSWORD env var and handed to
-// students with the link. Entering it on the page calls
+// Optional. With SELF_REPORT_PASSWORD unset the unlisted URL is the only
+// protection and the paper opens directly. Set the env var to add a shared
+// password that students receive with the link. Entering it on the page calls
 // /api/self-report/unlock, which sets an httpOnly cookie holding an HMAC
 // derived from the password. The page and the submit route both check that
 // cookie, so neither the password nor anything derived from it is ever in
@@ -20,7 +21,7 @@ export function selfReportPassword(): string | undefined {
   return value ? value : undefined;
 }
 
-/** True when the owner has configured a password. Without one the page explains it is not set up. */
+/** True when the owner has configured a password. Without one the page opens without a gate. */
 export function isSelfReportConfigured(): boolean {
   return selfReportPassword() !== undefined;
 }
@@ -51,8 +52,13 @@ export function isValidAccessToken(token: string | undefined): boolean {
   return safeEqual(token, accessTokenFor(expected));
 }
 
-/** Reads the request cookies (Server Components and Route Handlers) and says whether the viewer is in. */
+/**
+ * Reads the request cookies (Server Components and Route Handlers) and says
+ * whether the viewer may see and submit the paper: always, when no password
+ * is configured; otherwise only with a valid access cookie.
+ */
 export async function hasSelfReportAccess(): Promise<boolean> {
+  if (!isSelfReportConfigured()) return true;
   const store = await cookies();
   return isValidAccessToken(store.get(SELF_REPORT_COOKIE)?.value);
 }
