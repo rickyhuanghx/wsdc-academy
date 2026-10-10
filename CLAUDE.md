@@ -147,3 +147,14 @@ USA Debate application dates (April 1 – June 25 for 2026–27) are season-spec
 ## Environment variables
 
 See `.env.example`. `NEXT_PUBLIC_SITE_URL` (domain swap), `RESEND_API_KEY` / `RESEND_FROM_EMAIL` / `ADMIN_NOTIFICATION_EMAIL` (lead + order emails; degrade to console logging without them), `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` / `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` (checkout + webhook), `NEXT_PUBLIC_SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` (order persistence).
+
+## Review gate for AI edits
+
+Google's 2026 guidance on AI-assisted content rewards real expertise and penalises scaled, unreviewed pages. Every AI-made content change follows these rules:
+
+- **Bylines are real people only.** Use a real coach or the founder; never invent an author, title or credential.
+- **Dates move only for real changes.** Bump `dateModified` / content dates only when the substance of a page changes, never for a typo, restyle or link fix.
+- **New indexable pages go to a preview first.** Ship them to a draft or branch deploy and get owner sign-off before production.
+- **No invented proof.** No made-up stats, results, testimonials, reviews, prices or student names. If a claim has no source in the repo, ask.
+- **No self-serving review markup.** No `aggregateRating` / `Review` about the business itself in JSON-LD, even when the reviews are genuine Google reviews (Google's review-snippet policy). Visible testimonials and a link to the Google reviews are fine.
+- **Run the SEO check.** `npm run build && npm run seo-lint -- --strict` must pass; it also runs in the Netlify build. Length findings are warnings only.

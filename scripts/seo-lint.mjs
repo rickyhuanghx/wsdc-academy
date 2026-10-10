@@ -1,20 +1,25 @@
 #!/usr/bin/env node
-// Post-build SEO lint (WARN mode). Run after `next build`:  npm run seo-lint
+// Post-build SEO lint. Run after `next build`:
+//   npm run seo-lint               # report only, always exits 0
+//   npm run seo-lint -- --strict   # exit 1 if any ERROR is found (Netlify build)
 //
 // Adapted from ~/oxbridge-prep/scripts/seo-lint.mjs. Reads the prerendered HTML
 // in .next/server/app and reports, per page:
-//   1. <title> 30-65 chars (rendered, template included)
-//   2. meta description 70-160 chars
+//   1. <title> present; 30-65 chars (rendered, template included) is a warning
+//   2. meta description present; 70-160 chars is a warning (Google sets no
+//      length limit and rewrites most snippets, so length never blocks)
 //   3. exactly one <h1>
 //   4. canonical present, absolute, and self-referencing (SITE_URL + route)
 //   5. every JSON-LD block parses; no aggregateRating on an Organization node
 //   6. og:image present
 //   7. twitter:title present and matches the page (equals og:title; inner
-//      pages must not carry the homepage's twitter:title)
+//      pages must not carry the homepage's twitter:title) (warning)
 //   8. no noindex on any URL listed in the sitemap
 //
-// WARN mode: always exits 0. It reports; it never rewrites copy. Not wired into
-// the Netlify build. Routes rendered on demand (searchParams, dynamic tokens)
+// It reports; it never rewrites copy. ERROR checks are genuine breakages and
+// fail the Netlify build (`next build && npm run seo-lint -- --strict`); a
+// non-self canonical is an error only when the page is also in the sitemap.
+// Routes rendered on demand (searchParams, dynamic tokens)
 // have no prerendered HTML and are listed as "not checked".
 
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
@@ -22,11 +27,12 @@ import { join, relative } from 'node:path';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const APP = join(ROOT, '.next', 'server', 'app');
+const STRICT = process.argv.includes('--strict');
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://wsdcacademy.com').replace(/\/$/, '');
 
 if (!existsSync(APP)) {
   console.log('No .next/server/app: run `npm run build` first.');
-  process.exit(0);
+  process.exit(STRICT ? 1 : 0);
 }
 
 function walk(dir, out = []) {
@@ -117,10 +123,10 @@ for (const [route, html] of pages) {
   const noindex = /noindex/i.test(robots);
 
   if (!title) add('title', `${route}: no <title>`);
-  else if (title.length < 30 || title.length > 65) add('title', `${route}: ${title.length} chars "${title}"`);
+  else if (title.length < 30 || title.length > 65) add('title-length', `${route}: ${title.length} chars "${title}"`);
 
   if (!desc) add('description', `${route}: no meta description`);
-  else if (desc.length < 70 || desc.length > 160) add('description', `${route}: ${desc.length} chars`);
+  else if (desc.length < 70 || desc.length > 160) add('description-length', `${route}: ${desc.length} chars`);
 
   if (h1s.length !== 1) add('h1', `${route}: ${h1s.length} H1s`);
 
@@ -128,8 +134,10 @@ for (const [route, html] of pages) {
   if (!canonical) {
     if (!noindex) add('canonical', `${route}: no canonical`);
   } else if (!/^https?:\/\//.test(canonical)) add('canonical', `${route}: not absolute (${canonical})`);
-  else if (canonical.replace(/\/$/, '') !== expected.replace(/\/$/, ''))
-    add('canonical', `${route}: not self-referencing (${canonical})`);
+  else if (canonical.replace(/\/$/, '') !== expected.replace(/\/$/, '')) {
+    if (sitemapRoutes && !sitemapRoutes.includes(route)) add('canonical-xref', `${route}: points elsewhere, not in sitemap (${canonical})`);
+    else add('canonical', `${route}: not self-referencing (${canonical})`);
+  }
 
   for (const m of html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {
     try {
@@ -155,20 +163,27 @@ for (const [route, html] of pages) {
 const notChecked = sitemapRoutes ? sitemapRoutes.filter((r) => !pages.has(r)) : [];
 
 /* ------------------------------------------------------------- report */
-const ORDER = ['title', 'description', 'h1', 'canonical', 'json-ld', 'og:image', 'twitter:title', 'noindex-in-sitemap'];
-console.log(`SEO lint (warn mode): ${pages.size} prerendered pages checked against ${SITE_URL}`);
+const ERRORS = ['title', 'description', 'h1', 'canonical', 'json-ld', 'og:image', 'noindex-in-sitemap'];
+const WARNINGS = ['title-length', 'description-length', 'twitter:title', 'canonical-xref'];
+console.log(`SEO lint: ${pages.size} prerendered pages checked against ${SITE_URL}`);
 if (sitemapRoutes) console.log(`Sitemap: ${sitemapRoutes.length} URLs`);
 else console.log('Sitemap: not found in build output, noindex-in-sitemap check skipped');
-let total = 0;
-for (const check of ORDER) {
+let errors = 0;
+let warnings = 0;
+for (const check of [...WARNINGS, ...ERRORS]) {
   const list = findings.get(check) || [];
-  total += list.length;
-  console.log(`\n[${list.length ? 'WARN' : ' OK '}] ${check}: ${list.length}`);
+  const isError = ERRORS.includes(check);
+  if (isError) errors += list.length;
+  else warnings += list.length;
+  console.log(`\n[${list.length ? (isError ? 'ERROR' : 'WARN') : ' OK '}] ${check}: ${list.length}`);
   for (const m of list) console.log('  - ' + m);
 }
 if (notChecked.length) {
   console.log(`\n[INFO] ${notChecked.length} sitemap URLs have no prerendered HTML (rendered on demand), not checked:`);
   for (const r of notChecked) console.log('  - ' + r);
 }
-console.log(`\n${total} warnings. Warn mode: exit 0.`);
+console.log(`\n${errors} errors, ${warnings} warnings.`);
+if (errors && STRICT) process.exit(1);
+if (errors) console.log('WARN mode: exiting 0. Use --strict to fail on errors.');
+else console.log('SEO lint passed.');
 process.exit(0);
