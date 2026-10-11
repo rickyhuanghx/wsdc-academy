@@ -44,6 +44,7 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-navy-300">Guides</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
+              <li><Link href="/how-to-debate" className="text-navy-100 hover:text-white">How to Debate: Beginner&rsquo;s Guide</Link></li>
               <li><Link href="/what-is-world-schools-debate" className="text-navy-100 hover:text-white">What is World Schools Debate?</Link></li>
               <li><Link href="/world-schools-vs-public-forum" className="text-navy-100 hover:text-white">World Schools vs Public Forum</Link></li>
               <li><Link href="/world-schools-debate-judging" className="text-navy-100 hover:text-white">How Judging Works (40/40/20)</Link></li>

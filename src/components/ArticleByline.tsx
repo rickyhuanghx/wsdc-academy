@@ -11,12 +11,16 @@ export function ArticleByline({
   updated,
   variant = 'light',
   reviewer,
+  withTeam,
 }: {
   date?: string;
   /** Last substantive revision, shown after the publish date. */
   updated?: string;
   variant?: 'light' | 'onDark';
   reviewer?: ArticleReviewer;
+  /** Credit line for content the coaching team wrote with the author, e.g.
+      "with the WSDC Prep coaching team". Rendered after the author's name. */
+  withTeam?: string;
 }) {
   const onDark = variant === 'onDark';
   const nameClass = onDark ? 'font-semibold text-white' : 'font-semibold text-navy-900';
@@ -40,6 +44,17 @@ export function ArticleByline({
           <Link href={ARTICLE_AUTHOR.url} className={linkClass}>
             {ARTICLE_AUTHOR.name}
           </Link>
+          {withTeam && (
+            <>
+              {' '}
+              <span className="font-normal">
+                with the{' '}
+                <Link href="/coaches" className={linkClass}>
+                  {withTeam}
+                </Link>
+              </span>
+            </>
+          )}
         </p>
         <p className={metaClass}>{ARTICLE_AUTHOR.byline}</p>
         {date && (

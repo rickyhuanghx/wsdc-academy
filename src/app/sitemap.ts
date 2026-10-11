@@ -59,6 +59,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: number;
   }[] = [
     { path: '', file: 'src/app/page.tsx', changeFrequency: 'weekly', priority: 1 },
+    { path: '/how-to-debate', file: 'src/app/(learn)/how-to-debate/page.tsx', changeFrequency: 'monthly', priority: 0.95 },
     { path: '/what-is-world-schools-debate', file: 'src/app/(learn)/what-is-world-schools-debate/page.tsx', changeFrequency: 'monthly', priority: 0.95 },
     { path: '/usa-debate-team', file: 'src/app/(learn)/usa-debate-team/page.tsx', changeFrequency: 'monthly', priority: 0.95 },
     { path: '/world-schools-vs-public-forum', file: 'src/app/(learn)/world-schools-vs-public-forum/page.tsx', changeFrequency: 'monthly', priority: 0.9 },

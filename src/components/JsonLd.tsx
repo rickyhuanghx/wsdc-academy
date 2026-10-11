@@ -424,12 +424,16 @@ export function ArticleJsonLd({
   dateModified,
   image = '/images/og-home.jpg',
   reviewedBy,
+  contributor,
 }: {
   title: string;
   description: string;
   url: string;
   datePublished: string;
   dateModified?: string;
+  /** Name of a group credited alongside the author (e.g. the coaching team).
+      Emitted as an Organization `contributor`; the author stays a Person. */
+  contributor?: string;
   /** Representative image for Article rich results. Relative path resolved
       against SITE_URL; defaults to the site OG image (1200×630). Pass a
       per-page hero where one exists. */
@@ -459,6 +463,16 @@ export function ArticleJsonLd({
         '@id': `${baseUrl}/#organization`,
       },
     },
+    ...(contributor
+      ? {
+          contributor: {
+            '@type': 'Organization',
+            name: contributor,
+            url: `${baseUrl}/coaches`,
+            parentOrganization: { '@id': `${baseUrl}/#organization` },
+          },
+        }
+      : {}),
     publisher: {
       '@type': 'Organization',
       name: SITE_NAME,

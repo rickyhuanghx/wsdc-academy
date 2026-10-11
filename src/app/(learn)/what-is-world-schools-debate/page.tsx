@@ -197,7 +197,11 @@ export default function WhatIsWorldSchoolsPage() {
             <Link href="/wsdc-champions" className="font-semibold text-signal-500 hover:text-signal-600">
               WSDC champions page
             </Link>
-            ).
+            ). If you have never debated in any format, start with our{' '}
+            <Link href="/how-to-debate" className="font-semibold text-signal-500 hover:text-signal-600">
+              beginner&rsquo;s guide to how to debate
+            </Link>
+            , which teaches the skills using this format as the example.
           </p>
         </div>
       </section>

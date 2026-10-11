@@ -67,6 +67,7 @@ const nextConfig: NextConfig = {
       // Cannibalisation merges (docs/CANNIBALISATION-PROPOSAL-2026-10.md): each page's
       // unique content moved into the keeper first, then the old URL redirects.
       { source: '/blog/best-online-debate-classes', destination: '/online-debate-classes', permanent: true },
+      { source: '/blog/how-to-debate', destination: '/how-to-debate', permanent: true },
       { source: '/blog/world-schools-debate-tournaments', destination: '/world-schools-debate-tournaments', permanent: true },
       { source: '/resources/practice-motions', destination: '/resources/motion-types', permanent: true },
       // Vanity link for Tabroom placements; UTM tags let GA4 attribute the

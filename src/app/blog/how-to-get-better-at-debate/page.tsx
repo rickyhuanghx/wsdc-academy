@@ -53,7 +53,12 @@ export default function HowToGetBetterAtDebatePost() {
           feedback loop: compete, find out precisely what cost you, drill
           that one thing, compete again. This guide is about building that
           loop, and about the handful of habits that reliably move
-          debaters who feel stuck.
+          debaters who feel stuck. (If you are still in the first months,
+          the{' '}
+          <Link href="/how-to-debate" className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600">
+            beginner&rsquo;s guide to how to debate
+          </Link>{' '}
+          is the place to start; come back here when the curve flattens.)
         </p>
       }
     >

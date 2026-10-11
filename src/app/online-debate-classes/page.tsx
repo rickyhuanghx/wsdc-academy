@@ -302,7 +302,12 @@ export default function OnlineDebateClassesPage() {
               <Link href="/programs/private-coaching" className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600">
                 1-on-1 debate coaching
               </Link>{' '}
-              adds private sessions on top.
+              adds private sessions on top. Students who want to arrive
+              knowing the basics can read our{' '}
+              <Link href="/how-to-debate" className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600">
+                beginner&rsquo;s guide to how to debate
+              </Link>{' '}
+              first; the Foundation class picks up where it ends.
             </p>
           </div>
         </div>

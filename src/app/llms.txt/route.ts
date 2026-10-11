@@ -14,6 +14,7 @@ export const dynamic = 'force-static';
 // The four "Learn" guides have no descriptions in the registry, so give them
 // concise, evergreen one-liners here.
 const GUIDE_LINKS = [
+  { href: '/how-to-debate', title: 'How to debate: a complete beginner\u2019s guide', blurb: 'What a debate is, the formats compared, speaker roles, building and rebutting arguments, weighing, POIs, flowing, delivery, how judges decide, a fully annotated model debate with the adjudication, ten beginner mistakes with drills, a four-week practice plan, a 42-term glossary and FAQ.' },
   { href: '/what-is-world-schools-debate', title: 'What is World Schools Debate?', blurb: 'The format, rules, speech order, and judging explained for newcomers.' },
   { href: '/world-schools-debate-judging', title: 'How World Schools judging works', blurb: 'The 40/40/20 Style / Content / Strategy criteria and how to train for each.' },
   { href: '/world-schools-debate-tournaments', title: 'World Schools Debate tournaments in North America, 2026–27', blurb: 'Directory of every tournament on Tabroom with a World Schools division this season: dates, locations, TOC bid tiers, Tabroom links, plus a subscribable .ics calendar.' },

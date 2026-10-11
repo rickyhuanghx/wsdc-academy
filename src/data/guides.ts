@@ -8,6 +8,7 @@ export interface Guide {
 }
 
 export const guides: Guide[] = [
+  { href: '/how-to-debate', navLabel: 'How to debate (beginners)' },
   { href: '/what-is-world-schools-debate', navLabel: 'What is World Schools?' },
   { href: '/world-schools-debate-judging', navLabel: 'How judging works' },
   { href: '/world-schools-vs-public-forum', navLabel: 'World Schools vs. Public Forum' },

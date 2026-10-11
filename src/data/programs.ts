@@ -427,6 +427,11 @@ export const programs: Program[] = [
         label: 'The first speaker\'s job',
         note: 'The role most beginners are given first, and how to structure it.',
       },
+      {
+        href: '/how-to-debate',
+        label: 'How to debate: the complete beginner\'s guide',
+        note: 'What a round looks like, how to build and rebut an argument, how judges decide, and a full model debate. Read it before the first class.',
+      },
     ],
   },
   {
