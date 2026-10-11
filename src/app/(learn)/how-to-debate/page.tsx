@@ -330,7 +330,7 @@ export default function HowToDebatePage() {
         description="A beginner’s guide to debating: what a debate is, the formats, speaker roles, how to build and rebut arguments, how judges decide, an annotated model debate and a four-week practice plan."
         url="/how-to-debate"
         datePublished={PUBLISHED}
-        image="/images/student-debating.jpg"
+        image="/images/student-speech-competition.jpg"
         contributor={team}
       />
       <BreadcrumbJsonLd
@@ -344,11 +344,11 @@ export default function HowToDebatePage() {
       {/* Hero */}
       <section className="relative bg-navy-950 text-white">
         <Image
-          src="/images/student-debating.jpg"
-          alt="A student delivering a debate speech from notes"
+          src="/images/student-speech-competition.jpg"
+          alt="A student delivering a speech to a full classroom at a competition"
           fill
           sizes="100vw"
-          className="object-cover object-[center_30%]"
+          className="object-cover object-[center_40%]"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-950/85 to-navy-950/50" />
