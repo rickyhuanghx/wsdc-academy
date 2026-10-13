@@ -27,6 +27,19 @@ export const coaches: Coach[] = [
     ],
   },
   {
+    name: 'Petar Znidar',
+    slug: 'petar-znidar',
+    role: 'Debate Coach',
+    image: '/images/coaches/petar-znidar.jpg',
+    highlight: '2025 European Universities Debating Champion',
+    credentials: [
+      '2025 European Universities Debating Champion (Open)',
+      'ESL Champion at the 2024 European Universities Debating Championship',
+      'EFL Champion at the 2022 World Universities Debating Championship',
+      'Chief Adjudicator of the LSE IV and judge of the 2026 European Championship open final',
+    ],
+  },
+  {
     name: 'Cailyn Min',
     slug: 'cailyn-min',
     role: 'World Schools Coach',
