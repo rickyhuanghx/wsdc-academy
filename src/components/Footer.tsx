@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SocialIcon } from './SocialIcon';
 import { CONTACT_EMAIL, SITE_NAME, SOCIAL_PROFILES } from '@/lib/site';
 
 export function Footer() {
@@ -21,11 +22,17 @@ export function Footer() {
               curriculum, judged practice rounds, and written feedback after
               every session. Year-round online coaching for US students.
             </p>
-            <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm" aria-label="WSDC Prep on social media">
+            <ul className="mt-5 flex gap-3" aria-label="WSDC Prep on social media">
               {SOCIAL_PROFILES.map((p) => (
                 <li key={p.name}>
-                  <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-navy-100 hover:text-white">
-                    {p.name}
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`WSDC Prep on ${p.name}`}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-navy-700 text-navy-100 transition-colors hover:border-white hover:bg-white hover:text-navy-900"
+                  >
+                    <SocialIcon name={p.name} className="h-5 w-5" />
                   </a>
                 </li>
               ))}
