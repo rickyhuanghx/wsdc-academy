@@ -9,8 +9,10 @@ export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://wsdcacademy
 export const CONTACT_EMAIL = 'info@wsdcacademy.com';
 
 // Display form for the phone number; the tel:/wa.me forms are digits-only (E.164).
-export const CONTACT_PHONE = '+1 (347) 817-8056';
-export const CONTACT_PHONE_TEL = '+13478178056';
+// The phone line is the Twilio sales number; WhatsApp stays on the SleekFlow number.
+export const CONTACT_PHONE = '+1 (929) 419-4885';
+export const CONTACT_PHONE_TEL = '+19294194885';
+export const WHATSAPP_PHONE = '+1 (347) 817-8056';
 export const WHATSAPP_URL = 'https://wa.me/13478178056';
 
 // Official social profiles: rendered in the footer and emitted as Organization sameAs.

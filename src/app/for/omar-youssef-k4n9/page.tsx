@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { getProgramBySlug } from '@/data/programs';
 import { getCoachBySlug } from '@/data/coaches';
 import { ScheduleTimezones } from '@/components/ScheduleTimezones';
-import { CONSULTATION_CALENDLY_URL, CONTACT_EMAIL, CONTACT_PHONE, SITE_NAME, WHATSAPP_URL } from '@/lib/site';
+import { CONSULTATION_CALENDLY_URL, CONTACT_EMAIL, SITE_NAME, WHATSAPP_PHONE, WHATSAPP_URL } from '@/lib/site';
 import { socialMeta } from '@/lib/pageMeta';
 
 // Private proposal page for one family. Shared by direct link only: the /for
@@ -655,7 +655,7 @@ export default function OmarProposalPage() {
               rel="noopener noreferrer"
               className="rounded-md bg-signal-500 px-7 py-3.5 text-center font-semibold text-white transition hover:bg-signal-600 active:scale-[0.98]"
             >
-              WhatsApp {CONTACT_PHONE}
+              WhatsApp {WHATSAPP_PHONE}
             </a>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
