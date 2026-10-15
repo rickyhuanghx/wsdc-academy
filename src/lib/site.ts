@@ -13,6 +13,14 @@ export const CONTACT_PHONE = '+1 (347) 817-8056';
 export const CONTACT_PHONE_TEL = '+13478178056';
 export const WHATSAPP_URL = 'https://wa.me/13478178056';
 
+// Official social profiles: rendered in the footer and emitted as Organization sameAs.
+export const SOCIAL_PROFILES = [
+  { name: 'Instagram', url: 'https://www.instagram.com/wsdcprep/' },
+  { name: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61591845010389' },
+  { name: 'YouTube', url: 'https://www.youtube.com/@wsdcprep' },
+  { name: 'LinkedIn', url: 'https://www.linkedin.com/company/wsdcprep' },
+];
+
 // Calendly event for the free initial consultation. Brand params (scarlet primary,
 // hidden cookie banner) are appended where it's embedded.
 export const CONSULTATION_CALENDLY_URL =

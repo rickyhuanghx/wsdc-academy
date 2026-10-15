@@ -1,7 +1,7 @@
 import { Program } from '@/data/programs';
 import { Coach } from '@/data/coaches';
 import { ARTICLE_AUTHOR, type ArticleReviewer } from '@/data/author';
-import { SITE_NAME, SITE_URL, CONTACT_EMAIL, CONTACT_PHONE, SITE_SLOGAN, SITE_DESCRIPTION } from '@/lib/site';
+import { SITE_NAME, SITE_URL, CONTACT_EMAIL, CONTACT_PHONE, SITE_SLOGAN, SITE_DESCRIPTION, SOCIAL_PROFILES } from '@/lib/site';
 import { type PublicTournament, tournamentDescription } from '@/lib/tournaments';
 
 const baseUrl = SITE_URL;
@@ -23,6 +23,7 @@ export function OrganizationJsonLd() {
     description: SITE_DESCRIPTION,
     foundingDate: '2026',
     slogan: SITE_SLOGAN,
+    sameAs: SOCIAL_PROFILES.map((p) => p.url),
     knowsAbout: [
       'World Schools Debate',
       'World Schools Debating Championships',

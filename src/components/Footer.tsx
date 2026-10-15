@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CONTACT_EMAIL, SITE_NAME } from '@/lib/site';
+import { CONTACT_EMAIL, SITE_NAME, SOCIAL_PROFILES } from '@/lib/site';
 
 export function Footer() {
   return (
@@ -21,6 +21,15 @@ export function Footer() {
               curriculum, judged practice rounds, and written feedback after
               every session. Year-round online coaching for US students.
             </p>
+            <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm" aria-label="WSDC Prep on social media">
+              {SOCIAL_PROFILES.map((p) => (
+                <li key={p.name}>
+                  <a href={p.url} target="_blank" rel="noopener noreferrer" className="text-navy-100 hover:text-white">
+                    {p.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div>
