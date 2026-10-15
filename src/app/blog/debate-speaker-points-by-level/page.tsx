@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { BlogPostShell } from '@/components/BlogPostShell';
 import { getPostBySlug, postMetadata } from '@/data/blog';
 import { ColumnChart } from '@/components/DebateCharts';
-import { StudyDatasetJsonLd } from '@/components/JsonLd';
+import { DATA_LICENSE_URL, StudyDatasetJsonLd } from '@/components/JsonLd';
 import { JUDGING_REVIEWER } from '@/data/author';
 
 export const metadata = postMetadata('debate-speaker-points-by-level');
@@ -87,6 +87,7 @@ export default function SpeakerPointsByLevelPost() {
           'Speakers per tournament',
         ]}
         keywords={['speaker points', 'World Schools debate', 'WSDC speaker scores', 'debate judging']}
+        license={DATA_LICENSE_URL}
       />
       <BlogPostShell
         post={post}
@@ -299,9 +300,16 @@ export default function SpeakerPointsByLevelPost() {
             >
               world-schools-speaker-scores-by-level.csv
             </a>
-            . If you cite these numbers, please credit &ldquo;WSDC Prep
-            analysis of 17 public World Schools speaker tabs, 2024–26&rdquo;
-            and link to this page.
+            . The figures are free to reuse under{' '}
+            <a
+              href={DATA_LICENSE_URL}
+              rel="license"
+              className="font-semibold text-signal-500 underline underline-offset-4 hover:text-signal-600"
+            >
+              CC BY 4.0
+            </a>
+            : credit &ldquo;WSDC Prep analysis of 17 public World Schools
+            speaker tabs, 2024–26&rdquo; and link to this page.
           </p>
         </section>
       </BlogPostShell>

@@ -521,6 +521,9 @@ export function ArticleJsonLd({
   );
 }
 
+// Owner decision 2026-10-15: our own datasets are free to reuse with credit.
+export const DATA_LICENSE_URL = 'https://creativecommons.org/licenses/by/4.0/';
+
 // Dataset schema for the motion bank landing page
 export function DatasetJsonLd({
   name,
@@ -546,6 +549,12 @@ export function DatasetJsonLd({
     // `size` is not a schema.org Dataset property (Google ignored it); the
     // count rides in description/keywords, coverage in temporalCoverage.
     temporalCoverage: '1994/2026',
+    license: DATA_LICENSE_URL,
+    distribution: {
+      '@type': 'DataDownload',
+      encodingFormat: 'application/json',
+      contentUrl: `${baseUrl}/motion-bank-core.json`,
+    },
     keywords: [
       'debate motions',
       'World Schools Debate',
@@ -573,6 +582,7 @@ export function StudyDatasetJsonLd({
   temporalCoverage,
   variableMeasured,
   keywords,
+  license,
 }: {
   name: string;
   description: string;
@@ -581,6 +591,8 @@ export function StudyDatasetJsonLd({
   temporalCoverage: string;
   variableMeasured: string[];
   keywords: string[];
+  /** Only set it when the owner has chosen the terms for that study's data. */
+  license?: string;
 }) {
   const schema = {
     '@context': 'https://schema.org',
@@ -594,6 +606,7 @@ export function StudyDatasetJsonLd({
     temporalCoverage,
     variableMeasured,
     keywords,
+    ...(license ? { license } : {}),
     distribution: {
       '@type': 'DataDownload',
       encodingFormat: 'text/csv',

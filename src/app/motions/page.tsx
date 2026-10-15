@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import {
   BreadcrumbJsonLd,
+  DATA_LICENSE_URL,
   DatasetJsonLd,
   FAQJsonLd,
 } from '@/components/JsonLd';
@@ -456,6 +457,23 @@ export default function MotionBankPage() {
               Tell us
             </Link>{' '}
             and we will fix it.
+          </p>
+          <p className="mt-4 leading-relaxed text-navy-700">
+            You are free to reuse the bank, including the{' '}
+            <a href="/motion-bank-core.json" className="font-semibold text-signal-500 hover:text-signal-600">
+              downloadable data
+            </a>
+            , under{' '}
+            <a
+              href={DATA_LICENSE_URL}
+              rel="license"
+              className="font-semibold text-signal-500 hover:text-signal-600"
+            >
+              CC BY 4.0
+            </a>
+            : credit &ldquo;WSDC Prep Debate Motion Bank&rdquo; and link to this page. Motions from
+            hello-motions are copyright 2016 Jessica Yung and used under the MIT license, which asks
+            that this notice travel with them.
           </p>
         </section>
 
