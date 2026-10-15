@@ -175,7 +175,10 @@ function isoSessionDuration(sessionLength?: string): string | undefined {
   return undefined;
 }
 
+const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 export function CourseJsonLd({ program, coaches = [] }: { program: Program; coaches?: Coach[] }) {
+  const campDays = [...new Set((program.bootcamp?.options[0]?.meetings ?? []).map((m) => m.dayOfWeek))];
   const sessionDuration = isoSessionDuration(program.sessionLength);
   const schema = {
     '@context': 'https://schema.org',
@@ -208,7 +211,12 @@ export function CourseJsonLd({ program, coaches = [] }: { program: Program; coac
         courseSchedule: {
           '@type': 'Schedule',
           repeatFrequency: 'Weekly',
-          ...(program.instruction ? { repeatCount: program.instruction.sessions } : {}),
+          // Intensives meet several days a week (winter: Mon-Wed for two weeks),
+          // so repeatCount counts weeks and byDay names the days.
+          ...(campDays.length > 0 ? { byDay: campDays.map((d) => `https://schema.org/${DAY_NAMES[d]}`) } : {}),
+          ...(program.instruction
+            ? { repeatCount: Math.max(1, Math.round(program.instruction.sessions / Math.max(1, campDays.length))) }
+            : {}),
           ...(sessionDuration ? { duration: sessionDuration } : {}),
         },
         ...(coaches.length > 0
@@ -681,7 +689,9 @@ export function EventJsonLd({ tournament, url }: { tournament: PublicTournament;
     name: t.name,
     description: tournamentDescription(t),
     url: `${baseUrl}${url}`,
-    ...(t.heroImageUrl ? { image: t.heroImageUrl } : {}),
+    ...(t.heroImageUrl
+      ? { image: t.heroImageUrl.startsWith('/') ? `${baseUrl}${t.heroImageUrl}` : t.heroImageUrl }
+      : {}),
     startDate: t.startsAt,
     endDate: t.endsAt,
     eventStatus:
@@ -692,7 +702,8 @@ export function EventJsonLd({ tournament, url }: { tournament: PublicTournament;
       ? 'https://schema.org/OnlineEventAttendanceMode'
       : 'https://schema.org/OfflineEventAttendanceMode',
     location: online
-      ? { '@type': 'VirtualLocation', url: `${baseUrl}${url}` }
+      ? // The host's own site is where the rounds happen; our page only if none is on file.
+        { '@type': 'VirtualLocation', url: t.organiserUrl || `${baseUrl}${url}` }
       : { '@type': 'Place', name: t.venue || t.name, address: t.venue || undefined },
     organizer: t.organiserName
       ? { '@type': 'Organization', name: t.organiserName, ...(t.organiserUrl ? { url: t.organiserUrl } : {}) }

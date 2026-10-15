@@ -25,10 +25,8 @@ export function GoogleAnalytics() {
   if (!GA_ID) return null;
   return (
     <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        strategy="afterInteractive"
-      />
+      {/* gtag() and its dataLayer queue exist right after hydration, so early
+          trackEvent calls are kept; gtag.js (~200KB) waits for window load. */}
       <Script
         id="ga-gtag"
         strategy="afterInteractive"
@@ -36,6 +34,7 @@ export function GoogleAnalytics() {
           __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}window.gtag = gtag;gtag('js', new Date());gtag('config', '${GA_ID}');`,
         }}
       />
+      <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="lazyOnload" />
     </>
   );
 }

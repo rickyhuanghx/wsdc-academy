@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { EnterableTournaments } from '@/components/EnterableTournaments';
 import { BlogPostShell } from '@/components/BlogPostShell';
 import { getPostBySlug, postMetadata } from '@/data/blog';
 
@@ -267,6 +268,8 @@ export default function InternationalTournamentsPost() {
           .
         </p>
       </section>
+
+      <EnterableTournaments heading="Tournaments you can enter through us this season" />
     </BlogPostShell>
   );
 }

@@ -14,6 +14,7 @@ import {
   existingStudentPriceUsd,
   formatTournamentPrice,
   getTournament,
+  isPast,
   priceUsd,
   tournamentDescription,
   type ContentBlock,
@@ -29,6 +30,16 @@ type Props = {
   searchParams: Promise<{ preview?: string | string[] }>;
 };
 
+// Keep the full <title> (with the " | WSDC Prep" suffix, 12 chars) inside ~60
+// characters: the longest of these candidates that fits, else the bare name
+// without the brand suffix.
+function tournamentTitle(t: { name: string; format: string }): Metadata['title'] {
+  const kind = t.format === 'speech' ? 'Public Speaking Competition' : 'Debate Tournament';
+  const candidates = [`${t.name}: ${kind}`, `${t.name} ${t.format === 'speech' ? 'Competition' : 'Debate'}`, t.name];
+  const fit = candidates.find((c) => c.length <= 48);
+  return fit ?? { absolute: t.name };
+}
+
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const { slug } = await params;
   const preview = cleanPreviewToken((await searchParams).preview);
@@ -36,7 +47,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
   if (!t) return {};
   const description = tournamentDescription(t);
   return {
-    title: t.name.length > 46 ? t.name : `${t.name}: ${t.format === 'speech' ? 'Public Speaking Competition' : 'Debate Tournament'}`,
+    title: tournamentTitle(t),
     description,
     alternates: { canonical: `/tournaments/${t.slug}` },
     ...socialMeta({
@@ -45,7 +56,13 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       url: `/tournaments/${t.slug}`,
       ...(t.heroImageUrl ? { images: [{ url: t.heroImageUrl, alt: t.name }] } : {}),
     }),
-    ...(preview || t.preview ? { robots: { index: false, follow: false } } : {}),
+    ...(preview || t.preview
+      ? { robots: { index: false, follow: false } }
+      : // A finished event's page is fees and a closed sign-up: keep it for
+        // families who follow old links, out of the index (and the sitemap).
+        isPast(t)
+        ? { robots: { index: false, follow: true } }
+        : {}),
   };
 }
 

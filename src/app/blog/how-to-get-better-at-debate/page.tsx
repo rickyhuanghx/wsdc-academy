@@ -163,7 +163,9 @@ export default function HowToGetBetterAtDebatePost() {
           which is why we start 1-on-1 work with a watched diagnostic
           round rather than a lesson. If you are earlier than that, a
           structured team with weekly judged rounds and written feedback
-          closes the loop at team price; that comparison is laid out
+          closes the loop at team price (see our{' '}
+          <InLink href="/programs">World Schools debate coaching programs</InLink>
+          ); that comparison is laid out
           honestly in our{' '}
           <InLink href="/online-debate-classes#how-to-choose">checklist
           for choosing an online debate class</InLink>.

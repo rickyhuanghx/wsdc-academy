@@ -7,7 +7,7 @@ import { socialMeta } from '@/lib/pageMeta';
 export const metadata: Metadata = {
   title: 'The Debate Research System: How to Research for Debate',
   description:
-    'A research system for debaters: the weekly reading mix, a four-tier source ladder, a three-step fact-check for every statistic, and a routine that turns reading into case-file material.',
+    'A research system for debaters: a weekly reading mix, a four-tier source ladder, a fact-check for every statistic, and how to turn reading into case files.',
   alternates: { canonical: '/resources/debate-research-system' },
   ...socialMeta({
     title: 'The Debate Research System',

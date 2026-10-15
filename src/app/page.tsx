@@ -47,8 +47,8 @@ export default function HomePage() {
               <em className="italic">World Schools</em> debate (WSDC)
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-navy-100">
-              Elite online World Schools Debate (WSDC) coaching, designed and
-              taught by former world debate champions. A structured curriculum,
+              WSDC Prep is elite online World Schools Debate (WSDC) coaching,
+              designed and taught by former world debate champions. A structured curriculum,
               judged practice rounds, and written feedback after every session.
             </p>
             <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">

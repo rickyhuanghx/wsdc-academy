@@ -7,7 +7,7 @@ import { socialMeta } from '@/lib/pageMeta';
 export const metadata: Metadata = {
   title: 'World Schools Debate Judging Ballot (Printable)',
   description:
-    'A printable World Schools debate ballot with the official 40/40/20 score split, the 60–80 speaker scale, reply-speech scoring, and a calibration guide for new and parent judges.',
+    'A printable World Schools debate ballot: the 40/40/20 score split, the 60–80 speaker scale, reply-speech scoring and a calibration guide for new judges.',
   alternates: { canonical: '/resources/judging-ballot' },
   ...socialMeta({
     title: 'Printable World Schools Debate Judging Ballot',

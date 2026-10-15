@@ -1,11 +1,11 @@
 import { MetadataRoute } from 'next';
-import { execSync } from 'node:child_process';
 import { programs } from '@/data/programs';
 import { resources } from '@/data/resources';
 import { blogPosts } from '@/data/blog';
 import { motionTopics, topicPageCount } from '@/lib/motion-bank';
 import { SITE_URL } from '@/lib/site';
 import { getTournaments } from '@/lib/tournaments';
+import lastmodDates from '@/generated/lastmod.json';
 
 const baseUrl = SITE_URL;
 
@@ -24,23 +24,12 @@ const FALLBACK_DATE = new Date('2026-07-23T00:00:00.000Z');
 const TOURNAMENTS_DATE = new Date('2026-09-07T00:00:00.000Z');
 
 // Last git commit that touched a path -> a genuine "content modified" date
-// instead of the build clock. Cached so we shell out at most once per file.
-const gitDateCache = new Map<string, number>();
+// instead of the build clock. Dates are captured at build time by
+// scripts/gen-lastmod.mjs: this route is ISR (the tournament list revalidates),
+// so on Netlify it re-runs inside a function with no git checkout.
 function gitDate(path: string): number {
-  const cached = gitDateCache.get(path);
-  if (cached !== undefined) return cached;
-  let ts = FALLBACK_DATE.getTime();
-  try {
-    const iso = execSync(`git log -1 --format=%cI -- "${path}"`, {
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'ignore'],
-    }).trim();
-    if (iso) ts = new Date(iso).getTime();
-  } catch {
-    // git missing / non-repo build -> stable fallback (does not churn).
-  }
-  gitDateCache.set(path, ts);
-  return ts;
+  const iso = (lastmodDates as Record<string, string>)[path];
+  return iso ? new Date(iso).getTime() : FALLBACK_DATE.getTime();
 }
 
 // Newest git date across the given source paths (e.g. a data file + its template).
@@ -140,13 +129,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  // Public tournaments (open / full / upcoming / completed) from the ClassDesk
+  // Public tournaments (open / full / upcoming; completed ones are noindex) from the ClassDesk
   // API. Any failure simply lists none — the build must never depend on it.
   let tournamentPages: MetadataRoute.Sitemap = [];
   try {
     const tournaments = await getTournaments();
     tournamentPages = tournaments
-      .filter((t) => !t.preview && t.status !== 'draft' && t.status !== 'cancelled')
+      .filter((t) => !t.preview && t.status !== 'draft' && t.status !== 'cancelled' && t.status !== 'completed')
       .map((t) => ({
         url: `${baseUrl}/tournaments/${t.slug}`,
         lastModified: TOURNAMENTS_DATE,

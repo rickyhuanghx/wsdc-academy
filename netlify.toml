@@ -1,7 +1,7 @@
 # Netlify build config for the Next.js 16 App Router site.
 # The official plugin handles SSR pages, API routes, redirects, and image optimization.
 [build]
-  command = "next build && npm run seo-lint -- --strict"
+  command = "npm run build && npm run seo-lint -- --strict"
   publish = ".next"
 
 [[plugins]]

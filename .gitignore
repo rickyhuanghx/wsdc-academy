@@ -54,3 +54,6 @@ ds-bundle/
 .design-sync/learnings/
 .design-sync/node_modules
 scripts/tabroom-ws/work/
+
+# build-time git dates for the sitemap (scripts/gen-lastmod.mjs)
+/src/generated/

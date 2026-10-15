@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { EnterableTournaments } from '@/components/EnterableTournaments';
 import { BreadcrumbJsonLd, FAQJsonLd } from '@/components/JsonLd';
 import { ArticleByline } from '@/components/ArticleByline';
 import { FurtherReading } from '@/components/FurtherReading';
@@ -297,6 +298,8 @@ export default function WorldSchoolsTournamentsPage() {
           <h2 className="text-2xl font-bold text-navy-900">Free scrimmages, the weeknight series and middle school</h2>
           <SideLists />
         </section>
+
+        <EnterableTournaments heading="Tournaments you can enter through WSDC Prep" />
 
         <section id="expected" className="mt-14 scroll-mt-24">
           <h2 className="text-2xl font-bold text-navy-900">Expected, not yet posted</h2>
