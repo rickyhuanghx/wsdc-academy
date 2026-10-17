@@ -7,7 +7,7 @@ import { ColumnChart, GroupedColumnChart } from '@/components/DebateCharts';
 import { socialMeta } from '@/lib/pageMeta';
 
 export const metadata: Metadata = {
-  title: 'What is World Schools Debate? Format & Rules',
+  title: 'What Is World Schools (WSDC) Debate? Format & Rules',
   description:
     'World Schools Debate explained: the 3v3 format, 8-minute speeches, prepared vs impromptu motions, POIs, and the 40/40/20 judging criteria.',
   alternates: { canonical: '/what-is-world-schools-debate' },
